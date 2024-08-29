@@ -35,7 +35,6 @@ OBJS = $(addprefix src/, $(SRCS:.c=.o))
 all: $(NAME) $(HEADER) hell
 
 $(NAME): $(OBJS) $(LIB)
-	@echo "$(MINISHELL)"
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)ft_printf$(CLR_RMV)..."
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
 	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
@@ -50,9 +49,6 @@ fclean: clean
 	@echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✅"
 
 re : fclean all
-
-debug: CFLAGS += -g
-debug: re
 
 hell :
 	@echo "$(RED) <-. (\`-')    _      <-. (\`-')_   _       (\`-').->  (\`-')  _       "
