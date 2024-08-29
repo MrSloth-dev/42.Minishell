@@ -6,9 +6,9 @@
 ### Dictionary of Allowed Functions
 
 ### Some references
-https://github.com/tasmanday/42_minishell
-https://github.com/josephcheel/42-Minishell
-https://github.com/Kuninoto/42_minishell
+https://github.com/tasmanday/42_minishell<br>
+https://github.com/josephcheel/42-Minishell<br>
+https://github.com/Kuninoto/42_minishell<br>
 
 #### TODO Organize and add a definition
 readline
