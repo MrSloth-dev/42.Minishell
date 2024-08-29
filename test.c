@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/29 15:00:44 by joao-pol          #+#    #+#             */
+/*   Updated: 2024/08/29 15:00:46 by joao-pol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
+
 static void	send_kills(int server_pid, char *str)
 {
 	int		bit;
@@ -64,5 +78,10 @@ int	main(int ac, char **av)
 	sigaction(SIGUSR1, &s, NULL);
 	sigaction(SIGUSR2, &s, NULL);
 	send_kills(ft_atoi(av[1]), av[2]);
+
+
+int	main()
+{
+	printf("hello");
 	return (0);
 }
