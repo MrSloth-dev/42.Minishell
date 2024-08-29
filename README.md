@@ -76,7 +76,7 @@ tputs
     - [ ] ctrl-C display a new prompt on a new line.
     - [ ] ctrl-D exits the shell
     - [ ] does nothing
--[ ] Implement BUILT-INS:
+- [ ] Implement BUILT-INS:
  - [ ] echo with -n
  - [ ] cd with only a relative or absoute path
  - [ ] pwd with no options
