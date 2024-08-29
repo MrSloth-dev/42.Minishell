@@ -71,3 +71,17 @@ tputs
 - [ ] Implement pipes |
 - [ ] Handle environment variables ($ followed by a sequence of characters) should expand
 - [ ] Handle $? wich should expand exit status of the most recently executed foreground pipeline
+- [ ] Handle ctrl -C, ctrl -D and ctrl -\ which should behave like in bash
+- [ ] In Interactive mode:
+    - [ ] ctrl-C display a new prompt on a new line.
+    - [ ] ctrl-D exits the shell
+    - [ ] does nothing
+-[ ] Implement BUILT-INS:
+ - [ ] echo with -n
+ - [ ] cd with only a relative or absoute path
+ - [ ] pwd with no options
+ - [ ] export with no options
+ - [ ] unset with no options
+ - [ ] env with no option or aguments
+ - [ ] exit with no options
+
