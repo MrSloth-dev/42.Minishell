@@ -69,4 +69,5 @@ tputs
 - [ ] Handle " wich shoudl prevent the shell from interpreting the meta-characters in the quoted sequence except for $
 - [ ] Implement redirections : < > << >>
 - [ ] Implement pipes |
-- [ ]
+- [ ] Handle environment variables ($ followed by a sequence of characters) should expand
+- [ ] Handle $? wich should expand exit status of the most recently executed foreground pipeline
