@@ -12,3 +12,12 @@
 
 
 dgdf
+
+#include <stdio.h>
+
+asodijasodijasodijasd
+int	main()
+{
+	printf("hello");
+	return (0);
+}
