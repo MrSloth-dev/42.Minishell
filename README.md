@@ -5,6 +5,11 @@
 [Subject](https://cdn.intra.42.fr/pdf/pdf/138331/en.subject.pdf)
 ### Dictionary of Allowed Functions
 
+### Some references
+https://github.com/tasmanday/42_minishell<br>
+https://github.com/josephcheel/42-Minishell<br>
+https://github.com/Kuninoto/42_minishell<br>
+
 #### TODO Organize and add a definition
 readline
 rl_clear_history
@@ -75,7 +80,7 @@ tputs
 - [ ] In Interactive mode:
     - [ ] ctrl-C display a new prompt on a new line.
     - [ ] ctrl-D exits the shell
-    - [ ] does nothing
+    - [ ] ctr-\ does nothing
 - [ ] Implement BUILT-INS:
  - [ ] echo with -n
  - [ ] cd with only a relative or absoute path
