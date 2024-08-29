@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joao-pol <joao-pol@students.42porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 15:56:06 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/08/29 15:56:46 by joao-pol         ###   ########.fr       */
+/*   Created: 2024/04/10 15:59:15 by joao-pol          #+#    #+#             */
+/*   Updated: 2024/04/10 16:06:39 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H_
-# define MINISHELL_H_
-# include <unistd.h>
-# include "get_next_line.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include "libft.h"
-char	*get_next_line(int fd);
-#endif //MINISHELL_H_
+#include "libft.h"
 
+int	ft_isascii(int c)
+{
+	if (c >= 0 && c < 128)
+		return (1);
+	return (0);
+}

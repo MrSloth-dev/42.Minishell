@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 15:56:06 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/08/29 15:56:46 by joao-pol         ###   ########.fr       */
+/*   Created: 2024/04/15 17:13:23 by joao-pol          #+#    #+#             */
+/*   Updated: 2024/04/15 17:17:29 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H_
-# define MINISHELL_H_
-# include <unistd.h>
-# include "get_next_line.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include "libft.h"
-char	*get_next_line(int fd);
-#endif //MINISHELL_H_
+#include "libft.h"
 
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		f(i, &s[i]);
+		i++;
+	}
+}
+
+/*
+int	main()
+{
+	char	str [] = "hello world!";
+	ft_striteri(str, upper);
+	printf("%s",str);
+	return (0);
+}
+*/

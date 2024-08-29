@@ -1,22 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 15:56:06 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/08/29 15:56:46 by joao-pol         ###   ########.fr       */
+/*   Created: 2024/04/15 17:09:34 by joao-pol          #+#    #+#             */
+/*   Updated: 2024/04/15 17:12:55 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H_
-# define MINISHELL_H_
-# include <unistd.h>
-# include "get_next_line.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include "libft.h"
-char	*get_next_line(int fd);
-#endif //MINISHELL_H_
+#include "libft.h"
 
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char		*mapi;
+	size_t		i;
+
+	i = 0;
+	mapi = ft_strdup(s);
+	if (!mapi)
+		return (NULL);
+	while (mapi[i])
+	{
+		mapi[i] = (*f)(i, mapi[i]);
+		i++;
+	}
+	return (mapi);
+}
+/*
+
+char	rot(unsigned int i, char c)
+{
+	return (c + 1);
+}
+int	main()
+{
+	char	*str = "abcd";
+	printf("%s", ft_strmapi(str, rot));	
+
+
+	return (0);
+}
+*/

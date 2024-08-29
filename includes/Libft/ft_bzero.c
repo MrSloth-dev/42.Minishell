@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: joao-pol <joao-pol@students.42porto.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 15:56:06 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/08/29 15:56:46 by joao-pol         ###   ########.fr       */
+/*   Created: 2024/04/11 12:31:42 by joao-pol          #+#    #+#             */
+/*   Updated: 2024/04/11 15:57:25 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H_
-# define MINISHELL_H_
-# include <unistd.h>
-# include "get_next_line.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include "libft.h"
-char	*get_next_line(int fd);
-#endif //MINISHELL_H_
+#include "libft.h"
 
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, 0, n);
+}

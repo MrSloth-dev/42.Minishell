@@ -21,9 +21,14 @@ RM	    = rm -rf
 
 vpath %.h includes
 vpath %.c src
-HEADER = minishell.h
+HEADER = minishell.h get_next_line.h
 
 SRCS = main.c \
+
+LIBDIR = ./includes/Libft/
+LIBFT = ./includes/Libft/libft.a
+GNL = ./includes/get_next_line.c
+GNLU = ./includes/get_next_line_utils.c
 
 OBJS = $(addprefix src/, $(SRCS:.c=.o))
 
@@ -34,10 +39,11 @@ OBJS = $(addprefix src/, $(SRCS:.c=.o))
 
 all: $(NAME) $(HEADER) hell
 
-$(NAME): $(OBJS) $(LIB)
-	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)ft_printf$(CLR_RMV)..."
+$(NAME): $(OBJS) $(LIBFT)
+	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
+	make -C $(LIBDIR)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) $(GNLU) $(GNL) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 clean:
