@@ -5,6 +5,11 @@
 [Subject](https://cdn.intra.42.fr/pdf/pdf/138331/en.subject.pdf)
 ### Dictionary of Allowed Functions
 
+### Some references
+https://github.com/tasmanday/42_minishell
+https://github.com/josephcheel/42-Minishell
+https://github.com/Kuninoto/42_minishell
+
 #### TODO Organize and add a definition
 readline
 rl_clear_history
