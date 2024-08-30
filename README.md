@@ -66,7 +66,7 @@ tgoto
 tputs
 ### Features to Implement
 - [ ] Display a prompt when waiting for a new command;
-- [ ] Have a Working History (up and down keys (more than that keys?), must show commands , and after show command, we can edit command)
+- [ ] Have a Working History (up and down keys must show commands , ctrl + r search commands, and after show command, we can edit command)
 - [ ] Search and launch the right executable(based on PATH relative or absolute)
 - [ ] Avoid using more than one global variable
 - [ ] Not interpret unclosed quotes
