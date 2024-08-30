@@ -66,13 +66,13 @@ tgoto
 tputs
 ### Features to Implement
 - [ ] Display a prompt when waiting for a new command;
-- [ ] Have a Working Directory (pwd)
+- [ ] Have a Working Directory (pwd) (IVAN say: working directory or working history? it is the same thing?)
 - [ ] Search and launch the right executable(based on PATH relative or absolute)
 - [ ] Avoid using more than one global variable
 - [ ] Not interpret unclosed quotes
 - [ ] Handle ' to prevent shell from intrepeting the meta characters in the quoted sequence
 - [ ] Handle " wich shoudl prevent the shell from interpreting the meta-characters in the quoted sequence except for $
-- [ ] Implement redirections : < > << >>
+- [ ] Implement redirections : < > << >> 
 - [ ] Implement pipes |
 - [ ] Handle environment variables ($ followed by a sequence of characters) should expand
 - [ ] Handle $? wich should expand exit status of the most recently executed foreground pipeline
@@ -89,4 +89,7 @@ tputs
  - [ ] unset with no options
  - [ ] env with no option or aguments
  - [ ] exit with no options
+
+# Ivan needs to understand:
+- [ ] Implement redirections : < > << >> 
 
