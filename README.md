@@ -66,7 +66,7 @@ tgoto
 tputs
 ### Features to Implement
 - [ ] Display a prompt when waiting for a new command;
-- [ ] Have a Working Directory (pwd) (IVAN say: working directory or working history? it is the same thing?)
+- [ ] Have a Working Directory (pwd) (IVAN say: I believe that is a working history, with up and down keys)
 - [ ] Search and launch the right executable(based on PATH relative or absolute)
 - [ ] Avoid using more than one global variable
 - [ ] Not interpret unclosed quotes
