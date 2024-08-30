@@ -83,7 +83,7 @@ tputs
     - [ ] ctr-\ does nothing
 - [ ] Implement BUILT-INS:
  - [ ] echo with -n
- - [ ] cd with only a relative or absoute path
+ - [ ] cd with only a relative or absoute path (no fucking cd ~)
  - [ ] pwd with no options
  - [ ] export with no options
  - [ ] unset with no options
