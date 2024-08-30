@@ -9,6 +9,7 @@
 https://github.com/tasmanday/42_minishell<br>
 https://github.com/josephcheel/42-Minishell<br>
 https://github.com/Kuninoto/42_minishell<br>
+https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<br>
 
 #### TODO Organize and add a definition
 readline
@@ -66,13 +67,13 @@ tgoto
 tputs
 ### Features to Implement
 - [ ] Display a prompt when waiting for a new command;
-- [ ] Have a Working Directory (pwd)
+- [ ] Have a Working History (up and down keys must show commands , ctrl + r search commands, and after show command, we can edit command)
 - [ ] Search and launch the right executable(based on PATH relative or absolute)
 - [ ] Avoid using more than one global variable
 - [ ] Not interpret unclosed quotes
 - [ ] Handle ' to prevent shell from intrepeting the meta characters in the quoted sequence
 - [ ] Handle " wich shoudl prevent the shell from interpreting the meta-characters in the quoted sequence except for $
-- [ ] Implement redirections : < > << >>
+- [ ] Implement redirections : < > << >> 
 - [ ] Implement pipes |
 - [ ] Handle environment variables ($ followed by a sequence of characters) should expand
 - [ ] Handle $? wich should expand exit status of the most recently executed foreground pipeline
@@ -83,10 +84,13 @@ tputs
     - [ ] ctr-\ does nothing
 - [ ] Implement BUILT-INS:
  - [ ] echo with -n
- - [ ] cd with only a relative or absoute path
+ - [ ] cd with only a relative or absoute path (no fucking cd ~)
  - [ ] pwd with no options
  - [ ] export with no options
  - [ ] unset with no options
  - [ ] env with no option or aguments
  - [ ] exit with no options
+
+# Ivan needs to understand:
+- [ ] Implement redirections : < > << >> 
 
