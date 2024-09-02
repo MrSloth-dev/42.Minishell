@@ -14,6 +14,7 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 #### TODO Organize and add a definition
 readline - ivan say: see 00_readline, on z_i_std, <br>
 rl_clear_history - ivan say: apparently not necessary  - need check on other projects<br>
+<br>
 rl_on_new_line - ivan say: 02_rl_on_new_line - implemented signals - test ctrl + c and ctrl + d<br>
 rl_replace_line
 rl_redisplay
