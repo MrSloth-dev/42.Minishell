@@ -20,16 +20,16 @@ rl_replace_line
 rl_redisplay
 add_history
 printf
-malloc
+malloc - simple allocation of memory, will be used in variables, history
 free
-write
-access
-open
-read
-close
-fork
-wait
-waitpid
+write - print in which fd we desire, will be useful to print in stdin (make interactive??)
+access - check if there is acess( for checking executing command binaries)
+open - open file descriptor returns an int or -1 if invalid
+read - read from file descriptor returns number of bytes read, -1 if invalid
+close - close the file descriptor
+fork - create a child process, return the pid of the child, when in child process pid is 0
+wait - wait for children
+waitpid - wait for children with certain pid
 wait3
 wait4
 signal
@@ -37,17 +37,17 @@ sigaction
 sigemptyset
 sigaddset
 kill
-exit
+exit - exit the program, need to free memory before
 getcwd
 chdir
 stat
 lstat
 fstat
-unlink
-execve
-dup
-dup2
-pipe
+unlink - remove?
+execve - execute other binaries
+dup - duplicate the file descriptor
+dup2 - rewrite the file descritor for another, used in redirection
+pipe - create a channel of communication between file descritors.
 opendir
 readdir
 closedir

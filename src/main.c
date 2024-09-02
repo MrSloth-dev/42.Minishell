@@ -15,13 +15,12 @@ int	main(void)
 	line = get_next_line(fd);
 	while (line)
 	{
+		if (ft_strncmp("exit", line, 4) == 0)
+			return (free(line), 0);
+		if (ft_strncmp("hello", line, 5) == 0)
+			write(0, "teste\n", 5);
 		write(STDOUT_FILENO, "Please write your command >>  ", 30);
 		line = get_next_line(fd);
-		if (ft_strlen(line) == 0 || ft_strncmp("exit", line, 5))
-		{
-			free(line);
-			return (0);
-		}
 	}
 	return (0);
 }

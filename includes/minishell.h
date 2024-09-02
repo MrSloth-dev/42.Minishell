@@ -15,8 +15,8 @@
 # include <unistd.h>
 # include "get_next_line.h"
 # include <stdio.h>
-# include <stdlib.h>
 # include "libft.h"
-char	*get_next_line(int fd);
+# include <stdlib.h>
+
 #endif //MINISHELL_H_
 

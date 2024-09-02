@@ -39,11 +39,11 @@ OBJS = $(addprefix src/, $(SRCS:.c=.o))
 
 all: $(NAME) $(HEADER) hell
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
-	make -C $(LIBDIR)
+	@make -C $(LIBDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	$(CC) $(FLAGS) $(OBJS) $(GNLU) $(GNL) $(LIBFT) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJS) $(GNLU) $(GNL) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 clean:
@@ -68,5 +68,6 @@ hell :
 	@echo "                                                                                 $(CLR_RMV)"
 
 
+.SILENT: all re
+
 .PHONY: all clean fclean re debug hell
-.SILENT:

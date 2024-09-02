@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "libft.h"
 
 char	*ft_concatenate(char *buffer, char *str);
 int		ft_check_newline(char *file);
