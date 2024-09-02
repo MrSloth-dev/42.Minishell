@@ -12,8 +12,8 @@ https://github.com/Kuninoto/42_minishell<br>
 https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<br>
 
 #### TODO Organize and add a definition
-readline
-rl_clear_history
+readline - ivan say: see 00_readline, on z_i_std, <br>
+rl_clear_history - ivan say: apparently not necessary, cause  - need check on other projects<br>
 rl_on_new_line
 rl_replace_line
 rl_redisplay

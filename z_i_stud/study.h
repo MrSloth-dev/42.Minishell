@@ -19,6 +19,9 @@
 # include <signal.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
+# include <readline/readline.h>
+
 
 # define STR_SIZE 128  
 # define TRUE 1
