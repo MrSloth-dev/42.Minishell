@@ -16,12 +16,12 @@ readline - ivan say: see 00_readline, on z_i_std, <br>
 rl_clear_history - ivan say: apparently not necessary  - need check on other projects<br>
 <br>
 rl_on_new_line - ivan say: 02_rl_on_new_line - implemented signals - test ctrl + c and ctrl + d<br>
-rl_replace_line
-rl_redisplay
-add_history
-printf
+rl_replace_line - Replace current line
+rl_redisplay - redisplay modified line
+add_history - add to previous commands
+printf - prints on stdout
 malloc - simple allocation of memory, will be used in variables, history
-free
+free - soltem os prisioneiros de todo o mundo
 write - print in which fd we desire, will be useful to print in stdin (make interactive??)
 access - check if there is acess( for checking executing command binaries)
 open - open file descriptor returns an int or -1 if invalid
@@ -66,6 +66,7 @@ tgetnum
 tgetstr
 tgoto
 tputs
+
 ### Features to Implement
 - [ ] Display a prompt when waiting for a new command;
 - [ ] Have a Working History (up and down keys must show commands , ctrl + r search commands, and after show command, we can edit command)
