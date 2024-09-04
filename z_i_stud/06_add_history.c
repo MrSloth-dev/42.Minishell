@@ -32,12 +32,14 @@ void	ft_start_sig()
 
 void	ft_readline()
 {
-	char	*str;
+	char	*input;
 
 	ft_start_sig();
-	str = NULL;
-	str = readline("ShellFault$ ");
-	if (str == NULL)
+	input = NULL;
+	input = readline("ShellFault$ ");
+	if (input && *input)
+		add_history(input);
+	if (input == NULL)
 	{
 		printf("exit\n");
 		exit (EXIT_SUCCESS);
