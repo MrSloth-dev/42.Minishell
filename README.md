@@ -13,12 +13,12 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 
 #### TODO Organize and add a definition
 //-------readline fts--------//<br>
-readline $${\color{lightblue}see 00_readline, on z_i_std}$$ <br>
-rl_clear_history - (isilva-t apparently not necessary  - need check on other projects)<br>
-rl_on_new_line - (isilva-t 02_rl_on_new_line - implemented signals - test ctrl + C, ctrl + D, and ignore ctrl + \<br>
-rl_replace_line - Replace current line (isilva-t 02_rl_on_new_line implemented here) <br>
-rl_redisplay - redisplay modified line (isilva-t 02_rl_on_new_line implemented here)<br>
-add_history - add to previous commands (isilva-t 06_add_history lines 40 and 41 - simple as that!)<br>
+readline see 00_readline, on z_i_std <br>
+rl_clear_history - (apparently not necessary  - need check on other projects)<br>
+rl_on_new_line - (02_rl_on_new_line - implemented signals - test ctrl + C, ctrl + D, and ignore ctrl + \<br>
+rl_replace_line - Replace current line (02_rl_on_new_line implemented here) <br>
+rl_redisplay - redisplay modified line (02_rl_on_new_line implemented here)<br>
+add_history - add to previous commands (06_add_history lines 40 and 41 - simple as that!)<br>
 //-------print fts and memory management----//<br>
 printf - prints on stdout<br>
 malloc - simple allocation of memory, will be used in variables, history<br>
@@ -26,9 +26,9 @@ free - soltem os prisioneiros de todo o mundo <br>
 write - print in which fd we desire, will be useful to print in stdin (make interactive??)<br>
 
 access - check if there is acess( for checking executing command binaries)<br>
-open - open file descriptor returns an int or -1 if invalid (isilva-t understand)<br>
-read - read from file descriptor returns number of bytes read, -1 if invalid (isilva-t understand)<br>
-close - close the file descriptor (isilva-t understand)<br>
+open - open file descriptor returns an int or -1 if invalid<br>
+read - read from file descriptor returns number of bytes read, -1 if invalid<br>
+close - close the file descriptor<br>
 fork - create a child process, return the pid of the child, when in child process pid is 0<br>
 wait - wait for children<br>
 waitpid - wait for children with certain pid<br>
