@@ -13,7 +13,7 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 
 #### TODO Organize and add a definition
 //-------readline fts--------//<br>
-readline $$\color{lightblue}see 00_readline, on z_i_std$$ <br>
+readline $${\color{lightblue}see 00_readline, on z_i_std}$$ <br>
 rl_clear_history - (isilva-t apparently not necessary  - need check on other projects)<br>
 rl_on_new_line - (isilva-t 02_rl_on_new_line - implemented signals - test ctrl + C, ctrl + D, and ignore ctrl + \<br>
 rl_replace_line - Replace current line (isilva-t 02_rl_on_new_line implemented here) <br>
