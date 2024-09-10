@@ -12,64 +12,62 @@ https://github.com/Kuninoto/42_minishell<br>
 https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<br>
 
 #### TODO Organize and add a definition
-//-------readline fts--------//<br>
-readline ----->>> see 00_readline, on z_i_std <br>
-rl_clear_history ----->>> apparently not necessary  - need check on other projects<br>
-rl_on_new_line ----->>> 02_rl_on_new_line - implemented signals - test ctrl + C, ctrl + D, and ignore ctrl + \<br>
-rl_replace_line - Replace current line ----->>> 02_rl_on_new_line implemented here <br>
-rl_redisplay - redisplay modified line ----->>> 02_rl_on_new_line implemented here<br>
-add_history - add to previous commands ----->>> 06_add_history lines 40 and 41 - simple as that!<br>
-//-------print fts and memory management----//<br>
-printf - prints on stdout<br>
-malloc - simple allocation of memory, will be used in variables, history<br>
-free - soltem os prisioneiros de todo o mundo <br>
-write - print in which fd we desire, will be useful to print in stdin (make interactive??)<br>
-
-access - check if there is acess( for checking executing command binaries)<br>
-open - open file descriptor returns an int or -1 if invalid<br>
-read - read from file descriptor returns number of bytes read, -1 if invalid<br>
-close - close the file descriptor<br>
-fork - create a child process, return the pid of the child, when in child process pid is 0<br>
-wait - wait for children<br>
-waitpid - wait for children with certain pid ----->>> 16_wait<br>
-wait3<br>
-wait4<br>
-
-signal (isilva - see 02_rl_on_new_line, used to ignire SIGQUIT on ctrl + \ comination)<br>
-sigaction (isilva-t - see 02_rl_on_new_line implementation)<br>
-sigemptyset (isilva-t understand)<br>
-sigaddset (isilva-t understand)<br>
-kill (isilva-t understand)<br>
-exit - exit the program, need to free memory before (isilva-t - its a interruption of the program, in other ft than main ft)<br>
-
-getcwd<br>
-chdir<br>
-stat<br>
-lstat<br>
-fstat<br>
-unlink - remove?<br>
-execve - execute other binaries<br>
-dup - duplicate the file descriptor<br>
-dup2 - rewrite the file descritor for another, used in redirection<br>
-pipe - create a channel of communication between file descritors.<br>
-opendir<br>
-readdir<br>
-closedir<br>
-strerror<br>
-perror<br>
-isatty<br>
-ttyname<br>
-ttyslot<br>
-ioctl,<br>
-getenv<br>
-tcsetattr<br>
-tcgetattr<br>
-tgetent<br>
-tgetflag<br>
-tgetnum<br>
-tgetstr<br>
-tgoto<br>
-tputs<br>
+//-------readline fts--------//
+- readline ----->>> see 00_readline, on z_i_std 
+- rl_clear_history ----->>> apparently not necessary  - need check on other projects
+- rl_on_new_line ----->>> 02_rl_on_new_line - implemented signals - test ctrl + C, ctrl + D, and ignore ctrl + \
+- rl_replace_line - Replace current line ----->>> 02_rl_on_new_line implemented here 
+- rl_redisplay - redisplay modified line ----->>> 02_rl_on_new_line implemented here
+- add_history - add to previous commands ----->>> 06_add_history lines 40 and 41 - simple as that!
+- //-------print fts and memory management----//
+- printf - prints on stdout
+- malloc - simple allocation of memory, will be used in variables, history
+- free - soltem os prisioneiros de todo o mundo 
+- write - print in which fd we desire, will be useful to print in stdin (make interactive??)
+- access - check if there is acess( for checking executing command binaries)
+- open - open file descriptor returns an int or -1 if invalid
+- read - read from file descriptor returns number of bytes read, -1 if invalid
+- close - close the file descriptor
+- fork - create a child process, return the pid of the child, when in child process pid is 0
+- wait - wait for children
+- waitpid - wait for children with certain pid ----->>> 16_wait
+- wait3
+- wait4
+- signal (isilva - see 02_rl_on_new_line, used to ignire SIGQUIT on ctrl + \ comination)
+- sigaction (isilva-t - see 02_rl_on_new_line implementation)
+- sigemptyset (isilva-t understand)
+- sigaddset (isilva-t understand)
+- kill (isilva-t understand)
+- exit - exit the program, need to free memory before (isilva-t - its a interruption of the program, in other ft than main ft)
+- 
+- getcwd
+- chdir
+- stat
+- lstat
+- fstat
+- unlink - remove?
+- execve - execute other binaries
+- dup - duplicate the file descriptor
+- dup2 - rewrite the file descritor for another, used in redirection
+- pipe - create a channel of communication between file descritors.
+- opendir
+- readdir
+- closedir
+- strerror
+- perror
+- isatty
+- ttyname
+- ttyslot
+- ioctl,
+- getenv
+- tcsetattr
+- tcgetattr
+- tgetent
+- tgetflag
+- tgetnum
+- tgetstr
+- tgoto
+- tputs
 
 ### Features to Implement
 - [ ] Display a prompt when waiting for a new command;
