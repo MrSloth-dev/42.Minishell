@@ -28,8 +28,8 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 - open - open file descriptor returns an int or -1 if invalid
 - read - read from file descriptor returns number of bytes read, -1 if invalid
 - close - close the file descriptor
-- fork - create a child process, return the pid of the child, when in child process pid is 0
-- wait - wait for children
+- fork - create a child process, return the pid of the child, when in child process pid is 0 ----->>> 15_fork
+- wait - wait for children ----->>> 16_wait_*
 - waitpid - wait for children with certain pid ----->>> 16_wait
 - wait3
 - wait4
