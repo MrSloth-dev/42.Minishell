@@ -7,15 +7,22 @@
 
 int main(int ac, char **av)
 {
-	int	id;
-	int	len;
-//	int	test;
+	int		id;
+	int		len;
 	char	*str;
+	int		j;
+	int 	res;
 
 	(void)ac;
+	if (!av[1] || !av[1][0])
+	{
+		printf("need argument!\n");
+		exit (1);
+	}
 
 	id = fork();
 	printf("started %d process\n ", id);
+
 	len = 0;
 	while (av[1][len] != 0)
 		len++;
@@ -23,26 +30,25 @@ int main(int ac, char **av)
 	str = (char *)malloc(sizeof(char) * len + 1);
 	if (!str)
 		return (0);
-	bzero((void *)str, len);
+	bzero((void *)str, len + 1);
 
-	int j = -1;
+	j = -1;
 	while(av[1][++j])
 		str[j] = av[1][j];
 
-	if (id > 0)
-		sleep (2);
+// verify if i'm running child process
+	if (id == 0)
+	 	sleep (1);
 
 	printf("doing process %d,   id %d,     and str is: %s\n", getpid(), id, str);
+	
+// certify that i will terminate child process before main process
+	res = wait(NULL);
+	if (res == -1)
+		printf("no child to wait\n");
+	else 
+		printf("terminating main process");
 
 	free(str);
-	// test = wait(NULL);
-	// if (test > 0)
-	// 	printf("finishing parent process\n");
-	// else
-	// 	printf("doing child process\n");
-	//
-
-
-
 	return (0);
 }
