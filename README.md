@@ -14,7 +14,7 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 #### TODO Organize and add a definition
 //-------readline fts--------//
 - readline ----->>> see 00_readline, on z_i_std 
-- rl_clear_history ----->>> apparently not necessary  - need check on other projects
+- rl_clear_history ----->>> apparently not necessary
 - rl_on_new_line ----->>> 02_rl_on_new_line - implemented signals - test ctrl + C, ctrl + D, and ignore ctrl + \
 - rl_replace_line - Replace current line ----->>> 02_rl_on_new_line implemented here 
 - rl_redisplay - redisplay modified line ----->>> 02_rl_on_new_line implemented here
@@ -31,8 +31,8 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 - fork - create a child process, return the pid of the child, when in child process pid is 0 ----->>> 15_fork
 - wait - wait for children ----->>> 16_wait_*
 - waitpid - wait for children with certain pid ----->>> 16_wait
-- wait3
-- wait4
+- wait3 ----->>> apparently not necessary
+- wait4 ----->>> apparently not necessary
 - signal (isilva - see 02_rl_on_new_line, used to ignire SIGQUIT on ctrl + \ comination)
 - sigaction (isilva-t - see 02_rl_on_new_line implementation)
 - sigemptyset (isilva-t understand)
@@ -40,7 +40,7 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 - kill (isilva-t understand)
 - exit - exit the program, need to free memory before (isilva-t - its a interruption of the program, in other ft than main ft)
 - 
-- getcwd
+- getcwd - return char* to current directory. Need to alocate buffer for string --->>> 21_getcwd
 - chdir
 - stat
 - lstat
