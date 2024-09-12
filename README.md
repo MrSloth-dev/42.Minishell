@@ -14,7 +14,7 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 #### TODO Organize and add a definition
 //-------readline fts--------//
 - readline ----->>> see 00_readline, on z_i_std 
-- rl_clear_history ----->>> apparently not necessary
+- rl_clear_history ----->>> maybe use in free FT for "good practices"
 - rl_on_new_line ----->>> 02_rl_on_new_line - implemented signals - test ctrl + C, ctrl + D, and ignore ctrl + \
 - rl_replace_line - Replace current line ----->>> 02_rl_on_new_line implemented here 
 - rl_redisplay - redisplay modified line ----->>> 02_rl_on_new_line implemented here
@@ -40,34 +40,34 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 - kill (isilva-t understand)
 - exit - exit the program, need to free memory before (isilva-t - its a interruption of the program, in other ft than main ft)
 - 
-- getcwd - return char* to current directory. Need to alocate buffer for string --->>> 21_getcwd
-- chdir
-- stat
-- lstat
-- fstat
+- getcwd - return char* of current directory. Need to alocate buffer for string --->>> 21_getcwd
+- chdir - function returns 0 on sucess, and -1 if directory doesent exist --->>> 22_chdir
+- stat --->>> tested but maybe not necessary
+- lstat NO
+- fstat NO
 - unlink - remove?
 - execve - execute other binaries
 - dup - duplicate the file descriptor
 - dup2 - rewrite the file descritor for another, used in redirection
 - pipe - create a channel of communication between file descritors.
-- opendir
+- opendir 
 - readdir
 - closedir
-- strerror
+- strerror NO
 - perror
-- isatty
-- ttyname
-- ttyslot
-- ioctl,
+- isatty NO
+- ttyname NO
+- ttyslot NO
+- ioctl, NO
 - getenv
-- tcsetattr
-- tcgetattr
-- tgetent
-- tgetflag
-- tgetnum
-- tgetstr
-- tgoto
-- tputs
+- tcsetattr NO
+- tcgetattr NO
+- tgetent NO
+- tgetflag NO
+- tgetnum NO
+- tgetstr NO
+- tgoto NO
+- tputs NO
 
 ### Features to Implement
 - [ ] Display a prompt when waiting for a new command;
