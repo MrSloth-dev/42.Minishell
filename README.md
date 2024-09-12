@@ -46,9 +46,9 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 - lstat NO
 - fstat NO
 - unlink - remove?- NO?
-- execve - execute other binaries
+- execve - execute other binaries --->>> 31_execve
 - dup - duplicate the file descriptor
-- dup2 - rewrite the file descritor for another, used in redirection
+- dup2 - rewrite the file descritor for another, used in redirection --->>>> 32_dup2_and_pipe BUT NEED UNDERSTAND!
 - pipe - create a channel of communication between file descritors.
 - opendir 
 - readdir
