@@ -45,7 +45,7 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 - stat --->>> tested but maybe not necessary
 - lstat NO
 - fstat NO
-- unlink - remove?
+- unlink - remove?- NO?
 - execve - execute other binaries
 - dup - duplicate the file descriptor
 - dup2 - rewrite the file descritor for another, used in redirection
