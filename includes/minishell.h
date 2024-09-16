@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:56:06 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/08/29 15:56:46 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:31:15 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@
 # include <readline/history.h>
 # include <signal.h>
 
-// 00_signals_and_readline
+#define SUCCESS 0
+#define ERROR 1
+#define INVALID -1
 
 
 typedef struct s_shell
 {
-	int error;
+	int exit_status;
 } t_shell;
 
 
@@ -35,6 +37,8 @@ typedef struct s_shell
 
 // BUILT-INS
 void	ft_echo(char **cmd_args, t_shell *sh);
+
+// 00_signals_and_readline
 void	ft_readline();
 #endif //MINISHELL_H_
 

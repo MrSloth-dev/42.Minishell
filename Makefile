@@ -4,7 +4,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Iincludes -g -Wall -Werror -Wextra -lreadline 
+CFLAGS = -Iincludes -g -Wall -Wextra -lreadline
 
 CLR_RMV = \033[0m
 RED	    = \033[1;31m
@@ -28,8 +28,6 @@ SRCS = src/builtins/echo.c \
 
 LIBDIR = ./includes/Libft/
 LIBFT = ./includes/Libft/libft.a
-# GNL = ./includes/get_next_line.c
-# GNLU = ./includes/get_next_line_utils.c
 MAINI = src/main_ivan.c
 MAINJ = src/main_joao.c
 MAIN = src/main.c
@@ -63,7 +61,7 @@ joao : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(LIBDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	@$(CC) $(MAINJ) $(OBJS) $(CFLAGS) $(LIBFT) -o $(NAME)
+	@$(CC) $(OBJS) $(MAINJ) $(CFLAGS) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 clean:
