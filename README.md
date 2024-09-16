@@ -1,5 +1,6 @@
 # ShellFault
 
+
 ## Possivelment o pior e mais incompleto projecto (ainda)
 
 [Subject](https://cdn.intra.42.fr/pdf/pdf/138331/en.subject.pdf)
