@@ -14,7 +14,7 @@
 # define MINISHELL_H_
 
 # include <unistd.h>
-# include "get_next_line.h"
+# include <stdlib.h>
 # include <stdio.h>
 # include "libft.h"
 # include <stdlib.h>
@@ -23,7 +23,17 @@
 # include <signal.h>
 
 // 00_signals_and_readline
-void	ft_readline();
 
+
+typedef struct s_shell
+{
+	int error;
+} t_shell;
+
+
+
+
+// BUILT-INS
+void	ft_echo(char **cmd_args, t_shell *sh);
 #endif //MINISHELL_H_
 
