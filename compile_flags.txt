@@ -3,3 +3,4 @@
 -Werror
 -Wextra
 -g
+-lreadline
