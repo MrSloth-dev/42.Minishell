@@ -4,9 +4,11 @@
 
 void	ft_echo(char **cmd_args, t_shell *sh)
 {
+	int	i;
+
+	i = 0;
 	while(cmd_args[i])
 	{
-
 		printf("%s ", cmd_args[i]);
 	if (ft_strncmp("-n", cmd_args[1], 2) != 0)
 		printf("\n");

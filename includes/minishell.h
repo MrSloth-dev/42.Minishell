@@ -16,8 +16,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "libft.h"
 # include <stdlib.h>
+# include "libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -35,5 +35,6 @@ typedef struct s_shell
 
 // BUILT-INS
 void	ft_echo(char **cmd_args, t_shell *sh);
+void	ft_readline();
 #endif //MINISHELL_H_
 

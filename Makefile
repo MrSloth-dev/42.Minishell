@@ -4,7 +4,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Iincludes -g -Wall -Werror -Wextra
+CFLAGS = -Iincludes -g -Wall -Werror -Wextra -lreadline 
 
 CLR_RMV = \033[0m
 RED	    = \033[1;31m
@@ -23,13 +23,16 @@ vpath %.h includes
 
 HEADER = minishell.h get_next_line.h libft.h
 
-SRCS = src/main.c \
-		src/builtins/echo.c \
+SRCS = src/builtins/echo.c \
+	   src/00_signals_and_readline/01_readline.c \
 
 LIBDIR = ./includes/Libft/
 LIBFT = ./includes/Libft/libft.a
 # GNL = ./includes/get_next_line.c
 # GNLU = ./includes/get_next_line_utils.c
+MAINI = src/main_ivan.c
+MAINJ = src/main_joao.c
+MAIN = src/main.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -46,7 +49,21 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(LIBDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	@$(CC) $(OBJS) $(FLAGS) $(LIBFT) -o $(NAME)
+	@$(CC) $(MAIN) $(OBJS) $(CFLAGS) $(LIBFT) -o $(NAME)
+	@echo "$(GREEN)$(NAME) created[0m ✅"
+
+ivan : $(OBJS)
+	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
+	@make -C $(LIBDIR) -s
+	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
+	$(CC) $(MAINI) $(CFLAGS) $(OBJS)  $(LIBFT) -o $(NAME)
+	@echo "$(GREEN)$(NAME) created[0m ✅"
+
+joao : $(OBJS)
+	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
+	@make -C $(LIBDIR) -s
+	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
+	@$(CC) $(MAINJ) $(OBJS) $(CFLAGS) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 clean:
