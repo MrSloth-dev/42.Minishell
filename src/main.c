@@ -14,7 +14,7 @@
 #include "minishell.h"
 #include <unistd.h>
 
-char	*get_next_line(int fd);
+/* char	*get_next_line(int fd);
 
 int	main(void)
 {
@@ -35,4 +35,12 @@ int	main(void)
 		line = get_next_line(fd);
 	}
 	return (0);
+} */
+
+int main()
+{
+	t_shell sh;
+	char *str= "echo hello my love";
+	char **split = ft_split(str, ' ');
+	ft_echo(split, &sh);
 }
