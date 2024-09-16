@@ -20,10 +20,11 @@ RM	    = rm -rf
 ################################################################################
 
 vpath %.h includes
+vpath %.c src
 
 HEADER = minishell.h get_next_line.h libft.h
 
-SRCS = src/builtins/echo.c \
+SRCS = src/builtins/echo.c  src/builtins/pwd.c src/builtins/env.c \
 	   src/00_signals_and_readline/01_readline.c \
 
 LIBDIR = ./includes/Libft/

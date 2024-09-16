@@ -14,12 +14,15 @@
 #include "minishell.h"
 #include <unistd.h>
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char *envp[])
 {
 	t_shell sh;
 	(void)argc;
+	sh.envp = envp;
 	char *str= argv[1];
 	char **split = ft_split(str, ' ');
+	// ft_pwd(&sh);
+	// ft_env(&sh);
 	ft_echo(split, &sh);
 	// ft_readline();
 	return (0);

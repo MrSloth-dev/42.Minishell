@@ -29,6 +29,7 @@
 
 typedef struct s_shell
 {
+	char **envp;
 	int exit_status;
 } t_shell;
 
@@ -37,6 +38,8 @@ typedef struct s_shell
 
 // BUILT-INS
 void	ft_echo(char **cmd_args, t_shell *sh);
+void	ft_pwd(t_shell *shell);
+void	ft_env(t_shell *shell);
 
 // 00_signals_and_readline
 void	ft_readline();
