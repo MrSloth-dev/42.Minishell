@@ -4,7 +4,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Iincludes -g -Wall -Wextra -lreadline
+CFLAGS = -Iincludes -Wall -Wextra -lreadline -g -v -da -Q
 
 CLR_RMV = \033[0m
 RED	    = \033[1;31m
@@ -24,7 +24,7 @@ vpath %.c src
 
 HEADER = minishell.h get_next_line.h libft.h
 
-SRCS = src/builtins/echo.c  src/builtins/pwd.c src/builtins/env.c \
+SRCS = src/builtins/echo.c  src/builtins/pwd.c src/builtins/env.c src/builtins/export.c \
 	   src/00_signals_and_readline/01_readline.c \
 
 LIBDIR = ./includes/Libft/

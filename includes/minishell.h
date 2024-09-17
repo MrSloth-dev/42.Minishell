@@ -40,6 +40,7 @@ typedef struct s_shell
 void	ft_echo(char **cmd_args, t_shell *sh);
 void	ft_pwd(t_shell *shell);
 void	ft_env(t_shell *shell);
+char 	**ft_export(char *cmdargs, t_shell *shell);
 
 // 00_signals_and_readline
 void	ft_readline();

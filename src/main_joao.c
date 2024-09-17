@@ -14,16 +14,26 @@
 #include "minishell.h"
 #include <unistd.h>
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
-	t_shell sh;
+	t_shell	sh;
+
 	(void)argc;
 	sh.envp = envp;
-	char *str= argv[1];
-	char **split = ft_split(str, ' ');
+	char	*str= argv[1];
+	char	**split = ft_split(str, ' ');
 	// ft_pwd(&sh);
+	sh.envp = ft_export("PUTAQUEPARIU=LOLOL", &sh);
+	int i = 0;
+	while (sh.envp[i])
+	{
+		printf("%s\n", sh.envp[i]);
+		free(sh.envp[i]);
+		i++;
+	}
+	free(sh.envp);
 	// ft_env(&sh);
-	ft_echo(split, &sh);
+	// ft_echo(split, &sh);
 	// ft_readline();
 	return (0);
 }

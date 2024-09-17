@@ -87,14 +87,14 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
     - [ ] ctrl-D exits the shell (ready 02_rl_on_newline isilva-t - handled by readline itself, wich readline receives EOF)
     - [ ] ctr-\ does nothing (ready 02_rl_on_newline isilva-t, but needs to check if need change value on global variable)
 - [ ] Implement BUILT-INS:
- - [ ] echo with -n
+ - [x] echo with -n
  - [ ] cd with only a relative or absoute path (no fucking cd ~)
- - [ ] pwd with no options
+ - [x] pwd with no options
  - [ ] export with no options
  - [ ] unset with no options
  - [ ] env with no option or aguments
  - [ ] exit with no options
 
-# Ivan needs to understand:
+# Ivan needs to understand: (Joao says xD)
 - [ ] Implement redirections : < > << >> 
 
