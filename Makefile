@@ -4,7 +4,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Iincludes -Wall -Wextra -lreadline -g -v -da -Q
+CFLAGS = -Iincludes -Wall -Wextra -lreadline -g -Q
 
 CLR_RMV = \033[0m
 RED	    = \033[1;31m

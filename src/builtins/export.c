@@ -1,30 +1,106 @@
 #include "libft.h"
 #include "minishell.h"
+#include <stdio.h>
+#include <time.h>
+
+void	ft_append_env(char *cmdargs, char **temp, t_shell *shell);
+int		ft_env_exist(char *var, int *j, t_shell *shell);
+char	*ft_get_var_name(char *env_str);
+
+void	ft_swap_env(char *cmdargs, char **temp, int j, t_shell *shell)
+{
+	char	*name;
+	int		len;
+	int		i;
+
+	i = 0;
+	while (cmdargs[i] && cmdargs[i] != '=')
+		i++;
+	name = ft_get_var_name(shell->envp[j - 1]);
+	cmdargs = ft_get_var_name(cmdargs);
+	len = ft_strlen(cmdargs);
+	if (ft_strncmp(cmdargs, name, len) == 0)
+		temp[j] = ft_strdup(shell->envp[j - 1]);
+	if (!temp[j])
+		return ;
+}
 
 char	**ft_export(char *cmdargs, t_shell *shell)
 {
 	char	**temp;
 	int		i;
+	int		j;
 
 	i = 0;
+	j = -1;
 	if (!*cmdargs)
 		return (NULL);
 	while (shell->envp[i])
 		i++;
-	temp = malloc(sizeof(int *) * (i + 2));
+	temp = (char **)malloc(sizeof(int *) * (i + 2));
+	i = 0;
+	j = ft_env_exist(cmdargs, &j, shell);
+	if (j != -1)
+		ft_swap_env(cmdargs, temp, j, shell);
+	else
+		ft_append_env(cmdargs, temp, shell);
+	return (temp);
+	while (temp[i])
+	{
+		printf("%s\n", temp[i]);
+		free(temp[i]);
+		i++;
+	}
+	free(temp);
+}
+
+void	ft_append_env(char *cmdargs, char **temp, t_shell *shell)
+{
+	int		i;
+
 	i = 0;
 	while (shell->envp[i])
 	{
 		temp[i] = ft_strdup(shell->envp[i]);
 		if (!temp[i])
-			return (NULL);
+			return ;
 		i++;
 	}
-	temp[i] = ft_strdup(cmdargs);
-	return (temp);
+	temp[i++] = ft_strdup(cmdargs);
+	temp[i] = 0;
 }
 
-char	*ft_strjoin_free(char const *s1, char const *s2)
+char	*ft_get_var_name(char *env_str)
+{
+	int	i;
+
+	i = 0;
+	while (env_str[i] && env_str[i] != '=')
+		i++;
+	if (i == (int)ft_strlen(env_str))
+		return (NULL);
+	return (ft_substr(env_str, 0, i));
+}
+
+int	ft_env_exist(char *var, int *j, t_shell *shell)
+{
+	char	*name;
+	int		len;
+
+	*j = 0;
+	len = ft_strlen(var);
+	var = ft_get_var_name(var);
+	while (shell->envp[*j])
+	{
+		name = ft_get_var_name(shell->envp[(*j)++]);
+		if (ft_strncmp(var, name, len) == 0)
+			return (free(name), *j);
+		free(name);
+	}
+	return (-1);
+}
+
+/* char	*ft_strjoin_free(char const *s1, char const *s2)
 {
 	char	*join;
 	int		i;
@@ -51,4 +127,4 @@ char	*ft_strjoin_free(char const *s1, char const *s2)
 	free((void *)s1);
 	free((void *)s2);
 	return (join);
-}
+} */

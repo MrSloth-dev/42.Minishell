@@ -23,7 +23,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*str= argv[1];
 	char	**split = ft_split(str, ' ');
 	// ft_pwd(&sh);
-	sh.envp = ft_export("PUTAQUEPARIU=LOLOL", &sh);
+	sh.envp = ft_export("USERA=LOLOL", &sh);
 	int i = 0;
 	while (sh.envp[i])
 	{
