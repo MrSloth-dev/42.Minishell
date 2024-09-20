@@ -24,7 +24,7 @@ static void	ft_start_sig()
 	//and program not quit with this combination
 }
 
-void	ft_readline(t_shell *sh)
+t_shell	*ft_readline(t_shell *sh)
 {
 	char	*input;
 
@@ -39,4 +39,5 @@ void	ft_readline(t_shell *sh)
 		printf("exit\n");
 		exit (EXIT_SUCCESS);
 	}
+	return (sh);
 }

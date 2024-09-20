@@ -28,6 +28,7 @@
 
 typedef struct s_shell
 {
+	char	*line;
 	char	**envp;
 	int		exit_status;
 }	t_shell;
@@ -48,5 +49,5 @@ void	ft_env(t_shell *shell);
 char	**ft_export(char **cmdargs, t_shell *shell);
 
 // 00_signals_and_readline
-void	ft_readline(t_shell *sh);
+t_shell	*ft_readline(t_shell *sh);
 #endif //MINISHELL_H_
