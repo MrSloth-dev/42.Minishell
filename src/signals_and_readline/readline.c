@@ -1,5 +1,29 @@
 #include "minishell.h"
 
+int	ft_have_pipe_error(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == PIPE)
+	}
+
+
+}
+
+
+
+
+int	ft_have_syntax_error(t_shell *sh)
+{
+	if (ft_pipe_error(sh->line) == TRUE)
+		return (TRUE);
+}
+
+
+
 static void	ft_handle_sig(int signal)
 {
 	if (signal == SIGINT)
@@ -24,19 +48,19 @@ static void	ft_start_sig()
 	//and program not quit with this combination
 }
 
-void	ft_readline(t_shell *sh)
+t_shell	*ft_readline(t_shell *sh)
 {
-	char	*input;
-
 	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
-	input = NULL;
-	input = readline("ShellFault$ ");
-	if (input && *input)
-		add_history(input);
-	if (input == NULL)
+	sh->line = NULL;
+	sh->line = readline("ShellFault$ ");
+
+	if (sh->line && *(sh->line))
+		add_history(sh->line);
+	if (sh->line == NULL)
 	{
 		printf("exit\n");
 		exit (EXIT_SUCCESS);
 	}
+	return (sh);
 }

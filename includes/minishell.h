@@ -25,6 +25,13 @@
 # define SUCCESS 0
 # define ERROR 1
 # define INVALID -1
+# define TRUE 1
+# define FALSE 0
+
+# define PIPE '|'
+# define DOLLAR '$'
+# define R_LEFT '<'
+# define R_RIGHT '>'
 
 // classification of nodes
 # define EXEC 1
@@ -34,9 +41,19 @@
 
 typedef struct s_shell
 {
+	char	*line;
 	char	**envp;
 	int		exit_status;
 }	t_shell;
+
+typedef struct s_token
+{
+	int		id;
+	int		pos;
+	char	*content;
+	struct s_token	*next;
+	struct s_token	*prev;
+}		t_token;
 
 // BUILT-INS
 void	ft_echo(char **cmd_args, t_shell *sh);
@@ -46,5 +63,5 @@ char	**ft_export(char **cmdargs, t_shell *shell);
 char	**ft_unset(char **cmdargs, t_shell *shell);
 
 // 00_signals_and_readline
-void	ft_readline(t_shell *sh);
+t_shell	*ft_readline(t_shell *sh);
 #endif //MINISHELL_H_
