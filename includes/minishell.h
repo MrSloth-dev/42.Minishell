@@ -28,6 +28,11 @@
 # define TRUE 1
 # define FALSE 0
 
+# define PIPE '|'
+# define DOLLAR '$'
+# define R_LEFT '<'
+# define R_RIGHT '>'
+
 typedef struct s_shell
 {
 	char	*line;
