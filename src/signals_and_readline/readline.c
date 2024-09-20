@@ -8,9 +8,9 @@ int	ft_have_pipe_error(char *line)
 	{
 		if (*line == PIPE)
 		{
-			if (!(line + 1) || (line + 1) == PIPE)
+			if (!(line - 1) || !(line + 1))
 				return (TRUE);
-			else if (ft_is
+			else if (
 				
 			
 		}
