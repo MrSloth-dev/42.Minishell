@@ -24,7 +24,7 @@ vpath %.c src
 
 HEADER = minishell.h get_next_line.h libft.h
 
-SRCS = src/builtins/echo.c  src/builtins/pwd.c src/builtins/env.c src/builtins/export.c \
+SRCS = src/builtins/echo.c  src/builtins/pwd.c src/builtins/env.c src/builtins/export.c src/builtins/unset.c \
 	   src/signals_and_readline/readline.c \
 
 LIBDIR = ./includes/Libft/

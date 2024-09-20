@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:21:12 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/09/20 12:22:02 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:24:51 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define ERROR 1
 # define INVALID -1
 
+// classification of nodes
+# define EXEC 1
+# define BUILTIN 2
+# define PIPE 3
+# define REDIR 4
+
 typedef struct s_shell
 {
 	char	**envp;
@@ -37,6 +43,7 @@ void	ft_echo(char **cmd_args, t_shell *sh);
 void	ft_pwd(t_shell *shell);
 void	ft_env(t_shell *shell);
 char	**ft_export(char **cmdargs, t_shell *shell);
+char	**ft_unset(char **cmdargs, t_shell *shell);
 
 // 00_signals_and_readline
 void	ft_readline(t_shell *sh);

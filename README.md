@@ -40,7 +40,6 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 - sigaddset (isilva-t understand)
 - kill (isilva-t understand)
 - exit - exit the program, need to free memory before (isilva-t - its a interruption of the program, in other ft than main ft)
-- 
 - getcwd - return char* of current directory. Need to alocate buffer for string --->>> 21_getcwd
 - chdir - function returns 0 on sucess, and -1 if directory doesent exist --->>> 22_chdir
 - stat --->>> tested but maybe not necessary
@@ -54,13 +53,14 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 - opendir 
 - readdir
 - closedir
-- strerror NO
 - perror
+- getenv
+### Not Used Commands 
+- strerror NO
 - isatty NO
 - ttyname NO
 - ttyslot NO
 - ioctl, NO
-- getenv
 - tcsetattr NO
 - tcgetattr NO
 - tgetent NO
@@ -89,12 +89,16 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
     - [ ] ctr-\ does nothing (ready 02_rl_on_newline isilva-t, but needs to check if need change value on global variable)
 - [ ] Implement BUILT-INS:
  - [x] echo with -n
- - [ ] cd with only a relative or absoute path (no fucking cd ~)
  - [x] pwd with no options
+ - [x] env with no option or aguments
  - [ ] export with no options
+    - [x] Append non existant env_var
+    - [x] Swap existant env_var
+    - [ ] Join with '+' existant env_var
  - [ ] unset with no options
- - [ ] env with no option or aguments
- - [ ] exit with no options
+ - [ ] cd with only a relative or absoute path (no fucking cd ~)
+    - [ ] cd - ,cd -- goes to home and set oldpwd to home too)
+ - [ ] exit with no options (this shiet has signals)
 
 # Ivan needs to understand: (Joao says xD)
 - [ ] Implement redirections : < > << >> 
