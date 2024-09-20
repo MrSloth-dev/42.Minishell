@@ -61,7 +61,6 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 		i++;
 	}
 	return (temp);
-
 }
 
 void	ft_append_env(char *cmdargs, char **temp, t_shell *shell)
