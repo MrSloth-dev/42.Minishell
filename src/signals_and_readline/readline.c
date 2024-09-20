@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+
+
+
+
 static void	ft_handle_sig(int signal)
 {
 	if (signal == SIGINT)
@@ -26,15 +30,14 @@ static void	ft_start_sig()
 
 t_shell	*ft_readline(t_shell *sh)
 {
-	char	*input;
-
 	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
-	input = NULL;
-	input = readline("ShellFault$ ");
-	if (input && *input)
-		add_history(input);
-	if (input == NULL)
+	sh->line = NULL;
+	sh->line = readline("ShellFault$ ");
+
+	if (sh->line && *(sh->line))
+		add_history(sh->line);
+	if (sh->line == NULL)
 	{
 		printf("exit\n");
 		exit (EXIT_SUCCESS);
