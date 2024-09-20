@@ -1,21 +1,9 @@
 #include "minishell.h"
 
 int	ft_have_pipe_error(char *line)
-{	
-	if (!(line - 1))
+{
+	while (*line && *line != PIPE)
 		line++;
-	while (line)
-	{
-		if (*line == PIPE)
-		{
-			if (!(line - 1) || !(line + 1))
-				return (TRUE);
-			else if (
-				
-			
-		}
-		line++;
-	}
 	return (FALSE);
 }
 
