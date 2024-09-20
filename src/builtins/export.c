@@ -42,24 +42,24 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 	if (*cmdargs == NULL)
 		return (NULL);
 	while (cmdargs[k])
-	{
-		while (cmdargs[k][i])
+		if (ft_env_exist(cmdargs[k++], &j, shell) == -1)
 			i++;
-		temp = (char **)malloc(sizeof(int *) * (i + 2));
+	k = 0;
+	while (cmdargs[++k])
+	{
+		while (shell->envp[i])
+			i++;
+		temp = (char **)malloc(sizeof(char *) * (i + 2));
+		ft_env_exist(cmdargs[k], &j, shell);
 		i = 0;
-		j = ft_env_exist(cmdargs[k], &j, shell);
 		if (j != -1)
 			ft_swap_env(cmdargs[k], temp, j, shell);
 		else
 			ft_append_env(cmdargs[k], temp, shell);
-		k++;
 		i = 0;
 	}
 	while (temp[i])
-	{
-		printf("%s\n", temp[i]);
-		i++;
-	}
+		printf("%s\n", temp[i++]);
 	return (temp);
 }
 

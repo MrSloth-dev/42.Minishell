@@ -68,7 +68,7 @@ joao : $(OBJS)
 gdb : joao
 	# @if [tmux has-session -t "$1" 2>/dev/null]; then\
 	tmux new-window  -n Gdb
-	tmux send-keys 'gdbtui ./minishell' C-m Escape
+	tmux send-keys 'gdbtui ./minijoao' C-m Escape
 	tmux split-window -h -l 30
 	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
 	tmux select-pane -t Gdb.1

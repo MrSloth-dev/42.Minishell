@@ -11,7 +11,7 @@ display cmdargs[k]
 display temp[k]
 end
 
-define run
+define run_a
 run "export USER=joao-polo iol=ganda_merda"
 end
 
