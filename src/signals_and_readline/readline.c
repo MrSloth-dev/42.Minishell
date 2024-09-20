@@ -28,7 +28,7 @@ void	ft_readline(t_shell *sh)
 {
 	char	*input;
 
-	void(sh);
+	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
 	input = NULL;
 	input = readline("ShellFault$ ");
