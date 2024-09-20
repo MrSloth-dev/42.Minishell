@@ -4,7 +4,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Iincludes -g -Wall -Werror -Wextra -lreadline 
+CFLAGS = -Iincludes -Wall -Wextra -lreadline -g -Q
 
 CLR_RMV = \033[0m
 RED	    = \033[1;31m
@@ -20,16 +20,15 @@ RM	    = rm -rf
 ################################################################################
 
 vpath %.h includes
+vpath %.c src
 
 HEADER = minishell.h get_next_line.h libft.h
 
-SRCS = src/builtins/echo.c \
+SRCS = src/builtins/echo.c  src/builtins/pwd.c src/builtins/env.c src/builtins/export.c \
 	   src/00_signals_and_readline/01_readline.c \
 
 LIBDIR = ./includes/Libft/
 LIBFT = ./includes/Libft/libft.a
-# GNL = ./includes/get_next_line.c
-# GNLU = ./includes/get_next_line_utils.c
 MAINI = src/main_ivan.c
 MAINJ = src/main_joao.c
 MAIN = src/main.c
@@ -63,8 +62,25 @@ joao : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(LIBDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	@$(CC) $(MAINJ) $(OBJS) $(CFLAGS) $(LIBFT) -o $(NAME)
+	@$(CC) $(OBJS) $(MAINJ) $(CFLAGS) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
+
+gdb : joao
+	# @if [tmux has-session -t "$1" 2>/dev/null]; then\
+	tmux new-window  -n Gdb
+	tmux send-keys 'gdbtui ./minishell' C-m Escape
+	tmux split-window -h -l 30
+	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
+	tmux select-pane -t Gdb.1
+	@tmux set-hook -t Gdb window-linked { run-shell -b "\
+		while pgrep -x 'gdb' > /dev/null; do sleep 1; done; \
+		tmux wait-for -S gdb_done \
+		"}
+	tmux wait-for gdb_done
+	tmux send-keys -t Gdb.2 ':wqa' C-m Escape
+	tmux kill-window -t Gdb
+	# fi
+
 
 clean:
 	@ $(RM) -f $(OBJS)
