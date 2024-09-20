@@ -1,16 +1,22 @@
 #include "minishell.h"
 
 int	ft_have_pipe_error(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
+{	
+	if (!(line - 1))
+		line++;
+	while (line)
 	{
-		if (line[i] == PIPE)
+		if (*line == PIPE)
+		{
+			if (!(line + 1) || (line + 1) == PIPE)
+				return (TRUE);
+			else if (ft_is
+				
+			
+		}
+		line++;
 	}
-
-
+	return (FALSE);
 }
 
 
@@ -18,8 +24,9 @@ int	ft_have_pipe_error(char *line)
 
 int	ft_have_syntax_error(t_shell *sh)
 {
-	if (ft_pipe_error(sh->line) == TRUE)
+	if (ft_have_pipe_error(sh->line) == TRUE)
 		return (TRUE);
+	return (FALSE);
 }
 
 
