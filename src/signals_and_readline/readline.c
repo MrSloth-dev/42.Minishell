@@ -24,10 +24,11 @@ static void	ft_start_sig()
 	//and program not quit with this combination
 }
 
-void	ft_readline()
+void	ft_readline(t_shell *sh)
 {
 	char	*input;
 
+	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
 	input = NULL;
 	input = readline("ShellFault$ ");

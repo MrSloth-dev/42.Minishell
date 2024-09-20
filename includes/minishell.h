@@ -39,5 +39,5 @@ void	ft_env(t_shell *shell);
 char	**ft_export(char **cmdargs, t_shell *shell);
 
 // 00_signals_and_readline
-void	ft_readline(void);
-#endif //MINISHELL_H
+void	ft_readline(t_shell *sh);
+#endif //MINISHELL_H_

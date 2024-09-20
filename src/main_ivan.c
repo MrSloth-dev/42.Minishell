@@ -15,9 +15,12 @@
 
 int	main(void)
 {
+	t_shell	sh;
+
+
 	while (1)
 	{
-		ft_readline();
+		ft_readline(&sh);
 	}
 	return (0);
 }
