@@ -1,6 +1,26 @@
 #include "minishell.h"
 
+int	ft_have_pipe_error(char *line)
+{
+	int	i;
 
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == PIPE)
+	}
+
+
+}
+
+
+
+
+int	ft_have_syntax_error(t_shell *sh)
+{
+	if (ft_pipe_error(sh->line) == TRUE)
+		return (TRUE);
+}
 
 
 
