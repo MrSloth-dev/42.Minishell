@@ -9,49 +9,59 @@ char	*ft_get_var_name(char *env_str);
 
 void	ft_swap_env(char *cmdargs, char **temp, int j, t_shell *shell)
 {
-	char	*name;
-	int		len;
 	int		i;
+	int		k;
 
 	i = 0;
+	k = 0;
+	j--;
 	while (cmdargs[i] && cmdargs[i] != '=')
 		i++;
-	name = ft_get_var_name(shell->envp[j - 1]);
-	cmdargs = ft_get_var_name(cmdargs);
-	len = ft_strlen(cmdargs);
-	if (ft_strncmp(cmdargs, name, len) == 0)
-		temp[j] = ft_strdup(shell->envp[j - 1]);
-	if (!temp[j])
-		return ;
+	while (shell->envp[k])
+	{
+		if (j == k)
+			temp[k] = ft_strdup(cmdargs);
+		else
+			temp[k] = ft_strdup(shell->envp[k]);
+		if (!temp[k])
+			return ;
+		k++;
+	}
 }
 
-char	**ft_export(char *cmdargs, t_shell *shell)
+char	**ft_export(char **cmdargs, t_shell *shell)
 {
 	char	**temp;
 	int		i;
 	int		j;
+	int		k;
 
 	i = 0;
+	k = 1;
 	j = -1;
-	if (!*cmdargs)
+	if (*cmdargs == NULL)
 		return (NULL);
-	while (shell->envp[i])
-		i++;
-	temp = (char **)malloc(sizeof(int *) * (i + 2));
-	i = 0;
-	j = ft_env_exist(cmdargs, &j, shell);
-	if (j != -1)
-		ft_swap_env(cmdargs, temp, j, shell);
-	else
-		ft_append_env(cmdargs, temp, shell);
-	return (temp);
+	while (cmdargs[k])
+	{
+		while (cmdargs[k][i])
+			i++;
+		temp = (char **)malloc(sizeof(int *) * (i + 2));
+		i = 0;
+		j = ft_env_exist(cmdargs[k], &j, shell);
+		if (j != -1)
+			ft_swap_env(cmdargs[k], temp, j, shell);
+		else
+			ft_append_env(cmdargs[k], temp, shell);
+		k++;
+		i = 0;
+	}
 	while (temp[i])
 	{
 		printf("%s\n", temp[i]);
-		free(temp[i]);
 		i++;
 	}
-	free(temp);
+	return (temp);
+
 }
 
 void	ft_append_env(char *cmdargs, char **temp, t_shell *shell)

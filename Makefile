@@ -65,6 +65,23 @@ joao : $(OBJS)
 	@$(CC) $(OBJS) $(MAINJ) $(CFLAGS) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
+gdb : joao
+	# @if [tmux has-session -t "$1" 2>/dev/null]; then\
+	tmux new-window  -n Gdb
+	tmux send-keys 'gdbtui ./minishell' C-m Escape
+	tmux split-window -h -l 30
+	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
+	tmux select-pane -t Gdb.1
+	@tmux set-hook -t Gdb window-linked { run-shell -b "\
+		while pgrep -x 'gdb' > /dev/null; do sleep 1; done; \
+		tmux wait-for -S gdb_done \
+		"}
+	tmux wait-for gdb_done
+	tmux send-keys -t Gdb.2 ':wqa' C-m Escape
+	tmux kill-window -t Gdb
+	# fi
+
+
 clean:
 	@ $(RM) -f $(OBJS)
 	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✅"

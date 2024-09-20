@@ -23,15 +23,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*str= argv[1];
 	char	**split = ft_split(str, ' ');
 	// ft_pwd(&sh);
-	sh.envp = ft_export("USERA=LOLOL", &sh);
-	int i = 0;
-	while (sh.envp[i])
-	{
-		printf("%s\n", sh.envp[i]);
-		free(sh.envp[i]);
-		i++;
-	}
-	free(sh.envp);
+	sh.envp = ft_export(split, &sh);
 	// ft_env(&sh);
 	// ft_echo(split, &sh);
 	// ft_readline();
