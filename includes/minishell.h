@@ -32,6 +32,15 @@ typedef struct s_shell
 	int		exit_status;
 }	t_shell;
 
+typedef struct s_token
+{
+	int		id;
+	int		pos;
+	char	*content;
+	struct s_token	*next;
+	struct s_token	*prev;
+}		t_token;
+
 // BUILT-INS
 void	ft_echo(char **cmd_args, t_shell *sh);
 void	ft_pwd(t_shell *shell);
