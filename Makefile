@@ -55,14 +55,14 @@ ivan : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(LIBDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	$(CC) $(MAINI) $(CFLAGS) $(OBJS)  $(LIBFT) -o $(NAME)
+	$(CC) $(MAINI) $(CFLAGS) $(OBJS)  $(LIBFT) -o minivan
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 joao : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(LIBDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	@$(CC) $(OBJS) $(MAINJ) $(CFLAGS) $(LIBFT) -o $(NAME)
+	@$(CC) $(OBJS) $(MAINJ) $(CFLAGS) $(LIBFT) -o minijoao
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 gdb : joao
