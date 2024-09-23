@@ -25,10 +25,13 @@
 # define SUCCESS 0
 # define ERROR 1
 # define INVALID -1
-# define TRUE 3
-# define FALSE 2
+# define TRUE 1
+# define FALSE 0
+
+// some needed stuff
 # define SINGLE 1
 # define DOUBLE 2
+
 
 // parsing macros - preceded by "P_"
 # define P_PIPE '|'
@@ -37,6 +40,17 @@
 # define P_REDIR_RIGHT '>'
 # define P_SINGLE_QTE '\''
 # define P_DOUBLE_QTE '"'
+
+//parsing errors
+# define ERR_REDIR_LEFT 2
+# define ERR_REDIR_RIGHT 4
+# define ERR_DBLE_REDIR_LEFT 6
+# define ERR_DBLE_REDIR_RIGHT 8
+# define ERR_UNCLOSED_QTE 10
+# define ERR_PIPE 12
+# define ERR_EMPTY_TOKEN 14
+
+
 
 // status
 # define NORMAL 0

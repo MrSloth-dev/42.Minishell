@@ -27,16 +27,14 @@ int	ft_have_unclosed_qtes(char *line)
 			while (*line && *line != find_this)
 				line++;
 			if (!*line || *line != find_this)
-				have_uncl_qte = TRUE;
+				have_uncl_qte = ERR_UNCLOSED_QTE;
 		}
 		if (*line)
 		line++;
 	}
-	if (have_uncl_qte == TRUE)
-		ft_printf(STDERR_FILENO, "minishell: syntax error near unclosed quotes\n");
 	return (have_uncl_qte);
 }
-
+///////////////////////////////////////////////////////////
 int	ft_check_status(int status, char c)
 {
 	if (c == P_DOUBLE_QTE && status == NORMAL)
@@ -71,13 +69,31 @@ int	ft_is_empty_token(char *line)
 	return (TRUE);
 }
 
-int ft_have_redir_sequence(char *str, char c)
+int	ft_have_pipes_or_redirs_next(char *str)
 {
+	char	*check;
+
+	check = 0;
 	while (*str)
 	{
-		if (*str == c)
-			return (TRUE);
-		str++;
+		check = 0;
+		check = ft_strchr("<>", *str);
+		if (*check != 0)
+		{
+			if (*str + 1 && (*str + 1) == *check)
+			{
+				if (*check == '<')
+					return (ERR_DBLE_REDIR_LEFT);
+				else
+					return (ERR_DBLE_REDIR_RIGHT);
+			}
+		}
+		if (*str == '|')
+			return (ERR_PIPE);
+		if (ft_is_space(*str) == FALSE)
+			return (FALSE);
+		else
+			str++;
 	}
 	return (FALSE);
 }
@@ -99,7 +115,7 @@ int	ft_this_redir_have_error(char *str)
 		ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `newline'\n");
 		return (TRUE);
 	}
-	if (ft_have_redir_sequence(str, redir) == TRUE)
+	if (ft_have_pipes_or_redirs_next(str, redir) != FALSE)
 	{
 		if (redir_type == DOUBLE)
 			ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `%c%c'\n", redir, redir);
@@ -131,11 +147,15 @@ int	ft_have_redir_error(char *line)
 
 int	ft_have_syntax_error(t_shell *sh)
 {
-	if (ft_have_unclosed_qtes(sh->line) == TRUE)
-		return (TRUE);
-	if (ft_have_redir_error(sh->line) == TRUE)
-		return (TRUE);
-	return (FALSE);
+	int	have_error;
+
+	have_error = ft_have_unclosed_qtes(sh->line);
+	if (have_error != FALSE)
+		return (have_error);
+	have_error = ft_have_redir_error(sh->line);
+	if (have_error != FALSE)
+		return (have_error);
+	return (have_error);
 }
 
 int	main(void)
