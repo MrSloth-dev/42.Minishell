@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:22:35 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/06/13 10:45:54 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:14:54 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
 
 int		ft_atoi(const char *rstr);
 void	ft_bzero(void *s, size_t n);
@@ -30,6 +31,13 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
+int		ft_putchar_fd(char c, int fd);
+void	ft_putendl_fd(char *str, int fd);
+int		ft_putnbr_fd(int nb, int fd);
+int		ft_uputnbr_fd(int nb, int fd);
+int		ft_putstr_fd(char *str, int fd);
+int		ft_puthex_fd(int nbr, char x, int fd);
+int		ft_putpointer_fd(void *ptr, int fd);
 char	**ft_split(char *str, char c);
 char	*ft_strchr(const char *s, char c);
 char	*ft_strdup(const char *s);

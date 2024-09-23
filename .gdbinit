@@ -11,10 +11,13 @@ display cmdargs[k]
 display temp[k]
 end
 
-define run_a
+define run_s
 run "export USER=joao-polo iol=ganda_merda"
 end
 
+define run_u
+run "export unset USER ZSH"
+end
 
 # info locals
 # info args
