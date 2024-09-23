@@ -1,8 +1,5 @@
 #include "minishell.h"
 
-
-
-
 static void	ft_handle_sig(int signal)
 {
 	if (signal == SIGINT)

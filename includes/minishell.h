@@ -27,6 +27,8 @@
 # define INVALID -1
 # define TRUE 3
 # define FALSE 2
+# define SINGLE 1
+# define DOUBLE 2
 
 // parsing macros - preceded by "P_"
 # define P_PIPE '|'

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <unistd.h>
 
 int	ft_have_unclosed_qtes(char *line)
 {
@@ -32,10 +33,7 @@ int	ft_have_unclosed_qtes(char *line)
 		line++;
 	}
 	if (have_uncl_qte == TRUE)
-	{
-		//need to put on STDERR_FILENO
-		printf("Error: have unclosed quotes!\n");
-	}
+		ft_printf(STDERR_FILENO, "minishell: syntax error near unclosed quotes\n");
 	return (have_uncl_qte);
 }
 
@@ -73,17 +71,40 @@ int	ft_is_empty_token(char *line)
 	return (TRUE);
 }
 
-int	ft_this_redir_have_error(char *line)
+int ft_have_redir_sequence(char *str, char c)
 {
+	while (*str)
+	{
+		if (*str == c)
+			return (TRUE);
+		str++;
+	}
+	return (FALSE);
+}
+
+int	ft_this_redir_have_error(char *str)
+{
+	int		redir_type;
 	char	redir;
 
-	redir = *line++;
-	if (*line == redir)
-		line++;
-	if (ft_is_empty_token(line) == TRUE)
+	redir_type = SINGLE;
+	redir = *(str++);
+	if (*str && *str == redir)
 	{
-		//need to put on STDERR_FILENO
+		str++;
+		redir_type = DOUBLE;
+	}
+	if (ft_is_empty_token(str) == TRUE)
+	{
 		ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `newline'\n");
+		return (TRUE);
+	}
+	if (ft_have_redir_sequence(str, redir) == TRUE)
+	{
+		if (redir_type == DOUBLE)
+			ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `%c%c'\n", redir, redir);
+		else
+			ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `%c'\n", redir);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -116,7 +137,6 @@ int	ft_have_syntax_error(t_shell *sh)
 		return (TRUE);
 	return (FALSE);
 }
-
 
 int	main(void)
 {
