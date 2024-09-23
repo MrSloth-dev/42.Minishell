@@ -4,7 +4,8 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Iincludes -Wall -Wextra -lreadline -g -Q
+CFLAGS = -Iincludes -lreadline -g -Q
+EFLAGS = -Wall -Wextra -Werror
 
 CLR_RMV = \033[0m
 RED	    = \033[1;31m
@@ -23,10 +24,13 @@ vpath %.h includes
 vpath %.c src
 
 HEADER = minishell.h get_next_line.h libft.h
+BUILTINDIR = src/builtins
+SIGNALDIR = src/signals_and_readline
+BUILTIN = $(BUILTINDIR)/echo.c  $(BUILTINDIR)/pwd.c $(BUILTINDIR)/env.c $(BUILTINDIR)/export.c $(BUILTINDIR)/unset.c\
 
-SRCS = src/builtins/echo.c  src/builtins/pwd.c src/builtins/env.c src/builtins/export.c src/builtins/unset.c \
-	   src/signals_and_readline/readline.c \
+SIGNAL = $(SIGNALDIR)/readline.c \
 
+SRCS = $(BUILTIN) $(SIGNAL)
 LIBDIR = ./includes/Libft/
 LIBFT = ./includes/Libft/libft.a
 MAINI = src/main_ivan.c
@@ -51,6 +55,7 @@ $(NAME): $(OBJS)
 	@$(CC) $(MAIN) $(OBJS) $(CFLAGS) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
+error : CFLAGS += $(EFLAGS)
 ivan : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(LIBDIR) -s
