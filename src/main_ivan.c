@@ -36,7 +36,7 @@ int	ft_have_unclosed_qtes(char *line)
 	return (have_uncl_qte);
 }
 
-enum en_status	ft_check_status(enum en_status status, char c)
+int	ft_check_status(int status, char c)
 {
 	if (c == P_DOUBLE_QTE && status == NORMAL)
 		status = IN_DOUBLE_QTE;
@@ -51,9 +51,10 @@ enum en_status	ft_check_status(enum en_status status, char c)
 
 int	ft_have_redir_error(char *line)
 {
-	enum en_status	status;
+	int	status;
 
 	status = NORMAL;
+	printf("before check\n");
 	while (*line)
 	{
 		status = ft_check_status(status, *line);

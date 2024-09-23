@@ -37,12 +37,9 @@
 # define P_DOUBLE_QTE '"'
 
 // status
-enum en_status
-{
-	NORMAL,
-	IN_SINGLE_QTE,
-	IN_DOUBLE_QTE
-};
+# define NORMAL 0
+# define IN_SINGLE_QTE 1
+# define IN_DOUBLE_QTE 2
 
 
 // classification of nodes
