@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include <time.h>
 
-void	ft_remove_env(char *cmdargs, char **temp, t_shell *shell);
+void	ft_append_env(char *cmdargs, char **temp, t_shell *shell);
 int		ft_env_exist(char *var, int *j, t_shell *shell);
 char	*ft_get_var_name(char *env_str);
 
-void	ft_remove_env(char *cmdargs, char **temp, int j, t_shell *shell)
+void	ft_swap_env(char *cmdargs, char **temp, int j, t_shell *shell)
 {
 	// int		i;
 	int		k;
@@ -53,9 +53,9 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 		ft_env_exist(cmdargs[k], &j, shell);
 		i = 0;
 		if (j != -1)
-			ft_remove_env(cmdargs[k], temp, j, shell);
+			ft_swap_env(cmdargs[k], temp, j, shell);
 		else
-			ft_remove_env(cmdargs[k], temp, shell);
+			ft_append_env(cmdargs[k], temp, shell);
 		i = 0;
 	}
 	while (temp[i])
@@ -63,7 +63,7 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 	return (temp);
 }
 
-void	ft_remove_env(char *cmdargs, char **temp, t_shell *shell)
+void	ft_append_env(char *cmdargs, char **temp, t_shell *shell)
 {
 	int		i;
 
