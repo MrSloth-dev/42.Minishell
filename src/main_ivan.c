@@ -77,8 +77,8 @@ int	ft_have_pipes_or_redirs_next(char *str)
 	while (*str)
 	{
 		check = 0;
-		check = ft_strchr("<>", *str);
-		if (*check != 0)
+		check = ft_strchr("<>|", *str);
+		if (*check != 0 || *check == '<' || *check == '>')
 		{
 			if (*str + 1 && (*str + 1) == *check)
 			{
@@ -88,7 +88,7 @@ int	ft_have_pipes_or_redirs_next(char *str)
 					return (ERR_DBLE_REDIR_RIGHT);
 			}
 		}
-		if (*str == '|')
+		else if (*check == '|')
 			return (ERR_PIPE);
 		if (ft_is_space(*str) == FALSE)
 			return (FALSE);
@@ -98,51 +98,65 @@ int	ft_have_pipes_or_redirs_next(char *str)
 	return (FALSE);
 }
 
+void ft_print_syntax_error(int	error)
+{
+	char name[] = "ShellFault: syntax error near";
+	if (error == ERR_REDIR_LEFT)
+		ft_printf(STDERR_FILENO, "%s teste redir left\n", name);
+	else if (error == ERR_REDIR_RIGHT)
+		ft_printf(STDERR_FILENO, "%s teste redir right\n", name);
+	else if (error == ERR_DBLE_REDIR_LEFT)
+		ft_printf(STDERR_FILENO, "%s teste double redir left\n", name);
+	else if (error == ERR_DBLE_REDIR_RIGHT)
+		ft_printf(STDERR_FILENO, "%s teste double redir right\n", name);
+	else if (error == ERR_UNCLOSED_QTE)
+		ft_printf(STDERR_FILENO, "%s unclosed quote\n", name);
+	else if (error == ERR_PIPE_AFTER_REDIR)
+		ft_printf(STDERR_FILENO, "%s unexpected token `|'\n", name);
+ 	if (error == ERR_EMPTY_TOKEN)
+		ft_printf(STDERR_FILENO, "%s unexpected token `newline'\n", name);
+}
+
 int	ft_this_redir_have_error(char *str)
 {
-	int		redir_type;
+	int		pipes_or_redirs_next;
 	char	redir;
 
-	redir_type = SINGLE;
+	pipes_or_redirs_next = FALSE;
 	redir = *(str++);
 	if (*str && *str == redir)
-	{
 		str++;
-		redir_type = DOUBLE;
-	}
 	if (ft_is_empty_token(str) == TRUE)
-	{
-		ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `newline'\n");
-		return (TRUE);
-	}
-	if (ft_have_pipes_or_redirs_next(str, redir) != FALSE)
-	{
-		if (redir_type == DOUBLE)
-			ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `%c%c'\n", redir, redir);
-		else
-			ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `%c'\n", redir);
-		return (TRUE);
-	}
-	return (FALSE);
+		return (ERR_EMPTY_TOKEN);
+	if (*str)
+		pipes_or_redirs_next = ft_have_pipes_or_redirs_next(str);
+	return (pipes_or_redirs_next);
 }
 
 int	ft_have_redir_error(char *line)
 {
 	int	status;
+	int	have_redir_error;
 
+	have_redir_error = FALSE;
 	status = NORMAL;
 	while (*line)
 	{
 		status = ft_check_status(status, *line);
+		printf ("%d\n", status);
 		if ((*line == P_REDIR_LEFT || *line == P_REDIR_RIGHT)
 			&& (status == NORMAL))
 		{
-			if (ft_this_redir_have_error(line) == TRUE)
-				return (TRUE);
+			have_redir_error = ft_this_redir_have_error(line);
+			if (have_redir_error != FALSE)
+			{
+				printf("entrou\n");
+				return (have_redir_error);
+			}
 		}
 		line++;
 	}
-	return (FALSE);
+	return (have_redir_error);
 }
 
 int	ft_have_syntax_error(t_shell *sh)
@@ -161,14 +175,14 @@ int	ft_have_syntax_error(t_shell *sh)
 int	main(void)
 {
 	t_shell	sh;
-	int	have_syn_err;
+	int	have_syn_error;
 
 	while (1)
 	{
 		ft_readline(&sh);
-		have_syn_err = ft_have_syntax_error(&sh);
-		if (have_syn_err == TRUE)
-			printf("Syntax error! need free??\n");
+		have_syn_error = ft_have_syntax_error(&sh);
+		if (have_syn_error != FALSE)
+			ft_print_syntax_error(have_syn_error);
 	}
 	return (0);
 }

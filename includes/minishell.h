@@ -47,8 +47,9 @@
 # define ERR_DBLE_REDIR_LEFT 6
 # define ERR_DBLE_REDIR_RIGHT 8
 # define ERR_UNCLOSED_QTE 10
-# define ERR_PIPE 12
-# define ERR_EMPTY_TOKEN 14
+# define ERR_PIPE_AFTER_REDIR 12
+# define ERR_PIPE 14
+# define ERR_EMPTY_TOKEN 16
 
 
 
