@@ -36,6 +36,14 @@
 # define P_SINGLE_QTE '\''
 # define P_DOUBLE_QTE '"'
 
+// status
+enum en_status
+{
+	NORMAL,
+	IN_SINGLE_QTE,
+	IN_DOUBLE_QTE
+};
+
 
 // classification of nodes
 # define EXEC 1
