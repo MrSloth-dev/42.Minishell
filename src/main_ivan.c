@@ -12,15 +12,55 @@
 
 #include "../includes/minishell.h"
 
+int	ft_have_unclosed_qtes(char *line)
+{
+	int	have_uncl_qte;
+	char	find_this;
+
+	have_uncl_qte = FALSE;
+	while (*line)
+	{
+		if (*line == P_SINGLE_QTE || *line == P_DOUBLE_QTE)
+		{
+			find_this = *line++;
+			while (*line && *line != find_this)
+				line++;
+			if (!*line || *line != find_this)
+				have_uncl_qte = TRUE;
+		}
+		if (*line)
+		line++;
+	}
+	if (have_uncl_qte == TRUE)
+		printf("Error: have unclosed quotes!\n");
+	return (have_uncl_qte);
+}
+
+
+
+
+
+int	ft_have_syntax_error(t_shell *sh)
+{
+	if (ft_have_unclosed_qtes(sh->line) == TRUE)
+		return (TRUE);
+	if (ft_have_redir_error(sh->line) == TRUE)
+		return (TRUE);
+	return (FALSE);
+}
+
 
 int	main(void)
 {
 	t_shell	sh;
-
+	int	have_syn_err;
 
 	while (1)
 	{
 		ft_readline(&sh);
+		have_syn_err = ft_have_syntax_error(&sh);
+		if (have_syn_err == TRUE)
+			printf("Syntax error!\n");
 	}
 	return (0);
 }

@@ -25,14 +25,17 @@
 # define SUCCESS 0
 # define ERROR 1
 # define INVALID -1
-# define TRUE 2
-# define FALSE 3
+# define TRUE 3
+# define FALSE 2
 
 // parsing macros - preceded by "P_"
 # define P_PIPE '|'
 # define P_DOLLAR '$'
 # define P_R_LEFT '<'
 # define P_R_RIGHT '>'
+# define P_SINGLE_QTE '\''
+# define P_DOUBLE_QTE '"'
+
 
 // classification of nodes
 # define EXEC 1
