@@ -29,5 +29,6 @@ char	**ft_split(char *str, char c);
 char	*ft_strchr(const char *s, char c);
 char	*ft_strdup(const char *s);
 size_t	ft_strlen(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif

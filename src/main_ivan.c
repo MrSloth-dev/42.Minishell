@@ -32,7 +32,10 @@ int	ft_have_unclosed_qtes(char *line)
 		line++;
 	}
 	if (have_uncl_qte == TRUE)
+	{
+		//need to put on STDERR_FILENO
 		printf("Error: have unclosed quotes!\n");
+	}
 	return (have_uncl_qte);
 }
 
@@ -49,20 +52,58 @@ int	ft_check_status(int status, char c)
 	return (status);
 }
 
+int	ft_is_space(char c)
+{
+	if ((c >= 9 && c <= 13)
+		|| c == ' ')
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
+int	ft_is_empty_token(char *line)
+{
+	while (*line)
+	{
+		if (ft_is_space(*line) == TRUE)
+			line++;
+		else
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
+int	ft_this_redir_have_error(char *line)
+{
+	char	redir;
+
+	redir = *line++;
+	if (*line == redir)
+		line++;
+	if (ft_is_empty_token(line) == TRUE)
+	{
+		//need to put on STDERR_FILENO
+		ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `newline'\n");
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
 int	ft_have_redir_error(char *line)
 {
 	int	status;
 
 	status = NORMAL;
-	printf("before check\n");
 	while (*line)
 	{
 		status = ft_check_status(status, *line);
 		if ((*line == P_REDIR_LEFT || *line == P_REDIR_RIGHT)
 			&& (status == NORMAL))
 		{
-			printf("lets check redir here!\n");
+			if (ft_this_redir_have_error(line) == TRUE)
+				return (TRUE);
 		}
+		line++;
 	}
 	return (FALSE);
 }
@@ -87,7 +128,7 @@ int	main(void)
 		ft_readline(&sh);
 		have_syn_err = ft_have_syntax_error(&sh);
 		if (have_syn_err == TRUE)
-			printf("Syntax error!\n");
+			printf("Syntax error! need free??\n");
 	}
 	return (0);
 }

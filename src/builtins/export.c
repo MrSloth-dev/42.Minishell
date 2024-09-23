@@ -1,4 +1,3 @@
-#include "libft.h"
 #include "minishell.h"
 #include <stdio.h>
 #include <time.h>
