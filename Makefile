@@ -31,6 +31,7 @@ BUILTINDIR = src/builtins
 SIGNALDIR = src/signals_and_readline
 
 BUILTIN = $(BUILTINDIR)/echo.c  $(BUILTINDIR)/pwd.c $(BUILTINDIR)/env.c $(BUILTINDIR)/export.c $(BUILTINDIR)/unset.c\
+
 SIGNAL = $(SIGNALDIR)/readline.c \
 
 SRCS = $(BUILTIN) $(SIGNAL)
