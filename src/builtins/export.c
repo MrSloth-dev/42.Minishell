@@ -9,14 +9,10 @@ char	*ft_get_var_name(char *env_str);
 
 void	ft_swap_env(char *cmdargs, char **temp, int j, t_shell *shell)
 {
-	// int		i;
 	int		k;
 
-	// i = 0;
 	k = 0;
 	j--;
-	// while (cmdargs[i] && cmdargs[i] != '=')
-	// 	i++;
 	while (shell->envp[k])
 	{
 		if (j == k)
@@ -59,7 +55,7 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 		i = 0;
 	}
 	while (temp[i])
-		printf("%s\n", temp[i++]);
+		ft_printf(1, "%s\n", temp[i++]);
 	return (temp);
 }
 

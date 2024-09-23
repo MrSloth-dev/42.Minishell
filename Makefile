@@ -31,8 +31,8 @@ BUILTIN = $(BUILTINDIR)/echo.c  $(BUILTINDIR)/pwd.c $(BUILTINDIR)/env.c $(BUILTI
 SIGNAL = $(SIGNALDIR)/readline.c \
 
 SRCS = $(BUILTIN) $(SIGNAL)
-LIBDIR = ./includes/Libft/
-LIBFT = ./includes/Libft/libft.a
+PRINTDIR = ./includes/ft_printf/
+PRINTFT = ./includes/ft_printf/libftprintf.a
 MAINI = src/main_ivan.c
 MAINJ = src/main_joao.c
 MAIN = src/main.c
@@ -50,24 +50,24 @@ all: $(NAME) $(HEADER) hell
 
 $(NAME): $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
-	@make -C $(LIBDIR) -s
+	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	@$(CC) $(MAIN) $(OBJS) $(CFLAGS) $(LIBFT) -o $(NAME)
+	@$(CC) $(MAIN) $(OBJS) $(CFLAGS) $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 error : CFLAGS += $(EFLAGS)
 ivan : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
-	@make -C $(LIBDIR) -s
+	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	$(CC) $(MAINI) $(CFLAGS) $(OBJS)  $(LIBFT) -o minivan
+	$(CC) $(MAINI) $(CFLAGS) $(OBJS)  $(PRINTFT) -o minivan
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 joao : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
-	@make -C $(LIBDIR) -s
+	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	@$(CC) $(OBJS) $(MAINJ) $(CFLAGS) $(LIBFT) -o minijoao
+	@$(CC) $(OBJS) $(MAINJ) $(CFLAGS) $(PRINTFT) -o minijoao
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 gdb : joao

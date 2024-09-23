@@ -1,7 +1,4 @@
-#include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
-#include <time.h>
 
 static int		ft_env_exist(char *var, int *j, t_shell *shell);
 static char	*ft_get_var_name(char *env_str);
@@ -34,7 +31,7 @@ char	**ft_unset(char **cmdargs, t_shell *shell)
 	i = 0;
 	k = 1;
 	j = -1;
-	if (*cmdargs == NULL)
+	if (cmdargs == NULL)
 		return (NULL);
 	while (cmdargs[k])
 		if (ft_env_exist(cmdargs[k++], &j, shell) == -1)
