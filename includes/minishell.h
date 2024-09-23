@@ -31,8 +31,8 @@
 // parsing macros - preceded by "P_"
 # define P_PIPE '|'
 # define P_DOLLAR '$'
-# define P_R_LEFT '<'
-# define P_R_RIGHT '>'
+# define P_REDIR_LEFT '<'
+# define P_REDIR_RIGHT '>'
 # define P_SINGLE_QTE '\''
 # define P_DOUBLE_QTE '"'
 

@@ -36,9 +36,35 @@ int	ft_have_unclosed_qtes(char *line)
 	return (have_uncl_qte);
 }
 
+enum en_status	ft_check_status(enum en_status status, char c)
+{
+	if (c == P_DOUBLE_QTE && status == NORMAL)
+		status = IN_DOUBLE_QTE;
+	else if (c == P_SINGLE_QTE && status == NORMAL)
+		status = IN_SINGLE_QTE;
+	else if (c == P_DOUBLE_QTE && status == IN_DOUBLE_QTE)
+		status = NORMAL;
+	else if (c == P_SINGLE_QTE && status == IN_SINGLE_QTE)
+		status = NORMAL;
+	return (status);
+}
 
+int	ft_have_redir_error(char *line)
+{
+	enum en_status	status;
 
-
+	status = NORMAL;
+	while (*line)
+	{
+		status = ft_check_status(status, *line);
+		if ((*line == P_REDIR_LEFT || *line == P_REDIR_RIGHT)
+			&& (status == NORMAL))
+		{
+			printf("lets check redir here!\n");
+		}
+	}
+	return (FALSE);
+}
 
 int	ft_have_syntax_error(t_shell *sh)
 {
