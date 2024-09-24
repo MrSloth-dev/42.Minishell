@@ -29,12 +29,14 @@ PRINTFT = ./includes/ft_printf/libftprintf.a
 
 BUILTINDIR = src/builtins
 SIGNALDIR = src/signals_and_readline
+SYNTAXDIR = src/syntax
 
 BUILTIN = $(BUILTINDIR)/echo.c  $(BUILTINDIR)/pwd.c $(BUILTINDIR)/env.c $(BUILTINDIR)/export.c $(BUILTINDIR)/unset.c\
 
-SIGNAL = $(SIGNALDIR)/readline.c \
+SIGNAL = $(SIGNALDIR)/readline.c
+SYNTAX = $(SYNTAXDIR)/10_quotes.c
 
-SRCS = $(BUILTIN) $(SIGNAL)
+SRCS = $(BUILTIN) $(SIGNAL) $(SYNTAX)
 
 MAINI = src/main_ivan.c
 MAINJ = src/main_joao.c

@@ -88,6 +88,11 @@ void	ft_env(t_shell *shell);
 char	**ft_export(char **cmdargs, t_shell *shell);
 char	**ft_unset(char **cmdargs, t_shell *shell);
 
-// 00_signals_and_readline
+// signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
+
+// syntax
+int		ft_have_unclosed_qtes(char *line);
+
+
 #endif //MINISHELL_H_
