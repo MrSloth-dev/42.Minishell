@@ -1,8 +1,10 @@
 #include "minishell.h"
 
-void ft_print_syntax_error(int	error)
+void	ft_print_syntax_error(int error)
 {
-	char name[] = "ShellFault: syntax error near";
+	char	*name;
+
+	name = "ShellFault: syntax error near";
 	if (error == ERR_REDIR_LEFT)
 		ft_printf(STDERR_FILENO, "%s unexpected token `<'\n", name);
 	else if (error == ERR_REDIR_RIGHT)
@@ -19,7 +21,8 @@ void ft_print_syntax_error(int	error)
 		ft_printf(STDERR_FILENO, "%s unexpected token `newline'\n", name);
 	else if (error == ERR_PIPE)
 		ft_printf(STDERR_FILENO, "%s unexpected token `|'\n", name);
-
+	else
+		ft_printf(STDERR_FILENO, "%s unexpected token `%c'\n", name, (char)error);
 }
 
 int	ft_check_status(int status, char c)

@@ -37,7 +37,8 @@ SIGNAL = $(SIGNALDIR)/readline.c
 SYNTAX = $(SYNTAXDIR)/00_syntax_utils.c \
 		 $(SYNTAXDIR)/10_quotes.c \
 		 $(SYNTAXDIR)/20_redir.c \
-		 $(SYNTAXDIR)/30_pipe.c
+		 $(SYNTAXDIR)/30_pipe.c \
+		 $(SYNTAXDIR)/40_special_chars.c
 
 SRCS = $(BUILTIN) $(SIGNAL) $(SYNTAX)
 

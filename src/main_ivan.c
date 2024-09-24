@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_ivan.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:47:44 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/09/07 01:48:05 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:06:12 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "ft_printf.h"
 #include <unistd.h>
-
-
-
 
 
 int	ft_have_syntax_error(t_shell *sh)
@@ -31,7 +29,9 @@ int	ft_have_syntax_error(t_shell *sh)
 	have_error = ft_check_pipes(sh->line);
 	if (have_error != FALSE)
 		return (have_error);
-
+	have_error = ft_check_special_char(sh->line);
+	if (have_error != FALSE)
+		return (have_error);
 	return (have_error);
 }
 

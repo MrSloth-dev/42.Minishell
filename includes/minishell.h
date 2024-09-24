@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:21:12 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/09/20 13:24:51 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:05:30 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ int		ft_is_empty_token(char *line, int direction);
 int		ft_have_unclosed_qtes(char *line);
 int		ft_check_redirs(char *line);
 int		ft_check_pipes(char *line);
+int		ft_check_special_char(char *line);
 
 #endif //MINISHELL_H_
