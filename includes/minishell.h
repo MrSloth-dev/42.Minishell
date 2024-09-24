@@ -32,7 +32,6 @@
 # define SINGLE 1
 # define DOUBLE 2
 
-
 // parsing macros - preceded by "P_"
 # define P_PIPE '|'
 # define P_DOLLAR '$'
@@ -40,6 +39,8 @@
 # define P_REDIR_RIGHT '>'
 # define P_SINGLE_QTE '\''
 # define P_DOUBLE_QTE '"'
+# define LEFT_TOKEN -1
+# define RIGHT_TOKEN 1
 
 //parsing errors
 # define ERR_REDIR_LEFT 2
@@ -51,13 +52,10 @@
 # define ERR_PIPE 14
 # define ERR_EMPTY_TOKEN 16
 
-
-
 // status
 # define NORMAL 0
 # define IN_SINGLE_QTE 1
 # define IN_DOUBLE_QTE 2
-
 
 // classification of nodes
 # define EXEC 1
@@ -91,15 +89,13 @@ char	**ft_unset(char **cmdargs, t_shell *shell);
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
 
-// syntax_utils
+// syntax_utils_file
 void 	ft_print_syntax_error(int	error);
 int		ft_check_status(int status, char c);
 int		ft_is_space(char c);
-int		ft_is_empty_token(char *line);
+int		ft_is_empty_token(char *line, int direction);
 // syntax
 int		ft_have_unclosed_qtes(char *line);
 int		ft_check_redirs(char *line);
-
-
 
 #endif //MINISHELL_H_

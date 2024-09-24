@@ -17,6 +17,9 @@ void ft_print_syntax_error(int	error)
 		ft_printf(STDERR_FILENO, "%s unclosed quotes\n", name);
 	else if (error == ERR_EMPTY_TOKEN)
 		ft_printf(STDERR_FILENO, "%s unexpected token `newline'\n", name);
+	else if (error == ERR_PIPE)
+		ft_printf(STDERR_FILENO, "%s unexpected token `|'\n", name);
+
 }
 
 int	ft_check_status(int status, char c)
@@ -41,12 +44,17 @@ int	ft_is_space(char c)
 		return (FALSE);
 }
 
-int	ft_is_empty_token(char *line)
+int	ft_is_empty_token(char *line, int direction)
 {
 	while (*line)
 	{
 		if (ft_is_space(*line) == TRUE)
-			line++;
+		{
+			if (direction == RIGHT_TOKEN)
+				line++;
+			else
+				line--;
+		}
 		else
 			return (FALSE);
 	}

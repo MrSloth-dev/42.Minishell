@@ -13,6 +13,44 @@
 #include "../includes/minishell.h"
 #include <unistd.h>
 
+int	ft_this_pipe_have_error(char *str)
+{
+	if (!*str || !(str + 1))
+		return (ERR_PIPE);
+	if (ft_is_empty_token(str - 2, LEFT_TOKEN) == TRUE)
+		return (ERR_PIPE);
+	while(*str)
+	{
+		if (ft_is_empty_token(str, RIGHT_TOKEN) == TRUE)
+			return (ERR_PIPE);
+		str++;
+	}
+	return (FALSE);
+}
+
+int	ft_check_pipes(char *line)
+{
+	int	pipe_state;
+	int	status;
+
+	pipe_state = FALSE;
+	status = NORMAL;
+	while (*line)
+	{
+		status = ft_check_status(status, *line);
+		if (*line == '|' && status == NORMAL)
+		{
+			pipe_state = ft_this_pipe_have_error(++line);
+			if (pipe_state != FALSE)
+				return (pipe_state);
+		}
+		line++;
+	}
+	return (pipe_state);
+}
+
+
+
 
 int	ft_have_syntax_error(t_shell *sh)
 {
@@ -25,6 +63,10 @@ int	ft_have_syntax_error(t_shell *sh)
 	have_error = ft_check_redirs(sh->line);
 	if (have_error != FALSE)
 		return (have_error);
+	have_error = ft_check_pipes(sh->line);
+	if (have_error != FALSE)
+		return (have_error);
+
 	return (have_error);
 }
 

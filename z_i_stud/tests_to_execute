@@ -19,12 +19,10 @@ echo <>|
 bash: syntax error near unexpected token `|'
 echo <>| echo
 bash: syntax error near unexpected token `|'
-^C
 echo <<|
 bash: syntax error near unexpected token `|'
 echo >>|
 bash: syntax error near unexpected token `|'
-^C
 echo <>|
 bash: syntax error near unexpected token `|'
 echo >>>

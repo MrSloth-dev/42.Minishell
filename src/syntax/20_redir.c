@@ -43,7 +43,7 @@ static int	ft_this_redir_have_error(char *str)
 	str++;
 	if (*str && *str == redir)
 		str++;
-	if (ft_is_empty_token(str) == TRUE)
+	if (ft_is_empty_token(str, RIGHT_TOKEN) == TRUE)
 		return (ERR_EMPTY_TOKEN);
 	if (*str)
 		after_redir_err = ft_what_have_after_redir(str);
