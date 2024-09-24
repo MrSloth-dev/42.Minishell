@@ -13,6 +13,25 @@
 #include "../includes/minishell.h"
 #include <unistd.h>
 
+void ft_print_syntax_error(int	error)
+{
+	char name[] = "ShellFault: syntax error near";
+	if (error == ERR_REDIR_LEFT)
+		ft_printf(STDERR_FILENO, "%s unexpected token `<'\n", name);
+	else if (error == ERR_REDIR_RIGHT)
+		ft_printf(STDERR_FILENO, "%s unexpected token `>'\n", name);
+	else if (error == ERR_DBLE_REDIR_LEFT)
+		ft_printf(STDERR_FILENO, "%s unexpected token `<<'\n", name);
+	else if (error == ERR_DBLE_REDIR_RIGHT)
+		ft_printf(STDERR_FILENO, "%s unexpected token `>>'\n", name);
+	else if (error == ERR_PIPE_AFTER_REDIR)
+		ft_printf(STDERR_FILENO, "%s unexpected token `|'\n", name);
+	else if (error == ERR_UNCLOSED_QTE)
+		ft_printf(STDERR_FILENO, "%s unclosed quotes\n", name);
+	else if (error == ERR_EMPTY_TOKEN)
+		ft_printf(STDERR_FILENO, "%s unexpected token `newline'\n", name);
+}
+
 int	ft_have_unclosed_qtes(char *line)
 {
 	int	have_uncl_qte;
@@ -68,105 +87,95 @@ int	ft_is_empty_token(char *line)
 	}
 	return (TRUE);
 }
+///////////////////////
 
-int	ft_have_pipes_or_redirs_next(char *str)
+int	ft_check_this_redir_text(char *str, char tmp)
 {
-	char	*check;
+	if (*str && *str == tmp)
+	{
+		if (*str == '<')
+			return (ERR_DBLE_REDIR_LEFT);
+		else
+			return (ERR_DBLE_REDIR_RIGHT);
+	}
+	else if (tmp == '<')
+		return (ERR_REDIR_LEFT);
+	else
+		return (ERR_REDIR_RIGHT);
+}
 
-	check = 0;
+int	ft_what_have_after_redir(char *str)
+{
+	char	tmp;
+
 	while (*str)
 	{
-		check = 0;
-		check = ft_strchr("<>|", *str);
-		if (*check != 0 || *check == '<' || *check == '>')
-		{
-			if (*str + 1 && (*str + 1) == *check)
-			{
-				if (*check == '<')
-					return (ERR_DBLE_REDIR_LEFT);
-				else
-					return (ERR_DBLE_REDIR_RIGHT);
-			}
-		}
-		else if (*check == '|')
-			return (ERR_PIPE);
+		tmp = *str;
+		if (*str == '<' || *str == '>')
+			return (ft_check_this_redir_text(++str, tmp));
+		else if (*str == '|')
+			return (ERR_PIPE_AFTER_REDIR);
 		if (ft_is_space(*str) == FALSE)
 			return (FALSE);
-		else
-			str++;
+		str++;
 	}
 	return (FALSE);
 }
 
-void ft_print_syntax_error(int	error)
-{
-	char name[] = "ShellFault: syntax error near";
-	if (error == ERR_REDIR_LEFT)
-		ft_printf(STDERR_FILENO, "%s teste redir left\n", name);
-	else if (error == ERR_REDIR_RIGHT)
-		ft_printf(STDERR_FILENO, "%s teste redir right\n", name);
-	else if (error == ERR_DBLE_REDIR_LEFT)
-		ft_printf(STDERR_FILENO, "%s teste double redir left\n", name);
-	else if (error == ERR_DBLE_REDIR_RIGHT)
-		ft_printf(STDERR_FILENO, "%s teste double redir right\n", name);
-	else if (error == ERR_UNCLOSED_QTE)
-		ft_printf(STDERR_FILENO, "%s unclosed quote\n", name);
-	else if (error == ERR_PIPE_AFTER_REDIR)
-		ft_printf(STDERR_FILENO, "%s unexpected token `|'\n", name);
- 	if (error == ERR_EMPTY_TOKEN)
-		ft_printf(STDERR_FILENO, "%s unexpected token `newline'\n", name);
-}
-
 int	ft_this_redir_have_error(char *str)
 {
-	int		pipes_or_redirs_next;
+	int		after_redir_err;
 	char	redir;
 
-	pipes_or_redirs_next = FALSE;
-	redir = *(str++);
+	after_redir_err = FALSE;
+	redir = *str;
+	str++;
 	if (*str && *str == redir)
 		str++;
 	if (ft_is_empty_token(str) == TRUE)
 		return (ERR_EMPTY_TOKEN);
 	if (*str)
-		pipes_or_redirs_next = ft_have_pipes_or_redirs_next(str);
-	return (pipes_or_redirs_next);
+		after_redir_err = ft_what_have_after_redir(str);
+	return (after_redir_err);
 }
 
-int	ft_have_redir_error(char *line)
+int	ft_check_redirs(char *line)
 {
 	int	status;
-	int	have_redir_error;
+	int	redir_state;
 
-	have_redir_error = FALSE;
+	redir_state = FALSE;
 	status = NORMAL;
 	while (*line)
 	{
 		status = ft_check_status(status, *line);
-		printf ("%d\n", status);
-		if ((*line == P_REDIR_LEFT || *line == P_REDIR_RIGHT)
+		if ((*line == '<' || *line == '>')
 			&& (status == NORMAL))
 		{
-			have_redir_error = ft_this_redir_have_error(line);
-			if (have_redir_error != FALSE)
-			{
-				printf("entrou\n");
-				return (have_redir_error);
-			}
+			redir_state = ft_this_redir_have_error(line);
+			if (redir_state != FALSE)
+				return (redir_state);
 		}
 		line++;
 	}
-	return (have_redir_error);
+	return (redir_state);
 }
+
+
+
+
+
+
 
 int	ft_have_syntax_error(t_shell *sh)
 {
 	int	have_error;
 
+	have_error = FALSE;
 	have_error = ft_have_unclosed_qtes(sh->line);
 	if (have_error != FALSE)
 		return (have_error);
-	have_error = ft_have_redir_error(sh->line);
+	have_error = ft_check_redirs(sh->line);
 	if (have_error != FALSE)
 		return (have_error);
 	return (have_error);
