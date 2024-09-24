@@ -6,14 +6,11 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:47:44 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/09/24 17:06:12 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:09:47 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "ft_printf.h"
-#include <unistd.h>
-
 
 int	ft_have_syntax_error(t_shell *sh)
 {
