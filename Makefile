@@ -36,7 +36,8 @@ BUILTIN = $(BUILTINDIR)/echo.c  $(BUILTINDIR)/pwd.c $(BUILTINDIR)/env.c $(BUILTI
 SIGNAL = $(SIGNALDIR)/readline.c
 SYNTAX = $(SYNTAXDIR)/00_syntax_utils.c \
 		 $(SYNTAXDIR)/10_quotes.c \
-		 $(SYNTAXDIR)/20_redir.c
+		 $(SYNTAXDIR)/20_redir.c \
+		 $(SYNTAXDIR)/30_pipe.c
 
 SRCS = $(BUILTIN) $(SIGNAL) $(SYNTAX)
 

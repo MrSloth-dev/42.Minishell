@@ -97,5 +97,6 @@ int		ft_is_empty_token(char *line, int direction);
 // syntax
 int		ft_have_unclosed_qtes(char *line);
 int		ft_check_redirs(char *line);
+int		ft_check_pipes(char *line);
 
 #endif //MINISHELL_H_
