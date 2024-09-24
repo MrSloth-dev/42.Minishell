@@ -91,8 +91,15 @@ char	**ft_unset(char **cmdargs, t_shell *shell);
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
 
+// syntax_utils
+void 	ft_print_syntax_error(int	error);
+int		ft_check_status(int status, char c);
+int		ft_is_space(char c);
+int		ft_is_empty_token(char *line);
 // syntax
 int		ft_have_unclosed_qtes(char *line);
+int		ft_check_redirs(char *line);
+
 
 
 #endif //MINISHELL_H_

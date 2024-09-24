@@ -34,7 +34,9 @@ SYNTAXDIR = src/syntax
 BUILTIN = $(BUILTINDIR)/echo.c  $(BUILTINDIR)/pwd.c $(BUILTINDIR)/env.c $(BUILTINDIR)/export.c $(BUILTINDIR)/unset.c\
 
 SIGNAL = $(SIGNALDIR)/readline.c
-SYNTAX = $(SYNTAXDIR)/10_quotes.c
+SYNTAX = $(SYNTAXDIR)/00_syntax_utils.c \
+		 $(SYNTAXDIR)/10_quotes.c \
+		 $(SYNTAXDIR)/20_redir.c
 
 SRCS = $(BUILTIN) $(SIGNAL) $(SYNTAX)
 
