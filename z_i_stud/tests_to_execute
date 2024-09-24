@@ -67,5 +67,14 @@ echo >><
 bash: syntax error near unexpected token `<'
 echo >><<
 bash: syntax error near unexpected token `<<'
+/////////////////////////////////////////////////
+PIPES
+|
+ |
+| 
+
+
+
+
 
 
