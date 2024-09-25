@@ -52,6 +52,18 @@
 # define ERR_PIPE 14
 # define ERR_EMPTY_TOKEN 16
 
+// token tipes
+# define WHITE_SPACE 1
+# define WORD 2
+# define PIPELINE 3
+# define ENV 4
+# define REDIR_IN 5
+# define REDIR_OUT 6
+# define DBLE_REDIR_OUT 7
+# define HERE_DOC 8
+# define SINGLE_QTE 9
+# define DOUBLE_QTE 10
+
 // status
 # define NORMAL 0
 # define IN_SINGLE_QTE 1

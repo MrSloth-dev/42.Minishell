@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:47:44 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/09/24 17:09:47 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:27:43 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,18 @@ int	ft_have_syntax_error(t_shell *sh)
 
 int	ft_is_word(char c)
 {
-	if (c && (c == '|'
+	if (!c)
+		return (FALSE);
+	if (c == '|'
 		|| c == '<'
 		|| c == '>'
 		|| c == '$'
 		|| c == '"'
 		|| c == '\''
-		|| ft_is_space(c) == TRUE))
-			return (FALSE);
-	return (TRUE);
+		|| ft_is_space(c) == TRUE)
+		return (FALSE);
+	else
+		return (TRUE);
 }
 
 int	ft_how_much_consequent_spaces(char *str)
@@ -57,28 +60,67 @@ int	ft_how_much_consequent_spaces(char *str)
 	return (i);
 }
 
-void	ft_tokenizer(char *line)
+void	ft_append_node(t_token_lst *token_lst, char *str, int type)
 {
-	int	status;
+	(void)token_lst;
+	(void)str;
+	(void)type;
+//	printf("      APPEND WORD\n");
+}
+
+
+int	ft_append_word(t_token_lst *token_lst, char *str, int type)
+{
+	int	j;
+
+	(void)token_lst;
+	j = 0;
+	if (type == WORD)
+	{
+		while (ft_is_word(str[j]) == TRUE)
+			j++;
+	}
+	return(j);
+}
+
+
+
+void	ft_tokenizer(t_token_lst *token_lst, char *line)
+{
+//	int	status;
 	int	i;
 
-	status = NORMAL;
+//	status = NORMAL;
 	i = -1;
 	while (line[++i])
 	{
-		status = ft_check_status(status, line[i]);
-		if (ft_is_word(line[i]) == TRUE && status == NORMAL)
-			printf("append_word\n");
+//		if (status == NORMAL)
+//		{
+		if (ft_is_word(line[i]) == TRUE)
+		{
+			i += ft_append_word(token_lst, line + i, WORD) - 1;
+			if (!line[i])
+				break;
+		}
 		else if (ft_is_space(line[i]) == TRUE)
 			i += ft_how_much_consequent_spaces(line + i) - 1;
 		else if (line[i] == '|')
+		{
 			printf("\nhere is a PIPE\n\n");
+		}
 		else if (line[i] == '$')
+		{
 			printf("Oh my god, here is a DOLLAR! lets check heredoc!\n");
+		}
 		else if (line[i] == '<' || line[i] == '>')
+		{
 			printf("\nthere is a redir\n\n");
-		else if (status == NORMAL && (line[i] == '"' || line[i] == '\''))
+		}
+		else if ((line[i] == '"' || line[i] == '\''))
+		{
 			printf(" FUCKING QUOTES TO APPEND!\n");
+		}
+//		}
 	}
 }
 
@@ -88,41 +130,22 @@ void	ft_tokenizer(char *line)
 
 void	ft_shellfault(t_shell *sh)
 {
-	ft_tokenizer(sh->line);
+	ft_tokenizer(sh->token_lst, sh->line);
 }
 
-void	test_bzero(void *s, size_t n)
-{
-	auto size_t i;
-	auto unsigned char *ptr;
-	i = 0;
-	ptr = (unsigned char *)s;
-	while (i < n)
-		ptr[i++] = '\0';
-}
-void	*test_calloc(size_t nmemb, size_t size)
-{
-	void	*ptr;
 
-	if (nmemb * size == 0)
-		return ((void *) malloc(0));
-	ptr = malloc(nmemb * size);
-	if (!ptr)
-		return (NULL);
-	test_bzero(ptr, nmemb * size);
-	return (ptr);
-}
 
 t_shell	*ft_init_shell()
 {
 	t_shell	*sh;
-	sh = test_calloc(1, sizeof(t_shell));
+	sh = ft_calloc(1, sizeof(t_shell));
 	if (!sh)
 	{
-		printf("Error on calloc \"sh\" struct!\n");
+		printf("Error allocating \"*sh\" struct!\n");
 		return (NULL);
 	}
-	
+	sh->token_lst = NULL;
+
 	return (sh);
 }
 
