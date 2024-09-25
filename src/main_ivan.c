@@ -32,6 +32,61 @@ int	ft_have_syntax_error(t_shell *sh)
 	return (have_error);
 }
 
+
+int	ft_is_word(char c)
+{
+	if (c && (c == '|'
+		|| c == '<'
+		|| c == '>'
+		|| c == '$'
+		|| c == '"'
+		|| c == '\''
+		|| ft_is_space(c) == TRUE))
+			return (FALSE);
+	return (TRUE);
+}
+
+int	ft_how_much_consequent_spaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (ft_is_space(str[i]) == TRUE)
+		i++;
+	printf("consequent %d spaces\n", i);
+	return (i);
+}
+
+void	ft_tokenizer(char *line)
+{
+	int	status;
+	int	i;
+
+	status = NORMAL;
+	i = -1;
+	while (line[++i])
+	{
+		status = ft_check_status(status, line[i]);
+		if (ft_is_word(line[i]) == TRUE && status == NORMAL)
+			printf("append_word\n");
+		else if (ft_is_space(line[i]) == TRUE)
+			i += ft_how_much_consequent_spaces(line + i) - 1;
+	}
+}
+
+
+
+
+
+void	ft_shellfault(t_shell *sh)
+{
+	ft_tokenizer(sh->line);
+}
+
+
+
+
+
 int	main(void)
 {
 	t_shell	sh;
@@ -43,6 +98,9 @@ int	main(void)
 		have_syn_error = ft_have_syntax_error(&sh);
 		if (have_syn_error != FALSE)
 			ft_print_syntax_error(have_syn_error);
+		else
+			ft_shellfault(&sh);
+
 	}
 	return (0);
 }
