@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 int	ft_have_syntax_error(t_shell *sh)
 {
@@ -71,6 +71,14 @@ void	ft_tokenizer(char *line)
 			printf("append_word\n");
 		else if (ft_is_space(line[i]) == TRUE)
 			i += ft_how_much_consequent_spaces(line + i) - 1;
+		else if (line[i] == '|')
+			printf("\nhere is a PIPE\n\n");
+		else if (line[i] == '$')
+			printf("Oh my god, here is a DOLLAR! lets check heredoc!\n");
+		else if (line[i] == '<' || line[i] == '>')
+			printf("\nthere is a redir\n\n");
+		else if (status == NORMAL && (line[i] == '"' || line[i] == '\''))
+			printf(" FUCKING QUOTES TO APPEND!\n");
 	}
 }
 
@@ -83,23 +91,57 @@ void	ft_shellfault(t_shell *sh)
 	ft_tokenizer(sh->line);
 }
 
+void	test_bzero(void *s, size_t n)
+{
+	auto size_t i;
+	auto unsigned char *ptr;
+	i = 0;
+	ptr = (unsigned char *)s;
+	while (i < n)
+		ptr[i++] = '\0';
+}
+void	*test_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
 
+	if (nmemb * size == 0)
+		return ((void *) malloc(0));
+	ptr = malloc(nmemb * size);
+	if (!ptr)
+		return (NULL);
+	test_bzero(ptr, nmemb * size);
+	return (ptr);
+}
+
+t_shell	*ft_init_shell()
+{
+	t_shell	*sh;
+	sh = test_calloc(1, sizeof(t_shell));
+	if (!sh)
+	{
+		printf("Error on calloc \"sh\" struct!\n");
+		return (NULL);
+	}
+	
+	return (sh);
+}
 
 
 
 int	main(void)
 {
-	t_shell	sh;
+	t_shell	*sh;
 	int	have_syn_error;
 
+	sh = ft_init_shell();
 	while (1)
 	{
-		ft_readline(&sh);
-		have_syn_error = ft_have_syntax_error(&sh);
+		ft_readline(sh);
+		have_syn_error = ft_have_syntax_error(sh);
 		if (have_syn_error != FALSE)
 			ft_print_syntax_error(have_syn_error);
 		else
-			ft_shellfault(&sh);
+			ft_shellfault(sh);
 
 	}
 	return (0);

@@ -63,13 +63,6 @@
 # define PIPE 3
 # define REDIR 4
 
-typedef struct s_shell
-{
-	char	*line;
-	char	**envp;
-	int		exit_status;
-}	t_shell;
-
 typedef struct s_token
 {
 	int		id;
@@ -78,6 +71,20 @@ typedef struct s_token
 	struct s_token	*next;
 	struct s_token	*prev;
 }		t_token;
+
+typedef struct s_token_lst
+{
+	t_token	*first;
+	t_token	*last;
+}		t_token_lst;
+
+typedef struct s_shell
+{
+	char		*line;
+	char		**envp;
+	int			exit_status;
+	t_token_lst	*token_lst;
+}	t_shell;
 
 // BUILT-INS
 void	ft_echo(char **cmd_args, t_shell *sh);
