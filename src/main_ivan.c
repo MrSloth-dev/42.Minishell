@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "minishell.h"
 
 int	ft_have_syntax_error(t_shell *sh)
@@ -54,7 +55,7 @@ int	ft_how_much_consequent_spaces(char *str)
 	int	i;
 
 	i = 0;
-	while (ft_is_space(str[i]) == TRUE)
+	while (str[i] && ft_is_space(str[i]) == TRUE)
 		i++;
 	printf("consequent %d spaces\n", i);
 	return (i);
@@ -62,23 +63,32 @@ int	ft_how_much_consequent_spaces(char *str)
 
 void	ft_append_node(t_token_lst *token_lst, char *str, int type)
 {
-	(void)token_lst;
-	(void)str;
-	(void)type;
-//	printf("      APPEND WORD\n");
-}
+	t_token	*new_token;
 
+	new_token = ft_calloc(sizeof(t_token), 1);
+	if (!new_token)
+		return ;
+	new_token->content = str;
+	new_token->type = type;
+
+	if (!token_lst->first)
+	{
+		token_lst->first = new_token;
+	}
+}
 
 int	ft_append_word(t_token_lst *token_lst, char *str, int type)
 {
 	int	j;
 
-	(void)token_lst;
 	j = 0;
 	if (type == WORD)
 	{
-		while (ft_is_word(str[j]) == TRUE)
+		while (str[j] && ft_is_word(str[j]) == TRUE)
 			j++;
+		printf("on append word1\n");
+		ft_append_node(token_lst, ft_substr(str, 0, j), type);
+		printf("on append word2\n");
 	}
 	return(j);
 }
@@ -122,6 +132,8 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 		}
 //		}
 	}
+	printf("test print token %s\n", token_lst->first->content);
+
 }
 
 
@@ -130,6 +142,9 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 
 void	ft_shellfault(t_shell *sh)
 {
+	sh->token_lst = ft_calloc(sizeof(t_token_lst), 1);
+	if (!sh->token_lst)
+		return ;
 	ft_tokenizer(sh->token_lst, sh->line);
 }
 
