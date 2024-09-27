@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include "ft_printf/libft/libft.h"
 #include "minishell.h"
 
 void	ft_append_env(char *cmdargs, char **temp);
@@ -24,17 +25,17 @@ void	ft_swap_env(char *cmdargs, char **temp, int j)
 void	ft_join_env(char *cmdargs, char **temp, int j)
 {
 	int		k;
-	int		start;
+	char	*start;
 
-	start = 0;
+	start = NULL;
 	k = 0;
 	j--;
 	while (temp[k])
 	{
 		if (j == k)
 		{
-			start = ft_strchr(cmdargs[k], '=');
-			temp[k] = ft_strjoin(temp[k], ft_strchr(cmdargs[k], '+')++);
+			start = ft_strchr(&cmdargs[k], '=');
+			temp[k] = ft_strjoin(temp[k], ++start);
 		}
 		if (!temp[k])
 			return ;
@@ -126,11 +127,19 @@ void	ft_append_env(char *cmdargs, char **temp)
 char	*ft_get_var_name(char *env_str)
 {
 	int	i;
+	int	plus;
+	char *substr;
 
 	i = 0;
+	substr = ft_strchr(env_str, '+');
+	printf("%s\n", substr);
+	if (!substr || *(++substr) == '=')
+	{
+		plus = 1;
+	}
 	while (env_str[i] && env_str[i] != '=')
 		i++;
-	if (i == (int)ft_strlen(env_str))
+	if (i == (int)ft_strlen(env_str) - plus)
 		return (NULL);
 	return (ft_substr(env_str, 0, i));
 }
