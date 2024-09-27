@@ -12,7 +12,8 @@ display temp[k]
 end
 
 define run_s
-run "export USER=joao-polo iol=ganda_merda"
+break ft_export
+run "export USER=joao-polo iol=ganda_merda clix=merda_mesmo"
 end
 
 define run_u

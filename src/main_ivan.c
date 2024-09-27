@@ -1,174 +1,171 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_ivan.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 01:47:44 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/09/07 01:48:05 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:27:43 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include <unistd.h>
-
-int	ft_have_unclosed_qtes(char *line)
-{
-	int	have_uncl_qte;
-	char	find_this;
-
-	have_uncl_qte = FALSE;
-	while (*line)
-	{
-		if (*line == P_SINGLE_QTE || *line == P_DOUBLE_QTE)
-		{
-			find_this = *line++;
-			while (*line && *line != find_this)
-				line++;
-			if (!*line || *line != find_this)
-				have_uncl_qte = ERR_UNCLOSED_QTE;
-		}
-		if (*line)
-		line++;
-	}
-	return (have_uncl_qte);
-}
-///////////////////////////////////////////////////////////
-int	ft_check_status(int status, char c)
-{
-	if (c == P_DOUBLE_QTE && status == NORMAL)
-		status = IN_DOUBLE_QTE;
-	else if (c == P_SINGLE_QTE && status == NORMAL)
-		status = IN_SINGLE_QTE;
-	else if (c == P_DOUBLE_QTE && status == IN_DOUBLE_QTE)
-		status = NORMAL;
-	else if (c == P_SINGLE_QTE && status == IN_SINGLE_QTE)
-		status = NORMAL;
-	return (status);
-}
-
-int	ft_is_space(char c)
-{
-	if ((c >= 9 && c <= 13)
-		|| c == ' ')
-		return (TRUE);
-	else
-		return (FALSE);
-}
-
-int	ft_is_empty_token(char *line)
-{
-	while (*line)
-	{
-		if (ft_is_space(*line) == TRUE)
-			line++;
-		else
-			return (FALSE);
-	}
-	return (TRUE);
-}
-
-int	ft_have_pipes_or_redirs_next(char *str)
-{
-	char	*check;
-
-	check = 0;
-	while (*str)
-	{
-		check = 0;
-		check = ft_strchr("<>", *str);
-		if (*check != 0)
-		{
-			if (*str + 1 && (*str + 1) == *check)
-			{
-				if (*check == '<')
-					return (ERR_DBLE_REDIR_LEFT);
-				else
-					return (ERR_DBLE_REDIR_RIGHT);
-			}
-		}
-		if (*str == '|')
-			return (ERR_PIPE);
-		if (ft_is_space(*str) == FALSE)
-			return (FALSE);
-		else
-			str++;
-	}
-	return (FALSE);
-}
-
-int	ft_this_redir_have_error(char *str)
-{
-	int		redir_type;
-	char	redir;
-
-	redir_type = SINGLE;
-	redir = *(str++);
-	if (*str && *str == redir)
-	{
-		str++;
-		redir_type = DOUBLE;
-	}
-	if (ft_is_empty_token(str) == TRUE)
-	{
-		ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `newline'\n");
-		return (TRUE);
-	}
-	if (ft_have_pipes_or_redirs_next(str, redir) != FALSE)
-	{
-		if (redir_type == DOUBLE)
-			ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `%c%c'\n", redir, redir);
-		else
-			ft_printf(STDERR_FILENO, "minishell: syntax error near unexpected token `%c'\n", redir);
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
-int	ft_have_redir_error(char *line)
-{
-	int	status;
-
-	status = NORMAL;
-	while (*line)
-	{
-		status = ft_check_status(status, *line);
-		if ((*line == P_REDIR_LEFT || *line == P_REDIR_RIGHT)
-			&& (status == NORMAL))
-		{
-			if (ft_this_redir_have_error(line) == TRUE)
-				return (TRUE);
-		}
-		line++;
-	}
-	return (FALSE);
-}
+#include "minishell.h"
 
 int	ft_have_syntax_error(t_shell *sh)
 {
 	int	have_error;
 
+	have_error = FALSE;
 	have_error = ft_have_unclosed_qtes(sh->line);
 	if (have_error != FALSE)
 		return (have_error);
-	have_error = ft_have_redir_error(sh->line);
+	have_error = ft_check_redirs(sh->line);
+	if (have_error != FALSE)
+		return (have_error);
+	have_error = ft_check_pipes(sh->line);
+	if (have_error != FALSE)
+		return (have_error);
+	have_error = ft_check_special_char(sh->line);
 	if (have_error != FALSE)
 		return (have_error);
 	return (have_error);
 }
 
+
+int	ft_is_word(char c)
+{
+	if (!c)
+		return (FALSE);
+	if (c == '|'
+		|| c == '<'
+		|| c == '>'
+		|| c == '$'
+		|| c == '"'
+		|| c == '\''
+		|| ft_is_space(c) == TRUE)
+		return (FALSE);
+	else
+		return (TRUE);
+}
+
+int	ft_how_much_consequent_spaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (ft_is_space(str[i]) == TRUE)
+		i++;
+	printf("consequent %d spaces\n", i);
+	return (i);
+}
+
+void	ft_append_node(t_token_lst *token_lst, char *str, int type)
+{
+	(void)token_lst;
+	(void)str;
+	(void)type;
+//	printf("      APPEND WORD\n");
+}
+
+
+int	ft_append_word(t_token_lst *token_lst, char *str, int type)
+{
+	int	j;
+
+	(void)token_lst;
+	j = 0;
+	if (type == WORD)
+	{
+		while (ft_is_word(str[j]) == TRUE)
+			j++;
+	}
+	return(j);
+}
+
+
+
+void	ft_tokenizer(t_token_lst *token_lst, char *line)
+{
+//	int	status;
+	int	i;
+
+//	status = NORMAL;
+	i = -1;
+	while (line[++i])
+	{
+//		if (status == NORMAL)
+//		{
+		if (ft_is_word(line[i]) == TRUE)
+		{
+			i += ft_append_word(token_lst, line + i, WORD) - 1;
+			if (!line[i])
+				break;
+		}
+		else if (ft_is_space(line[i]) == TRUE)
+			i += ft_how_much_consequent_spaces(line + i) - 1;
+		else if (line[i] == '|')
+		{
+			printf("\nhere is a PIPE\n\n");
+		}
+		else if (line[i] == '$')
+		{
+			printf("Oh my god, here is a DOLLAR! lets check heredoc!\n");
+		}
+		else if (line[i] == '<' || line[i] == '>')
+		{
+			printf("\nthere is a redir\n\n");
+		}
+		else if ((line[i] == '"' || line[i] == '\''))
+		{
+			printf(" FUCKING QUOTES TO APPEND!\n");
+		}
+//		}
+	}
+}
+
+
+
+
+
+void	ft_shellfault(t_shell *sh)
+{
+	ft_tokenizer(sh->token_lst, sh->line);
+}
+
+
+
+t_shell	*ft_init_shell()
+{
+	t_shell	*sh;
+	sh = ft_calloc(1, sizeof(t_shell));
+	if (!sh)
+	{
+		printf("Error allocating \"*sh\" struct!\n");
+		return (NULL);
+	}
+	sh->token_lst = NULL;
+
+	return (sh);
+}
+
+
+
 int	main(void)
 {
-	t_shell	sh;
-	int	have_syn_err;
+	t_shell	*sh;
+	int	have_syn_error;
 
+	sh = ft_init_shell();
 	while (1)
 	{
-		ft_readline(&sh);
-		have_syn_err = ft_have_syntax_error(&sh);
-		if (have_syn_err == TRUE)
-			printf("Syntax error! need free??\n");
+		ft_readline(sh);
+		have_syn_error = ft_have_syntax_error(sh);
+		if (have_syn_error != FALSE)
+			ft_print_syntax_error(have_syn_error);
+		else
+			ft_shellfault(sh);
+
 	}
 	return (0);
 }
