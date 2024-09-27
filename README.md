@@ -95,6 +95,7 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
     - [x] Append non existant env_var
     - [x] Swap existant env_var
     - [ ] Join with '+' existant env_var
+    - [ ] Fucking Works
  - [ ] unset with no options
  - [ ] cd with only a relative or absoute path (no fucking cd ~)
     - [ ] cd - ,cd -- goes to home and set oldpwd to home too)
