@@ -104,6 +104,15 @@ void	ft_pwd(t_shell *shell);
 void	ft_env(t_shell *shell);
 char	**ft_export(char **cmdargs, t_shell *shell);
 char	**ft_unset(char **cmdargs, t_shell *shell);
+//BUILT-INS UTILS
+char	*ft_get_var_name(char *env_str);
+char	*ft_get_env(char *env_name, t_shell *shell);
+int	ft_env_exist(char *var, int *j, char **temp);
+char	*ft_strjoin_free(char const *s1, char const *s2);
+void	ft_append_env(char *cmdargs, char **temp);
+void	ft_swap_env(char *cmdargs, char **temp, int j);
+void	ft_append_env(char *cmdargs, char **temp);
+void	ft_swap_env(char *cmdargs, char **temp, int j);
 
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);

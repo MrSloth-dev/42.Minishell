@@ -23,7 +23,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	**split = ft_split(str, ' ');
 	// ft_pwd(&sh);
 	sh.envp = ft_export(split, &sh);
-	// ft_env(&sh);
+	ft_env(&sh);
 	// sh.envp = ft_unset(split, &sh);
 	// ft_echo(split, &sh);
 	// ft_readline();

@@ -23,17 +23,24 @@ RM	    = rm -rf
 vpath %.h includes
 vpath %.c src
 
-HEADER = minishell.h get_next_line.h ft_printf.h
+HEADER = minishell.h ft_printf.h
 PRINTDIR = ./includes/ft_printf/
 PRINTFT = ./includes/ft_printf/libftprintf.a
 
-BUILTINDIR = src/builtins
+BDIR = src/builtins
 SIGNALDIR = src/signals_and_readline
 SYNTAXDIR = src/syntax
 
-BUILTIN = $(BUILTINDIR)/echo.c  $(BUILTINDIR)/pwd.c $(BUILTINDIR)/env.c $(BUILTINDIR)/export.c $(BUILTINDIR)/unset.c\
+BUILTIN = $(BDIR)/echo.c \
+		$(BDIR)/pwd.c \
+		$(BDIR)/env.c \
+		$(BDIR)/export.c \
+		$(BDIR)/unset.c \
+		$(BDIR)/utils.c \
+		$(BDIR)/export_utils.c
 
 SIGNAL = $(SIGNALDIR)/readline.c
+
 SYNTAX = $(SYNTAXDIR)/00_syntax_utils.c \
 		 $(SYNTAXDIR)/10_quotes.c \
 		 $(SYNTAXDIR)/20_redir.c \
