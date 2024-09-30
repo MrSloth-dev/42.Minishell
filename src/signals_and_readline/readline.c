@@ -1,3 +1,4 @@
+#include "ft_printf.h"
 #include "minishell.h"
 
 static void	ft_handle_sig(int signal)
@@ -26,16 +27,20 @@ static void	ft_start_sig()
 
 t_shell	*ft_readline(t_shell *sh)
 {
+	char	*pwd;
+
+	pwd = ft_strdup(ft_get_env("PWD", sh));
+	pwd = ft_strjoin_free(pwd, ft_strdup("$ "));
 	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
 	sh->line = NULL;
-	sh->line = readline("ShellFault$ ");
+	sh->line = readline(pwd);
 
 	if (sh->line && *(sh->line))
 		add_history(sh->line);
 	if (sh->line == NULL)
 	{
-		printf("exit\n");
+		ft_printf(1, "exit\n");
 		exit (EXIT_SUCCESS);
 	}
 	return (sh);
