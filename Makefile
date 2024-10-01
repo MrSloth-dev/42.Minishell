@@ -4,7 +4,8 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Iincludes -lreadline -g
+READLINE_FLAG = -lreadline
+	CFLAGS = -Iincludes -lreadline -g
 EFLAGS = -Wall -Wextra -Werror
 
 CLR_RMV = \033[0m
@@ -77,7 +78,7 @@ ivan : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	$(CC) $(MAINI) $(CFLAGS) $(OBJS)  $(PRINTFT) -o minivan
+	$(CC) $(MAINI) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o minivan
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 joao : $(OBJS)
@@ -94,7 +95,7 @@ gdb : joao
 	tmux split-window -h -l 30
 	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
 	tmux select-pane -t Gdb.1
-	@tmux set-hook -t Gdb window-linked { run-shell -b "\
+	@tmux set-hook -t Gdb wigit@github.com:MrSloth-dev/ShellFault.gitndow-linked { run-shell -b "\
 		while pgrep -x 'gdb' > /dev/null; do sleep 1; done; \
 		tmux wait-for -S gdb_done \
 		"}

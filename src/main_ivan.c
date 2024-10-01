@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "minishell.h"
 
 int	ft_have_syntax_error(t_shell *sh)
@@ -54,7 +55,7 @@ int	ft_how_much_consequent_spaces(char *str)
 	int	i;
 
 	i = 0;
-	while (ft_is_space(str[i]) == TRUE)
+	while (str[i] && ft_is_space(str[i]) == TRUE)
 		i++;
 	printf("consequent %d spaces\n", i);
 	return (i);
@@ -62,23 +63,44 @@ int	ft_how_much_consequent_spaces(char *str)
 
 void	ft_append_node(t_token_lst *token_lst, char *str, int type)
 {
-	(void)token_lst;
-	(void)str;
-	(void)type;
-//	printf("      APPEND WORD\n");
-}
+	t_token	*cur;
+	t_token	*new_token;
 
+	cur = NULL;
+	new_token = ft_calloc(sizeof(t_token), 1);
+	if (!new_token)
+		return ;
+
+	new_token->content = str;
+	new_token->type = type;
+	new_token->next = NULL;
+
+	if (!token_lst->first)
+	{
+		token_lst->first = new_token;
+		new_token->prev = NULL;
+	}
+	if (token_lst->first)
+	{
+		cur = token_lst->first;
+		while (cur->next)
+			cur = cur->next;
+		cur->next = new_token;
+		new_token->prev = cur;
+	}
+	printf("appended_node\n");
+}
 
 int	ft_append_word(t_token_lst *token_lst, char *str, int type)
 {
 	int	j;
 
-	(void)token_lst;
 	j = 0;
 	if (type == WORD)
 	{
-		while (ft_is_word(str[j]) == TRUE)
+		while (str[j] && ft_is_word(str[j]) == TRUE)
 			j++;
+		ft_append_node(token_lst, ft_substr(str, 0, j), type);
 	}
 	return(j);
 }
@@ -91,11 +113,11 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 	int	i;
 
 //	status = NORMAL;
-	i = -1;
-	while (line[++i])
+	i = 0;
+	while (line[i])
 	{
+		printf("lets save token in position %d\n", i + 1);
 //		if (status == NORMAL)
-//		{
 		if (ft_is_word(line[i]) == TRUE)
 		{
 			i += ft_append_word(token_lst, line + i, WORD) - 1;
@@ -103,25 +125,35 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 				break;
 		}
 		else if (ft_is_space(line[i]) == TRUE)
+		{
+			printf("is space!\n");
+			ft_append_node(token_lst, ft_strdup("_"), WHITE_SPACE);
 			i += ft_how_much_consequent_spaces(line + i) - 1;
-		else if (line[i] == '|')
-		{
-			printf("\nhere is a PIPE\n\n");
 		}
-		else if (line[i] == '$')
+		else
 		{
-			printf("Oh my god, here is a DOLLAR! lets check heredoc!\n");
+			i++;
+			printf("else on tokenizer!!!!\n");
 		}
-		else if (line[i] == '<' || line[i] == '>')
-		{
-			printf("\nthere is a redir\n\n");
-		}
-		else if ((line[i] == '"' || line[i] == '\''))
-		{
-			printf(" FUCKING QUOTES TO APPEND!\n");
-		}
-//		}
+		printf("this token:_%s_\n", token_lst->first->content);
+		// else if (line[i] == '|')
+		// {
+		// 	printf("\nhere is a PIPE\n\n");
+		// }
+		// else if (line[i] == '$')
+		// {
+		// 	printf("Oh my god, here is a DOLLAR! lets check heredoc!\n");
+		// }
+		// else if (line[i] == '<' || line[i] == '>')
+		// {
+		// 	printf("\nthere is a redir\n\n");
+		// }
+		// else if ((line[i] == '"' || line[i] == '\''))
+		// {
+		// 	printf(" FUCKING QUOTES TO APPEND!\n");
+		// }
 	}
+
 }
 
 
@@ -130,6 +162,9 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 
 void	ft_shellfault(t_shell *sh)
 {
+	sh->token_lst = ft_calloc(sizeof(t_token_lst), 1);
+	if (!sh->token_lst)
+		return ;
 	ft_tokenizer(sh->token_lst, sh->line);
 }
 

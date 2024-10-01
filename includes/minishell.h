@@ -52,7 +52,7 @@
 # define ERR_PIPE 14
 # define ERR_EMPTY_TOKEN 16
 
-// token tipes
+// token types
 # define WHITE_SPACE 1
 # define WORD 2
 # define PIPELINE 3
@@ -79,6 +79,8 @@ typedef struct s_token
 {
 	int		id;
 	int		pos;
+	int		status;
+	int		type;
 	char	*content;
 	struct s_token	*next;
 	struct s_token	*prev;
