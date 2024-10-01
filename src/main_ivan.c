@@ -57,7 +57,6 @@ int	ft_how_much_consequent_spaces(char *str)
 	i = 0;
 	while (str[i] && ft_is_space(str[i]) == TRUE)
 		i++;
-	printf("consequent %d spaces\n", i);
 	return (i);
 }
 
@@ -88,7 +87,6 @@ void	ft_append_node(t_token_lst *token_lst, char *str, int type)
 		cur->next = new_token;
 		new_token->prev = cur;
 	}
-	printf("appended_node\n");
 }
 
 int	ft_append_word(t_token_lst *token_lst, char *str, int type)
@@ -109,15 +107,11 @@ int	ft_append_word(t_token_lst *token_lst, char *str, int type)
 
 void	ft_tokenizer(t_token_lst *token_lst, char *line)
 {
-//	int	status;
 	int	i;
 
-//	status = NORMAL;
 	i = 0;
 	while (line[i])
 	{
-		printf("lets save token in position %d\n", i + 1);
-//		if (status == NORMAL)
 		if (ft_is_word(line[i]) == TRUE)
 		{
 			i += ft_append_word(token_lst, line + i, WORD) - 1;
@@ -126,16 +120,13 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 		}
 		else if (ft_is_space(line[i]) == TRUE)
 		{
-			printf("is space!\n");
 			ft_append_node(token_lst, ft_strdup("_"), WHITE_SPACE);
 			i += ft_how_much_consequent_spaces(line + i) - 1;
 		}
 		else
 		{
 			i++;
-			printf("else on tokenizer!!!!\n");
 		}
-		printf("this token:_%s_\n", token_lst->first->content);
 		// else if (line[i] == '|')
 		// {
 		// 	printf("\nhere is a PIPE\n\n");
@@ -170,7 +161,7 @@ void	ft_shellfault(t_shell *sh)
 
 
 
-t_shell	*ft_init_shell()
+t_shell	*ft_init_shell(char *envp[])
 {
 	t_shell	*sh;
 	sh = ft_calloc(1, sizeof(t_shell));
@@ -180,18 +171,21 @@ t_shell	*ft_init_shell()
 		return (NULL);
 	}
 	sh->token_lst = NULL;
+	sh->envp = envp;
 
 	return (sh);
 }
 
 
 
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	*sh;
 	int	have_syn_error;
 
-	sh = ft_init_shell();
+	(void)argc;
+	(void)argv;
+	sh = ft_init_shell(envp);
 	while (1)
 	{
 		ft_readline(sh);
