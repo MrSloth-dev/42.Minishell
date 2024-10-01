@@ -6,10 +6,10 @@ void	ft_update_oldpwd(char *old_pwd, t_shell *shell);
 
 void	ft_cd(char **cmdargs, t_shell *shell)
 {
-	char *old_pwd;
-	char *update_old_pwd;
+	char	*old_pwd;
+	char	*update_old_pwd;
 
-	if (cmdargs[0]) // error checking
+	if (!cmdargs[0]) // error checking
 	{
 		if (cmdargs[1][0])
 			return ;
@@ -18,27 +18,31 @@ void	ft_cd(char **cmdargs, t_shell *shell)
 	}
 	update_old_pwd = getcwd(NULL, 0);
 	if (!ft_strncmp("--", cmdargs[1], 2)) // change to home
-		{
-			old_pwd = ft_get_env("HOME", shell);
-			chdir(old_pwd);
-		}
+	{
+		old_pwd = ft_get_env("HOME", shell);
+		chdir(old_pwd);
+	}
 	else if (!ft_strncmp("-", cmdargs[1], 1)) // print old pwd and change to it
-		{
-			old_pwd = ft_get_env("HOME", shell);
-			ft_printf(1, "%s\n", old_pwd);
-			chdir(old_pwd);
-		}
+	{
+		old_pwd = ft_get_env("OLDPWD", shell);
+		ft_printf(1, "%s\n", old_pwd);
+		chdir(old_pwd);
+	}
 	else if (!ft_strncmp("~", cmdargs[1], 1))
 		chdir(ft_get_env("HOME", shell));
+	else
+		chdir(cmdargs[1]);
 	ft_update_oldpwd(update_old_pwd, shell);
+	ft_printf(1, "current pwd is %s\n", getcwd(NULL, 0));
+	ft_printf(1, "old pwd is %s\n", ft_get_env("OLDPWD", shell));
 }
 
 void	ft_update_oldpwd(char *old_pwd, t_shell *shell)
 {
-	char *old_pwd_str;
+	char	*old_pwd_str;
 	int		j;
 
-	old_pwd_str = ft_strjoin_free(ft_strdup("OLDPWD="), old_pwd);
+	old_pwd_str = ft_strjoin("OLDPWD=", old_pwd);
 	j = -1;
 	if (ft_env_exist(old_pwd_str, &j, shell->envp) == -1)
 		ft_append_env(old_pwd_str, shell->envp);

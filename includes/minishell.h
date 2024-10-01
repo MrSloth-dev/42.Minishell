@@ -104,6 +104,8 @@ void	ft_pwd(t_shell *shell);
 void	ft_env(t_shell *shell);
 char	**ft_export(char **cmdargs, t_shell *shell);
 char	**ft_unset(char **cmdargs, t_shell *shell);
+void	ft_cd(char **cmdargs, t_shell *shell);
+
 //BUILT-INS UTILS
 char	*ft_get_var_name(char *env_str);
 char	*ft_get_env(char *env_name, t_shell *shell);

@@ -33,6 +33,7 @@ SYNTAXDIR = src/syntax
 
 BUILTIN = $(BDIR)/echo.c \
 		$(BDIR)/pwd.c \
+		$(BDIR)/cd.c \
 		$(BDIR)/env.c \
 		$(BDIR)/export.c \
 		$(BDIR)/unset.c \

@@ -35,7 +35,6 @@ t_shell	*ft_readline(t_shell *sh)
 	ft_start_sig();
 	sh->line = NULL;
 	sh->line = readline(pwd);
-
 	if (sh->line && *(sh->line))
 		add_history(sh->line);
 	if (sh->line == NULL)
