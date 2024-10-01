@@ -6,6 +6,8 @@ static int	ft_is_redir_or_pipe_before(char *str)
 	{
 		if (*str == '<' || *str == '>' || *str == '|')
 			return (TRUE);
+		if (ft_is_space(*str) == FALSE)
+			break;
 		str--;
 	}
 	return (FALSE);
@@ -17,6 +19,8 @@ static int	ft_is_pipe_repeated(char *str)
 	{
 		if (*str == '|')
 			return (TRUE);
+		if (ft_is_space(*str) == FALSE)
+			break;
 		str++;
 	}
 	return (FALSE);
