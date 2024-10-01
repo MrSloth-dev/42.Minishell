@@ -1,5 +1,6 @@
 #include "ft_printf.h"
 #include "minishell.h"
+#include <cstdlib>
 #include <unistd.h>
 
 void	ft_update_oldpwd(char *old_pwd, t_shell *shell);
@@ -25,7 +26,6 @@ void	ft_cd(char **cmdargs, t_shell *shell)
 	else if (!ft_strncmp("-", cmdargs[1], 1)) // print old pwd and change to it
 	{
 		old_pwd = ft_get_env("OLDPWD", shell);
-		ft_printf(1, "%s\n", old_pwd);
 		chdir(old_pwd);
 	}
 	else if (!ft_strncmp("~", cmdargs[1], 1))
@@ -35,6 +35,25 @@ void	ft_cd(char **cmdargs, t_shell *shell)
 	ft_update_oldpwd(update_old_pwd, shell);
 	ft_printf(1, "current pwd is %s\n", getcwd(NULL, 0));
 	ft_printf(1, "old pwd is %s\n", ft_get_env("OLDPWD", shell));
+}
+
+void	ft_safe_chdir(char *path, t_shell *shell, int flags)
+{
+	if (flags == 2)
+	{
+		ft_printf(STDERR_FILENO, "cd : too many args");
+		return ;
+	}
+	if (chdir(path) == -1)
+	{
+		if (flags == 1)
+			ft_printf(STDERR_FILENO, "cd : HOME not set");
+		else
+			ft_printf(STDERR_FILENO, "cd : %s: No such file or directory",
+				path);
+		shell->exit_status = EXIT_FAILURE;
+	}
+	shell->exit_status = EXIT_SUCCESS;
 }
 
 void	ft_update_oldpwd(char *old_pwd, t_shell *shell)
