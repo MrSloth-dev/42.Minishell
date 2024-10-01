@@ -22,3 +22,8 @@ end
 
 # info locals
 # info args
+define tokenizer
+break ft_tokenizer
+run
+display i
+end
