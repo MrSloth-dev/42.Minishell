@@ -95,15 +95,18 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
  - [ ] export with no options
     - [x] Append non existant env_var
     - [x] Swap existant env_var
+    - [ ] Make sure name doesnt contain invalid identifiers
     - [ ] Join with '+' existant env_var
-    - [x] Fucking Works
+    - [ ] Fucking Works
  - [ ] unset with no options
  - [ ] cd with only a relative or absoute path (no fucking cd ~) need readline to test
     - [ ] cd - goes to OLDPWD
     - [ ] cd -- goes to home and set oldpwd to home too)
     - [ ] cd ~ goes to HOME
     - [ ] cd goes to HOME
- - [x] exit with no options (this shiet has signals)
+ - [ ] exit with no options (this shiet has signals)
+   - [ ] it exits
+   - [ ] clears memory
 
 # Ivan needs to understand: (Joao says xD)
 - [ ] Implement redirections : < > << >> 

@@ -88,5 +88,5 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 		else
 			ft_append_env(cmdargs[k], temp);
 	}
-	return (temp);
+	return (temp); // Need to free the original struct I think
 }
