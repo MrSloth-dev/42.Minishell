@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 #include "minishell.h"
-#include <cstdlib>
+
 #include <unistd.h>
 
 void	ft_update_oldpwd(char *old_pwd, t_shell *shell);

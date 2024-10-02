@@ -74,6 +74,7 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 error : CFLAGS += $(EFLAGS)
+
 ivan : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(PRINTDIR) -s
@@ -81,12 +82,32 @@ ivan : $(OBJS)
 	$(CC) $(MAINI) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o minivan
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
+qk: ivan
+	./minivan
+
+deb : ivan
+	# @if [tmux has-session -t "$1" 2>/dev/null]; then\
+	tmux new-window  -n Gdb
+	tmux send-keys 'gdbtui ./minivan' C-m Escape
+	tmux split-window -h -l 30
+	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
+	tmux select-pane -t Gdb.1
+	@tmux set-hook -t Gdb wigit@github.com:MrSloth-dev/ShellFault.gitndow-linked { run-shell -b "\
+		while pgrep -x 'gdb' > /dev/null; do sleep 1; done; \
+		tmux wait-for -S gdb_done \
+		"}
+	tmux wait-for gdb_done
+	tmux send-keys -t Gdb.2 ':wqa' C-m Escape
+	tmux kill-window -t Gdb
+	# fi
+
 joao : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
 	@$(CC) $(OBJS) $(MAINJ) $(CFLAGS) $(PRINTFT) -o minijoao
 	@echo "$(GREEN)$(NAME) created[0m ✅"
+
 
 gdb : joao
 	# @if [tmux has-session -t "$1" 2>/dev/null]; then\

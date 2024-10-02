@@ -60,7 +60,7 @@ int	ft_how_much_consequent_spaces(char *str)
 	return (i);
 }
 
-void	ft_append_node(t_token_lst *token_lst, char *str, int type)
+int	ft_append_node(t_token_lst *token_lst, char *str, int type)
 {
 	t_token	*cur;
 	t_token	*new_token;
@@ -68,7 +68,7 @@ void	ft_append_node(t_token_lst *token_lst, char *str, int type)
 	cur = NULL;
 	new_token = ft_calloc(sizeof(t_token), 1);
 	if (!new_token)
-		return ;
+		return (0);
 
 	new_token->content = str;
 	new_token->type = type;
@@ -79,7 +79,7 @@ void	ft_append_node(t_token_lst *token_lst, char *str, int type)
 		token_lst->first = new_token;
 		new_token->prev = NULL;
 	}
-	if (token_lst->first)
+	else if (token_lst->first)
 	{
 		cur = token_lst->first;
 		while (cur->next)
@@ -87,23 +87,62 @@ void	ft_append_node(t_token_lst *token_lst, char *str, int type)
 		cur->next = new_token;
 		new_token->prev = cur;
 	}
+	return (ft_strlen(str));
 }
 
 int	ft_append_word(t_token_lst *token_lst, char *str, int type)
 {
-	int	j;
+	int	len;
 
-	j = 0;
+	len = 0;
 	if (type == WORD)
 	{
-		while (str[j] && ft_is_word(str[j]) == TRUE)
-			j++;
-		ft_append_node(token_lst, ft_substr(str, 0, j), type);
+		while (str[len] && ft_is_word(str[len]) == TRUE)
+			len++;
+		ft_append_node(token_lst, ft_substr(str, 0, len), type);
 	}
-	return(j);
+	return(len);
 }
 
+void	ft_print_tokens(t_token_lst *token_lst)
+{
+	t_token	*cur;
 
+	if (!token_lst->first)
+		return;
+	cur = token_lst->first;
+	printf("command: ");
+	while (cur)
+	{
+		printf("%s", cur->content);
+		cur = cur->next;
+	}
+	cur = token_lst->first;
+	printf("\ntypes: ");
+	while (cur)
+	{
+		if (cur->type == WORD)
+			printf("WORD ");
+		else if (cur->type == WHITE_SPACE)
+			printf("white_space ");
+		else if (cur->type == PIPELINE)
+			printf("PIPELINE ");
+		else if (cur->type == HERE_DOC)
+			printf("HERE_DOC ");
+		else if (cur->type == REDIR_OUT)
+			printf("REDIR_OUT ");
+		else if (cur->type == REDIR_IN)
+			printf("REDIR_IN ");
+		else if (cur->type == DBLE_REDIR_OUT)
+			printf("DBLE_REDIR_OUT ");
+		else if (cur->type == P_SINGLE_QTE)
+			printf("p_single_qte ");
+		else if (cur->type == P_DOUBLE_QTE)
+			printf("p_DOUBLE_qte");
+		cur = cur->next;
+	}
+	printf("\n");
+}
 
 void	ft_tokenizer(t_token_lst *token_lst, char *line)
 {
@@ -114,23 +153,36 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 	{
 		if (ft_is_word(line[i]) == TRUE)
 		{
-			i += ft_append_word(token_lst, line + i, WORD) - 1;
+			i += ft_append_word(token_lst, line + i, WORD);
 			if (!line[i])
 				break;
 		}
 		else if (ft_is_space(line[i]) == TRUE)
 		{
-			ft_append_node(token_lst, ft_strdup("_"), WHITE_SPACE);
-			i += ft_how_much_consequent_spaces(line + i) - 1;
+			ft_append_node(token_lst, ft_strdup(" "), WHITE_SPACE);
+			i += ft_how_much_consequent_spaces(line + i);
 		}
-		else
+		else if (line[i] == '|')
+			i += ft_append_node(token_lst, ft_strdup("|"), PIPELINE);
+		else if (line[i] == '<')
 		{
-			i++;
+			if (line[i + 1] != 0 && line[i + 1] == '<')
+				i += ft_append_node(token_lst, ft_strdup("<<"), HERE_DOC);
+			else
+				i += ft_append_node(token_lst, ft_strdup("<"), REDIR_IN);
 		}
-		// else if (line[i] == '|')
-		// {
-		// 	printf("\nhere is a PIPE\n\n");
-		// }
+		else if (line[i] == '>')
+		{
+			if (line[i + 1] != 0 && line[i + 1] == '>')
+				i += ft_append_node(token_lst, ft_strdup(">>"), DBLE_REDIR_OUT);
+			else
+			{
+				i += ft_append_node(token_lst, ft_strdup(">"), REDIR_OUT);
+			}
+		}
+
+	}
+
 		// else if (line[i] == '$')
 		// {
 		// 	printf("Oh my god, here is a DOLLAR! lets check heredoc!\n");
@@ -143,8 +195,8 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 		// {
 		// 	printf(" FUCKING QUOTES TO APPEND!\n");
 		// }
-	}
-
+	
+	ft_print_tokens(token_lst);
 }
 
 
