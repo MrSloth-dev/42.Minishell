@@ -21,7 +21,6 @@ char	*ft_get_env_key(char *env_str)
 
 	i = 0;
 	substr = ft_strchr(env_str, '+');
-	printf("%s\n", substr);
 	if (!substr || *(++substr) == '=')
 	{
 		plus = 1;

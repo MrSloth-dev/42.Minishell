@@ -69,8 +69,12 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 	int		k;
 	int		plus_mode;
 
+	i = 0;
 	if (!cmdargs)
 		return (NULL);
+	if (!cmdargs[1])
+		while (shell->envp[i])
+			ft_printf(1, "declare -x %s\n", shell->envp[i++]);
 	plus_mode = 0;
 	i = ft_export_size_increase(cmdargs, shell, &j);
 	temp = (char **)malloc(sizeof(char *) * (i + 1));

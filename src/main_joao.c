@@ -23,7 +23,7 @@ int	main(int argc, char *argv[], char *envp[])
 	split = ft_split(argv[1], ' ');
 	// sh.envp = ft_export(split, &sh);
 	ft_cd(split, &sh);
-	ft_env(&sh);
+	//ft_env(&sh);
 	// ft_cd(ft_split("cd -", ' '), &sh);
 	// ft_cd(ft_split("cd /usr/src/python3.10/", ' '), &sh);
 	// ft_pwd(&sh);

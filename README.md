@@ -93,6 +93,7 @@
  - [x] pwd with no options
  - [x] env with no option or aguments
  - [ ] export with no options
+    - [x] prints with "declare -x" with 0 args
     - [x] Append non existant env_var
     - [x] Swap existant env_var
     - [ ] Make sure name doesnt contain invalid identifiers
@@ -100,10 +101,12 @@
     - [ ] Fucking Works
  - [ ] unset with no options
  - [ ] cd with only a relative or absoute path (no fucking cd ~) need readline to test
-    - [ ] cd - goes to OLDPWD
-    - [ ] cd -- goes to home and set oldpwd to home too)
-    - [ ] cd ~ goes to HOME
-    - [ ] cd goes to HOME
+    - [ ] cd with relative path
+    - [x] cd with absolute path
+    - [x] cd - goes to OLDPWD
+    - [x] cd -- goes to home and set oldpwd to home too)
+    - [x] cd ~ goes to HOME
+    - [x] cd goes to HOME
  - [ ] exit with no options (this shiet has signals)
    - [ ] it exits
    - [ ] clears memory
