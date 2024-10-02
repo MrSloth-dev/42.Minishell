@@ -217,10 +217,7 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 		else
 		{
 			if (ft_is_space(line[i]) == TRUE)
-			{
-				ft_append_node(token_lst, ft_strdup(" "), WHITE_SPACE, status);
 				i += ft_how_much_consecutives_spaces(line + i);
-			}
 			else if (line[i] == '|')
 				i += ft_append_node(token_lst, ft_strdup("|"), PIPELINE, status);
 			else if (line[i] == '<')
