@@ -50,7 +50,7 @@ int	ft_is_word(char c)
 		return (TRUE);
 }
 
-int	ft_how_much_consequent_spaces(char *str)
+int	ft_how_much_consecutives_spaces(char *str)
 {
 	int	i;
 
@@ -60,7 +60,7 @@ int	ft_how_much_consequent_spaces(char *str)
 	return (i);
 }
 
-int	ft_append_node(t_token_lst *token_lst, char *str, int type)
+int	ft_append_node(t_token_lst *token_lst, char *str, int type, int status)
 {
 	t_token	*cur;
 	t_token	*new_token;
@@ -69,7 +69,8 @@ int	ft_append_node(t_token_lst *token_lst, char *str, int type)
 	new_token = ft_calloc(sizeof(t_token), 1);
 	if (!new_token)
 		return (0);
-
+	
+	new_token->status = status;
 	new_token->content = str;
 	new_token->type = type;
 	new_token->next = NULL;
@@ -90,16 +91,18 @@ int	ft_append_node(t_token_lst *token_lst, char *str, int type)
 	return (ft_strlen(str));
 }
 
-int	ft_append_word(t_token_lst *token_lst, char *str, int type)
+int	ft_append_word(t_token_lst *token_lst, char *str, int type, int status)
 {
 	int	len;
 
 	len = 0;
-	if (type == WORD)
+	if (type == WORD && status == NORMAL)
 	{
 		while (str[len] && ft_is_word(str[len]) == TRUE)
+		{
 			len++;
-		ft_append_node(token_lst, ft_substr(str, 0, len), type);
+		}
+		ft_append_node(token_lst, ft_substr(str, 0, len), type, status);
 	}
 	return(len);
 }
@@ -111,7 +114,7 @@ void	ft_print_tokens(t_token_lst *token_lst)
 	if (!token_lst->first)
 		return;
 	cur = token_lst->first;
-	printf("command: ");
+	printf("\ncommand: ");
 	while (cur)
 	{
 		printf("%s", cur->content);
@@ -124,63 +127,119 @@ void	ft_print_tokens(t_token_lst *token_lst)
 		if (cur->type == WORD)
 			printf("WORD ");
 		else if (cur->type == WHITE_SPACE)
-			printf("white_space ");
+			printf("ws ");
 		else if (cur->type == PIPELINE)
-			printf("PIPELINE ");
+			printf("PIPE ");
 		else if (cur->type == HERE_DOC)
-			printf("HERE_DOC ");
+			printf("H_DOC ");
 		else if (cur->type == REDIR_OUT)
-			printf("REDIR_OUT ");
+			printf("R_OUT ");
 		else if (cur->type == REDIR_IN)
-			printf("REDIR_IN ");
+			printf("R_IN ");
 		else if (cur->type == DBLE_REDIR_OUT)
-			printf("DBLE_REDIR_OUT ");
-		else if (cur->type == P_SINGLE_QTE)
-			printf("p_single_qte ");
-		else if (cur->type == P_DOUBLE_QTE)
-			printf("p_DOUBLE_qte");
+			printf("D_R_OUT ");
+		else if (cur->type == SINGLE_QTE)
+			printf("s_qt ");
+		else if (cur->type == DOUBLE_QTE)
+			printf("D_qt ");
 		cur = cur->next;
 	}
 	printf("\n");
+	cur = token_lst->first;
+	printf("STATUS: ");
+	while (cur)
+	{
+		if (cur->status == NORMAL)
+			printf("normal ");
+		else if (cur->status == IN_DOUBLE_QTE)
+			printf("in_DOUBLE_qte ");
+		else if (cur->status == IN_SINGLE_QTE)
+			printf("in_SINGLE_qte ");
+		cur = cur->next;
+	}
+	printf("\n\n");
 }
+
+int	ft_append_quotes_and_inside(t_token_lst *token_lst, char *str, int status)
+{
+	int		len;
+	char	qte;
+
+	qte = *str;
+	len = 1;
+
+	while (str[len] && str[len] != qte)
+		len++;
+
+	if (qte == '\'')
+		ft_append_node(token_lst, ft_strdup("\'"), SINGLE_QTE, NORMAL);
+	else if (qte == '\"')
+		ft_append_node(token_lst, ft_strdup("\""), DOUBLE_QTE, NORMAL);
+	
+	if (len == 1)
+		ft_append_node(token_lst, ft_strdup(""), WORD, status);
+	else
+		ft_append_node(token_lst, ft_substr(str + 1, 0, len - 1), WORD, status);
+
+	if (qte == '\'')
+		ft_append_node(token_lst, ft_strdup("\'"), SINGLE_QTE, NORMAL);
+	else if (qte == '\"')
+		ft_append_node(token_lst, ft_strdup("\""), DOUBLE_QTE, NORMAL);
+
+	return (len + 1);
+}
+
+
 
 void	ft_tokenizer(t_token_lst *token_lst, char *line)
 {
+	int	status;
 	int	i;
 
 	i = 0;
+	status = NORMAL;
 	while (line[i])
 	{
 		if (ft_is_word(line[i]) == TRUE)
 		{
-			i += ft_append_word(token_lst, line + i, WORD);
+			i += ft_append_word(token_lst, line + i, WORD, status);
 			if (!line[i])
 				break;
 		}
-		else if (ft_is_space(line[i]) == TRUE)
+		status = ft_check_status(status, line[i]);
+		if (status != NORMAL)
 		{
-			ft_append_node(token_lst, ft_strdup(" "), WHITE_SPACE);
-			i += ft_how_much_consequent_spaces(line + i);
+			i += ft_append_quotes_and_inside(token_lst, line + i, status);
+			status = NORMAL;
+			if (!line[i])
+				break ;
 		}
-		else if (line[i] == '|')
-			i += ft_append_node(token_lst, ft_strdup("|"), PIPELINE);
-		else if (line[i] == '<')
+		else
 		{
-			if (line[i + 1] != 0 && line[i + 1] == '<')
-				i += ft_append_node(token_lst, ft_strdup("<<"), HERE_DOC);
-			else
-				i += ft_append_node(token_lst, ft_strdup("<"), REDIR_IN);
-		}
-		else if (line[i] == '>')
-		{
-			if (line[i + 1] != 0 && line[i + 1] == '>')
-				i += ft_append_node(token_lst, ft_strdup(">>"), DBLE_REDIR_OUT);
-			else
+			if (ft_is_space(line[i]) == TRUE)
 			{
-				i += ft_append_node(token_lst, ft_strdup(">"), REDIR_OUT);
+				ft_append_node(token_lst, ft_strdup(" "), WHITE_SPACE, status);
+				i += ft_how_much_consecutives_spaces(line + i);
 			}
+			else if (line[i] == '|')
+				i += ft_append_node(token_lst, ft_strdup("|"), PIPELINE, status);
+			else if (line[i] == '<')
+			{
+				if (line[i + 1] != 0 && line[i + 1] == '<')
+					i += ft_append_node(token_lst, ft_strdup("<<"), HERE_DOC, status);
+				else
+					i += ft_append_node(token_lst, ft_strdup("<"), REDIR_IN, status);
+			}
+			else if (line[i] == '>')
+			{
+				if (line[i + 1] != 0 && line[i + 1] == '>')
+					i += ft_append_node(token_lst, ft_strdup(">>"), DBLE_REDIR_OUT, status);
+				else
+					i += ft_append_node(token_lst, ft_strdup(">"), REDIR_OUT, status);
+			}
+			else if (line[i] == '$')
+				i += ft_append_node(token_lst, ft_strdup("$"), ENV, status);
 		}
-
 	}
 
 		// else if (line[i] == '$')
