@@ -7,10 +7,10 @@
 ### Dictionary of Allowed Functions
 
 ### Some references
-https://github.com/tasmanday/42_minishell<br>
-https://github.com/josephcheel/42-Minishell<br>
-https://github.com/Kuninoto/42_minishell<br>
-https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<br>
+- https://github.com/tasmanday/42_minishell
+- https://github.com/josephcheel/42-Minishell
+- https://github.com/Kuninoto/42_minishell
+- https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)
 
 #### TODO Organize and add a definition
 //-------readline fts--------//
@@ -111,3 +111,21 @@ https://github.com/marcelofassbinder/42_MINISHELL (added 30/08 | user mfassbin)<
 # Ivan needs to understand: (Joao says xD)
 - [ ] Implement redirections : < > << >> 
 
+## For parser flags
+```
+
+static struct { char* s; enum flag flag; } flags[] = {
+  {"foo", FLAG_FOO},
+  {"bar", FLAG_BAR},
+  ...
+};
+
+enum flag flag_from_str(char *s)
+{
+  for (size_t i = 0; i < sizeof flags / sizeof flags[0]; i++)
+    if (strcmp(flags[i].s, s) == 0)
+      return flags[i].flag;
+  return FLAG_NONE;
+}
+
+```

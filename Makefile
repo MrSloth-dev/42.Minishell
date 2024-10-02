@@ -86,7 +86,6 @@ qk: ivan
 	./minivan
 
 deb : ivan
-	# @if [tmux has-session -t "$1" 2>/dev/null]; then\
 	tmux new-window  -n Gdb
 	tmux send-keys 'gdbtui ./minivan' C-m Escape
 	tmux split-window -h -l 30
@@ -99,7 +98,6 @@ deb : ivan
 	tmux wait-for gdb_done
 	tmux send-keys -t Gdb.2 ':wqa' C-m Escape
 	tmux kill-window -t Gdb
-	# fi
 
 joao : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
@@ -110,7 +108,6 @@ joao : $(OBJS)
 
 
 gdb : joao
-	# @if [tmux has-session -t "$1" 2>/dev/null]; then\
 	tmux new-window  -n Gdb
 	tmux send-keys 'gdbtui ./minijoao' C-m Escape
 	tmux split-window -h -l 30
@@ -123,7 +120,6 @@ gdb : joao
 	tmux wait-for gdb_done
 	tmux send-keys -t Gdb.2 ':wqa' C-m Escape
 	tmux kill-window -t Gdb
-	# fi
 
 
 clean:

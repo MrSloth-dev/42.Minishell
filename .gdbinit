@@ -20,10 +20,20 @@ define run_u
 run "export unset USER ZSH"
 end
 
-# info locals
-# info args
 define tokenizer
 break ft_tokenizer
 run
 display i
 end
+
+define run_cd
+break ft_cd
+run "cd "
+display getcwd(0 , 0)
+display *cmdargs @3
+end
+
+# Some notes and useful commands
+# info locals get vars
+# info args
+# info inferiors get process, need to cancel detach of parents

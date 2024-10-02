@@ -1,7 +1,19 @@
 #include "../../includes/minishell.h"
-#include <stdio.h>
 
-char	*ft_get_var_name(char *env_str)
+char	*ft_get_env_key_and_value(char *env_key, t_shell *shell)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(env_key);
+	while (*shell->envp)
+		if (ft_strncmp(env_key, ft_get_env_key(*shell->envp++), len) == 0)
+			return (shell->envp[i]);
+	return (NULL);
+}
+
+char	*ft_get_env_key(char *env_str)
 {
 	char	*substr;
 	int		plus;
@@ -21,7 +33,7 @@ char	*ft_get_var_name(char *env_str)
 	return (ft_substr(env_str, 0, i));
 }
 
-char	*ft_get_env(char *env_name, t_shell *shell)
+char	*ft_get_env_value(char *env_name, t_shell *shell)
 {
 	char	*env;
 	int		len;
@@ -49,10 +61,10 @@ int	ft_env_exist(char *var, int *j, char **env_list)
 
 	*j = 0;
 	len = ft_strlen(var);
-	var = ft_get_var_name(var);
+	var = ft_get_env_key(var);
 	while (env_list[*j])
 	{
-		name = ft_get_var_name(env_list[(*j)++]);
+		name = ft_get_env_key(env_list[(*j)++]);
 		if (ft_strncmp(var, name, len) == 0)
 			return (free(name), *j);
 		free(name);

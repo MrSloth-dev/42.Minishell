@@ -29,7 +29,7 @@ t_shell	*ft_readline(t_shell *sh)
 {
 	char	*pwd;
 
-	pwd = ft_strdup(ft_get_env("PWD", sh));
+	pwd = ft_strdup(ft_get_env_value("PWD", sh));
 	pwd = ft_strjoin(pwd, ft_strdup("$ "));
 	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
