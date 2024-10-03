@@ -99,9 +99,8 @@ int	ft_append_word(t_token_lst *token_lst, char *str, int type, int status)
 	if (status == NORMAL)
 	{
 		while (str[len] && ft_is_word(str[len]) == TRUE)
-		{
 			len++;
-		}
+
 		ft_append_node(token_lst, ft_substr(str, 0, len), type, status);
 	}
 	return(len);
@@ -246,19 +245,42 @@ void ft_join_tokens(t_token_lst *token_lst)
 	cur = token_lst->first;
 	while (cur)
 	{
-		if (cur->type == HERE_DOC)
-		{
-			if (cur->next &&
-	   			(cur->next->type == WORD
-				|| cur->next->type == IN_SINGLE_QTE
-				|| cur->next->type == IN_DOUBLE_QTE))
+			if (cur->type == WORD || cur->type == HERE_DOC)
 			{
-				ft_join_to_next_token(cur, cur->next);
+				while (cur->next && (cur->next->type == WORD))
+					ft_join_to_next_token(cur, cur->next);
 			}
-		}
 		cur = cur->next;
 	}
 	
+}
+
+void	ft_delete_space_tokens(t_token_lst *token_lst)
+{
+	t_token	*cur;
+	t_token	*tmp;
+
+	if (!token_lst || !token_lst->first)
+		return ;
+	cur = token_lst->first;
+	while (cur)
+	{
+		if (cur->type == WHITE_SPACE)
+		{
+			tmp = cur;
+			cur = cur->next;
+			if (cur)
+				cur->prev = tmp->prev;
+			if (tmp->prev)
+				tmp->prev->next = cur;
+			free(tmp->content);
+			free(tmp);
+			continue ;
+		}
+		cur = cur->next;
+	}
+
+
 }
 
 
@@ -305,6 +327,7 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 	//EXPAMD ENVS HERE DARLIN!
 
 	ft_join_tokens(token_lst);
+	ft_delete_space_tokens(token_lst);
 
 	ft_print_tokens(token_lst);
 
