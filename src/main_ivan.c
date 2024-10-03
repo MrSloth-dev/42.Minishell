@@ -96,7 +96,7 @@ int	ft_append_word(t_token_lst *token_lst, char *str, int type, int status)
 	int	len;
 
 	len = 0;
-	if (type == WORD && status == NORMAL)
+	if (status == NORMAL)
 	{
 		while (str[len] && ft_is_word(str[len]) == TRUE)
 		{
@@ -160,7 +160,7 @@ void	ft_print_tokens(t_token_lst *token_lst)
 	printf("\n\n");
 }
 
-int	ft_append_quotes_and_inside(t_token_lst *token_lst, char *str, int status)
+int	ft_append_inside_quotes(t_token_lst *token_lst, char *str, int status)
 {
 	int		len;
 	char	qte;
@@ -170,25 +170,96 @@ int	ft_append_quotes_and_inside(t_token_lst *token_lst, char *str, int status)
 
 	while (str[len] && str[len] != qte)
 		len++;
-
-	if (qte == '\'')
-		ft_append_node(token_lst, ft_strdup("\'"), SINGLE_QTE, NORMAL);
-	else if (qte == '\"')
-		ft_append_node(token_lst, ft_strdup("\""), DOUBLE_QTE, NORMAL);
 	
 	if (len == 1)
 		ft_append_node(token_lst, ft_strdup(""), WORD, status);
 	else
 		ft_append_node(token_lst, ft_substr(str + 1, 0, len - 1), WORD, status);
 
-	if (qte == '\'')
-		ft_append_node(token_lst, ft_strdup("\'"), SINGLE_QTE, NORMAL);
-	else if (qte == '\"')
-		ft_append_node(token_lst, ft_strdup("\""), DOUBLE_QTE, NORMAL);
-
 	return (len + 1);
 }
 
+
+int	ft_append_redir(t_token_lst *token_lst, char *line, int status)
+{
+	int	i;
+
+	i = 0;
+
+	if (line[i] == '<')
+	{
+		if (line[i + 1] != 0 && line[i + 1] == '<')
+		{
+			i += 2;
+			i += ft_how_much_consecutives_spaces(line + i);
+			i += ft_append_word(token_lst, line + i , HERE_DOC, status);
+		}
+		else
+		{
+			i++;
+			i += ft_how_much_consecutives_spaces(line + i);
+			i += ft_append_word(token_lst, line + i , REDIR_IN, status);
+		}
+	}
+	else if (line[i] == '>')
+	{
+		if (line[i + 1] != 0 && line[i + 1] == '>')
+		{
+			i += 2;
+			i += ft_how_much_consecutives_spaces(line + i);
+			i += ft_append_word(token_lst, line + i , DBLE_REDIR_OUT, status);
+		}
+		else
+		{
+			i++;
+			i += ft_how_much_consecutives_spaces(line + i);
+			i += ft_append_word(token_lst, line + i , REDIR_OUT, status);
+		}
+	}
+
+	return (i);
+}
+
+
+void ft_join_to_next_token(t_token *cur, t_token *to_join)
+{
+	char	*str_to_free;
+
+	if (!cur || !to_join)
+		return ;
+	str_to_free = cur->content;
+	cur->content = ft_strjoin(cur->content, to_join->content);
+	cur->next = to_join->next;
+	if (cur->next)
+		cur->next->prev = cur;
+	free(to_join->content);
+	free(to_join);
+	free(str_to_free);
+}
+
+void ft_join_tokens(t_token_lst *token_lst)
+{
+	t_token	*cur;
+
+	if (!token_lst || !token_lst->first)
+		return ;
+	cur = token_lst->first;
+	while (cur)
+	{
+		if (cur->type == HERE_DOC)
+		{
+			if (cur->next &&
+	   			(cur->next->type == WORD
+				|| cur->next->type == IN_SINGLE_QTE
+				|| cur->next->type == IN_DOUBLE_QTE))
+			{
+				ft_join_to_next_token(cur, cur->next);
+			}
+		}
+		cur = cur->next;
+	}
+	
+}
 
 
 void	ft_tokenizer(t_token_lst *token_lst, char *line)
@@ -209,7 +280,7 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 		status = ft_check_status(status, line[i]);
 		if (status != NORMAL)
 		{
-			i += ft_append_quotes_and_inside(token_lst, line + i, status);
+			i += ft_append_inside_quotes(token_lst, line + i, status);
 			status = NORMAL;
 			if (!line[i])
 				break ;
@@ -217,42 +288,27 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 		else
 		{
 			if (ft_is_space(line[i]) == TRUE)
+			{
 				i += ft_how_much_consecutives_spaces(line + i);
+				ft_append_node(token_lst, ft_strdup(" "), WHITE_SPACE, status);
+			}
 			else if (line[i] == '|')
 				i += ft_append_node(token_lst, ft_strdup("|"), PIPELINE, status);
-			else if (line[i] == '<')
-			{
-				if (line[i + 1] != 0 && line[i + 1] == '<')
-					i += ft_append_node(token_lst, ft_strdup("<<"), HERE_DOC, status);
-				else
-					i += ft_append_node(token_lst, ft_strdup("<"), REDIR_IN, status);
-			}
-			else if (line[i] == '>')
-			{
-				if (line[i + 1] != 0 && line[i + 1] == '>')
-					i += ft_append_node(token_lst, ft_strdup(">>"), DBLE_REDIR_OUT, status);
-				else
-					i += ft_append_node(token_lst, ft_strdup(">"), REDIR_OUT, status);
-			}
+			else if (line[i] == '<' || line[i] == '>')
+				i += ft_append_redir(token_lst, line + i, status);
 			else if (line[i] == '$')
 				i += ft_append_node(token_lst, ft_strdup("$"), ENV, status);
 		}
 	}
-
-		// else if (line[i] == '$')
-		// {
-		// 	printf("Oh my god, here is a DOLLAR! lets check heredoc!\n");
-		// }
-		// else if (line[i] == '<' || line[i] == '>')
-		// {
-		// 	printf("\nthere is a redir\n\n");
-		// }
-		// else if ((line[i] == '"' || line[i] == '\''))
-		// {
-		// 	printf(" FUCKING QUOTES TO APPEND!\n");
-		// }
-	
 	ft_print_tokens(token_lst);
+
+	//EXPAMD ENVS HERE DARLIN!
+
+	ft_join_tokens(token_lst);
+
+	ft_print_tokens(token_lst);
+
+	//ft_free_token_lst(token_lst);
 }
 
 
