@@ -5,7 +5,7 @@
 NAME = minishell
 CC = cc
 READLINE_FLAG = -lreadline
-	CFLAGS = -Iincludes -lreadline -g
+CFLAGS = -Iincludes -lreadline -g
 EFLAGS = -Wall -Wextra -Werror
 
 CLR_RMV = \033[0m
@@ -29,8 +29,11 @@ PRINTDIR = ./includes/ft_printf/
 PRINTFT = ./includes/ft_printf/libftprintf.a
 
 BDIR = src/builtins
+EXPDIR = src/expand
 SIGNALDIR = src/signals_and_readline
 SYNTAXDIR = src/syntax
+
+EXPAND = $(EXPDIR)/expand.c
 
 BUILTIN = $(BDIR)/echo.c \
 		$(BDIR)/pwd.c \
@@ -49,7 +52,7 @@ SYNTAX = $(SYNTAXDIR)/00_syntax_utils.c \
 		 $(SYNTAXDIR)/30_pipe.c \
 		 $(SYNTAXDIR)/40_special_chars.c
 
-SRCS = $(BUILTIN) $(SIGNAL) $(SYNTAX)
+SRCS = $(BUILTIN) $(SIGNAL) $(SYNTAX) $(EXPAND)
 
 MAINI = src/main_ivan.c
 MAINJ = src/main_joao.c

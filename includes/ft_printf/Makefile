@@ -12,7 +12,7 @@
 
 NAME=libftprintf.a
 
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS=-Wall -Wextra -Werror -g
 
 PRINTFSRCS = ft_puthex_fd.c ft_putchar_fd.c ft_putnbr_fd.c ft_uputnbr_fd.c ft_putpointer_fd.c ft_putstr_fd.c ft_printf.c
 
