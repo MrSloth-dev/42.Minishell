@@ -11,6 +11,15 @@ display cmdargs[k]
 display temp[k]
 end
 
+define run_x
+break ft_env_exist
+run "aa"
+display key
+display len
+display name
+b 73
+end
+
 define run_s
 break ft_export
 run "export USER=joao-polo iol=ganda_merda clix=merda_mesmo"

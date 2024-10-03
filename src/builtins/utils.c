@@ -1,4 +1,5 @@
 #include "../../includes/minishell.h"
+#include "ft_printf.h"
 
 char	*ft_get_env_key_and_value(char *env_key, t_shell *shell)
 {
@@ -20,11 +21,10 @@ char	*ft_get_env_key(char *env_str)
 	int		i;
 
 	i = 0;
+	plus = 0;
 	substr = ft_strchr(env_str, '+');
-	if (!substr || *(++substr) == '=')
-	{
+	if (substr && *(++substr) == '=')
 		plus = 1;
-	}
 	while (env_str[i] && env_str[i] != '=')
 		i++;
 	if (i == (int)ft_strlen(env_str) - plus)
@@ -48,11 +48,14 @@ char	*ft_get_env_value(char *env_name, t_shell *shell)
 		if (!ft_strncmp(env_name, shell->envp[i], len))
 		{
 			env = ft_strchr(shell->envp[i], '=') + 1;
-			return (env);
+			if (!env)
+				return (ft_strdup(""));
+			else
+				return (env);
 		}
 		i++;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 int	ft_env_exist(char *var, int *j, char **env_list)
@@ -70,12 +73,13 @@ int	ft_env_exist(char *var, int *j, char **env_list)
 	while (env_list[index])
 	{
 		name = ft_get_env_key(env_list[index]);
+		if (!name && index++)
+			continue;;
 		if (ft_strncmp(key, name, len) == 0)
 		{
-			free(name);
 			if (j)
 				*j = index;
-			return (free(key), index);
+			return (free(name), free(key), index);
 		}
 		free(name);
 		index++;

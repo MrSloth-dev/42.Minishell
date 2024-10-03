@@ -61,6 +61,39 @@ static int	ft_export_size_increase(char **cmdargs, t_shell *shell, int *j)
 	return (i);
 }
 
+
+
+void	ft_export_no_args(t_shell *shell)
+{
+	char	*swap;
+	int		size;
+	int		i;
+
+	i = 0;
+	size = 0;
+	while (shell->envp[size])
+		size++;
+	while (i < size)
+	{
+		if (ft_strcmp(shell->envp[i], shell->envp[i + 1]) > 0)
+		{
+			swap = shell->envp[i];
+			shell->envp[i] = shell->envp[i + 1];
+			shell->envp[i + 1] = swap;
+			i = 1;
+		}
+		else
+			i++;
+	}
+	while (shell->envp[i])
+	{
+		ft_printf(1, "declare -x %s=", ft_get_env_key(shell->envp[i]));
+		ft_printf(1, "\"%s\"\n", ft_get_env_value(shell->envp[i], shell));
+		i++;
+	}
+
+}
+
 char	**ft_export(char **cmdargs, t_shell *shell)
 {
 	char	**temp;
@@ -73,8 +106,7 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 	if (!cmdargs)
 		return (NULL);
 	if (!cmdargs[1])
-		while (shell->envp[i])
-			ft_printf(1, "declare -x %s\n", shell->envp[i++]);
+		ft_export_no_args(shell);
 	plus_mode = 0;
 	i = ft_export_size_increase(cmdargs, shell, &j);
 	temp = (char **)malloc(sizeof(char *) * (i + 1));
