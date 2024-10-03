@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "minishell.h"
 
 int	main(int argc, char *argv[], char *envp[])
@@ -21,14 +22,12 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc != 2)
 		return (1);
 	sh.envp = envp;
-	//split = ft_split(argv[1], ' ');
-	str = ft_expand(argv[1], &sh);
-	ft_printf(1, "%s\n", str);
-	if (str)
-		free(str);
-	// sh.envp = ft_export(split, &sh);
+	split = ft_split(argv[1], ' ');
+	// str = ft_expand(argv[1], &sh);
+	// ft_printf(1, "%s\n", str);
+	sh.envp = ft_export(split, &sh);
 	// ft_cd(split, &sh);
-	//ft_env(&sh);
+	// ft_env(&sh);
 	// ft_cd(ft_split("cd -", ' '), &sh);
 	// ft_cd(ft_split("cd /usr/src/python3.10/", ' '), &sh);
 	// ft_pwd(&sh);
