@@ -94,10 +94,11 @@ typedef struct s_token_lst
 
 typedef struct s_shell
 {
-	char		*line;
-	char		**envp;
-	int			exit_status;
 	t_token_lst	*token_lst;
+	int			exit_status;
+	char		**envp;
+	char		*line;
+	int			pid;
 }	t_shell;
 
 // BUILT-INS
@@ -118,6 +119,9 @@ void	ft_append_env(char *cmdargs, char **temp);
 void	ft_swap_env(char *cmdargs, char **temp, int j);
 void	ft_append_env(char *cmdargs, char **temp);
 void	ft_swap_env(char *cmdargs, char **temp, int j);
+
+//EXPAND
+char	*ft_expand(char *str, t_shell *shell);
 
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);

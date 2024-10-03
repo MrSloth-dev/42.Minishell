@@ -38,6 +38,8 @@ char	*ft_get_env_value(char *env_name, t_shell *shell)
 	int		len;
 	int		i;
 
+	if (!env_name)
+		return (NULL);
 	env = NULL;
 	len = ft_strlen(env_name);
 	i = 0;
@@ -56,19 +58,29 @@ char	*ft_get_env_value(char *env_name, t_shell *shell)
 int	ft_env_exist(char *var, int *j, char **env_list)
 {
 	char	*name;
+	char	*key;
 	int		len;
+	int		index;
 
-	*j = 0;
+	if (!var)
+		return (-1);
+	index = 0;
 	len = ft_strlen(var);
-	var = ft_get_env_key(var);
-	while (env_list[*j])
+	key = ft_get_env_key(var);
+	while (env_list[index])
 	{
-		name = ft_get_env_key(env_list[(*j)++]);
-		if (ft_strncmp(var, name, len) == 0)
-			return (free(name), *j);
+		name = ft_get_env_key(env_list[index]);
+		if (ft_strncmp(key, name, len) == 0)
+		{
+			free(name);
+			if (j)
+				*j = index;
+			return (free(key), index);
+		}
 		free(name);
+		index++;
 	}
-	return (-1);
+	return (free(key), -1);
 }
 
 char	*ft_strjoin_free(char const *s1, char const *s2)

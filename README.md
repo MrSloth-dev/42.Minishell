@@ -132,3 +132,8 @@ enum flag flag_from_str(char *s)
 }
 
 ```
+## Tests to be made
+
+- [ ] `<<end"$USER" > log` ends with `end$USER`
+- [ ] ```-n1 hellojoao-pol@c2r6s4:~$ echo -n -nnn -nnn -nnn -n1 "hello"
+-n1 hellojoao-pol@c2r6s4:~$```

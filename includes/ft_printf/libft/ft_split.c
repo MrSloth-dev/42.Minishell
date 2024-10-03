@@ -38,7 +38,7 @@ static char	*ft_get_next_word(char *str, char c, int *i, int *in_quotes)
 			if ((*i)++ | len++)
 				continue ;
 		}
-		if (str[*i] == c && !(*in_quotes))
+		if (str[*i] == c && (*in_quotes) == 0)
 			break ;
 		(*i)++;
 		len++;
