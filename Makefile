@@ -86,18 +86,7 @@ qk: ivan
 	./minivan
 
 deb : ivan
-	tmux new-window  -n Gdb
 	tmux send-keys 'gdbtui ./minivan' C-m Escape
-	tmux split-window -h -l 30
-	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
-	tmux select-pane -t Gdb.1
-	@tmux set-hook -t Gdb wigit@github.com:MrSloth-dev/ShellFault.gitndow-linked { run-shell -b "\
-		while pgrep -x 'gdb' > /dev/null; do sleep 1; done; \
-		tmux wait-for -S gdb_done \
-		"}
-	tmux wait-for gdb_done
-	tmux send-keys -t Gdb.2 ':wqa' C-m Escape
-	tmux kill-window -t Gdb
 
 joao : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."

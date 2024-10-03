@@ -26,6 +26,11 @@ run
 display i
 end
 
+define join_t
+break ft_join_tokens
+run
+end
+
 define run_cd
 break ft_cd
 run "cd "
