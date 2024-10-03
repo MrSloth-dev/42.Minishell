@@ -327,6 +327,7 @@ void ft_free_shell(t_shell *sh)
 		}
 	}
 
+	free(sh->token_lst);
 }
 
 
