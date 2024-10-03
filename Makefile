@@ -16,6 +16,17 @@ BLUE	= \033[1;34m
 CYAN	= \033[1;36m
 RM	    = rm -rf
 
+################################################################################
+#                                    VALGRIND                                  #
+################################################################################
+LEAKS_LOG              = leaks.log
+READLINE_SUPP          = readline.supp
+VALGRINDFLAGS          = -s --suppressions=$(READLINE_SUPP) \
+                         --tool=memcheck --leak-check=full \
+                         --show-leak-kinds=all --track-origins=yes \
+                         --track-fds=yes --show-below-main=no \
+                         --log-file=$(LEAKS_LOG)
+
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -84,6 +95,9 @@ ivan : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
 	$(CC) $(MAINI) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o minivan
 	@echo "$(GREEN)$(NAME) created[0m ✅"
+
+itlk: ivan
+	valgrind ./minivan $(VALGRINDFLAGS) 
 
 qk: ivan
 	./minivan

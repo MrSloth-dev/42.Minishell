@@ -308,10 +308,26 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 
 	ft_print_tokens(token_lst);
 
-	//ft_free_token_lst(token_lst);
 }
 
+void ft_free_shell(t_shell *sh)
+{
+	t_token	*cur;
+	t_token	*tmp;
+	
+	if (sh->token_lst && sh->token_lst->first)
+	{
+		cur = sh->token_lst->first;
+		while (cur)
+		{
+			tmp = cur;
+			cur = cur->next;
+			free (tmp->content);
+			free (tmp);
+		}
+	}
 
+}
 
 
 
@@ -321,6 +337,8 @@ void	ft_shellfault(t_shell *sh)
 	if (!sh->token_lst)
 		return ;
 	ft_tokenizer(sh->token_lst, sh->line);
+
+	ft_free_shell(sh);
 }
 
 

@@ -30,7 +30,7 @@ t_shell	*ft_readline(t_shell *sh)
 	char	*pwd;
 
 	pwd = ft_strdup(ft_get_env_value("PWD", sh));
-	pwd = ft_strjoin(pwd, ft_strdup("$ "));
+	pwd = ft_strjoin_free(pwd, ft_strdup("$ "));
 	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
 	sh->line = NULL;
@@ -39,6 +39,9 @@ t_shell	*ft_readline(t_shell *sh)
 		add_history(sh->line);
 	if (sh->line == NULL)
 	{
+		free(sh->token_lst);
+		free(pwd);
+		free(sh);
 		ft_printf(1, "exit\n");
 		exit (EXIT_SUCCESS);
 	}
