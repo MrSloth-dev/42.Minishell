@@ -38,12 +38,12 @@ t_shell	*ft_readline(t_shell *sh)
 	if (sh->line && *(sh->line))
 		add_history(sh->line);
 	if (sh->line == NULL)
-	{
-		free(sh->token_lst);
+	{	
 		free(pwd);
 		free(sh);
 		ft_printf(1, "exit\n");
 		exit (EXIT_SUCCESS);
 	}
+	free(pwd);
 	return (sh);
 }

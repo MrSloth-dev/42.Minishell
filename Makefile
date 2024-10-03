@@ -19,13 +19,13 @@ RM	    = rm -rf
 ################################################################################
 #                                    VALGRIND                                  #
 ################################################################################
-LEAKS_LOG              = leaks.log
+LEAKS_LOG              = ./leaks.log
 READLINE_SUPP          = readline.supp
 VALGRINDFLAGS          = -s --suppressions=$(READLINE_SUPP) \
                          --tool=memcheck --leak-check=full \
                          --show-leak-kinds=all --track-origins=yes \
                          --track-fds=yes --show-below-main=no \
-                         --log-file=$(LEAKS_LOG)
+						 --log-file=$(LEAKS_LOG)
 
 
 ################################################################################
@@ -97,7 +97,7 @@ ivan : $(OBJS)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 itlk: ivan
-	valgrind ./minivan $(VALGRINDFLAGS) 
+	valgrind $(VALGRINDFLAGS) ./minivan
 
 qk: ivan
 	./minivan
