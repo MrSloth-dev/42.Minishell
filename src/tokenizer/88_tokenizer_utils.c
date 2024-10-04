@@ -36,7 +36,20 @@ void	ft_print_tokens(t_token_lst *token_lst)
 	printf("\ncommand: ");
 	while (cur)
 	{
+		if (cur->type == PIPE)
+			printf(" ");
+		else if (cur->type == HERE_DOC)
+			printf(" << ");
+		else if (cur->type == REDIR_IN)
+			printf(" < ");
+		else if (cur->type == REDIR_OUT)
+			printf(" > ");
+		else if (cur->type == DBLE_REDIR_OUT)
+			printf(" >> ");
+
 		printf("%s", cur->content);
+		if (cur->type == PIPE)
+			printf(" ");
 		cur = cur->next;
 	}
 	cur = token_lst->first;
@@ -61,20 +74,22 @@ void	ft_print_tokens(t_token_lst *token_lst)
 			printf("s_qt ");
 		else if (cur->type == DOUBLE_QTE)
 			printf("D_qt ");
+		else if (cur->type == ENV)
+			printf("ENV ");
 		cur = cur->next;
 	}
-	printf("\n");
-	cur = token_lst->first;
-	printf("STATUS: ");
-	while (cur)
-	{
-		if (cur->status == NORMAL)
-			printf("normal ");
-		else if (cur->status == IN_DOUBLE_QTE)
-			printf("in_DOUBLE_qte ");
-		else if (cur->status == IN_SINGLE_QTE)
-			printf("in_SINGLE_qte ");
-		cur = cur->next;
-	}
-	printf("\n\n");
+//	printf("\n");
+	// cur = token_lst->first;
+	// printf("STATUS: ");
+	// while (cur)
+	// {
+	// 	if (cur->status == NORMAL)
+	// 		printf("normal ");
+	// 	else if (cur->status == IN_DOUBLE_QTE)
+	// 		printf("in_DOUBLE_qte ");
+	// 	else if (cur->status == IN_SINGLE_QTE)
+	// 		printf("in_SINGLE_qte ");
+	// 	cur = cur->next;
+	// }
+	 printf("\n\n");
 }

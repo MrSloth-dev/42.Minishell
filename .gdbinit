@@ -31,8 +31,8 @@ run
 display i
 end
 
-define join_t
-break ft_join_tokens
+define bin
+break ft_make_binary_tree
 run
 end
 

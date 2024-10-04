@@ -69,21 +69,27 @@
 # define IN_SINGLE_QTE 1
 # define IN_DOUBLE_QTE 2
 
+// node classify
+# define ND_EXEC 1
+# define ND_PIPE 2
+
 // classification of nodes
-# define EXEC 1
-# define BUILTIN 2
-# define PIPE 3
-# define REDIR 4
+//# define EXEC 1
+//# define BUILTIN 2
+//# define PIPE 3
+//# define REDIR 4
 
 typedef struct s_token
 {
-	int				id;
-	int				pos;
+//	int				id;
+//	int				pos;
 	int				status;
 	int				type;
 	char			*content;
 	struct s_token	*next;
 	struct s_token	*prev;
+	struct s_token	*left;
+	struct s_token	*right;
 }		t_token;
 
 typedef struct s_token_lst
@@ -91,7 +97,9 @@ typedef struct s_token_lst
 	t_token	*first;
 	t_token	*last;
 }		t_token_lst;
+///////////////////////////////
 
+///////////////////////////////
 typedef struct s_shell
 {
 	t_token_lst	*token_lst;
