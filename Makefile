@@ -43,6 +43,11 @@ BDIR = src/builtins
 EXPDIR = src/expand
 SIGNALDIR = src/signals_and_readline
 SYNTAXDIR = src/syntax
+TOKENIZERDIR = src/tokenizer
+FREEDIR = src/free_stuff
+INITDIR = src/init
+
+INIT = $(INITDIR)/00_init.c
 
 EXPAND = $(EXPDIR)/expand.c
 
@@ -63,7 +68,12 @@ SYNTAX = $(SYNTAXDIR)/00_syntax_utils.c \
 		 $(SYNTAXDIR)/30_pipe.c \
 		 $(SYNTAXDIR)/40_special_chars.c
 
-SRCS = $(BUILTIN) $(SIGNAL) $(SYNTAX) $(EXPAND)
+TOKENIZER = $(TOKENIZERDIR)/00_tokenizer.c \
+			$(TOKENIZERDIR)/88_tokenizer_utils.c
+
+FREE = $(FREEDIR)/00_free_shell.c \
+
+SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(EXPAND) $(FREE)
 
 MAINI = src/main_ivan.c
 MAINJ = src/main_joao.c
@@ -96,7 +106,7 @@ ivan : $(OBJS)
 	$(CC) $(MAINI) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o minivan
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
-itlk: ivan
+le: ivan
 	valgrind $(VALGRINDFLAGS) ./minivan
 
 qk: ivan

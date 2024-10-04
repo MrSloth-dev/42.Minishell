@@ -63,3 +63,24 @@ int	ft_is_empty_token(char *line, int direction)
 	}
 	return (TRUE);
 }
+
+int	ft_have_syntax_error(t_shell *sh)
+{
+	int	have_error;
+
+	have_error = FALSE;
+	have_error = ft_have_unclosed_qtes(sh->line);
+	if (have_error != FALSE)
+		return (have_error);
+	have_error = ft_check_redirs(sh->line);
+	if (have_error != FALSE)
+		return (have_error);
+	have_error = ft_check_pipes(sh->line);
+	if (have_error != FALSE)
+		return (have_error);
+	have_error = ft_check_special_char(sh->line);
+	if (have_error != FALSE)
+		return (have_error);
+	return (have_error);
+}
+
