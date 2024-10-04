@@ -126,6 +126,7 @@ char	*ft_expand(char *str, t_shell *shell);
 
 //init
 t_shell	*ft_init_shell(char *envp[]);
+char	**ft_init_envp(char **envp, t_shell *shell);
 
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
