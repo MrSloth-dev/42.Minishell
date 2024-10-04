@@ -1,16 +1,34 @@
 #include "minishell.h"
 
-void	ft_swap_env(char *cmdargs, char **temp, int j)
+void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell)
 {
 	int		k;
+	char *joinvalue;
 
+	joinvalue = ft_get_env_value(cmdargs, temp, shell);
 	k = 0;
 	j--;
 	while (temp[k])
 	{
 		if (j == k)
-			temp[k] = ft_strdup(cmdargs);
+			temp[k] = ft_strjoin_free(temp[k], joinvalue);
 		if (!temp[k])
+			return ;
+		k++;
+	}
+}
+
+void	ft_swap_env(char *cmdargs, char **temp, int j)
+{
+	int		k;
+
+	k = 0;
+	// j--;
+	while (temp[k])
+	{
+		if (j == k)
+			temp[k] = ft_strdup(cmdargs);
+		if (!temp[k] || j == k)
 			return ;
 		k++;
 	}
@@ -27,33 +45,54 @@ void	ft_append_env(char *cmdargs, char **temp)
 	temp[i] = 0;
 }
 
-void	ft_export_no_args(t_shell shell)
+char	**ft_order_env(char **env)
 {
-	int		i;
-	int		size;
+	char	**order;
 	char	*swap;
+	int		size;
+	int		i;
 
 	i = 0;
 	size = 0;
-	while (shell.envp[size])
+	order = ft_copy_envp(env);
+	while (order[size])
 		size++;
 	while (i < size - 1)
 	{
-		if (ft_strcmp(shell.envp[i], shell.envp[i + 1]) > 0)
+		if (ft_strcmp(order[i], order[i + 1]) > 0)
 		{
-			swap = shell.envp[i];
-			shell.envp[i] = shell.envp[i + 1];
-			shell.envp[i + 1] = swap;
+			swap = order[i];
+			order[i] = order[i + 1];
+			order[i + 1] = swap;
 			i = 1;
 		}
 		else
 			i++;
 	}
+	return (order);
+}
+
+void	ft_export_no_args(t_shell shell)
+{
+	int		i;
+	char	**order;
+	char	*value;
+
+	order = ft_order_env(shell.envp);
 	i = 0;
-	while (shell.envp[i])
+	i = 0;
+	while (order[i])
 	{
-		ft_printf(1, "declare -x %s=", ft_get_env_key(shell.envp[i]));
-		ft_printf(1, "\"%s\"\n", ft_get_env_value(shell.envp[i], &shell));
+		ft_printf(1, "declare -x %s=", ft_get_env_key(order[i]));
+		value = ft_get_env_value(order[i], order, &shell);
+		if (!value)
+			ft_printf(1, "\"\"\n");
+		else
+			ft_printf(1, "\"%s\"\n", value);
 		i++;
 	}
+	i = 0;
+	while (order[i])
+		free(order[i++]);
+	free(order);
 }

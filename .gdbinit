@@ -12,12 +12,8 @@ display temp[k]
 end
 
 define run_x
-break ft_env_exist
-run "aa"
-display key
-display len
-display name
-b 73
+break ft_export
+run "export ZSH+=:lol"
 end
 
 define run_s

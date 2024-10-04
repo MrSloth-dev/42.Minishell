@@ -19,17 +19,19 @@ int	main(int argc, char *argv[], char *envp[])
 	char	**split;
 	char	*str;
 
-	if (argc != 2)
-		return (1);
-	sh.envp = envp;
+	(void)argc;
+	sh.envp = ft_copy_envp(envp, 0);
 	split = ft_split(argv[1], ' ');
 	// ft_printf(1, "%s\n", str);
 	sh.envp = ft_export(split, &sh);
-	str = "export";
+	str = argv[2];
 	split = ft_split(str, ' ');
 	sh.envp = ft_export(split, &sh);
+	int i = 0;
+	while (argv[i++])
+		sh.envp = ft_export(ft_split(argv[i], ' '), &sh);
 	// ft_cd(split, &sh);
-	ft_env(&sh);
+	// ft_env(&sh);
 	// ft_cd(ft_split("cd -", ' '), &sh);
 	// ft_cd(ft_split("cd /usr/src/python3.10/", ' '), &sh);
 	// ft_pwd(&sh);

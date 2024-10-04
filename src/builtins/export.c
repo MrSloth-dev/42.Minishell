@@ -53,10 +53,12 @@ static int	ft_export_size_increase(char **cmdargs, t_shell *shell, int *j)
 		i++;
 	while (cmdargs[k])
 	{
-		if (ft_env_exist(cmdargs[k++], j, shell->envp) == -1)
+		if (ft_env_exist(cmdargs[k], j, shell->envp) == -1
+			&& !ft_strchr(cmdargs[k], '='))
 			i++;
 		if (ft_export_duplicate(cmdargs, k))
 			i--;
+		k++;
 	}
 	return (i);
 }
@@ -76,16 +78,17 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 		ft_export_no_args(*shell);
 	plus_mode = 0;
 	i = ft_export_size_increase(cmdargs, shell, &j);
-	temp = (char **)malloc(sizeof(char *) * (i + 1));
-	ft_copy_env(temp, shell->envp);
+	temp = ft_copy_envp(shell->envp, i);
 	k = 0;
 	while (cmdargs[++k])
 	{
+		if (!ft_strchr(cmdargs[k], '='))
+			continue ;
 		j = -1;
 		if ((ft_strchr(cmdargs[k], '=') - ft_strchr(cmdargs[k], '+')) == 1)
 			plus_mode = 1;
 		if (ft_env_exist(cmdargs[k], &j, temp) != -1 && plus_mode)
-			ft_swap_env(cmdargs[k], temp, j);
+			ft_swap_plus_env(cmdargs[k], temp, j);
 		else if (ft_env_exist(cmdargs[k], &j, temp) != -1 && !plus_mode)
 			ft_swap_env(cmdargs[k], temp, j);
 		else

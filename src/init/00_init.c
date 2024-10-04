@@ -10,12 +10,12 @@ t_shell	*ft_init_shell(char *envp[])
 		return (NULL);
 	}
 	sh->token_lst = NULL;
-	sh->envp = envp;
+	sh->envp = ft_copy_envp(envp, 0);
 
 	return (sh);
 }
 
-char	**ft_init_envp(char **envp, t_shell *shell)
+char	**ft_copy_envp(char **envp, int extra)
 {
 	int	i;
 	char **temp_envp;
@@ -23,13 +23,13 @@ char	**ft_init_envp(char **envp, t_shell *shell)
 	i = 0;
 	while (envp[i])
 		i++;
-	temp_envp = calloc(sizeof(char *), i + 1);
+	temp_envp = calloc(sizeof(char *), i + 1 + extra);
 	if (!temp_envp)
 		return (NULL);
 	i = 0;
 	while (envp[i])
 	{
-		temp_envp[i] = ft_strdup(shell->envp[i]);
+		temp_envp[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	return (temp_envp);

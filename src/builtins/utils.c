@@ -32,7 +32,7 @@ char	*ft_get_env_key(char *env_str)
 	return (ft_substr(env_str, 0, i));
 }
 
-char	*ft_get_env_value(char *env_name, t_shell *shell)
+char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell)
 {
 	char	*env;
 	int		len;
@@ -43,11 +43,12 @@ char	*ft_get_env_value(char *env_name, t_shell *shell)
 	env = NULL;
 	len = ft_strlen(env_name);
 	i = 0;
-	while (shell->envp[i])
+	shell->exit_status = EXIT_SUCCESS;
+	while (env_list[i])
 	{
-		if (!ft_strncmp(env_name, shell->envp[i], len))
+		if (!ft_strncmp(env_name, env_list[i], len))
 		{
-			env = ft_strchr(shell->envp[i], '=') + 1;
+			env = ft_strchr(env_list[i], '=') + 1;
 			if (!env)
 				return (ft_strdup(""));
 			else
@@ -68,13 +69,15 @@ int	ft_env_exist(char *var, int *j, char **env_list)
 	if (!var)
 		return (-1);
 	index = 0;
-	len = ft_strlen(var);
 	key = ft_get_env_key(var);
+	if (key == NULL)
+		return (-1);
+	len = ft_strlen(key);
 	while (env_list[index])
 	{
 		name = ft_get_env_key(env_list[index]);
 		if (!name && index++)
-			continue;;
+			continue ;
 		if (ft_strncmp(key, name, len) == 0)
 		{
 			if (j)

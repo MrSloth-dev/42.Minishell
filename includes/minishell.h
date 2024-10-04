@@ -112,7 +112,7 @@ void	ft_cd(char **cmdargs, t_shell *shell);
 //BUILT-INS UTILS
 char	*ft_get_env_key_and_value(char *env_key, t_shell *shell);
 char	*ft_get_env_key(char *env_str);
-char	*ft_get_env_value(char *env_name, t_shell *shell);
+char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell);
 int		ft_env_exist(char *var, int *j, char **temp);
 char	*ft_strjoin_free(char const *s1, char const *s2);
 void	ft_append_env(char *cmdargs, char **temp);
@@ -126,7 +126,7 @@ char	*ft_expand(char *str, t_shell *shell);
 
 //init
 t_shell	*ft_init_shell(char *envp[]);
-char	**ft_init_envp(char **envp, t_shell *shell);
+char	**ft_copy_envp(char **envp, int extra);
 
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
