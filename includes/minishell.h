@@ -77,11 +77,11 @@
 
 typedef struct s_token
 {
-	int		id;
-	int		pos;
-	int		status;
-	int		type;
-	char	*content;
+	int				id;
+	int				pos;
+	int				status;
+	int				type;
+	char			*content;
 	struct s_token	*next;
 	struct s_token	*prev;
 }		t_token;
@@ -113,12 +113,13 @@ void	ft_cd(char **cmdargs, t_shell *shell);
 char	*ft_get_env_key_and_value(char *env_key, t_shell *shell);
 char	*ft_get_env_key(char *env_str);
 char	*ft_get_env_value(char *env_name, t_shell *shell);
-int	ft_env_exist(char *var, int *j, char **temp);
+int		ft_env_exist(char *var, int *j, char **temp);
 char	*ft_strjoin_free(char const *s1, char const *s2);
 void	ft_append_env(char *cmdargs, char **temp);
 void	ft_swap_env(char *cmdargs, char **temp, int j);
 void	ft_append_env(char *cmdargs, char **temp);
 void	ft_swap_env(char *cmdargs, char **temp, int j);
+void	ft_export_no_args(t_shell shell);
 
 //EXPAND
 char	*ft_expand(char *str, t_shell *shell);
@@ -127,7 +128,7 @@ char	*ft_expand(char *str, t_shell *shell);
 t_shell	*ft_readline(t_shell *sh);
 
 // syntax_utils_file
-void 	ft_print_syntax_error(int	error);
+void	ft_print_syntax_error(int error);
 int		ft_check_status(int status, char c);
 int		ft_is_space(char c);
 int		ft_is_empty_token(char *line, int direction);
