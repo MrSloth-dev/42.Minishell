@@ -123,6 +123,9 @@ void	ft_swap_env(char *cmdargs, char **temp, int j);
 //EXPAND
 char	*ft_expand(char *str, t_shell *shell);
 
+//init
+t_shell	*ft_init_shell(char *envp[]);
+
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
 
@@ -136,5 +139,16 @@ int		ft_have_unclosed_qtes(char *line);
 int		ft_check_redirs(char *line);
 int		ft_check_pipes(char *line);
 int		ft_check_special_char(char *line);
+int		ft_have_syntax_error(t_shell *sh);
+
+//tokenizer
+void	ft_tokenizer(t_token_lst *token_lst, char *line);
+//tokenizer utils
+int		ft_is_word(char c);
+int		ft_how_much_consecutives_spaces(char *str);
+void	ft_print_tokens(t_token_lst *token_lst);
+
+//free_stuff
+void ft_free_shell(t_shell *sh);
 
 #endif //MINISHELL_H_
