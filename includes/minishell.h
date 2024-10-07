@@ -22,6 +22,11 @@
 # include <readline/history.h>
 # include <signal.h>
 
+# define RED "\e[1;3;31m"
+# define GREEN "\e[1;3;32m"
+# define YELLOW "\e[1;3;93m"
+# define RESET "\e[0m"
+
 # define SUCCESS 0
 # define ERROR 1
 # define INVALID -1
@@ -160,6 +165,7 @@ int		ft_how_much_consecutives_spaces(char *str);
 void	ft_print_tokens(t_token_lst *token_lst);
 
 //free_stuff
-void ft_free_shell(t_shell *sh);
+void ft_free_bin_shell(t_shell *sh);
+void ft_free_lst_shell(t_shell *sh);
 
 #endif //MINISHELL_H_

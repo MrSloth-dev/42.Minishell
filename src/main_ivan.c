@@ -32,17 +32,17 @@ void	ft_print_binary_tree(t_token_lst *token_lst)
 	{
 		if (cmd)
 		{
-		printf("%s ", cmd->content);
+		printf("%s%s ",GREEN, cmd->content);
 		cmd = cmd->next;
 		}
 		else
 			printf("      ");
 		if (rdir)
 		{
-			printf("%s ____%d", rdir->content, rdir->type);
+			printf("%s%s %s%d", YELLOW, rdir->content, RED, rdir->type);
 			rdir = rdir->next;
 		}
-		printf("\n");
+		printf("%s\n", RESET);
 	}
 	printf("\n");
 }
@@ -51,7 +51,7 @@ t_token	*ft_new_bin_token()
 {
 	t_token	*new;
 
-	new = ft_calloc(sizeof(t_token *), 1);
+	new = ft_calloc(sizeof(t_token), 1);
 	if (!new)
 		return (NULL);
 	new->next = NULL;
@@ -135,11 +135,15 @@ void	ft_shellfault(t_shell *sh)
 	if (!sh->token_lst)
 		return ;
 	ft_tokenizer(sh->token_lst, sh->line);
+
+//	ft_print_tokens(sh->token_lst);
+//	ft_free_lst_shell(sh);
+
 	ft_make_binary_tree(sh->token_lst);
 	ft_print_binary_tree(sh->token_lst);
+	ft_free_bin_shell(sh);
 
-//	ft_free_shell(sh);
-	ft_prepare_new_prompt(sh);
+	//	ft_prepare_new_prompt(sh);
 }
 
 int	main(int argc, char *argv[], char *envp[])
