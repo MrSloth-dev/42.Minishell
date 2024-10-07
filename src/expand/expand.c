@@ -31,7 +31,7 @@ char	*ft_expand(char *str, t_shell *shell)
 		if (ft_strncmp(temp, shell->envp[i], len) != 0)
 			i++;
 		else
-			return (free(temp), ft_strdup(ft_get_env_value(str, shell)));
+			return (free(temp), ft_strdup(ft_get_env_value(str, shell->envp, shell)));
 	}
 	return (free(temp), NULL);
 }

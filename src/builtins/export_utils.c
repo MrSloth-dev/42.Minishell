@@ -54,7 +54,7 @@ char	**ft_order_env(char **env)
 
 	i = 0;
 	size = 0;
-	order = ft_copy_envp(env);
+	order = ft_copy_envp(env, 0);
 	while (order[size])
 		size++;
 	while (i < size - 1)

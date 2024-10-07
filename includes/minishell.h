@@ -74,10 +74,10 @@
 # define ND_PIPE 2
 
 // classification of nodes
-//# define EXEC 1
-//# define BUILTIN 2
-//# define PIPE 3
-//# define REDIR 4
+# define EXEC 1
+# define BUILTIN 2
+# define PIPE 3
+# define REDIR 4
 
 typedef struct s_token
 {
