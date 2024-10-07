@@ -2,7 +2,6 @@
 
 void ft_free_bin_shell(t_shell *sh)
 {
-	//this not works on binary tree!!!!!!!
 	t_token	*cur;
 	t_token	*cur_left;
 	t_token	*cur_right;
@@ -42,7 +41,6 @@ void ft_free_bin_shell(t_shell *sh)
 
 void ft_free_lst_shell(t_shell *sh)
 {
-	//this not works on binary tree!!!!!!!
 	t_token	*cur;
 	t_token	*tmp;
 	

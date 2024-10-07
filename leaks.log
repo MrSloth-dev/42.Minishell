@@ -1,49 +1,49 @@
-==281496== Memcheck, a memory error detector
-==281496== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==281496== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==281496== Command: ./minivan
-==281496== Parent PID: 281488
-==281496== 
-==281496== 
-==281496== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==281496== Open file descriptor 3: /home/isilva-t/a_shellfaut/leaks.log
-==281496==    <inherited from parent>
-==281496== 
-==281496== 
-==281496== HEAP SUMMARY:
-==281496==     in use at exit: 212,878 bytes in 312 blocks
-==281496==   total heap usage: 761 allocs, 449 frees, 238,661 bytes allocated
-==281496== 
-==281496== 6 bytes in 6 blocks are definitely lost in loss record 3 of 70
-==281496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==281496==    by 0x404F47: ft_strdup (in /home/isilva-t/a_shellfaut/minivan)
-==281496==    by 0x402821: ft_get_env_value (utils.c:57)
-==281496==    by 0x402EA6: ft_readline (readline.c:32)
-==281496==    by 0x40169F: main (main_ivan.c:159)
-==281496== 
-==281496== 3,683 bytes in 63 blocks are indirectly lost in loss record 44 of 70
-==281496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==281496==    by 0x404F47: ft_strdup (in /home/isilva-t/a_shellfaut/minivan)
-==281496==    by 0x4017F3: ft_copy_envp (00_init.c:32)
-==281496==    by 0x40173D: ft_init_shell (00_init.c:13)
-==281496==    by 0x401692: main (main_ivan.c:156)
-==281496== 
-==281496== 4,195 (512 direct, 3,683 indirect) bytes in 1 blocks are definitely lost in loss record 56 of 70
-==281496==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==281496==    by 0x4017AC: ft_copy_envp (00_init.c:26)
-==281496==    by 0x40173D: ft_init_shell (00_init.c:13)
-==281496==    by 0x401692: main (main_ivan.c:156)
-==281496== 
-==281496== LEAK SUMMARY:
-==281496==    definitely lost: 518 bytes in 7 blocks
-==281496==    indirectly lost: 3,683 bytes in 63 blocks
-==281496==      possibly lost: 0 bytes in 0 blocks
-==281496==    still reachable: 0 bytes in 0 blocks
-==281496==         suppressed: 208,677 bytes in 242 blocks
-==281496== 
-==281496== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
---281496-- 
---281496-- used_suppression:     63 leak readline readline.supp:8 suppressed: 204,314 bytes in 226 blocks
---281496-- used_suppression:      4 leak add_history readline.supp:2 suppressed: 4,363 bytes in 16 blocks
-==281496== 
-==281496== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+==295475== Memcheck, a memory error detector
+==295475== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==295475== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==295475== Command: ./minivan
+==295475== Parent PID: 295467
+==295475== 
+==295475== 
+==295475== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==295475== Open file descriptor 3: /home/isilva-t/a_shellfaut/leaks.log
+==295475==    <inherited from parent>
+==295475== 
+==295475== 
+==295475== HEAP SUMMARY:
+==295475==     in use at exit: 212,400 bytes in 292 blocks
+==295475==   total heap usage: 513 allocs, 221 frees, 232,973 bytes allocated
+==295475== 
+==295475== 2 bytes in 2 blocks are definitely lost in loss record 3 of 70
+==295475==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==295475==    by 0x404F47: ft_strdup (in /home/isilva-t/a_shellfaut/minivan)
+==295475==    by 0x402821: ft_get_env_value (utils.c:57)
+==295475==    by 0x402EA6: ft_readline (readline.c:32)
+==295475==    by 0x40169F: main (main_ivan.c:159)
+==295475== 
+==295475== 3,683 bytes in 63 blocks are indirectly lost in loss record 44 of 70
+==295475==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==295475==    by 0x404F47: ft_strdup (in /home/isilva-t/a_shellfaut/minivan)
+==295475==    by 0x4017F3: ft_copy_envp (00_init.c:32)
+==295475==    by 0x40173D: ft_init_shell (00_init.c:13)
+==295475==    by 0x401692: main (main_ivan.c:156)
+==295475== 
+==295475== 4,195 (512 direct, 3,683 indirect) bytes in 1 blocks are definitely lost in loss record 56 of 70
+==295475==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==295475==    by 0x4017AC: ft_copy_envp (00_init.c:26)
+==295475==    by 0x40173D: ft_init_shell (00_init.c:13)
+==295475==    by 0x401692: main (main_ivan.c:156)
+==295475== 
+==295475== LEAK SUMMARY:
+==295475==    definitely lost: 514 bytes in 3 blocks
+==295475==    indirectly lost: 3,683 bytes in 63 blocks
+==295475==      possibly lost: 0 bytes in 0 blocks
+==295475==    still reachable: 0 bytes in 0 blocks
+==295475==         suppressed: 208,203 bytes in 226 blocks
+==295475== 
+==295475== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--295475-- 
+--295475-- used_suppression:     63 leak readline readline.supp:8 suppressed: 204,149 bytes in 222 blocks
+--295475-- used_suppression:      4 leak add_history readline.supp:2 suppressed: 4,054 bytes in 4 blocks
+==295475== 
+==295475== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)

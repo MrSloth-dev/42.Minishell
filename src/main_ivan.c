@@ -13,11 +13,47 @@
 #include "ft_printf.h"
 #include "minishell.h"
 
+void	ft_print_exec(t_token *cur)
+{
+	t_token	*cmd;
+	t_token	*rdir;
+
+	cmd = NULL;
+	rdir = NULL;
+	if (cur && cur->type != ND_PIPE)
+	{
+		cmd = cur->left;
+		rdir = cur->right;
+	}
+		while (cmd || rdir)
+		{
+			if (cmd)
+			{
+			ft_printf(1, "%s%s ",GREEN, cmd->content);
+			cmd = cmd->next;
+			}
+			else
+				ft_printf(1, "      ");
+			if (rdir)
+			{
+				ft_printf(1, "%s%s %s%d", YELLOW, rdir->content, RED, rdir->type);
+				rdir = rdir->next;
+			}
+			ft_printf(1, "%s\n", RESET);
+		}
+		ft_printf(1, "\n");
+	if (cur && cur->type == ND_PIPE)
+	{
+		ft_printf(1, "PIPE \n");
+		ft_print_exec(cur->left);
+		ft_print_exec(cur->right);
+	}
+
+}
+
 void	ft_print_binary_tree(t_token_lst *token_lst)
 {
 	t_token	*cur;
-	t_token	*cmd;
-	t_token	*rdir;
 
 	printf("printing bin tree: \n");
 	if (!token_lst && !token_lst->first)
@@ -26,25 +62,8 @@ void	ft_print_binary_tree(t_token_lst *token_lst)
 		return ;
 	}
 	cur = token_lst->first;
-	cmd = cur->left;
-	rdir = cur->right;
-	while (cmd || rdir)
-	{
-		if (cmd)
-		{
-		printf("%s%s ",GREEN, cmd->content);
-		cmd = cmd->next;
-		}
-		else
-			printf("      ");
-		if (rdir)
-		{
-			printf("%s%s %s%d", YELLOW, rdir->content, RED, rdir->type);
-			rdir = rdir->next;
-		}
-		printf("%s\n", RESET);
-	}
-	printf("\n");
+	ft_print_exec(cur);
+
 }
 
 t_token	*ft_new_bin_token()
@@ -61,7 +80,7 @@ t_token	*ft_new_bin_token()
 	return (new);
 }
 
-void	ft_make_binary_tree(t_token_lst *token_lst)
+t_token	*ft_make_binary_tree(t_token *token, int nd_type)
 {
 	t_token	*tmp;
 	t_token	*cur;
@@ -69,16 +88,16 @@ void	ft_make_binary_tree(t_token_lst *token_lst)
 	t_token	*cur_left;
 	t_token	*cur_right;
 
-	if (!token_lst || !token_lst->first)
-		return;
-	cur = token_lst->first;
+	if (!token)
+		return (NULL);
+	cur = token;
 	new = NULL;
 	if (!new)
 	{
 		new = ft_new_bin_token();
-		new->type = ND_EXEC;
+		new->type = nd_type;
 	}
-	while (cur)
+	while (cur && cur->type != PIPELINE)
 	{
 		tmp = cur;
 		cur = cur->next;
@@ -117,8 +136,19 @@ void	ft_make_binary_tree(t_token_lst *token_lst)
 			}
 		}
 	}
-	if (new)
-		token_lst->first = new;
+	if (cur && cur->type == PIPELINE)
+	{
+		tmp = cur;
+		cur = cur->next;
+		tmp->type = ND_PIPE;
+		tmp->left = new;
+		tmp->left->prev = tmp;
+		tmp->next = NULL;
+		tmp->prev = NULL;
+		tmp->right = ft_make_binary_tree(cur, ND_EXEC);
+		new = tmp;
+	}
+	return (new);
 }
 
 void	ft_prepare_new_prompt(t_shell *sh)
@@ -139,9 +169,9 @@ void	ft_shellfault(t_shell *sh)
 //	ft_print_tokens(sh->token_lst);
 //	ft_free_lst_shell(sh);
 
-	ft_make_binary_tree(sh->token_lst);
+	sh->token_lst->first = ft_make_binary_tree(sh->token_lst->first, ND_EXEC);
 	ft_print_binary_tree(sh->token_lst);
-	ft_free_bin_shell(sh);
+//	ft_free_bin_shell(sh);
 
 	//	ft_prepare_new_prompt(sh);
 }
