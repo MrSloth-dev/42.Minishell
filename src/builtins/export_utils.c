@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <unistd.h>
 
 void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell)
 {
@@ -7,7 +8,6 @@ void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell)
 
 	joinvalue = ft_get_env_value(cmdargs, temp, shell);
 	k = 0;
-	j--;
 	while (temp[k])
 	{
 		if (j == k)
@@ -23,7 +23,6 @@ void	ft_swap_env(char *cmdargs, char **temp, int j)
 	int		k;
 
 	k = 0;
-	// j--;
 	while (temp[k])
 	{
 		if (j == k)
@@ -83,12 +82,12 @@ void	ft_export_no_args(t_shell shell)
 	i = 0;
 	while (order[i])
 	{
-		ft_printf(1, "declare -x %s=", ft_get_env_key(order[i]));
+		ft_printf(STDOUT_FILENO, "declare -x %s=", ft_get_env_key(order[i]));
 		value = ft_get_env_value(order[i], order, &shell);
 		if (!value)
-			ft_printf(1, "\"\"\n");
+			ft_printf(STDOUT_FILENO, "\"\"\n");
 		else
-			ft_printf(1, "\"%s\"\n", value);
+			ft_printf(STDOUT_FILENO, "\"%s\"\n", value);
 		i++;
 	}
 	i = 0;

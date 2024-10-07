@@ -24,13 +24,16 @@ void	ft_cd(char **cmdargs, t_shell *shell)
 		ft_change_home(shell);
 	else if (cmdargs[1][0] == '-')
 	{
-		ft_printf(STDOUT_FILENO, "%s\n", ft_get_env_value("OLDPWD", shell->envp, shell));
+		ft_printf(STDOUT_FILENO, "%s\n", ft_get_env_value("OLDPWD",
+				shell->envp, shell));
 		ft_safe_chdir(ft_get_env_value("OLDPWD", shell->envp, shell), shell, 0);
 	}
 	else
 		ft_safe_chdir(cmdargs[1], shell, 0);
-	ft_printf(1, "PWD currently is %s\n", ft_get_env_value("PWD", shell->envp, shell));
-	ft_printf(1, "OLDPWD currently is %s\n", ft_get_env_value("OLDPWD", shell->envp, shell));
+	ft_printf(STDOUT_FILENO, "PWD currently is %s\n",
+		ft_get_env_value("PWD", shell->envp, shell));
+	ft_printf(STDOUT_FILENO, "OLDPWD currently is %s\n",
+		ft_get_env_value("OLDPWD", shell->envp, shell));
 	return ;
 }
 

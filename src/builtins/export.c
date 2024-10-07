@@ -1,4 +1,3 @@
-#include "ft_printf.h"
 #include "minishell.h"
 
 void	ft_join_env(char *cmdargs, char **temp, int j)
@@ -64,6 +63,27 @@ static int	ft_export_size_increase(char **cmdargs, t_shell *shell, int *j)
 	return (i);
 }
 
+int	ft_plus_mode(char *cmdargs)
+{
+	int	i;
+
+	i = 0;
+	while (cmdargs[i] && cmdargs[i] != '=')
+		if (cmdargs[i++] == '+')
+			return (1);
+	return (0);
+}
+
+void	ft_add_env(char *cmdargs, char **temp, int plus_mode, int j, t_shell *shell)
+{
+	if (ft_env_exist(cmdargs, &j, temp) != -1 && plus_mode)
+		ft_swap_plus_env(cmdargs, temp, j, shell);
+	else if (ft_env_exist(cmdargs, &j, temp) != -1 && !plus_mode)
+		ft_swap_env(cmdargs, temp, j);
+	else
+		ft_append_env(cmdargs, temp);
+}
+
 char	**ft_export(char **cmdargs, t_shell *shell)
 {
 	char	**temp;
@@ -77,7 +97,6 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 		return (NULL);
 	if (!cmdargs[1])
 		ft_export_no_args(*shell);
-	plus_mode = 0;
 	i = ft_export_size_increase(cmdargs, shell, &j);
 	temp = ft_copy_envp(shell->envp, i);
 	k = 0;
@@ -86,14 +105,8 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 		if (!ft_strchr(cmdargs[k], '='))
 			continue ;
 		j = -1;
-		if ((ft_strchr(cmdargs[k], '=') - ft_strchr(cmdargs[k], '+')) == 1)
-			plus_mode = 1;
-		if (ft_env_exist(cmdargs[k], &j, temp) != -1 && plus_mode)
-			ft_swap_plus_env(cmdargs[k], temp, j, shell);
-		else if (ft_env_exist(cmdargs[k], &j, temp) != -1 && !plus_mode)
-			ft_swap_env(cmdargs[k], temp, j);
-		else
-			ft_append_env(cmdargs[k], temp);
+		plus_mode = ft_plus_mode(cmdargs[k]);
+		ft_add_env(cmdargs[k], temp, plus_mode, j, shell);
 	}
-	return (temp); // Need to free the original struct I think
+	return (temp);
 }

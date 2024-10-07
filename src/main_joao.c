@@ -16,21 +16,24 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	*sh;
-	// char	**split;
-	// char	*str;
-
+	char	**split;
 	(void)argc;
 	sh = ft_init_shell(envp);
+	int i = 0;
+	while (argv[i++])
+	{
+		split = ft_split(argv[i], ' ');
+		sh->envp = ft_export(split, sh);
+		free(split);
+	}
+	 ft_env(sh);
+}
 	// split = ft_split(argv[1], ' ');
 	// // ft_printf(1, "%s\n", str);
 	// sh.envp = ft_export(split, &sh);
 	// str = argv[2];
 	// split = ft_split(str, ' ');
 	// sh.envp = ft_export(split, &sh);
-	int i = 0;
-	while (argv[i++])
-		sh->envp = ft_export(ft_split(argv[i], ' '), sh);
-	// ft_env(sh);
 	// ft_cd(split, &sh);
 	// ft_env(&sh);
 	// ft_cd(ft_split("cd -", ' '), &sh);
@@ -40,5 +43,4 @@ int	main(int argc, char *argv[], char *envp[])
 	// ft_echo(split, &sh);
 	// ft_readline();
 	return (0);
-}
 

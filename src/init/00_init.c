@@ -23,7 +23,7 @@ char	**ft_copy_envp(char **envp, int extra)
 	i = 0;
 	while (envp[i])
 		i++;
-	temp_envp = calloc(sizeof(char *), i + 1 + extra);
+	temp_envp = ft_calloc(sizeof(char *), i + 1 + extra);
 	if (!temp_envp)
 		return (NULL);
 	i = 0;
