@@ -1,3 +1,4 @@
+#include "ft_printf.h"
 #include "minishell.h"
 
 void	ft_join_env(char *cmdargs, char **temp, int j)
@@ -88,7 +89,7 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 		if ((ft_strchr(cmdargs[k], '=') - ft_strchr(cmdargs[k], '+')) == 1)
 			plus_mode = 1;
 		if (ft_env_exist(cmdargs[k], &j, temp) != -1 && plus_mode)
-			ft_swap_plus_env(cmdargs[k], temp, j);
+			ft_swap_plus_env(cmdargs[k], temp, j, shell);
 		else if (ft_env_exist(cmdargs[k], &j, temp) != -1 && !plus_mode)
 			ft_swap_env(cmdargs[k], temp, j);
 		else

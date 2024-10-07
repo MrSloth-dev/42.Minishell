@@ -35,18 +35,16 @@ char	*ft_get_env_key(char *env_str)
 char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell)
 {
 	char	*env;
-	int		len;
 	int		i;
 
 	if (!env_name)
 		return (NULL);
 	env = NULL;
-	len = ft_strlen(env_name);
 	i = 0;
 	shell->exit_status = EXIT_SUCCESS;
 	while (env_list[i])
 	{
-		if (!ft_strncmp(env_name, env_list[i], len))
+		if (!ft_strcmp(env_name, env_list[i]))
 		{
 			env = ft_strchr(env_list[i], '=') + 1;
 			if (!env)

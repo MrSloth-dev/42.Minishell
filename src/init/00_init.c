@@ -1,5 +1,4 @@
 #include "minishell.h"
-//comment from the past
 
 t_shell	*ft_init_shell(char *envp[])
 {

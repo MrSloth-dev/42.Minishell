@@ -127,6 +127,7 @@ void	ft_append_env(char *cmdargs, char **temp);
 void	ft_swap_env(char *cmdargs, char **temp, int j);
 void	ft_append_env(char *cmdargs, char **temp);
 void	ft_swap_env(char *cmdargs, char **temp, int j);
+void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell);
 void	ft_export_no_args(t_shell shell);
 
 //EXPAND
