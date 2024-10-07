@@ -44,6 +44,6 @@ t_shell	*ft_readline(t_shell *sh)
 		ft_printf(1, "exit\n");
 		exit (EXIT_SUCCESS);
 	}
-	free(pwd);
+	//free(pwd);
 	return (sh);
 }

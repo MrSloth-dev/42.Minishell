@@ -2,6 +2,7 @@
 
 void ft_free_shell(t_shell *sh)
 {
+	//THIS NOT WORKS ON BINARY TREE!!!!!!!
 	t_token	*cur;
 	t_token	*tmp;
 	
