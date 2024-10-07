@@ -212,5 +212,5 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 	ft_join_tokens(token_lst);
 	ft_delete_space_tokens(token_lst);
 
-	ft_print_tokens(token_lst);
+	//ft_print_tokens(token_lst);
 }
