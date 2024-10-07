@@ -1,32 +1,47 @@
 #include "minishell.h"
 
-#include <unistd.h>
-
 void	ft_safe_chdir(char *path, t_shell *shell, int flags);
 void	ft_update_directory(char *path, char *variable, t_shell *shell);
 
-void	ft_change_home(t_shell *shell)
+void	ft_change_home(char **cmdargs, t_shell *shell)
 {
 	char	*home;
 
-	home = ft_get_env_value("HOME", shell->envp, shell);
-	ft_update_directory(getcwd(NULL, 0), "OLDPWD=", shell);
-	ft_update_directory(home, "PWD=", shell);
-	ft_safe_chdir(home, shell, 0);
+	if (!cmdargs[1] || !strcmp(cmdargs[1], "--"))
+	{
+		ft_update_directory(getcwd(NULL, 0), "OLDPWD=", shell);
+		home = ft_get_env_value(ft_strdup("HOME"), shell->envp, shell);
+		ft_safe_chdir(home, shell, 0);
+	}
+	else if (!strcmp(cmdargs[1], "~"))
+	{
+		home = ft_get_env_value(ft_strdup("HOME"), shell->envp, shell);
+		ft_safe_chdir(home, shell, 0);
+	}
+
 }
 
 void	ft_cd(char **cmdargs, t_shell *shell)
 {
-	if (cmdargs[2])
-		ft_safe_chdir(NULL, shell, 2);
-	if (!cmdargs[1] || cmdargs[1][0] == '~' || (cmdargs[1][0] == '-'
-		&& cmdargs[1][1] == '-'))
-		ft_change_home(shell);
+	char	*update_old;
+	char	*old_pwd;
+
+	if (cmdargs[1])
+	{
+		if (!cmdargs[1][0])
+			return ;
+		if (cmdargs[2])
+			return (ft_safe_chdir(NULL, shell, 2));
+	}
+	update_old = getcwd(NULL, 0);
+	if (!cmdargs[1] || !ft_strcmp(cmdargs[1], "~") || !ft_strcmp(cmdargs[1], "--"))
+		ft_change_home(cmdargs, shell);
 	else if (cmdargs[1][0] == '-')
 	{
-		ft_printf(STDOUT_FILENO, "%s\n", ft_get_env_value("OLDPWD",
-				shell->envp, shell));
-		ft_safe_chdir(ft_get_env_value("OLDPWD", shell->envp, shell), shell, 0);
+		old_pwd = ft_get_env_value("OLDPWD", shell->envp, shell);
+		ft_printf(STDOUT_FILENO, "%s\n", old_pwd);
+		ft_safe_chdir(old_pwd, shell, 0);
+		free(old_pwd);
 	}
 	else
 		ft_safe_chdir(cmdargs[1], shell, 0);
@@ -42,19 +57,20 @@ void	ft_safe_chdir(char *path, t_shell *shell, int flags)
 	if (flags == 2)
 	{
 		ft_printf(STDERR_FILENO, "cd : too many args");
+		shell->exit_status = EXIT_FAILURE;
 		return ;
 	}
-	ft_update_directory(getcwd(NULL, 0), "OLDPWD=", shell);
-	if (chdir(path) == -1)
+	else if (chdir(path) == -1)
 	{
-		if (flags == 1)
-			ft_printf(STDERR_FILENO, "cd : HOME not set");
+		if (flags == 2)
+			ft_printf(STDERR_FILENO, "cd : HOME not set\n");
 		else
-			ft_printf(STDERR_FILENO, "cd : %s: No such file or directory",
+			ft_printf(STDERR_FILENO, "cd : %s: No such file or directory\n",
 				path);
 		shell->exit_status = EXIT_FAILURE;
+		return ;
 	}
-	ft_update_directory(path, "PWD=", shell);
+	ft_update_directory(getcwd(NULL, 0), "PWD", shell);
 	shell->exit_status = EXIT_SUCCESS;
 }
 
@@ -63,6 +79,8 @@ void	ft_update_directory(char *path, char *variable, t_shell *shell)
 	char	*path_str;
 	int		j;
 
+	if (!path || !variable)
+		return ; 
 	path_str = ft_strjoin(variable, path);
 	j = -1;
 	if (ft_env_exist(path_str, &j, shell->envp) == -1)

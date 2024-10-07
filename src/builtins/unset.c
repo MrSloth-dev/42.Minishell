@@ -11,7 +11,7 @@ static void	ft_remove_env(char **temp, int j, t_shell *shell)
 		if (j == k)
 			k++;
 		else
-			temp[k - 1] = ft_strdup(shell->envp[k]);
+			temp[k] = ft_strdup(shell->envp[k]);
 		if (!temp[k])
 			return ;
 		k++;
@@ -31,15 +31,13 @@ char	**ft_unset(char **cmdargs, t_shell *shell)
 	if (cmdargs == NULL)
 		return (NULL);
 	while (cmdargs[k])
-		if (ft_env_exist(cmdargs[k++], &j, shell) == -1)
+		if (ft_env_exist(cmdargs[k++], &j, shell->envp) == -1)
 			i--;
 	k = 0;
 	while (cmdargs[++k])
 	{
-		while (shell->envp[i])
-			i++;
-		temp = (char **)malloc(sizeof(char *) * (i + 2));
-		ft_env_exist(cmdargs[k], &j, shell);
+		temp = ft_copy_envp(shell->envp, i);
+		ft_env_exist(cmdargs[k], &j, shell->envp);
 		i = 0;
 		if (j != -1)
 			ft_remove_env(temp, j, shell);
