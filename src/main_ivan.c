@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "minishell.h"
 
-void	ft_print_exec(t_token *cur)
+void	ft_print_exec(t_token *cur, char *spaces)
 {
 	t_token	*cmd;
 	t_token	*rdir;
@@ -25,30 +25,31 @@ void	ft_print_exec(t_token *cur)
 		cmd = cur->left;
 		rdir = cur->right;
 	}
-		while (cmd || rdir)
+	while (cmd || rdir)
+	{
+		ft_printf(1, "%s", spaces);
+		if (cmd)
 		{
-			if (cmd)
-			{
-			ft_printf(1, "%s%s ",GREEN, cmd->content);
-			cmd = cmd->next;
-			}
-			else
-				ft_printf(1, "      ");
-			if (rdir)
-			{
-				ft_printf(1, "%s%s %s%d", YELLOW, rdir->content, RED, rdir->type);
-				rdir = rdir->next;
-			}
-			ft_printf(1, "%s\n", RESET);
+		ft_printf(1, "%s%s ",GREEN, cmd->content);
+		cmd = cmd->next;
 		}
-		ft_printf(1, "\n");
+		else
+			ft_printf(1, "       ");
+		if (rdir)
+		{
+			ft_printf(1, "  %s%s%s %d", YELLOW, rdir->content, RED, rdir->type);
+			rdir = rdir->next;
+		}
+		ft_printf(1, "%s\n", RESET);
+	}
 	if (cur && cur->type == ND_PIPE)
 	{
-		ft_printf(1, "PIPE \n");
-		ft_print_exec(cur->left);
-		ft_print_exec(cur->right);
+		ft_printf(1, "%s%s          PIPE \n", spaces, RED);
+//		ft_print_exec(cur->left, ft_strjoin_free(ft_strdup(""), ft_strdup(spaces)));
+//		ft_print_exec(cur->right, ft_strjoin_free(ft_strdup(spaces), ft_strdup("                   ")));
+		ft_print_exec(cur->left, "");
+		ft_print_exec(cur->right,   "                 ");
 	}
-
 }
 
 void	ft_print_binary_tree(t_token_lst *token_lst)
@@ -62,8 +63,7 @@ void	ft_print_binary_tree(t_token_lst *token_lst)
 		return ;
 	}
 	cur = token_lst->first;
-	ft_print_exec(cur);
-
+	ft_print_exec(cur, "");
 }
 
 t_token	*ft_new_bin_token()
@@ -151,12 +151,11 @@ t_token	*ft_make_binary_tree(t_token *token, int nd_type)
 	return (new);
 }
 
-void	ft_prepare_new_prompt(t_shell *sh)
+void	ft_free_tree(t_token_lst *token_lst)
 {
-	//WARNING - THIS CONTENT IS ONLY FOR TESTING PURPOSES!!!!!!
-	
-	sh->token_lst = NULL;
-	//sh->line = NULL;
+	if (token_lst && token_lst->first)
+		ft_free_bin_shell(token_lst->first);
+	free (token_lst);
 }
 
 void	ft_shellfault(t_shell *sh)
@@ -171,9 +170,9 @@ void	ft_shellfault(t_shell *sh)
 
 	sh->token_lst->first = ft_make_binary_tree(sh->token_lst->first, ND_EXEC);
 	ft_print_binary_tree(sh->token_lst);
-//	ft_free_bin_shell(sh);
 
-	//	ft_prepare_new_prompt(sh);
+	ft_print_binary_tree(sh->token_lst);
+
 }
 
 int	main(int argc, char *argv[], char *envp[])

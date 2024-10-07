@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void ft_free_bin_shell(t_shell *sh)
+void ft_free_bin_shell(t_token	*token)
 {
 	t_token	*cur;
 	t_token	*cur_left;
@@ -10,9 +10,9 @@ void ft_free_bin_shell(t_shell *sh)
 	cur_left = NULL;
 	cur_right = NULL;
 	
-	if (sh->token_lst && sh->token_lst->first)
+	if (token && token->type != ND_PIPE)
 	{
-		cur = sh->token_lst->first;
+		cur = token;
 		if (cur)
 		{
 			tmp = cur;
@@ -35,8 +35,14 @@ void ft_free_bin_shell(t_shell *sh)
 			free(tmp);
 		}
 	}
+	else
+	{
+		cur = token;
+		ft_free_bin_shell(cur->left);
+		ft_free_bin_shell(cur->right);
+		free (cur);
+	}
 
-	free(sh->token_lst);
 }
 
 void ft_free_lst_shell(t_shell *sh)
