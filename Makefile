@@ -22,7 +22,7 @@ RM	    = rm -rf
 LEAKS_LOG              = ./leaks.log
 READLINE_SUPP          = readline.supp
 VALGRINDFLAGS          = -s --suppressions=$(READLINE_SUPP) \
-                         --tool=memcheck --leak-check=full \
+						 --tool=memcheck --leak-check=full \
                          --show-leak-kinds=all --track-origins=yes \
                          --track-fds=yes --show-below-main=no \
 						 --log-file=$(LEAKS_LOG)
@@ -44,6 +44,7 @@ EXPDIR = src/expand
 SIGNALDIR = src/signals_and_readline
 SYNTAXDIR = src/syntax
 TOKENIZERDIR = src/tokenizer
+PARSEDIR = src/parse
 FREEDIR = src/free_stuff
 INITDIR = src/init
 
@@ -71,9 +72,13 @@ SYNTAX = $(SYNTAXDIR)/00_syntax_utils.c \
 TOKENIZER = $(TOKENIZERDIR)/00_tokenizer.c \
 			$(TOKENIZERDIR)/88_tokenizer_utils.c
 
+PARSE = $(PARSEDIR)/00_make_bin_tree.c
+
+WARNING = src/WARNING/print.c
+
 FREE = $(FREEDIR)/00_free_shell.c \
 
-SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(EXPAND) $(FREE)
+SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING)
 
 MAINI = src/main_ivan.c
 MAINJ = src/main_joao.c
@@ -108,6 +113,7 @@ ivan : $(OBJS)
 
 le: ivan
 	valgrind $(VALGRINDFLAGS) ./minivan
+	cat leaks.log
 
 qk: ivan
 	./minivan
