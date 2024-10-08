@@ -100,8 +100,8 @@
     - [ ] Join with '+' existant env_var
     - [ ] Fucking Works
  - [ ] unset with no options
- - [ ] cd with only a relative or absoute path (no fucking cd ~) need readline to test
-    - [ ] cd with relative path
+ - [x] cd with only a relative or absoute path (no fucking cd ~) need readline to test
+    - [x] cd with relative path
     - [x] cd with absolute path
     - [x] cd - goes to OLDPWD
     - [x] cd -- goes to home and set oldpwd to home too)

@@ -24,7 +24,7 @@ char	*ft_expand(char *str, t_shell *shell)
 		return (ft_strdup(ft_itoa(ft_getpid(shell))));
 	temp = ft_strjoin(str, "=");
 	len = ft_strlen(temp);
-	if (ft_env_exist(str, NULL, shell->envp) == -1)
+	if (ft_env_exist(temp, NULL, shell->envp) == -1)
 		return (NULL);
 	while (shell->envp[i])
 	{

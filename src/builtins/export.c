@@ -115,9 +115,9 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 	if (!temp)
 		return (NULL);
 	ft_add_env(cmdargs, temp, 0, shell);
-	while (shell->envp[i])
-		free(shell->envp[i]);
-	free(shell->envp);
+	// while (shell->envp[i])
+	// 	free(shell->envp[i]);
+	// free(shell->envp);
 	shell->envp = temp;
 	return (temp);
 }
