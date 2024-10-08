@@ -86,8 +86,6 @@
 
 typedef struct s_token
 {
-//	int				id;
-//	int				pos;
 	int				status;
 	int				type;
 	char			*content;

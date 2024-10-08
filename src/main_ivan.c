@@ -30,6 +30,8 @@ void	ft_shellfault(t_shell *sh)
 
 	ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
 
+// EXECUTION RIGHT HERE!!
+
 	ft_free_tree(sh->token_lst);
 
 }
