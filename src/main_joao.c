@@ -23,10 +23,14 @@ int	main(int argc, char *argv[], char *envp[])
 	while (argv[i++])
 	{
 		split = ft_split(argv[i], ' ');
-		sh->envp = ft_export(split, sh);
-		free(split);
+		if (!split)
+			free(split);
+		else
+			ft_cd(split, sh);
 	}
-	 ft_env(sh);
+	i = 0;
+	// ft_env(sh);
+	return (0);
 }
 	// split = ft_split(argv[1], ' ');
 	// // ft_printf(1, "%s\n", str);
@@ -42,5 +46,4 @@ int	main(int argc, char *argv[], char *envp[])
 	// sh.envp = ft_unset(split, &sh);
 	// ft_echo(split, &sh);
 	// ft_readline();
-	return (0);
 
