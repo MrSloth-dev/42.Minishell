@@ -13,9 +13,6 @@
 #include "ft_printf.h"
 #include "minishell.h"
 
-
-
-
 void	ft_shellfault(t_shell *sh)
 {
 	sh->token_lst = ft_calloc(sizeof(t_token_lst), 1);
@@ -25,6 +22,8 @@ void	ft_shellfault(t_shell *sh)
 
 	ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
 //	ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES
+
+//	ft_make_expansions(sh);
 
 	sh->token_lst->first = ft_make_bin_tree(sh->token_lst->first, ND_EXEC);
 

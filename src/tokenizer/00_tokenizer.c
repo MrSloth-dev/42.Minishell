@@ -202,8 +202,8 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 				i += ft_append_node(token_lst, ft_strdup("|"), PIPELINE, status);
 			else if (line[i] == '<' || line[i] == '>')
 				i += ft_append_redir(token_lst, line + i, status);
-			else if (line[i] == '$')
-				i += ft_append_node(token_lst, ft_strdup("$"), ENV, status);
+			// else if (line[i] == '$')
+			// 	i += ft_append_node(token_lst, ft_strdup("$"), ENV, status);
 		}
 	}
 
