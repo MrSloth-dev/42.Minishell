@@ -39,7 +39,7 @@ t_shell	*ft_readline(t_shell *sh)
 	sh->line = readline(pwd);
 	if ((sh->line && *(sh->line)))
 		add_history(sh->line);
-	if (sh->line == NULL || !ft_strcmp("exit", sh->line))
+	if (sh->line == NULL || (sh->line[0] && !ft_strcmp("exit", sh->line)))
 		ft_exit(pwd, sh);
 	free(pwd);
 	return (sh);

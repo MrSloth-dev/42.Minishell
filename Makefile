@@ -51,7 +51,8 @@ INITDIR = src/init
 
 INIT = $(INITDIR)/00_init.c
 
-EXPAND = $(EXPDIR)/expand.c
+EXPAND = $(EXPDIR)/expand.c \
+		 $(EXPDIR)/make_expansions.c
 
 BUILTIN = $(BDIR)/echo.c \
 		$(BDIR)/pwd.c \
@@ -104,7 +105,7 @@ $(NAME): $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	@$(CC) $(CFLAGS) $(EFLAGS) $(READLINE_FLAG) $(MAIN) $(OBJS) $(PRINTFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 ivan : $(OBJS)

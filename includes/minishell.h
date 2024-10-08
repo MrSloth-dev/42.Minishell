@@ -136,6 +136,7 @@ void	ft_export_no_args(t_shell shell);
 
 //EXPAND
 char	*ft_expand(char *str, t_shell *shell);
+void	ft_make_expansions(t_shell *sh);
 
 //init
 t_shell	*ft_init_shell(char *envp[]);

@@ -4,17 +4,19 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 {
 	int	i;
 	int	j;
-	int	len;
+	int	k;
 	char	*str;
-	char	*to_join;
-	char	*tmp;
+	char	*name_var;
+	char	*exp;
+	char	*new_cmd;
 	
+	new_cmd = NULL;
 	i = 0;
 	j = 0;
+	k = 0;
 	if (!cur && !cur->content)
 		return ;
-	str = ft_strdup(cur->content);
-	len = ft_strlen(str);
+	str = cur->content;
 	while (str[i])
 	{
 		j = 1;
@@ -25,26 +27,30 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 				while (str[i + 1 + j] &&
 		   			(str[i + 1 + j] != '$' && ft_is_space(str[i + 1 + j]) != TRUE))
 					j++;
-				ft_printf(1, "%d\n", j);
+				//ft_printf(1, "%d\n", j);
+				name_var = ft_substr(str, i + 1, j);
+				exp = ft_expand(name_var, sh);
+				free(name_var);
+				//ft_printf(1, "%s\n", exp);
 
-				to_join = ft_expand(ft_substr(str, i + 1, j), sh);
-				ft_printf(1, "%s\n", to_join);
+				if (!new_cmd)
+					new_cmd = ft_strjoin_free(ft_substr(str, k, i), exp);
+				else
+					new_cmd = ft_strjoin_free(new_cmd, exp);
 
-				tmp = ft_strjoin_free(ft_substr(str, 0, i), to_join);
-				ft_printf(1, "%s\n\n", tmp);
+				//ft_printf(1, "%s\n\n", new_cmd);
 
-				i += 1 + j;
+				i += j;
+				k = i;
 			}
 		}
 		i++;
 	}
 
+	cur->content = new_cmd;
+	free (str);
 
-	tmp = cur->content;
-	cur->content = str;
-	free(tmp);
 }
-
 
 void	ft_make_expansions(t_shell *sh)
 {
@@ -57,8 +63,8 @@ void	ft_make_expansions(t_shell *sh)
 	{
 		if (cur->content && cur->type == WORD)
 		{
-			ft_printf(1, "lets make expansion \n\n");
-			ft_expand_on_this_node(cur, sh);
+			//need to se into de ft, if dont have a dollar, I HAVE A BUG!
+			//ft_expand_on_this_node(cur, sh);
 		}
 		cur = cur->next;
 	}
