@@ -40,6 +40,7 @@ t_shell	*ft_readline(t_shell *sh)
 	if (sh->line == NULL)
 	{	
 		free(pwd);
+		ft_free_envp(sh->envp); //BE CAREFULL HERE!!!
 		free(sh);
 		ft_printf(1, "exit\n");
 		exit (EXIT_SUCCESS);

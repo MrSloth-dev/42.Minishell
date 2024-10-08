@@ -42,8 +42,15 @@ void ft_free_bin_shell(t_token	*token)
 		ft_free_bin_shell(cur->right);
 		free (cur);
 	}
-
 }
+
+void	ft_free_tree(t_token_lst *token_lst)
+{
+	if (token_lst && token_lst->first)
+		ft_free_bin_shell(token_lst->first);
+	free (token_lst);
+}
+
 
 void ft_free_lst_shell(t_shell *sh)
 {
@@ -62,5 +69,18 @@ void ft_free_lst_shell(t_shell *sh)
 		}
 	}
 
-	free(sh->token_lst);
 }
+
+void	ft_free_envp(char	**envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
+}
+

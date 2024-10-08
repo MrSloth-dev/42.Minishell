@@ -162,11 +162,19 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line);
 //tokenizer utils
 int		ft_is_word(char c);
 int		ft_how_much_consecutives_spaces(char *str);
-void	ft_print_tokens(t_token_lst *token_lst);
+
+//parse
+t_token	*ft_make_bin_tree(t_token *token, int nd_type);
 
 //free_stuff
 void ft_free_bin_shell(t_token *token);
-void ft_free_lst_shell(t_shell *sh);
+void	ft_free_tree(t_token_lst *token_lst);
 
+//STUF TO ORGANIZE BY IVAN. NEEDED STUFF IN OTHER FILES,THAT I USED ON MY MAIN FILE
+void	ft_free_envp(char **envp);
+
+// WARNING
+void	ft_print_binary_tree(t_token_lst *token_lst);
+void	ft_print_tokens(t_token_lst *token_lst);
 
 #endif //MINISHELL_H_
