@@ -84,8 +84,6 @@ FREE = $(FREEDIR)/00_free_shell.c \
 
 SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC)
 
-MAINI = src/main_ivan.c
-MAINJ = src/main_joao.c
 MAIN = src/main.c
 
 OBJS = $(SRCS:.c=.o)
@@ -112,18 +110,18 @@ ivan : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	$(CC) $(MAINI) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o minivan
+	$(CC) $(MAIN) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o minishell
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 le: ivan
-	valgrind $(VALGRINDFLAGS) ./minivan
+	valgrind $(VALGRINDFLAGS) ./minishell
 	cat leaks.log
 
 qk: ivan
-	./minivan
+	./minishell
 
 deb : ivan
-	tmux send-keys 'gdbtui ./minivan' C-m Escape
+	tmux send-keys 'gdbtui ./minishell' C-m Escape
 
 joao : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
