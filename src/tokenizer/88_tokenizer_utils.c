@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+
+// || c == '$'
 int	ft_is_word(char c)
 {
 	if (!c)
@@ -7,7 +9,6 @@ int	ft_is_word(char c)
 	if (c == '|'
 		|| c == '<'
 		|| c == '>'
-		|| c == '$'
 		|| c == '"'
 		|| c == '\''
 		|| ft_is_space(c) == TRUE)

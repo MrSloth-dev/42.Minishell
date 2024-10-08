@@ -83,4 +83,3 @@ int	ft_have_syntax_error(t_shell *sh)
 		return (have_error);
 	return (have_error);
 }
-
