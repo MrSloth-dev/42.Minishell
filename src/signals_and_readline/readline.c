@@ -29,13 +29,15 @@ t_shell	*ft_readline(t_shell *sh)
 {
 	char	*pwd;
 
-	pwd = ft_strdup(ft_get_env_value("PWD", sh->envp, sh));
-	pwd = ft_strjoin_free(pwd, ft_strdup("$ "));
+	pwd = ft_strdup("\033[1;34m");
+	pwd = ft_strjoin_free(pwd, ft_strdup(ft_get_env_value("PWD", sh->envp, sh)));
+	pwd = ft_strjoin_free(pwd, ft_strdup(":$ "));
+	pwd = ft_strjoin_free(pwd, ft_strdup("\033[0m"));
 	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
 	sh->line = NULL;
 	sh->line = readline(pwd);
-	if ((sh->line && *(sh->line)) || ft_strcmp("exit", sh->line) !=0)
+	if ((sh->line && *(sh->line)))
 		add_history(sh->line);
 	if (sh->line == NULL || !ft_strcmp("exit", sh->line))
 		ft_exit(pwd, sh);

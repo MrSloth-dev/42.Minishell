@@ -110,11 +110,11 @@ ivan : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	$(CC) $(MAIN) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o minishell
+	$(CC) $(MAIN) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
-le: ivan
-	valgrind $(VALGRINDFLAGS) ./minishell
+le: all
+	valgrind $(VALGRINDFLAGS) ./$(NAME)
 	cat leaks.log
 
 qk: ivan
@@ -137,7 +137,6 @@ gdb : joao
 	tmux split-window -h -l 30
 	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
 	tmux select-pane -t Gdb.1
-
 
 clean:
 	@ $(RM) -f $(OBJS)
@@ -162,5 +161,5 @@ hell :
 	@echo "$(RED) A Project developed by Ivan Teixeira && Joao Barbosa$(CLR_RMV)"
 
 
-.SILENT: all re
+.SILENT: all re gdb
 
