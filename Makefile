@@ -5,7 +5,7 @@
 NAME = minishell
 CC = cc
 READLINE_FLAG = -lreadline
-CFLAGS = -Iincludes -lreadline -g
+CFLAGS = -Iincludes -g
 EFLAGS = -Wall -Wextra -Werror
 
 CLR_RMV = \033[0m
@@ -88,29 +88,30 @@ MAIN = src/main.c
 
 OBJS = $(SRCS:.c=.o)
 
+%.o: %.c $(HEADER)
+	@$(CC) $(CFLAGS) $(EFLAGS) -c $< -o $@
+
 ################################################################################
-#                                  Makefile  objs                              #
+#                                  Makefile  rules                             #
 ################################################################################
 
 
 .PHONY: all clean fclean re debug hell sync_bash
 
-all: $(NAME) $(HEADER) hell
+all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	@$(CC) $(MAIN) $(OBJS) $(CFLAGS) $(PRINTFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(EFLAGS) $(READLINE_FLAG) $(MAIN) $(OBJS) $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
-
-error : CFLAGS += $(EFLAGS)
 
 ivan : $(OBJS)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	$(CC) $(MAIN) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o $(NAME)
+	@$(CC) $(MAIN) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 le: all
@@ -131,9 +132,9 @@ joao : $(OBJS)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 
-gdb : joao
+gdb : all
 	tmux new-window  -n Gdb
-	tmux send-keys 'gdbtui ./minijoao' C-m Escape
+	tmux send-keys 'gdbtui ./minishell' C-m Escape
 	tmux split-window -h -l 30
 	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
 	tmux select-pane -t Gdb.1
