@@ -48,7 +48,6 @@ void	ft_free_tree(t_token_lst *token_lst)
 {
 	if (token_lst && token_lst->first)
 		ft_free_bin_shell(token_lst->first);
-	free (token_lst);
 }
 
 

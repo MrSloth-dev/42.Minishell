@@ -1,51 +1,14 @@
-==15038== Invalid free() / delete / delete[] / realloc()
-==15038==    at 0x484BB2C: free (vg_replace_malloc.c:989)
-==15038==    by 0x10AF87: ft_exit (exit.c:10)
-==15038==    by 0x10B224: ft_readline (readline.c:43)
-==15038==    by 0x1094AB: main (main.c:35)
-==15038==  Address 0x4b67b70 is 0 bytes inside a block of size 16 free'd
-==15038==    at 0x484BB2C: free (vg_replace_malloc.c:989)
-==15038==    by 0x10CADF: ft_free_tree (00_free_shell.c:51)
-==15038==    by 0x10946F: ft_shellfault (main.c:22)
-==15038==    by 0x1094D8: main (main.c:40)
-==15038==  Block was alloc'd at
-==15038==    at 0x484880F: malloc (vg_replace_malloc.c:446)
-==15038==    by 0x10D610: ft_calloc (in /home/isilva-t/a_shellfault/minishell)
-==15038==    by 0x1093E8: ft_shellfault (main.c:8)
-==15038==    by 0x1094D8: main (main.c:40)
-==15038== 
-==15038== FILE DESCRIPTORS: 6 open (3 std) at exit.
-==15038== Open file descriptor 26:
-==15038==    <inherited from parent>
-==15038== 
-==15038== Open file descriptor 15:
-==15038==    <inherited from parent>
-==15038== 
-==15038== Open file descriptor 3: /home/isilva-t/a_shellfault/leaks.log
-==15038==    <inherited from parent>
-==15038== 
-==15038== 
-==15038== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 1 from 1)
-==15038== 
-==15038== 1 errors in context 1 of 4:
-==15038== Invalid free() / delete / delete[] / realloc()
-==15038==    at 0x484BB2C: free (vg_replace_malloc.c:989)
-==15038==    by 0x10AF87: ft_exit (exit.c:10)
-==15038==    by 0x10B224: ft_readline (readline.c:43)
-==15038==    by 0x1094AB: main (main.c:35)
-==15038==  Address 0x4b67b70 is 0 bytes inside a block of size 16 free'd
-==15038==    at 0x484BB2C: free (vg_replace_malloc.c:989)
-==15038==    by 0x10CADF: ft_free_tree (00_free_shell.c:51)
-==15038==    by 0x10946F: ft_shellfault (main.c:22)
-==15038==    by 0x1094D8: main (main.c:40)
-==15038==  Block was alloc'd at
-==15038==    at 0x484880F: malloc (vg_replace_malloc.c:446)
-==15038==    by 0x10D610: ft_calloc (in /home/isilva-t/a_shellfault/minishell)
-==15038==    by 0x1093E8: ft_shellfault (main.c:8)
-==15038==    by 0x1094D8: main (main.c:40)
-==15038== 
---15038-- 
---15038-- used_suppression:     63 leak readline readline.supp:8 suppressed: 204,229 bytes in 222 blocks
---15038-- used_suppression:      4 leak add_history readline.supp:2 suppressed: 4,056 bytes in 4 blocks
-==15038== 
-==15038== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 1 from 1)
+==5884== FILE DESCRIPTORS: 5 open (3 std) at exit.
+==5884== Open file descriptor 15:
+==5884==    <inherited from parent>
+==5884== 
+==5884== Open file descriptor 3: /home/isilva-t/a_shellfault/leaks.log
+==5884==    <inherited from parent>
+==5884== 
+==5884== 
+==5884== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--5884-- 
+--5884-- used_suppression:     63 leak readline readline.supp:8 suppressed: 204,259 bytes in 222 blocks
+--5884-- used_suppression:      4 leak add_history readline.supp:2 suppressed: 4,086 bytes in 4 blocks
+==5884== 
+==5884== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)

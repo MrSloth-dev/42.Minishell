@@ -6,8 +6,11 @@ void	ft_exit(char *pwd, t_shell *shell)
 {
 	if (pwd != NULL)
 		free(pwd);
-	if (shell->token_lst)
-		free(shell->token_lst);
+	//befpre
+	//if (shell->token_lst)
+	//free(shell->token_lst)
+	//but this entry an invalid free, because have same free when executed one line before (removed that same free of ft_free_tree)
+	//free(shell->token_lst);
 	if (shell->line)
 		free(shell->line);
 	if (shell->envp)

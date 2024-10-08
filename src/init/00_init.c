@@ -10,6 +10,10 @@ t_shell	*ft_init_shell(char *envp[])
 		return (NULL);
 	}
 	sh->token_lst = NULL;
+
+
+
+
 	sh->envp = ft_copy_envp(envp, 0);
 
 	return (sh);

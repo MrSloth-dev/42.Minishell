@@ -167,9 +167,8 @@ int		ft_how_much_consecutives_spaces(char *str);
 t_token	*ft_make_bin_tree(t_token *token, int nd_type);
 
 //free_stuff
-void ft_free_bin_shell(t_token *token);
 void	ft_free_tree(t_token_lst *token_lst);
-
+void 	ft_free_lst_shell(t_shell *sh); //NOT NECESSARY TO DELIVER PROJECT
 
 //EXEC
 void	ft_exec_builtins(char **cmdargs, t_shell *shell);

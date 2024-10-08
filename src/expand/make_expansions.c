@@ -12,7 +12,7 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 	
 	new_cmd = NULL;
 	i = 0;
-	j = 0;
+	j = 1;
 	k = 0;
 	if (!cur && !cur->content)
 		return ;
@@ -46,10 +46,11 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 		}
 		i++;
 	}
-
-	cur->content = new_cmd;
-	free (str);
-
+	if (new_cmd != NULL)
+	{
+		cur->content = new_cmd;
+		free (str);
+	}
 }
 
 void	ft_make_expansions(t_shell *sh)
@@ -64,7 +65,7 @@ void	ft_make_expansions(t_shell *sh)
 		if (cur->content && cur->type == WORD)
 		{
 			//need to se into de ft, if dont have a dollar, I HAVE A BUG!
-			//ft_expand_on_this_node(cur, sh);
+			ft_expand_on_this_node(cur, sh);
 		}
 		cur = cur->next;
 	}
