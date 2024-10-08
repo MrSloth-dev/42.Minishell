@@ -21,9 +21,6 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	sh = ft_init_shell(envp);
 	int i = 0;
-	// chdir("..");
-	// ft_printf(1, "%s\n", getcwd(NULL, 0));
-	// return 0;
 	while (argv[i++])
 	{
 		split = ft_split(argv[i], ' ');
@@ -33,33 +30,9 @@ int	main(int argc, char *argv[], char *envp[])
 			ft_exec_builtins(split, sh);
 	}
 	i = 0;
-	// ft_env(sh);
 	return (0);
 }
 
-void	ft_exit(t_shell *shell)
-{
-	free(shell->envp);
-	exit(1);
-}
-
-void	ft_exec_builtins(char **cmdargs, t_shell *shell)
-{
-	if (!ft_strcmp("cd", cmdargs[0]))
-		ft_cd(cmdargs, shell);
-	else if (!ft_strcmp("export", cmdargs[0]))
-		ft_export(cmdargs, shell);
-	else if (!ft_strcmp("env", cmdargs[0]))
-		ft_env(shell);
-	else if (!ft_strcmp("pwd", cmdargs[0]))
-		ft_pwd(shell);
-	else if (!ft_strcmp("echo", cmdargs[0]))
-		ft_echo(cmdargs, shell);
-	else if (!ft_strcmp("unset", cmdargs[0]))
-		ft_unset(cmdargs, shell);
-	else if (!ft_strcmp("exit", cmdargs[0]))
-		ft_exit(shell);
-}
 	// ft_printf(1, "%s\n", ft_expand(argv[i], sh));
 	// split = ft_split(argv[1], ' ');
 	// // ft_printf(1, "%s\n", str);

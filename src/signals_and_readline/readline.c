@@ -35,16 +35,10 @@ t_shell	*ft_readline(t_shell *sh)
 	ft_start_sig();
 	sh->line = NULL;
 	sh->line = readline(pwd);
-	if (sh->line && *(sh->line))
+	if ((sh->line && *(sh->line)) || ft_strcmp("exit", sh->line) !=0)
 		add_history(sh->line);
-	if (sh->line == NULL)
-	{	
-		free(pwd);
-		ft_free_envp(sh->envp); //BE CAREFULL HERE!!!
-		free(sh);
-		ft_printf(1, "exit\n");
-		exit (EXIT_SUCCESS);
-	}
+	if (sh->line == NULL || !ft_strcmp("exit", sh->line))
+		ft_exit(pwd, sh);
 	free(pwd);
 	return (sh);
 }

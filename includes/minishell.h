@@ -119,6 +119,7 @@ void	ft_env(t_shell *shell);
 char	**ft_export(char **cmdargs, t_shell *shell);
 char	**ft_unset(char **cmdargs, t_shell *shell);
 void	ft_cd(char **cmdargs, t_shell *shell);
+void	ft_exit(char *pwd, t_shell *shell);
 
 //BUILT-INS UTILS
 char	*ft_get_env_key_and_value(char *env_key, t_shell *shell);
@@ -167,6 +168,10 @@ t_token	*ft_make_bin_tree(t_token *token, int nd_type);
 //free_stuff
 void ft_free_bin_shell(t_token *token);
 void	ft_free_tree(t_token_lst *token_lst);
+
+
+//EXEC
+void	ft_exec_builtins(char **cmdargs, t_shell *shell);
 
 //STUF TO ORGANIZE BY IVAN. NEEDED STUFF IN OTHER FILES,THAT I USED ON MY MAIN FILE
 void	ft_free_envp(char **envp);
