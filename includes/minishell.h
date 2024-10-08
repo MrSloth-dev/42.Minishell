@@ -116,7 +116,7 @@ typedef struct s_shell
 void	ft_echo(char **cmd_args, t_shell *sh);
 void	ft_pwd(t_shell *shell);
 void	ft_env(t_shell *shell);
-char	**ft_export(char **cmdargs, t_shell *shell);
+void	ft_export(char **cmdargs, t_shell *shell);
 char	**ft_unset(char **cmdargs, t_shell *shell);
 void	ft_cd(char **cmdargs, t_shell *shell);
 void	ft_exit(char *pwd, t_shell *shell);

@@ -1,43 +1,937 @@
-==190315== Memcheck, a memory error detector
-==190315== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==190315== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==190315== Command: ./minishell
-==190315== Parent PID: 190293
-==190315== 
-==190315== 
-==190315== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==190315== Open file descriptor 3: /home/joao-pol/CommonCore/3.MiniShell/leaks.log
-==190315==    <inherited from parent>
-==190315== 
-==190315== 
-==190315== HEAP SUMMARY:
-==190315==     in use at exit: 215,828 bytes in 236 blocks
-==190315==   total heap usage: 553 allocs, 317 frees, 242,276 bytes allocated
-==190315== 
-==190315== 10 bytes in 2 blocks are indirectly lost in loss record 5 of 75
-==190315==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==190315==    by 0x405DCE: ft_strdupword (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
-==190315==    by 0x405D2F: ft_get_next_word (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
-==190315==    by 0x405A94: ft_split (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
-==190315==    by 0x40125D: ft_shellfault (main.c:5)
-==190315==    by 0x4012CB: main (main.c:39)
-==190315== 
-==190315== 42 (32 direct, 10 indirect) bytes in 2 blocks are definitely lost in loss record 15 of 75
-==190315==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==190315==    by 0x4059AA: ft_split (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
-==190315==    by 0x40125D: ft_shellfault (main.c:5)
-==190315==    by 0x4012CB: main (main.c:39)
-==190315== 
-==190315== LEAK SUMMARY:
-==190315==    definitely lost: 32 bytes in 2 blocks
-==190315==    indirectly lost: 10 bytes in 2 blocks
-==190315==      possibly lost: 0 bytes in 0 blocks
-==190315==    still reachable: 0 bytes in 0 blocks
-==190315==         suppressed: 215,786 bytes in 232 blocks
-==190315== 
-==190315== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
---190315-- 
---190315-- used_suppression:     69 leak readline readline.supp:8 suppressed: 211,688 bytes in 225 blocks
---190315-- used_suppression:      4 leak add_history readline.supp:2 suppressed: 4,098 bytes in 7 blocks
-==190315== 
-==190315== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+==196090== Invalid read of size 8
+==196090==    at 0x4024EA: ft_get_env_value (utils.c:47)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 8
+==196090==    at 0x402501: ft_get_env_value (utils.c:49)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x4054B7: ft_strncmp (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x40250D: ft_get_env_value (utils.c:49)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x4054FB: ft_strncmp (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x40250D: ft_get_env_value (utils.c:49)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x40551B: ft_strncmp (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x40250D: ft_get_env_value (utils.c:49)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 8
+==196090==    at 0x40251F: ft_get_env_value (utils.c:51)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66468 is 520 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x4053BD: ft_strchr (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x40252C: ft_get_env_value (utils.c:51)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b68890 is 0 bytes inside a block of size 42 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x4053CF: ft_strchr (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x40252C: ft_get_env_value (utils.c:51)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b68890 is 0 bytes inside a block of size 42 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x40562C: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x402CC9: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b68894 is 4 bytes inside a block of size 42 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x405684: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x402CC9: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b68894 is 4 bytes inside a block of size 42 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x405696: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x402CC9: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b68894 is 4 bytes inside a block of size 42 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 8
+==196090==    at 0x40138E: ft_copy_envp (00_init.c:24)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 8
+==196090==    at 0x4013E8: ft_copy_envp (00_init.c:30)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 8
+==196090==    at 0x4013FB: ft_copy_envp (00_init.c:32)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x40562C: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x405684: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 1
+==196090==    at 0x405696: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 8
+==196090==    at 0x404A3B: ft_free_envp (00_free_shell.c:79)
+==196090==    by 0x402C55: ft_exit (exit.c:14)
+==196090==    by 0x402DC3: ft_readline (readline.c:43)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid read of size 8
+==196090==    at 0x404A4E: ft_free_envp (00_free_shell.c:81)
+==196090==    by 0x402C55: ft_exit (exit.c:14)
+==196090==    by 0x402DC3: ft_readline (readline.c:43)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid free() / delete / delete[] / realloc()
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x404A56: ft_free_envp (00_free_shell.c:81)
+==196090==    by 0x402C55: ft_exit (exit.c:14)
+==196090==    by 0x402DC3: ft_readline (readline.c:43)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== Invalid free() / delete / delete[] / realloc()
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x404A6D: ft_free_envp (00_free_shell.c:84)
+==196090==    by 0x402C55: ft_exit (exit.c:14)
+==196090==    by 0x402DC3: ft_readline (readline.c:43)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==196090== Open file descriptor 3: /home/joao-pol/CommonCore/3.MiniShell/leaks.log
+==196090==    <inherited from parent>
+==196090== 
+==196090== 
+==196090== 30 bytes in 1 blocks are definitely lost in loss record 14 of 76
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== ERROR SUMMARY: 14153 errors from 22 contexts (suppressed: 2 from 2)
+==196090== 
+==196090== 1 errors in context 1 of 22:
+==196090== Invalid free() / delete / delete[] / realloc()
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x404A6D: ft_free_envp (00_free_shell.c:84)
+==196090==    by 0x402C55: ft_exit (exit.c:14)
+==196090==    by 0x402DC3: ft_readline (readline.c:43)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 2 errors in context 2 of 22:
+==196090== Invalid read of size 8
+==196090==    at 0x40251F: ft_get_env_value (utils.c:51)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66468 is 520 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 8 errors in context 3 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x4053CF: ft_strchr (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x40252C: ft_get_env_value (utils.c:51)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b68890 is 0 bytes inside a block of size 42 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 8 errors in context 4 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x4053BD: ft_strchr (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x40252C: ft_get_env_value (utils.c:51)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b68890 is 0 bytes inside a block of size 42 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 74 errors in context 5 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x405696: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x402CC9: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b68894 is 4 bytes inside a block of size 42 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 75 errors in context 6 of 22:
+==196090== Invalid free() / delete / delete[] / realloc()
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x404A56: ft_free_envp (00_free_shell.c:81)
+==196090==    by 0x402C55: ft_exit (exit.c:14)
+==196090==    by 0x402DC3: ft_readline (readline.c:43)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 75 errors in context 7 of 22:
+==196090== Invalid read of size 8
+==196090==    at 0x404A4E: ft_free_envp (00_free_shell.c:81)
+==196090==    by 0x402C55: ft_exit (exit.c:14)
+==196090==    by 0x402DC3: ft_readline (readline.c:43)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 75 errors in context 8 of 22:
+==196090== Invalid read of size 8
+==196090==    at 0x4013FB: ft_copy_envp (00_init.c:32)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 76 errors in context 9 of 22:
+==196090== Invalid read of size 8
+==196090==    at 0x404A3B: ft_free_envp (00_free_shell.c:79)
+==196090==    by 0x402C55: ft_exit (exit.c:14)
+==196090==    by 0x402DC3: ft_readline (readline.c:43)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 76 errors in context 10 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x405684: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x402CC9: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b68894 is 4 bytes inside a block of size 42 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 76 errors in context 11 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x40562C: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x402CC9: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b68894 is 4 bytes inside a block of size 42 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 76 errors in context 12 of 22:
+==196090== Invalid read of size 8
+==196090==    at 0x4013E8: ft_copy_envp (00_init.c:30)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 76 errors in context 13 of 22:
+==196090== Invalid read of size 8
+==196090==    at 0x40138E: ft_copy_envp (00_init.c:24)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 130 errors in context 14 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x40551B: ft_strncmp (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x40250D: ft_get_env_value (utils.c:49)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 132 errors in context 15 of 22:
+==196090== Invalid read of size 8
+==196090==    at 0x402501: ft_get_env_value (utils.c:49)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 132 errors in context 16 of 22:
+==196090== Invalid read of size 8
+==196090==    at 0x4024EA: ft_get_env_value (utils.c:47)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66260 is 0 bytes inside a block of size 1,208 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F69: ft_export (export.c:117)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x4055C2: ft_calloc (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x4013BC: ft_copy_envp (00_init.c:26)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 140 errors in context 17 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x4054FB: ft_strncmp (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x40250D: ft_get_env_value (utils.c:49)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 140 errors in context 18 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x4054B7: ft_strncmp (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x40250D: ft_get_env_value (utils.c:49)
+==196090==    by 0x402CC1: ft_readline (readline.c:33)
+==196090==    by 0x4012AF: main (main.c:35)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 4210 errors in context 19 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x405696: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 4285 errors in context 20 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x405684: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+==196090== 
+==196090== 4285 errors in context 21 of 22:
+==196090== Invalid read of size 1
+==196090==    at 0x40562C: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x4029D4: ft_order_env (export_utils.c:56)
+==196090==    by 0x402AC8: ft_export_no_args (export_utils.c:81)
+==196090==    by 0x401EBE: ft_export (export.c:101)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Address 0x4b66760 is 0 bytes inside a block of size 36 free'd
+==196090==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x401F52: ft_export (export.c:114)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090==  Block was alloc'd at
+==196090==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==196090==    by 0x405657: ft_strdup (in /home/joao-pol/CommonCore/3.MiniShell/minishell)
+==196090==    by 0x401403: ft_copy_envp (00_init.c:32)
+==196090==    by 0x401EE7: ft_export (export.c:105)
+==196090==    by 0x40524C: ft_exec_builtins (exec_builtin.c:8)
+==196090==    by 0x40126E: ft_shellfault (main.c:6)
+==196090==    by 0x4012DB: main (main.c:40)
+==196090== 
+--196090-- 
+--196090-- used_suppression:     69 leak readline readline.supp:8 suppressed: 211,700 bytes in 225 blocks
+--196090-- used_suppression:      4 leak add_history readline.supp:2 suppressed: 4,151 bytes in 10 blocks
+--196090-- used_suppression:      2 leak ft_split readline.supp:26 suppressed: 84 bytes in 5 blocks
+==196090== 
+==196090== ERROR SUMMARY: 14153 errors from 22 contexts (suppressed: 2 from 2)

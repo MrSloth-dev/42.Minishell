@@ -2,7 +2,8 @@
 
 void	ft_shellfault(t_shell *sh)
 {
-	ft_exec_builtins(ft_split(sh->line, ' '), sh);
+	char **split = ft_split(sh->line, ' ');
+	ft_exec_builtins(split, sh);
 	return;
 	sh->token_lst = ft_calloc(sizeof(t_token_lst), 1);
 	if (!sh->token_lst)

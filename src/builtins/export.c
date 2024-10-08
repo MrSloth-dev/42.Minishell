@@ -21,15 +21,6 @@ void	ft_join_env(char *cmdargs, char **temp, int j)
 	}
 }
 
-void	ft_copy_env(char **temp, char **env)
-{
-	int	i;
-
-	i = -1;
-	while (env[++i])
-		temp[i] = ft_strdup(env[i]);
-}
-
 static int	ft_export_duplicate(char **cmdargs, int k)
 {
 	char	*temp;
@@ -95,7 +86,7 @@ void	ft_add_env(char **cmdargs, char **temp, int plus_mode, t_shell *shell)
 	}
 }
 
-char	**ft_export(char **cmdargs, t_shell *shell)
+void	ft_export(char **cmdargs, t_shell *shell)
 {
 	char	**temp;
 	int		i;
@@ -104,20 +95,24 @@ char	**ft_export(char **cmdargs, t_shell *shell)
 	i = 0;
 	j = 0;
 	if (!cmdargs)
-		return (NULL);
+		return ;
 	if (!cmdargs[1])
 	{
 		ft_export_no_args(*shell);
-		return (shell->envp);
+		return ;
 	}
 	i = ft_export_size_increase(cmdargs, shell, &j);
 	temp = ft_copy_envp(shell->envp, i);
 	if (!temp)
-		return (NULL);
+		return ;
 	ft_add_env(cmdargs, temp, 0, shell);
-	// while (shell->envp[i])
-	// 	free(shell->envp[i]);
-	// free(shell->envp);
+	ft_free_envp(shell->envp);
 	shell->envp = temp;
-	return (temp);
+	i = 0;
+	while (temp[i])
+	{
+		free(temp[i]);
+		i++;
+	}
+	free(temp);
 }

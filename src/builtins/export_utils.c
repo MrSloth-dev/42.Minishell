@@ -76,19 +76,22 @@ void	ft_export_no_args(t_shell shell)
 	int		i;
 	char	**order;
 	char	*value;
+	char	*key;
 
 	order = ft_order_env(shell.envp);
 	i = 0;
 	i = 0;
 	while (order[i])
 	{
-		ft_printf(STDOUT_FILENO, "declare -x %s=", ft_get_env_key(order[i]));
+		key = ft_get_env_key(order[i]);
+		ft_printf(STDOUT_FILENO, "declare -x %s=", key);
 		value = ft_get_env_value(order[i], order, &shell);
 		if (!value)
 			ft_printf(STDOUT_FILENO, "\"\"\n");
 		else
 			ft_printf(STDOUT_FILENO, "\"%s\"\n", value);
 		i++;
+		free(key);
 	}
 	i = 0;
 	while (order[i])

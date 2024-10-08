@@ -22,3 +22,9 @@
 	...
 	fun:rl_clear_history
 }
+{
+	leak ft_split
+	Memcheck:Leak
+	...
+	fun:ft_split
+}
