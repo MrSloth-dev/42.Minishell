@@ -1,4 +1,6 @@
+#include "ft_printf.h"
 #include "minishell.h"
+#include <unistd.h>
 
 void	ft_safe_chdir(char *path, t_shell *shell, int flags);
 void	ft_update_directory(char *path, char *variable, t_shell *shell);
@@ -12,11 +14,13 @@ void	ft_change_home(char **cmdargs, t_shell *shell)
 		ft_update_directory(getcwd(NULL, 0), "OLDPWD=", shell);
 		home = ft_get_env_value(ft_strdup("HOME"), shell->envp, shell);
 		ft_safe_chdir(home, shell, 0);
+		ft_update_directory(home, "PWD=", shell);
 	}
 	else if (!strcmp(cmdargs[1], "~"))
 	{
 		home = ft_get_env_value(ft_strdup("HOME"), shell->envp, shell);
 		ft_safe_chdir(home, shell, 0);
+		ft_update_directory(home, "PWD=", shell);
 	}
 
 }
@@ -36,19 +40,17 @@ void	ft_cd(char **cmdargs, t_shell *shell)
 	update_old = getcwd(NULL, 0);
 	if (!cmdargs[1] || !ft_strcmp(cmdargs[1], "~") || !ft_strcmp(cmdargs[1], "--"))
 		ft_change_home(cmdargs, shell);
-	else if (cmdargs[1][0] == '-')
+	else if (!ft_strcmp(cmdargs[1], "-"))
 	{
 		old_pwd = ft_get_env_value("OLDPWD", shell->envp, shell);
 		ft_printf(STDOUT_FILENO, "%s\n", old_pwd);
 		ft_safe_chdir(old_pwd, shell, 0);
-		free(old_pwd);
 	}
 	else
 		ft_safe_chdir(cmdargs[1], shell, 0);
-	ft_printf(STDOUT_FILENO, "PWD currently is %s\n",
-		ft_get_env_value("PWD", shell->envp, shell));
-	ft_printf(STDOUT_FILENO, "OLDPWD currently is %s\n",
-		ft_get_env_value("OLDPWD", shell->envp, shell));
+	ft_update_directory(update_old, "OLDPWD=", shell);
+	ft_printf(STDOUT_FILENO, "PWD currently is %s\n", ft_get_env_value("PWD", shell->envp, shell));
+	ft_printf(STDOUT_FILENO, "OLDPWD currently is %s\n", ft_get_env_value("OLDPWD", shell->envp, shell));
 	return ;
 }
 
@@ -70,8 +72,8 @@ void	ft_safe_chdir(char *path, t_shell *shell, int flags)
 		shell->exit_status = EXIT_FAILURE;
 		return ;
 	}
-	ft_update_directory(getcwd(NULL, 0), "PWD", shell);
 	shell->exit_status = EXIT_SUCCESS;
+	ft_update_directory(getcwd(NULL, 0), "PWD=", shell);
 }
 
 void	ft_update_directory(char *path, char *variable, t_shell *shell)

@@ -5,6 +5,14 @@ display cmdargs
 display shell->envp[k]
 display temp[k]
 end
+define cd
+break ft_cd
+break ft_update_directory
+run cd
+display update_old
+display cmdargs[1]
+display old_pwd
+end
 
 define export
 display cmdargs[k]

@@ -41,7 +41,7 @@ void	ft_append_env(char *cmdargs, char **temp)
 	while (temp[i])
 		i++;
 	temp[i++] = ft_strdup(cmdargs);
-	temp[i] = 0;
+	// temp[i] = 0;
 }
 
 char	**ft_order_env(char **env)
