@@ -18,6 +18,8 @@
 
 void	ft_shellfault(t_shell *sh)
 {
+	ft_exec_builtins(ft_split(sh->line, ' '), sh);
+	return;
 	sh->token_lst = ft_calloc(sizeof(t_token_lst), 1);
 	if (!sh->token_lst)
 		return ;
@@ -29,9 +31,8 @@ void	ft_shellfault(t_shell *sh)
 	sh->token_lst->first = ft_make_bin_tree(sh->token_lst->first, ND_EXEC);
 
 	ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
-
+	//execution is made here
 	ft_free_tree(sh->token_lst);
-
 }
 
 int	main(int argc, char *argv[], char *envp[])

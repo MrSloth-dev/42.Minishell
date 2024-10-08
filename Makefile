@@ -40,6 +40,7 @@ PRINTDIR = ./includes/ft_printf/
 PRINTFT = ./includes/ft_printf/libftprintf.a
 
 BDIR = src/builtins
+EXECDIR = ./src/execution
 EXPDIR = src/expand
 SIGNALDIR = src/signals_and_readline
 SYNTAXDIR = src/syntax
@@ -59,7 +60,8 @@ BUILTIN = $(BDIR)/echo.c \
 		$(BDIR)/export.c \
 		$(BDIR)/unset.c \
 		$(BDIR)/utils.c \
-		$(BDIR)/export_utils.c
+		$(BDIR)/export_utils.c \
+		$(BDIR)/exit.c
 
 SIGNAL = $(SIGNALDIR)/readline.c
 
@@ -74,11 +76,13 @@ TOKENIZER = $(TOKENIZERDIR)/00_tokenizer.c \
 
 PARSE = $(PARSEDIR)/00_make_bin_tree.c
 
+EXEC = $(EXECDIR)/exec_builtin.c
+
 WARNING = src/WARNING/print.c
 
 FREE = $(FREEDIR)/00_free_shell.c \
 
-SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING)
+SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC)
 
 MAINI = src/main_ivan.c
 MAINJ = src/main_joao.c
