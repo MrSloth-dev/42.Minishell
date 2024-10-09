@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_exec_builtins(char **cmdargs, t_shell *shell)
+void	ft_exec_builtins(t_token, t_shell *shell)
 {
 	if (ft_strcmp("cd", cmdargs[0]) == 0)
 		ft_cd(cmdargs, shell);
