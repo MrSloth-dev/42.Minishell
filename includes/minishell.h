@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "ft_printf.h"
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -113,12 +115,12 @@ typedef struct s_shell
 }	t_shell;
 
 // BUILT-INS
-void	ft_echo(char **cmd_args, t_shell *sh);
+void	ft_echo(t_token *cmd_args, t_shell *sh);
 void	ft_pwd(t_shell *shell);
 void	ft_env(t_shell *shell);
 void	ft_export(char **cmdargs, t_shell *shell);
 char	**ft_unset(char **cmdargs, t_shell *shell);
-void	ft_cd(char **cmdargs, t_shell *shell);
+void	ft_cd(t_token *cmdargs, t_shell *shell);
 void	ft_exit(char *pwd, t_shell *shell);
 
 //BUILT-INS UTILS
@@ -171,7 +173,7 @@ void	ft_free_tree(t_token_lst *token_lst);
 void 	ft_free_lst_shell(t_shell *sh); //NOT NECESSARY TO DELIVER PROJECT
 
 //EXEC
-void	ft_exec_builtins(char **cmdargs, t_shell *shell);
+void	ft_exec_builtins(t_token *cmdargs, t_shell *shell);
 
 //STUF TO ORGANIZE BY IVAN. NEEDED STUFF IN OTHER FILES,THAT I USED ON MY MAIN FILE
 void	ft_free_envp(char **envp);
@@ -180,4 +182,5 @@ void	ft_free_envp(char **envp);
 void	ft_print_binary_tree(t_token_lst *token_lst);
 void	ft_print_tokens(t_token_lst *token_lst);
 
+int	ft_getpid(t_shell *shell);
 #endif //MINISHELL_H_

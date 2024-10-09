@@ -1,12 +1,15 @@
 #include "minishell.h"
-#include <unistd.h>
 
 int	ft_getpid(t_shell *shell)
 {
-	shell->pid = fork();
-	if (shell->pid == 0)
-		exit (0);
-	return (shell->pid);
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+		ft_exit (NULL, shell);
+	wait(NULL);
+	pid = pid - 1;
+	return (pid);
 }
 
 char	*ft_expand(char *str, t_shell *shell)

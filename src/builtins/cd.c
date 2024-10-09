@@ -1,51 +1,55 @@
 #include "minishell.h"
+#include <unistd.h>
 
 void	ft_safe_chdir(char *path, t_shell *shell, int flags);
 void	ft_update_directory(char *path, char *variable, t_shell *shell);
 
-void	ft_change_home(char **cmdargs, t_shell *shell)
+void	ft_change_home(t_token *cmdargs, t_shell *shell)
 {
 	char	*home;
+	char	*old_home;
 
-	if (!cmdargs[1] || !strcmp(cmdargs[1], "--"))
+	if (!cmdargs->next || !strcmp(cmdargs->next->content, "--"))
 	{
-		ft_update_directory(getcwd(NULL, 0), "OLDPWD=", shell);
-		home = ft_get_env_value(ft_strdup("HOME"), shell->envp, shell);
+		old_home = getcwd(NULL, 0);
+		ft_update_directory(old_home, "OLDPWD=", shell);
+		home = ft_get_env_value("HOME", shell->envp, shell);
 		ft_safe_chdir(home, shell, 0);
 		ft_update_directory(home, "PWD=", shell);
+		free (old_home);
 	}
-	else if (!strcmp(cmdargs[1], "~"))
+	else if (!strcmp(cmdargs->next->content, "~"))
 	{
-		home = ft_get_env_value(ft_strdup("HOME"), shell->envp, shell);
+		home = ft_get_env_value("HOME", shell->envp, shell);
 		ft_safe_chdir(home, shell, 0);
 		ft_update_directory(home, "PWD=", shell);
 	}
 }
 
-void	ft_cd(char **cmdargs, t_shell *shell)
+void	ft_cd(t_token *cmdargs, t_shell *shell)
 {
 	char	*update_old;
 	char	*old_pwd;
 
-	if (cmdargs[1])
+	if (cmdargs->next)
 	{
-		if (!cmdargs[1][0])
+		if (!cmdargs->next->content[0])
 			return ;
-		if (cmdargs[2])
+		if (cmdargs->next->next)
 			return (ft_safe_chdir(NULL, shell, 2));
 	}
 	update_old = getcwd(NULL, 0);
-	if (!cmdargs[1] || !ft_strcmp(cmdargs[1], "~\0")
-		|| !ft_strcmp(cmdargs[1], "--"))
+	if (!cmdargs->next || !ft_strcmp(cmdargs->next->content, "~\0")
+		|| !ft_strcmp(cmdargs->next->content, "--"))
 		ft_change_home(cmdargs, shell);
-	else if (!ft_strcmp(cmdargs[1], "-"))
+	else if (!ft_strcmp(cmdargs->next->content, "-"))
 	{
 		old_pwd = ft_get_env_value("OLDPWD", shell->envp, shell);
 		ft_printf(STDOUT_FILENO, "%s\n", old_pwd);
 		ft_safe_chdir(old_pwd, shell, 0);
 	}
 	else
-		ft_safe_chdir(cmdargs[1], shell, 0);
+		ft_safe_chdir(cmdargs->next->content, shell, 0);
 	ft_update_directory(update_old, "OLDPWD=", shell);
 }
 

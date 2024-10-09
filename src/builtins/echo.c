@@ -1,55 +1,61 @@
 #include "minishell.h"
 
-int	ft_check_n(char **cmd_args)
+int	ft_check_n(t_token *cmdargs)
 {
-	size_t	i;
 	size_t	j;
 	int		count;
 
-	i = 1;
 	count = 0;
-	while (cmd_args[i][0] == '-' && cmd_args[i][1] == 'n')
+	while (cmdargs->content[0] == '-' && cmdargs->content[1] == 'n')
 	{
-		if (cmd_args[i][0] == '-')
+		if (cmdargs->content[0] == '-')
 		{
 			j = 1;
-			while (cmd_args[i][j] == 'n')
+			while (cmdargs->content[j] == 'n')
 				j++;
-			if (ft_strlen(cmd_args[i]) == j)
+			if (ft_strlen(cmdargs->content) == j)
 				count++;
 			else
 				return (count);
 		}
-		i++;
+		if (cmdargs->next)
+			cmdargs = cmdargs->next;
+		else
+			break ;
 	}
 	return (count);
 }
 
-void	ft_echo(char **cmd_args, t_shell *sh)
+void	ft_echo(t_token *cmdargs, t_shell *sh)
 {
-	int	i;
+	t_token	*head;
+	int		skip;
 
-	i = 1;
-	if (!cmd_args)
+	skip = 0;
+	head = cmdargs;
+	if (!cmdargs->content)
 	{
 		sh->exit_status = ERROR;
 		return ;
 	}
-	if (!cmd_args[1])
+	if (!cmdargs->next)
 	{
 		printf("\n");
 		sh->exit_status = SUCCESS;
 		return ;
 	}
-	if (cmd_args[1][0] == '-' && cmd_args[1][1] == 'n')
-		i += ft_check_n(cmd_args);
-	while (cmd_args[i])
+	if (cmdargs->next->content[0] == '-' && cmdargs->next->content[1] == 'n')
+		skip += ft_check_n(cmdargs->next);
+	while (skip--)
+		cmdargs = cmdargs->next;
+	while (cmdargs->next)
 	{
-		printf("%s", cmd_args[i++]);
-		if (cmd_args[i])
+		printf("%s", cmdargs->next->content);
+		if (cmdargs->content)
 			printf(" ");
+		cmdargs = cmdargs->next;
 	}
-	if (ft_strncmp("-n", cmd_args[1], 2) != 0)
+	if (ft_strcmp("-n", head->next->content) != 0)
 		printf("\n");
 	sh->exit_status = SUCCESS;
 }
