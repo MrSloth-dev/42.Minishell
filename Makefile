@@ -48,6 +48,7 @@ TOKENIZERDIR = src/tokenizer
 PARSEDIR = src/parse
 FREEDIR = src/free_stuff
 INITDIR = src/init
+UTILSDIR = src/utils
 
 INIT = $(INITDIR)/00_init.c
 
@@ -79,11 +80,13 @@ PARSE = $(PARSEDIR)/00_make_bin_tree.c
 
 EXEC = $(EXECDIR)/exec_builtin.c
 
+UTILS = $(UTILSDIR)/iter.c
+
 WARNING = src/WARNING/print.c
 
 FREE = $(FREEDIR)/00_free_shell.c \
 
-SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC)
+SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC) $(UTILS)
 
 MAIN = src/main.c
 

@@ -2,15 +2,6 @@
 #include "minishell.h"
 #include <string.h>
 
-t_iterator	set_h(int n)
-{
-	t_iterator	h;
-
-	h.i = n;
-	h.j = n;
-	h.k = n;
-	return (h);
-}
 
 // char	*make_new_cmd(char *new_cmd)
 // {
@@ -24,7 +15,7 @@ t_iterator	set_h(int n)
 
 void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 {
-	t_iterator	h;
+	t_iter	h;
 	char	*str;
 	char	*name_var;
 	char	*exp;
