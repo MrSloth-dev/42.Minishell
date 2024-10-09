@@ -167,8 +167,7 @@ void	ft_delete_space_tokens(t_token_lst *token_lst)
 	}
 }
 
-
-void	ft_tokenizer(t_token_lst *token_lst, char *line)
+void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
 {
 	int	status;
 	int	i;
@@ -207,7 +206,8 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line)
 		}
 	}
 
-	//EXPAMD ENVS HERE DARLIN!
+
+	ft_make_expansions(sh);
 
 	ft_join_tokens(token_lst);
 	ft_delete_space_tokens(token_lst);
