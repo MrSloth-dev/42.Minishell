@@ -3,13 +3,14 @@
 #include <string.h>
 
 
-// char	*make_new_cmd(char *new_cmd)
-// {
-// 					if (!new_cmd)
-// 						new_cmd = ft_strjoin_free(ft_substr(str, k, i), exp);
-// 					else
-// 						new_cmd = ft_strjoin_free(new_cmd, exp);
-// }
+static char	*make_new_cmd(char *new_cmd, char *str, char *exp, t_iter h)
+{
+	if (!new_cmd)
+		new_cmd = ft_strjoin_free(ft_substr(str, h.k, h.i), exp);
+	else
+		new_cmd = ft_strjoin_free(new_cmd, exp);
+	return (new_cmd);
+}
 
 
 
@@ -23,6 +24,7 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 	
 	h = set_h(0);
 	new_cmd = NULL;
+	exp = NULL;
 	if (!cur && !cur->content)
 		return ;
 	str = cur->content;
@@ -33,7 +35,10 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 		{
 			if (str[h.i + 1])
 			{
-				if (str[h.i + 1] != '$' && ft_isdigit(str[h.i + 1]) == FALSE)
+
+
+
+				if (str[h.i + 1] != '$' || ft_isdigit(str[h.i + 1]) == FALSE)
 				{
 					while (str[h.i + 1 + h.j]
 						&& 		(
@@ -46,31 +51,29 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 					name_var = ft_substr(str, h.i + 1, h.j);
 					exp = ft_expand(name_var, sh);
 					free(name_var);
-					if (!new_cmd)
-						new_cmd = ft_strjoin_free(ft_substr(str, h.k, h.i), exp);
-					else
-						new_cmd = ft_strjoin_free(new_cmd, exp);
+					new_cmd = make_new_cmd(new_cmd, str, exp, h);
 				}
 				else if (str[h.i + 1] == '$')
 				{
-
+					exp = ft_strdup("_PID_");
+					new_cmd = make_new_cmd(new_cmd, str, exp, h);
 				}
-
-
-				h.i += h.j;
-				h.k = h.i;
 			}
 			else
 			{
-				if (!new_cmd)
-					new_cmd = ft_strjoin_free(ft_substr(str, h.k, h.i), ft_strdup("$"));
-				else
-					new_cmd = ft_strjoin_free(new_cmd, ft_strdup("$"));
+				new_cmd = make_new_cmd(new_cmd, str, ft_strdup("$"), h);
 			}
-			//ft_printf(1, "%s\n\n", new_cmd);
+
+
+			h.i += h.j;
+			h.k = h.i;
+
+		//ft_printf(1, "%s\n\n", new_cmd);
 		}
+		exp = NULL;
 		h.i++;
 	}
+
 	if (new_cmd != NULL)
 	{
 		cur->content = new_cmd;
