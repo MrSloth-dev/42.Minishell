@@ -9,9 +9,8 @@ void	ft_shellfault(t_shell *sh)
 	sh->token_lst = ft_calloc(sizeof(t_token_lst), 1); //this probably need to go to init shell
 	if (!sh->token_lst)
 		return ;
-	ft_tokenizer(sh->token_lst, sh->line);
+	ft_tokenizer(sh->token_lst, sh->line, sh);
 
-	ft_make_expansions(sh);
 
 	ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
 //	ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES

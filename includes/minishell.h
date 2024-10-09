@@ -158,7 +158,7 @@ int		ft_check_special_char(char *line);
 int		ft_have_syntax_error(t_shell *sh);
 
 //tokenizer
-void	ft_tokenizer(t_token_lst *token_lst, char *line);
+void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh);
 //tokenizer utils
 int		ft_is_word(char c);
 int		ft_how_much_consecutives_spaces(char *str);
