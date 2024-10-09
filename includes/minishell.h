@@ -113,6 +113,14 @@ typedef struct s_shell
 	char		*line;
 	int			pid;
 }	t_shell;
+/////////////////////////////
+// HELPER STRUCTS
+typedef struct s_iter
+{
+	int	i;
+	int	j;
+	int	k;
+}			t_iter;
 
 // BUILT-INS
 void	ft_echo(t_token *cmd_args, t_shell *sh);
@@ -174,6 +182,10 @@ void 	ft_free_lst_shell(t_shell *sh); //NOT NECESSARY TO DELIVER PROJECT
 
 //EXEC
 void	ft_exec_builtins(t_token *cmdargs, t_shell *shell);
+
+//UTILS
+t_iter	set_h(int n);
+
 
 //STUF TO ORGANIZE BY IVAN. NEEDED STUFF IN OTHER FILES,THAT I USED ON MY MAIN FILE
 void	ft_free_envp(char **envp);
