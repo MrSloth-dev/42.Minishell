@@ -111,6 +111,14 @@ typedef struct s_shell
 	char		*line;
 	int			pid;
 }	t_shell;
+/////////////////////////////
+// HELPER STRUCTS
+typedef struct s_iterator
+{
+	int	i;
+	int	j;
+	int	k;
+}			t_iterator;
 
 // BUILT-INS
 void	ft_echo(char **cmd_args, t_shell *sh);
