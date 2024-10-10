@@ -60,6 +60,8 @@ void	ft_execute_command(t_token *cmd, t_shell *shell)
 	char	**cmdargs;
 	char	*cmdbin;
 
+	if (!cmd->content)
+		return ;
 	cmdargs = ft_create_cmdargs(cmd);
 	cmdbin = ft_get_cmd(cmd, shell);
 	pipe(fd);

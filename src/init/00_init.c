@@ -15,6 +15,7 @@ char	*ft_find_path(char *envp[])
 t_shell	*ft_init_shell(char *envp[])
 {
 	t_shell	*sh;
+
 	sh = ft_calloc(1, sizeof(t_shell));
 	if (!sh)
 	{
@@ -24,14 +25,13 @@ t_shell	*ft_init_shell(char *envp[])
 	sh->token_lst = NULL;
 	sh->envp = ft_copy_envp(envp, 0);
 	sh->path = ft_split(ft_find_path(sh->envp), ':');
-
 	return (sh);
 }
 
 char	**ft_copy_envp(char **envp, int extra)
 {
-	int	i;
-	char **temp_envp;
+	char	**temp_envp;
+	int		i;
 
 	i = 0;
 	while (envp[i])
@@ -46,5 +46,4 @@ char	**ft_copy_envp(char **envp, int extra)
 		i++;
 	}
 	return (temp_envp);
-
 }
