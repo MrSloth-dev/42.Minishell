@@ -1,0 +1,141 @@
+==119742== Invalid read of size 1
+==119742==    at 0x4059D8: ft_strlen (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x404BD9: ft_expand_on_this_node (make_expansions.c:69)
+==119742==    by 0x404E37: ft_make_expansions (make_expansions.c:102)
+==119742==    by 0x40433B: ft_tokenizer (00_tokenizer.c:210)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==119742== 
+==119742== 
+==119742== Process terminating with default action of signal 11 (SIGSEGV)
+==119742==  Access not within mapped region at address 0x0
+==119742==    at 0x4059D8: ft_strlen (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x404BD9: ft_expand_on_this_node (make_expansions.c:69)
+==119742==    by 0x404E37: ft_make_expansions (make_expansions.c:102)
+==119742==    by 0x40433B: ft_tokenizer (00_tokenizer.c:210)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742==  If you believe this happened as a result of a stack
+==119742==  overflow in your program's main thread (unlikely but
+==119742==  possible), you can try to increase the size of the
+==119742==  main thread stack using the --main-stacksize= flag.
+==119742==  The main thread stack size used in this run was 8388608.
+==119742== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==119742== Open file descriptor 3: /home/isilva-t/shelllll/leaks.log
+==119742==    <inherited from parent>
+==119742== 
+==119742== 
+==119742== 2 bytes in 1 blocks are still reachable in loss record 3 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405CB7: ft_strdup (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x404273: ft_tokenizer (00_tokenizer.c:198)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742== 
+==119742== 7 bytes in 1 blocks are definitely lost in loss record 4 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x4027EC: ft_strjoin_free (utils.c:101)
+==119742==    by 0x404D76: make_new_cmd (make_expansions.c:17)
+==119742==    by 0x404C0B: ft_expand_on_this_node (make_expansions.c:71)
+==119742==    by 0x404E37: ft_make_expansions (make_expansions.c:102)
+==119742==    by 0x40433B: ft_tokenizer (00_tokenizer.c:210)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742== 
+==119742== 9 bytes in 1 blocks are definitely lost in loss record 10 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405CB7: ft_strdup (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x40497A: ft_expand_on_this_node (make_expansions.c:40)
+==119742==    by 0x404E37: ft_make_expansions (make_expansions.c:102)
+==119742==    by 0x40433B: ft_tokenizer (00_tokenizer.c:210)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742== 
+==119742== 16 bytes in 1 blocks are still reachable in loss record 20 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405C22: ft_calloc (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x40126A: ft_shellfault (main.c:7)
+==119742==    by 0x40135B: main (main.c:41)
+==119742== 
+==119742== 28 bytes in 1 blocks are still reachable in loss record 29 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405DCA: ft_substr (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x403CEC: ft_append_inside_quotes (00_tokenizer.c:63)
+==119742==    by 0x404203: ft_tokenizer (00_tokenizer.c:188)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742== 
+==119742== 33 bytes in 2 blocks are still reachable in loss record 31 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405CB7: ft_strdup (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x40497A: ft_expand_on_this_node (make_expansions.c:40)
+==119742==    by 0x404E37: ft_make_expansions (make_expansions.c:102)
+==119742==    by 0x40433B: ft_tokenizer (00_tokenizer.c:210)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742== 
+==119742== 40 bytes in 1 blocks are still reachable in loss record 36 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405C22: ft_calloc (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x40138A: ft_init_shell (00_init.c:6)
+==119742==    by 0x401322: main (main.c:33)
+==119742== 
+==119742== 48 bytes in 1 blocks are still reachable in loss record 40 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405C22: ft_calloc (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x403A8C: ft_append_node (00_tokenizer.c:9)
+==119742==    by 0x403C16: ft_append_word (00_tokenizer.c:44)
+==119742==    by 0x4041A9: ft_tokenizer (00_tokenizer.c:181)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742== 
+==119742== 48 bytes in 1 blocks are still reachable in loss record 41 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405C22: ft_calloc (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x403A8C: ft_append_node (00_tokenizer.c:9)
+==119742==    by 0x404287: ft_tokenizer (00_tokenizer.c:198)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742== 
+==119742== 48 bytes in 1 blocks are still reachable in loss record 42 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405C22: ft_calloc (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x403A8C: ft_append_node (00_tokenizer.c:9)
+==119742==    by 0x403D00: ft_append_inside_quotes (00_tokenizer.c:63)
+==119742==    by 0x404203: ft_tokenizer (00_tokenizer.c:188)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742== 
+==119742== 528 bytes in 1 blocks are still reachable in loss record 54 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405C22: ft_calloc (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x40143C: ft_copy_envp (00_init.c:30)
+==119742==    by 0x4013CD: ft_init_shell (00_init.c:17)
+==119742==    by 0x401322: main (main.c:33)
+==119742== 
+==119742== 3,834 bytes in 65 blocks are still reachable in loss record 74 of 99
+==119742==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==119742==    by 0x405CB7: ft_strdup (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x401483: ft_copy_envp (00_init.c:36)
+==119742==    by 0x4013CD: ft_init_shell (00_init.c:17)
+==119742==    by 0x401322: main (main.c:33)
+==119742== 
+==119742== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 1 from 1)
+==119742== 
+==119742== 1 errors in context 1 of 3:
+==119742== Invalid read of size 1
+==119742==    at 0x4059D8: ft_strlen (in /home/isilva-t/shelllll/minishell)
+==119742==    by 0x404BD9: ft_expand_on_this_node (make_expansions.c:69)
+==119742==    by 0x404E37: ft_make_expansions (make_expansions.c:102)
+==119742==    by 0x40433B: ft_tokenizer (00_tokenizer.c:210)
+==119742==    by 0x40129F: ft_shellfault (main.c:10)
+==119742==    by 0x40135B: main (main.c:41)
+==119742==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==119742== 
+--119742-- 
+--119742-- used_suppression:     82 leak readline readline.supp:8 suppressed: 210,447 bytes in 252 blocks
+--119742-- used_suppression:      4 leak add_history readline.supp:2 suppressed: 4,087 bytes in 4 blocks
+--119742-- used_suppression:      1 leak readline_internal_char readline.supp:14 suppressed: 1 bytes in 1 blocks
+==119742== 
+==119742== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 1 from 1)

@@ -7,10 +7,13 @@ static char	*make_new_cmd(char *str, char *exp, t_iter h)
 {
 	char	*r_str;
 	int		start_r_str;
+	int		len_str;
 
+	len_str = ft_strlen(str + (h.i + h.j));
 	h.len = h.i + h.j;
 	start_r_str = h.i + h.j;
-	r_str = ft_strjoin_free(exp, (ft_substr(str, start_r_str, h.len)));
+	r_str = ft_strjoin_free(exp, (ft_substr(str, start_r_str, len_str)));
+	ft_printf(1, "str: %s      right: %s\n", str, r_str);
 	str = ft_strjoin_free(ft_substr(str, 0, h.i - 1), r_str);
 	return (str);
 }
