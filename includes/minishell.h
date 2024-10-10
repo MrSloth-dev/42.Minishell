@@ -23,6 +23,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <fcntl.h>
 
 # define RED "\e[1;3;31m"
 # define GREEN "\e[1;3;32m"
