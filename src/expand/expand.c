@@ -28,7 +28,7 @@ char	*ft_expand(char *str, t_shell *shell)
 	temp = ft_strjoin(str, "=");
 	len = ft_strlen(temp);
 	if (ft_env_exist(temp, NULL, shell->envp) == -1)
-		return (NULL);
+		return (ft_strdup(""));
 	while (shell->envp[i])
 	{
 		if (ft_strncmp(temp, shell->envp[i], len) != 0)
@@ -36,5 +36,5 @@ char	*ft_expand(char *str, t_shell *shell)
 		else
 			return (free(temp), ft_strdup(ft_get_env_value(str, shell->envp, shell)));
 	}
-	return (free(temp), NULL);
+	return (free(temp), ft_strdup(""));
 }
