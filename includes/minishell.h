@@ -49,6 +49,9 @@
 # define LEFT_TOKEN -1
 # define RIGHT_TOKEN 1
 
+//exit codes
+#define EXIT_SYNTAX
+
 //parsing errors
 # define ERR_REDIR_LEFT 2
 # define ERR_REDIR_RIGHT 4
