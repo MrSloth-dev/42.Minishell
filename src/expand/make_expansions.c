@@ -37,7 +37,7 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 	str = ft_strdup(cur->content);
 	while (str[h.i])
 	{
-		ft_printf(1, "vou olhar para o caractere \"%c\"  na posicao %d\n", str[h.i], h.i);
+		// ft_printf(1, "vou olhar para o caractere \"%c\"  na posicao %d\n", str[h.i], h.i);
 		h.j = 1;
 		if (str[h.i] == '$')
 		{

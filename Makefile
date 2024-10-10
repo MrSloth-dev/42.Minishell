@@ -78,7 +78,8 @@ TOKENIZER = $(TOKENIZERDIR)/00_tokenizer.c \
 
 PARSE = $(PARSEDIR)/00_make_bin_tree.c
 
-EXEC = $(EXECDIR)/exec_builtin.c
+EXEC =	$(EXECDIR)/exec_builtin.c \
+	$(EXECDIR)/execution.c
 
 UTILS = $(UTILSDIR)/iter.c
 
