@@ -17,7 +17,7 @@ void	ft_shellfault(t_shell *sh)
 
 	ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
 
-	ft_exec_builtins(sh->token_lst->first->left, sh);
+	//ft_exec_builtins(sh->token_lst->first->left, sh);
 	ft_free_tree(sh->token_lst);
 	return;
 	

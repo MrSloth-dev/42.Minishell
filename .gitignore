@@ -50,7 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-
+leaks.log
 minishell
 minijoao
 minivan

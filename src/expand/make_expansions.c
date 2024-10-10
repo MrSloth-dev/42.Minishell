@@ -7,19 +7,19 @@ static char	*make_new_cmd(char *str, char *exp, t_iter h)
 {
 	char	*r_str;
 	int		start_r_str;
+	int		len_str;
+	char	*tmp;
 
+	len_str = ft_strlen(str + (h.i + h.j));
 	h.len = h.i + h.j;
 	start_r_str = h.i + h.j;
-	r_str = ft_strjoin_free(exp, (ft_substr(str, start_r_str, h.len)));
-	str = ft_strjoin_free(ft_substr(str, 0, h.i - 1), r_str);
+	r_str = ft_strjoin_free(exp, (ft_substr(str, start_r_str, len_str)));
+	//ft_printf(1, "str: %s      right: %s\n", str, r_str);
+	tmp = str;
+	str = ft_strjoin_free(ft_substr(tmp, 0, h.i - 1), r_str);
+	free (tmp);
 	return (str);
 }
-
-
-
-					// name_var = ft_substr(str, h.i + 1, h.j);
-					// exp = ft_expand(name_var, sh);
-					// free(name_var);
 
 
 void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
@@ -35,14 +35,15 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 	exp = NULL;
 	name_var = NULL;
 	str = ft_strdup(cur->content);
-	while (str[h.i])
+	while (str[h.i] && str[h.i + 1])
 	{
-		// ft_printf(1, "vou olhar para o caractere \"%c\"  na posicao %d\n", str[h.i], h.i);
-		h.j = 1;
 		if (str[h.i] == '$')
 		{
-			if (str[h.i + 1])
-			{
+			h.j = 0;
+			//ft_printf(1, "a olhar para o caractere \"%c\"  na posicao %d\n", str[h.i], h.i);
+			// if (str[h.i + 1])
+			// {
+				h.j = 1;
 				h.i++;
 				if (str [h.i] == '?')
 					exp = ft_itoa(sh->exit_status);
@@ -60,21 +61,23 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 						h.j++;
 					name_var = ft_substr(str, h.i, h.j);
 					exp = ft_expand(name_var, sh);
-					ft_printf(1, "Joao, era suposto ser este o resultado? %s\n", exp);
+					//ft_printf(1, "Joao, era suposto ser este o resultado? %s\n", exp);
 					free(name_var);
 				}
+				else
+					exp = ft_strjoin_free(ft_strdup("$"), ft_substr(str, h.i, 1));
 				h.k = ft_strlen(exp);
-				ft_printf(1, "antes de mexer na str: %s\n", str);
+				//ft_printf(1, "antes de mexer na str: %s\n", str);
 				str = make_new_cmd(str, exp, h);
-				ft_printf(1, "olha como ficou a str: %s\n", str);
+				//ft_printf(1, "olha como ficou a str: %s\n", str);
 				h.i += h.k - 2;
-			}
-			else
-			{
-				ft_printf(1, "ass_hole\n");
-				h.i++;
-				str = make_new_cmd(str, ft_strdup("$"), h);
-			}
+			//}
+			// else
+			// {
+			// 	//ft_printf(1, "ass_hole\n");
+			// 	h.i++;
+			// 	str = make_new_cmd(str, ft_strdup(""), h);
+			// }
 		}
 		h.i++;
 	}
