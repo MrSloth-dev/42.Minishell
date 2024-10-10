@@ -1,6 +1,7 @@
 #include "minishell.h"
+#include <fcntl.h>
 
-static char	*ft_print_exec(t_token *cur, char *spaces)
+static char	*ft_print_exec(t_token *cur, char *spaces, int fd)
 {
 	t_token	*cmd;
 	t_token	*rdir;
@@ -17,39 +18,39 @@ static char	*ft_print_exec(t_token *cur, char *spaces)
 	{
 		cmd = cur->left;
 		rdir = cur->right;
-		ft_printf(1, "%s______________________________\n", spaces);
+		ft_printf(fd, "%s______________________________\n", spaces);
 	}
 	while (cmd || rdir)
 	{
-		ft_printf(1, "%s", spaces);
+		ft_printf(fd, "%s", spaces);
 		if (cmd)
 		{
-		ft_printf(1,"%s%s ",GREEN, cmd->content);
+		ft_printf(fd,"%s%s ",GREEN, cmd->content);
 		cmd = cmd->next;
 		}
 		else
-			ft_printf(1, "             ");
+			ft_printf(fd, "             ");
 		if (rdir)
 		{
-			ft_printf(1, "  %s%s%s %d", YELLOW, rdir->content, RED, rdir->type);
+			ft_printf(fd, "  %s%s%s %d", YELLOW, rdir->content, RED, rdir->type);
 			rdir = rdir->next;
 		}
-		ft_printf(1, "%s\n", RESET);
+		ft_printf(fd, "%s\n", RESET);
 	}
 	if (cur && cur->type == ND_PIPE)
 	{
 		if ((ft_strlen(spaces) / 2) > 0)
 			i = ft_strlen(spaces) / 2;
 		if (i == 0)
-			ft_printf(1, "\n                         %sPIPE%s \n\n",  RED, RESET );
+			ft_printf(fd, "\n                         %sPIPE%s \n\n",  RED, RESET );
 		else
-			ft_printf(1, "\n%s%s%s%s%s%s%s         PIPE%s \n\n", spaces , spaces + i , spaces + i , spaces + i, spaces + i, spaces + i,  RED, RESET );
-		left_free = ft_print_exec(cur->left, ft_strjoin_free(ft_strdup(spaces), ft_strdup(spaces)));
+			ft_printf(fd, "\n%s%s%s%s%s%s%s         PIPE%s \n\n", spaces , spaces + i , spaces + i , spaces + i, spaces + i, spaces + i,  RED, RESET );
+		left_free = ft_print_exec(cur->left, ft_strjoin_free(ft_strdup(spaces), ft_strdup(spaces)), fd);
 		if (cur->right->right)
-			right_free = ft_print_exec(cur->right, ft_strjoin_free(ft_strdup(spaces) , ft_strdup("       ")));
+			right_free = ft_print_exec(cur->right, ft_strjoin_free(ft_strdup(spaces) , ft_strdup("       ")), fd);
 		else
 			right_free = ft_print_exec(cur->right, ft_strjoin_free(ft_strdup(spaces) , ft_strdup(" \
-		                                                    ")));
+		                                                    ")), fd);
 		free(left_free);
 		free(right_free);
 //		ft_print_exec(cur->left, "");
@@ -62,6 +63,7 @@ void	ft_print_binary_tree(t_token_lst *token_lst)
 {
 	t_token	*cur;
 	char	*to_free;
+	int		fd = open("cmdlog.txt", O_RDWR | O_CREAT | O_APPEND, 0644);
 
 	to_free = NULL;
 	if (!token_lst && !token_lst->first)
@@ -70,9 +72,10 @@ void	ft_print_binary_tree(t_token_lst *token_lst)
 		return ;
 	}
 	cur = token_lst->first;
-	to_free = ft_print_exec(cur, ft_strdup(""));
+	to_free = ft_print_exec(cur, ft_strdup(""), fd);
 	if (to_free)
 		free(to_free);
+	close(fd);
 }
 
 void	ft_print_tokens(t_token_lst *token_lst)

@@ -51,6 +51,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 leaks.log
+bintree.txt
 minishell
 minijoao
 minivan
