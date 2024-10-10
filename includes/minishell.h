@@ -120,6 +120,7 @@ typedef struct s_iter
 	int	i;
 	int	j;
 	int	k;
+	int len;
 }			t_iter;
 
 // BUILT-INS

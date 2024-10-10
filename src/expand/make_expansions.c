@@ -3,15 +3,23 @@
 #include <string.h>
 
 
-static char	*make_new_cmd(char *new_cmd, char *str, char *exp, t_iter h)
+static char	*make_new_cmd(char *str, char *exp, t_iter h)
 {
-	if (!new_cmd)
-		new_cmd = ft_strjoin_free(ft_substr(str, h.k, h.i), exp);
-	else
-		new_cmd = ft_strjoin_free(new_cmd, exp);
-	return (new_cmd);
+	char	*r_str;
+	int		start_r_str;
+
+	h.len = h.i + h.j;
+	start_r_str = h.i + h.j;
+	r_str = ft_strjoin_free(exp, (ft_substr(str, start_r_str, h.len)));
+	str = ft_strjoin_free(ft_substr(str, 0, h.i - 1), r_str);
+	return (str);
 }
 
+
+
+					// name_var = ft_substr(str, h.i + 1, h.j);
+					// exp = ft_expand(name_var, sh);
+					// free(name_var);
 
 
 void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
@@ -20,65 +28,60 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 	char	*str;
 	char	*name_var;
 	char	*exp;
-	char	*new_cmd;
 	
-	h = set_h(0);
-	new_cmd = NULL;
-	exp = NULL;
 	if (!cur && !cur->content)
 		return ;
-	str = cur->content;
+	h = set_h(0);
+	exp = NULL;
+	name_var = NULL;
+	str = ft_strdup(cur->content);
 	while (str[h.i])
 	{
+		ft_printf(1, "vou olhar para o caractere \"%c\"  na posicao %d\n", str[h.i], h.i);
 		h.j = 1;
 		if (str[h.i] == '$')
 		{
 			if (str[h.i + 1])
 			{
-
-
-
-				if (str[h.i + 1] != '$' || ft_isdigit(str[h.i + 1]) == FALSE)
+				h.i++;
+				if (str [h.i] == '?')
+					exp = ft_itoa(sh->exit_status);
+				else if (str[h.i] == '$')
+					exp = ft_itoa(sh->pid);
+				else if (str[h.i] == '0')
+					exp = ft_strdup("minishell");
+				else if (ft_isdigit(str[h.i]) == TRUE)
+					exp = ft_strdup("");
+				else if (ft_isalnum(str[h.i]) == TRUE || str[h.i] == '_')
 				{
-					while (str[h.i + 1 + h.j]
-						&& 		(
-						str[h.i + 1 + h.j] != '$'
-						&& (ft_isalnum(str[h.i + 1 + h.j]) == TRUE || str[h.i + 1 + h.j] == '_')
-						&& ft_is_space(str[h.i + 1 + h.j]) != TRUE
-								)
-						)
+					h.j = 0;
+					while (str[h.i + h.j]
+						&& (ft_isalnum(str[h.i + h.j]) == TRUE || str[h.i + h.j] == '_') && ft_is_space(str[h.i + h.j]) == FALSE)
 						h.j++;
-					name_var = ft_substr(str, h.i + 1, h.j);
+					name_var = ft_substr(str, h.i, h.j);
 					exp = ft_expand(name_var, sh);
+					ft_printf(1, "Joao, era suposto ser este o resultado? %s\n", exp);
 					free(name_var);
-					new_cmd = make_new_cmd(new_cmd, str, exp, h);
 				}
-				else if (str[h.i + 1] == '$')
-				{
-					exp = ft_strdup("_PID_");
-					new_cmd = make_new_cmd(new_cmd, str, exp, h);
-				}
+				h.k = ft_strlen(exp);
+				ft_printf(1, "antes de mexer na str: %s\n", str);
+				str = make_new_cmd(str, exp, h);
+				ft_printf(1, "olha como ficou a str: %s\n", str);
+				h.i += h.k - 2;
 			}
 			else
 			{
-				new_cmd = make_new_cmd(new_cmd, str, ft_strdup("$"), h);
+				ft_printf(1, "ass_hole\n");
+				h.i++;
+				str = make_new_cmd(str, ft_strdup("$"), h);
 			}
-
-
-			h.i += h.j;
-			h.k = h.i;
-
-		//ft_printf(1, "%s\n\n", new_cmd);
 		}
-		exp = NULL;
 		h.i++;
 	}
 
-	if (new_cmd != NULL)
-	{
-		cur->content = new_cmd;
-		free (str);
-	}
+	exp = cur->content;
+	cur->content = str;
+	free (exp);
 }
 
 void	ft_make_expansions(t_shell *sh)

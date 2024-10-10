@@ -19,5 +19,6 @@ t_iter	set_h(int n)
 	h.i = n;
 	h.j = n;
 	h.k = n;
+	h.len = n;
 	return (h);
 }
