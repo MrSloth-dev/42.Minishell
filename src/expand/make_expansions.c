@@ -34,7 +34,7 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 	h = set_h(0);
 	exp = NULL;
 	name_var = NULL;
-	str = ft_strdup(cur->content);
+	str = cur->content;
 	while (str[h.i] && str[h.i + 1])
 	{
 		if (str[h.i] == '$')
@@ -82,9 +82,9 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 		h.i++;
 	}
 
-	exp = cur->content;
+//	exp = cur->content;
 	cur->content = str;
-	free (exp);
+//	free (exp);
 }
 
 void	ft_make_expansions(t_shell *sh)
