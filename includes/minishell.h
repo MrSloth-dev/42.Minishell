@@ -186,6 +186,7 @@ void 	ft_free_lst_shell(t_shell *sh); //NOT NECESSARY TO DELIVER PROJECT
 
 //EXEC
 void	ft_exec_builtins(t_token *cmdargs, t_shell *shell);
+void	ft_execute_command(t_token *cmd, t_shell *shell);
 
 //UTILS
 t_iter	set_h(int n);
