@@ -1,26 +1,18 @@
 #include "ft_printf.h"
 #include "minishell.h"
-
-char	*ft_find_path(char *envp[])
-{
-	while (ft_strncmp("PATH=", *envp, 5))
-		envp++;
-	return (*envp + 5);
-}
+#include <unistd.h>
 
 char	*ft_get_cmd(t_token *token, t_shell *shell)
 {
 	char	*temp;
 	int		i;
 	int		err;
-	char	**path;
 
-	path = ft_split(ft_find_path(shell->envp), ':');
 	i = 0;
 	temp = NULL;
-	while (path[i])
+	while (shell->path[i])
 	{
-		temp = ft_strjoin(path[i], "/");
+		temp = ft_strjoin(shell->path[i], "/");
 		temp = ft_strjoin_free(temp, ft_strdup(token->content));
 		err = access(temp, X_OK);
 		if (err == 0)
@@ -50,13 +42,14 @@ char	**ft_create_cmdargs(t_token *token)
 	}
 	token = head;
 	cmdargs = malloc(sizeof(char *) * len);
+	if (!cmdargs)
+		return (NULL);
 	len = 0;
 	while (token && token->content != NULL)
 	{
 		cmdargs[len++] = ft_strdup(token->content);
 		token = token->next;
 	}
-	cmdargs[len] = 0;
 	return (cmdargs);
 }
 
@@ -71,8 +64,8 @@ void	ft_execute_command(t_token *cmd, t_shell *shell)
 	cmdbin = ft_get_cmd(cmd, shell);
 	pipe(fd);
 	pid = fork();
-	// if (pid == -1)
-	// 	ft_error_msg("Error with Fork ", FORK_ERROR);
+	if (pid == -1)
+		ft_printf(STDERR_FILENO, "Error in pipe");
 	if (pid == 0)
 	{
 		// dup2(temp_fd[0], STDIN_FILENO);
@@ -85,6 +78,11 @@ void	ft_execute_command(t_token *cmd, t_shell *shell)
 		exit(0);
 	}
 	waitpid(pid, &shell->exit_status, 0);
+	int i = 0;
+	while (cmdargs[i++])
+		free(cmdargs[i]);
+	free(cmdargs);
+	free(cmdbin);
 	close(fd[0]);
 	close(fd[1]);
 }

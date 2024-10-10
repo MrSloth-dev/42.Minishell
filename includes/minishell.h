@@ -113,6 +113,7 @@ typedef struct s_shell
 	t_token_lst	*token_lst;
 	int			exit_status;
 	char		**envp;
+	char		**path;
 	char		*line;
 	int			pid;
 }	t_shell;

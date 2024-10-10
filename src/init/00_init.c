@@ -1,5 +1,17 @@
 #include "minishell.h"
 
+char	*ft_find_path(char *envp[])
+{
+	while (*envp)
+	{
+		if (ft_strncmp("PATH=", *envp, 5) != 0)
+			envp++;
+		else
+			return (*envp + 5);
+	}
+	return (NULL);
+}
+
 t_shell	*ft_init_shell(char *envp[])
 {
 	t_shell	*sh;
@@ -10,11 +22,8 @@ t_shell	*ft_init_shell(char *envp[])
 		return (NULL);
 	}
 	sh->token_lst = NULL;
-
-
-
-
 	sh->envp = ft_copy_envp(envp, 0);
+	sh->path = ft_split(ft_find_path(sh->envp), ':');
 
 	return (sh);
 }

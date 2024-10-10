@@ -15,6 +15,8 @@ void	ft_exit(char *pwd, t_shell *shell)
 		free(shell->line);
 	if (shell->envp)
 		ft_free_envp(shell->envp);
+	if (shell->path)
+		ft_free_envp(shell->path);
 	free(shell);
 	ft_printf(STDOUT_FILENO, "exit\n");
 	exit (EXIT_SUCCESS);
