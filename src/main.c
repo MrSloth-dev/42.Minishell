@@ -11,13 +11,13 @@ void	ft_shellfault(t_shell *sh)
 
 
 	// ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
-//	ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES
+	// ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES
 
 	sh->token_lst->first = ft_make_bin_tree(sh->token_lst->first, ND_EXEC);
 
 	ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
 
-	//ft_exec_builtins(sh->token_lst->first->left, sh);
+	ft_exec_builtins(sh->token_lst->first->left, sh);
 	ft_free_tree(sh->token_lst);
 	return;
 	
