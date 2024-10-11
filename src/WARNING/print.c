@@ -63,8 +63,9 @@ void	ft_print_binary_tree(t_token_lst *token_lst)
 {
 	t_token	*cur;
 	char	*to_free;
-	int		fd = open("cmdlog.txt", O_RDWR | O_CREAT | O_APPEND, 0644);
+	int		fd; //= open("cmdlog.txt", O_RDWR | O_CREAT | O_APPEND, 0644);
 
+	fd = 1;
 	to_free = NULL;
 	if (!token_lst && !token_lst->first)
 	{
@@ -75,7 +76,7 @@ void	ft_print_binary_tree(t_token_lst *token_lst)
 	to_free = ft_print_exec(cur, ft_strdup(""), fd);
 	if (to_free)
 		free(to_free);
-	close(fd);
+	//close(fd);
 }
 
 void	ft_print_tokens(t_token_lst *token_lst)
