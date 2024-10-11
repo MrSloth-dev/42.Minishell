@@ -132,7 +132,7 @@ typedef struct s_iter
 void	ft_echo(t_token *cmd_args, t_shell *sh);
 void	ft_pwd(t_shell *shell);
 void	ft_env(t_shell *shell);
-void	ft_export(char **cmdargs, t_shell *shell);
+void	ft_export(t_token *cmdargs, t_shell *shell);
 char	**ft_unset(char **cmdargs, t_shell *shell);
 void	ft_cd(t_token *cmdargs, t_shell *shell);
 void	ft_exit(char *pwd, t_shell *shell);

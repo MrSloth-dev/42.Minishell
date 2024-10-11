@@ -21,18 +21,21 @@ void	ft_join_env(char *cmdargs, char **temp, int j)
 	}
 }
 
-static int	ft_export_duplicate(char **cmdargs, int k)
+static int	ft_export_duplicate(t_token *cmdargs, int k)
 {
 	char	*temp;
 
-	temp = cmdargs[k];
+	temp = cmdargs->content;
 	while (--k)
-		if (cmdargs[k] == temp)
+	{
+		if (cmdargs->content == temp)
 			return (1);
+		cmdargs = cmdargs->prev;
+	}
 	return (0);
 }
 
-static int	ft_export_size_increase(char **cmdargs, t_shell *shell, int *j)
+static int	ft_export_size_increase(t_token *cmdargs, t_shell *shell, int *j)
 {
 	int	i;
 	int	k;
@@ -42,14 +45,15 @@ static int	ft_export_size_increase(char **cmdargs, t_shell *shell, int *j)
 	*j = -1;
 	while (shell->envp[i])
 		i++;
-	while (cmdargs[k])
+	while (cmdargs)
 	{
-		if (ft_env_exist(cmdargs[k], j, shell->envp) == -1
-			&& !ft_strchr(cmdargs[k], '='))
+		if (ft_env_exist(cmdargs->content, j, shell->envp) == -1
+			&& !ft_strchr(cmdargs->content, '='))
 			i++;
 		if (ft_export_duplicate(cmdargs, k))
 			i--;
 		k++;
+		cmdargs = cmdargs->next;
 	}
 	return (i);
 }
@@ -65,28 +69,27 @@ int	ft_plus_mode(char *cmdargs)
 	return (0);
 }
 
-void	ft_add_env(char **cmdargs, char **temp, int plus_mode, t_shell *shell)
+void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
 {
 	int	j;
-	int	k;
 
 	j = -1;
-	k = 0;
-	while (cmdargs[++k])
+	while (cmdargs->content && cmdargs->next)
 	{
-		if (!ft_strchr(cmdargs[k], '='))
+		cmdargs = cmdargs->next;
+		if (!ft_strchr(cmdargs->content, '='))
 			continue ;
-		plus_mode = ft_plus_mode(cmdargs[k]);
-		if (ft_env_exist(cmdargs[k], &j, temp) != -1 && plus_mode)
-			ft_swap_plus_env(cmdargs[k], temp, j, shell);
-		else if (ft_env_exist(cmdargs[k], &j, temp) != -1 && !plus_mode)
-			ft_swap_env(cmdargs[k], temp, j);
+		plus_mode = ft_plus_mode(cmdargs->content);
+		if (ft_env_exist(cmdargs->content, &j, temp) != -1 && plus_mode)
+			ft_swap_plus_env(cmdargs->content, temp, j, shell);
+		else if (ft_env_exist(cmdargs->content, &j, temp) != -1 && !plus_mode)
+			ft_swap_env(cmdargs->content, temp, j);
 		else
-			ft_append_env(cmdargs[k], temp);
+			ft_append_env(cmdargs->content, temp);
 	}
 }
 
-void	ft_export(char **cmdargs, t_shell *shell)
+void	ft_export(t_token *cmdargs, t_shell *shell)
 {
 	char	**temp;
 	int		i;
@@ -96,7 +99,7 @@ void	ft_export(char **cmdargs, t_shell *shell)
 	j = 0;
 	if (!cmdargs)
 		return ;
-	if (!cmdargs[1])
+	if (!cmdargs->next)
 	{
 		ft_export_no_args(*shell);
 		return ;

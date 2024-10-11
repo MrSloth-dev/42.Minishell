@@ -41,14 +41,15 @@ char	**ft_create_cmdargs(t_token *token)
 			break ;
 	}
 	token = head;
-	cmdargs = malloc(sizeof(char *) * len);
+	cmdargs = calloc(sizeof(char *), len + 1);
 	if (!cmdargs)
 		return (NULL);
 	len = 0;
 	while (token && token->content != NULL)
 	{
-		cmdargs[len++] = ft_strdup(token->content);
+		cmdargs[len] = ft_strdup(token->content);
 		token = token->next;
+		len++;
 	}
 	return (cmdargs);
 }
@@ -81,8 +82,11 @@ void	ft_execute_command(t_token *cmd, t_shell *shell)
 	}
 	waitpid(pid, &shell->exit_status, 0);
 	int i = 0;
-	while (cmdargs[i++])
+	while (cmdargs[i])
+	{
 		free(cmdargs[i]);
+		i++;
+	}
 	free(cmdargs);
 	free(cmdbin);
 	close(fd[0]);
