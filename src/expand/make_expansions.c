@@ -36,34 +36,33 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 	str = cur->content;
 	while (str[h.i] && str[h.i + 1])
 	{
+		h.j = 1;
 		if (str[h.i] == '$')
 		{
-			h.j = 0;
-				h.j = 1;
-				h.i++;
-				if (str [h.i] == '?')
-					exp = ft_itoa(sh->exit_status);
-				else if (str[h.i] == '$')
-					exp = ft_itoa(sh->pid);
-				else if (str[h.i] == '0')
-					exp = ft_strdup("minishell");
-				else if (ft_isdigit(str[h.i]) == TRUE)
-					exp = ft_strdup("");
-				else if (ft_isalnum(str[h.i]) == TRUE || str[h.i] == '_')
-				{
-					h.j = 0;
-					while (str[h.i + h.j]
-						&& (ft_isalnum(str[h.i + h.j]) == TRUE || str[h.i + h.j] == '_') && ft_is_space(str[h.i + h.j]) == FALSE)
-						h.j++;
-					name_var = ft_substr(str, h.i, h.j);
-					exp = ft_expand(name_var, sh);
-					free(name_var);
-				}
-				else
-					exp = ft_strjoin_free(ft_strdup("$"), ft_substr(str, h.i, 1));
-				h.k = ft_strlen(exp);
-				str = make_new_cmd(str, exp, h);
-				h.i += h.k - 2;
+			h.i++;
+			if (str [h.i] == '?')
+				exp = ft_itoa(sh->exit_status);
+			else if (str[h.i] == '$')
+				exp = ft_itoa(sh->pid);
+			else if (str[h.i] == '0')
+				exp = ft_strdup("minishell");
+			else if (ft_isdigit(str[h.i]) == TRUE)
+				exp = ft_strdup("");
+			else if (ft_isalnum(str[h.i]) == TRUE || str[h.i] == '_')
+			{
+				h.j = 0;
+				while (str[h.i + h.j]
+					&& (ft_isalnum(str[h.i + h.j]) == TRUE || str[h.i + h.j] == '_') && ft_is_space(str[h.i + h.j]) == FALSE)
+					h.j++;
+				name_var = ft_substr(str, h.i, h.j);
+				exp = ft_expand(name_var, sh);
+				free(name_var);
+			}
+			else
+				exp = ft_strjoin_free(ft_strdup("$"), ft_substr(str, h.i, 1));
+			h.k = ft_strlen(exp);
+			str = make_new_cmd(str, exp, h);
+			h.i += h.k - 2;
 		}
 		h.i++;
 	}
