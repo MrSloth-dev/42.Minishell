@@ -20,7 +20,8 @@ char	*ft_get_cmd(t_token *token, t_shell *shell)
 		free(temp);
 		i++;
 	}
-	// ft_error_msg("Command not found", 127);
+	shell->exit_status = 127;
+	ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
 	return (NULL);
 }
 

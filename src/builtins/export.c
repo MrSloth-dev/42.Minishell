@@ -111,11 +111,5 @@ void	ft_export(t_token *cmdargs, t_shell *shell)
 	ft_add_env(cmdargs, temp, 0, shell);
 	ft_free_envp(shell->envp);
 	shell->envp = temp;
-	i = 0;
-	while (temp[i])
-	{
-		free(temp[i]);
-		i++;
-	}
-	free(temp);
+	i = -1;
 }
