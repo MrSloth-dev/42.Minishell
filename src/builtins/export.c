@@ -1,3 +1,4 @@
+#include "ft_printf.h"
 #include "minishell.h"
 
 void	ft_join_env(char *cmdargs, char **temp, int j)
@@ -47,8 +48,8 @@ static int	ft_export_size_increase(t_token *cmdargs, t_shell *shell, int *j)
 		i++;
 	while (cmdargs)
 	{
-		if (ft_env_exist(cmdargs->content, j, shell->envp) == -1
-			&& !ft_strchr(cmdargs->content, '='))
+		if (ft_env_exist(cmdargs->content, j, shell->envp) == -1)
+			// && !ft_strchr(cmdargs->content, '='))
 			i++;
 		if (ft_export_duplicate(cmdargs, k))
 			i--;
@@ -62,6 +63,8 @@ int	ft_plus_mode(char *cmdargs)
 {
 	int	i;
 
+	if (!ft_strchr(cmdargs, '='))
+		return (0);
 	i = 0;
 	while (cmdargs[i] && cmdargs[i] != '=')
 		if (cmdargs[i++] == '+')
@@ -77,8 +80,8 @@ void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
 	while (cmdargs->content && cmdargs->next)
 	{
 		cmdargs = cmdargs->next;
-		if (!ft_strchr(cmdargs->content, '='))
-			continue ;
+		// if (!ft_strchr(cmdargs->content, '='))
+		// 	continue ;
 		plus_mode = ft_plus_mode(cmdargs->content);
 		if (ft_env_exist(cmdargs->content, &j, temp) != -1 && plus_mode)
 			ft_swap_plus_env(cmdargs->content, temp, j, shell);

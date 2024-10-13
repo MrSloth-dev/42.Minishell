@@ -22,6 +22,8 @@ char	*ft_get_env_key(char *env_str)
 
 	i = 0;
 	plus = 0;
+	if (!ft_strchr(env_str, '='))
+		return (env_str);
 	substr = ft_strchr(env_str, '+');
 	if (substr && *(++substr) == '=')
 		plus = 1;
@@ -49,8 +51,8 @@ char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell)
 		if (!ft_strncmp(env_name, env_list[i], len))
 		{
 			env = ft_strchr(env_list[i], '=') + 1;
-			if (!env)
-				return (ft_strdup(""));
+			if (!env || !ft_strchr(env_list[i], '='))
+				return (NULL);
 			else
 				return (env);
 		}

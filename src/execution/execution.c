@@ -42,7 +42,7 @@ char	**ft_create_cmdargs(t_token *token)
 			break ;
 	}
 	token = head;
-	cmdargs = calloc(sizeof(char *), len + 1);
+	cmdargs = calloc(len + 1, sizeof(t_token *));
 	if (!cmdargs)
 		return (NULL);
 	len = 0;
