@@ -1,3 +1,4 @@
+#include "ft_printf.h"
 #include "minishell.h"
 
 char	*ft_find_path(char *envp[])
@@ -36,7 +37,7 @@ char	**ft_copy_envp(char **envp, int extra)
 	i = 0;
 	while (envp[i])
 		i++;
-	temp_envp = ft_calloc(sizeof(char *), i + 1 + extra);
+	temp_envp = ft_calloc(sizeof(char *), i + extra + 1);
 	if (!temp_envp)
 		return (NULL);
 	i = 0;
@@ -45,6 +46,8 @@ char	**ft_copy_envp(char **envp, int extra)
 		temp_envp[i] = ft_strdup(envp[i]);
 		i++;
 	}
+	while (extra-- > 0)
+		temp_envp[i++] = 0;
 	temp_envp[i] = 0;
 	return (temp_envp);
 }

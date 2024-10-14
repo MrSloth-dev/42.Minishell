@@ -30,7 +30,10 @@ void	ft_swap_env(char *cmdargs, char **temp, int j)
 	while (temp[k])
 	{
 		if (j == k)
+		{
+			free(temp[k]);
 			temp[k] = ft_strdup(cmdargs);
+		}
 		if (!temp[k] || j == k)
 			return ;
 		k++;
