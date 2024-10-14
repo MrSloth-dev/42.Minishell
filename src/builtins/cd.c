@@ -40,7 +40,7 @@ void	ft_cd(t_token *cmdargs, t_shell *shell)
 	}
 	update_old = getcwd(NULL, 0);
 	if (!cmdargs || !ft_strcmp(cmdargs->content, "~\0")
-		|| !ft_strcmp(cmdargs->content, "--"))
+		|| !ft_strncmp(cmdargs->content, "--", 2))
 		ft_change_home(cmdargs, shell);
 	else if (!ft_strcmp(cmdargs->content, "-"))
 	{
@@ -51,10 +51,13 @@ void	ft_cd(t_token *cmdargs, t_shell *shell)
 	else
 		ft_safe_chdir(cmdargs->content, shell, 0);
 	ft_update_directory(update_old, "OLDPWD=", shell);
+	free(update_old);
 }
 
 void	ft_safe_chdir(char *path, t_shell *shell, int flags)
 {
+	char	*pwd;
+
 	if (flags == 2)
 	{
 		ft_printf(STDERR_FILENO, "cd : too many args");
@@ -72,7 +75,9 @@ void	ft_safe_chdir(char *path, t_shell *shell, int flags)
 		return ;
 	}
 	shell->exit_status = EXIT_SUCCESS;
-	ft_update_directory(getcwd(NULL, 0), "PWD=", shell);
+	pwd = getcwd(NULL, 0);
+	ft_update_directory(pwd, "PWD=", shell);
+	free(pwd);
 }
 
 void	ft_update_directory(char *path, char *variable, t_shell *shell)
