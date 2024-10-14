@@ -2,29 +2,31 @@
 
 void	ft_exec_builtins(t_token *cmdargs, t_shell *shell)
 {
-	t_token	*tempnext;
+	t_token	*temp_next;
+	t_token	*temp_head;
 
-	tempnext = NULL;
-	if (cmdargs)
+	temp_head = cmdargs;
+	temp_next = NULL;
+	if (temp_head)
 	{
-		cmdargs = cmdargs->left;
-		if (cmdargs && cmdargs->next)
-			tempnext = cmdargs->next;
-		if (ft_strcmp("cd", cmdargs->content) == 0)
-			ft_cd(tempnext, shell);
-		else if (ft_strcmp("env", cmdargs->content) == 0)
+		temp_head = temp_head->left;
+		if (temp_head && temp_head->next)
+			temp_next = temp_head->next;
+		if (ft_strcmp("cd", temp_head->content) == 0)
+			ft_cd(temp_next, shell);
+		else if (ft_strcmp("env", temp_head->content) == 0)
 			ft_env(shell);
-		else if (ft_strcmp("pwd", cmdargs->content) == 0)
+		else if (ft_strcmp("pwd", temp_head->content) == 0)
 			ft_pwd(shell);
-		else if (ft_strcmp("echo", cmdargs->content) == 0)
-			ft_echo(tempnext, shell);
-		else if (ft_strcmp("export", cmdargs->content) == 0)
-			ft_export(tempnext, shell);
-		else if (ft_strcmp("unset", cmdargs->content) == 0)
-		 	ft_unset(tempnext, shell);
+		else if (ft_strcmp("echo", temp_head->content) == 0)
+			ft_echo(temp_next, shell);
+		else if (ft_strcmp("export", temp_head->content) == 0)
+			ft_export(temp_next, shell);
+		else if (ft_strcmp("unset", temp_head->content) == 0)
+			ft_unset(temp_next, shell);
+		else if (ft_strcmp("exit", temp_head->content) == 0)
+			ft_exit(NULL, shell);
 		else
-			ft_execute_command(cmdargs, shell);
-		// else if (ft_strcmp("exit", cmdargs[0]) == 0)
-		// 	ft_exit(NULL, shell);
+			ft_execute_command(temp_head, shell);
 	}
 }
