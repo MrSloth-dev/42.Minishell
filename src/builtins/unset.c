@@ -1,47 +1,76 @@
 #include "minishell.h"
 
-static void	ft_remove_env(char **temp, int j, t_shell *shell)
+// static void	ft_remove_env(char **temp, int j, t_shell *shell)
+// {
+// 	int		k;
+//
+// 	k = 0;
+// 	while (shell->envp[k])
+// 	{
+// 		if (j == k)
+// 			k++;
+// 		else
+// 			temp[k] = ft_strdup(shell->envp[k]);
+// 		if (!temp[k])
+// 			return ;
+// 		k++;
+// 	}
+// 	shell->envp = temp;
+// 	k = 0;
+// 	while (temp[k])
+// 		free(temp[k++]);
+// 	free(temp);
+// }
+
+void	ft_copy_and_remove_envp(t_shell *shell, int j, int extra)
 {
+	char	**temp_envp;
+	int		i;
 	int		k;
 
+	i = 0;
 	k = 0;
-	while (shell->envp[k])
+	while (shell->envp[i])
+		i++;
+	temp_envp = ft_calloc(sizeof(char *), i + extra + 1);
+	if (!temp_envp)
+		return ;
+	i = 0;
+	while (shell->envp[i + k])
 	{
-		if (j == k)
+		if (i == j)
 			k++;
-		else
-			temp[k] = ft_strdup(shell->envp[k]);
-		if (!temp[k])
-			return ;
-		k++;
+		temp_envp[i] = ft_strdup(shell->envp[i + k]);
+		i++;
 	}
+	temp_envp[i] = 0;
+	while (i >= 0)
+		free(shell->envp[i--]);
+	free(shell->envp);
+	shell->envp = temp_envp;
 }
 
 void	ft_unset(t_token *cmdargs, t_shell *shell)
 {
-	char	**temp;
-	t_token *head;
-	int		i;
+	t_token	*current;
 	int		j;
 
-	head = cmdargs;
-	i = 0;
+	current = cmdargs;
 	j = -1;
-	if (!cmdargs->content)
+	if (!current->content)
 		return ;
-	while (cmdargs)
+	while (current)
 	{
-		if (ft_env_exist(cmdargs->content, &j, shell->envp) != -1)
-			i--;
-		cmdargs = cmdargs->next;
+		if (ft_env_exist(current->content, &j, shell->envp) != -1 && !ft_env_duplicate(current))
+			ft_copy_and_remove_envp(shell, j, -1);
+		current = current->next;
 	}
-	cmdargs = head;
-	while (cmdargs)
-	{
-		temp = ft_copy_envp(shell->envp, i);
-		if (ft_env_exist(cmdargs->content, &j, shell->envp) != -1)
-			ft_remove_env(temp, j, shell);
-		cmdargs = cmdargs->next;
-	}
-	i = 0;
+	// cmdargs = head;
+	// while (cmdargs)
+	// {
+	// 	temp = ft_copy_envp(shell->envp, i);
+	// 	if (ft_env_exist(cmdargs->content, &j, shell->envp) != -1)
+	// 		ft_remove_env(temp, j, shell);
+	// 	cmdargs = cmdargs->next;
+	// }
 }

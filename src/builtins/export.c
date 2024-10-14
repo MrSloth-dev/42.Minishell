@@ -22,15 +22,16 @@ void	ft_join_env(char *cmdargs, char **temp, int j)
 	}
 }
 
-static int	ft_export_duplicate(t_token *cmdargs, int k)
+int	ft_env_duplicate(t_token *cmdargs)
 {
 	char	*temp;
 
 	temp = cmdargs->content;
-	while (--k)
+	cmdargs = cmdargs->prev;
+	while (cmdargs)
 	{
-		if (cmdargs->content == temp)
-			return (1);
+		if (ft_strcmp(cmdargs->content, temp) == 0)
+			return (ft_printf(1, "dup"));
 		cmdargs = cmdargs->prev;
 	}
 	return (0);
@@ -40,10 +41,8 @@ static int	ft_export_size_increase(t_token *cmdargs, t_shell *shell, int *j)
 {
 	t_token	*current;
 	int		i;
-	int		k;
 
 	i = 0;
-	k = 1;
 	*j = -1;
 	current = cmdargs;
 	while (shell->envp[i])
@@ -52,9 +51,8 @@ static int	ft_export_size_increase(t_token *cmdargs, t_shell *shell, int *j)
 	{
 		if (ft_env_exist(current->content, j, shell->envp) == -1)
 			i++;
-		if (ft_export_duplicate(current, k))
+		if (ft_env_duplicate(current))
 			i--;
-		k++;
 		current = current->next;
 	}
 	return (i);
@@ -88,7 +86,10 @@ void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
 		else if (ft_env_exist(current->content, &j, temp) != -1 && !plus_mode)
 			ft_swap_env(current->content, temp, j);
 		else
+		{
 			ft_append_env(current->content, temp);
+
+		}
 		current = current->next;
 	}
 }

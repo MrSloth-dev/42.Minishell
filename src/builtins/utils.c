@@ -33,7 +33,7 @@ char	*ft_get_env_key(char *env_str)
 	i = 0;
 	plus = 0;
 	if (!ft_strchr(env_str, '='))
-		return (env_str);
+		return (ft_strdup(env_str));
 	sub = ft_strchr(env_str, '+');
 	if (sub && *(++sub) == '=')
 		plus = 1;
