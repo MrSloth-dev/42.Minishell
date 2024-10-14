@@ -40,7 +40,7 @@ void	ft_cd(t_token *cmdargs, t_shell *shell)
 	}
 	update_old = getcwd(NULL, 0);
 	if (!cmdargs || !ft_strcmp(cmdargs->content, "~\0")
-		|| !ft_strcmp(cmdargs->content, "--"))
+		|| !ft_strncmp(cmdargs->content, "--", 2))
 		ft_change_home(cmdargs, shell);
 	else if (!ft_strcmp(cmdargs->content, "-"))
 	{
