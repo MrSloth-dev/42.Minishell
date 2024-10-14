@@ -5,6 +5,16 @@ display cmdargs
 display shell->envp[k]
 display temp[k]
 end
+define env
+break ft_env_exist
+display var
+display j
+display key
+display name
+display len
+display index
+end
+
 define cd
 break ft_cd
 break ft_update_directory

@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <unistd.h>
 
 int	ft_check_n(t_token *cmdargs)
 {
@@ -29,33 +30,35 @@ int	ft_check_n(t_token *cmdargs)
 void	ft_echo(t_token *cmdargs, t_shell *sh)
 {
 	t_token	*head;
+	t_token	*current;
 	int		skip;
 
 	skip = 0;
 	head = cmdargs;
-	if (!cmdargs->content)
+	current = head;
+	if (!current->content)
 	{
 		sh->exit_status = ERROR;
 		return ;
 	}
-	if (!cmdargs->next)
+	if (!current)
 	{
-		printf("\n");
+		ft_printf(STDOUT_FILENO, "\n");
 		sh->exit_status = SUCCESS;
 		return ;
 	}
-	if (cmdargs->next->content[0] == '-' && cmdargs->next->content[1] == 'n')
-		skip += ft_check_n(cmdargs->next);
+	if (current->content[0] == '-' && current->content[1] == 'n')
+		skip += ft_check_n(current);
 	while (skip--)
-		cmdargs = cmdargs->next;
-	while (cmdargs->next)
+		current = current->next;
+	while (current)
 	{
-		printf("%s", cmdargs->next->content);
-		if (cmdargs->content)
-			printf(" ");
-		cmdargs = cmdargs->next;
+		ft_printf(STDOUT_FILENO ,"%s", current->content);
+		if (current->next != NULL)
+			ft_printf(STDOUT_FILENO, " ");
+		current = current->next;
 	}
-	if (ft_strcmp("-n", head->next->content) != 0)
-		printf("\n");
+	if (ft_strcmp("-n", head->content) != 0)
+		ft_printf(STDOUT_FILENO, "\n");
 	sh->exit_status = SUCCESS;
 }

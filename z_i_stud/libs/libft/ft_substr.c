@@ -14,9 +14,10 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	auto char *array;
-	auto unsigned int i;
-	auto unsigned int str_len;
+	char			*array;
+	unsigned int	str_len;
+	unsigned int	i;
+
 	if (!s)
 		return (NULL);
 	str_len = ft_strlen(s);
@@ -25,7 +26,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (len > str_len - start)
 		len = str_len - start;
 	array = malloc(sizeof(char) * len + 1);
-	if (array == NULL)
+	if (!array)
 		return (NULL);
 	i = 0;
 	while (len--)
