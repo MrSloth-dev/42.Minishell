@@ -2,20 +2,15 @@
 #include "minishell.h"
 #include <unistd.h>
 
-char	*ft_extract_env_value(char *cmdargs)
-{
-		return (ft_strchr(cmdargs, '=') + 1);
-}
-
 void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell)
 {
 	int		k;
-	char *joinvalue;
+	char	*joinvalue;
 
 	if (!ft_strchr(cmdargs, '='))
 		joinvalue = ft_strdup("");
 	else
-		joinvalue = ft_extract_env_value(cmdargs);
+		joinvalue = ft_strchr(cmdargs, '=') + 1;
 	k = 0;
 	while (temp[k])
 	{
@@ -54,7 +49,6 @@ void	ft_append_env(char *cmdargs, char **temp)
 	while (temp[i])
 		i++;
 	temp[i++] = ft_strdup(cmdargs);
-	// temp[i] = 0;
 }
 
 char	**ft_order_env(char **env)

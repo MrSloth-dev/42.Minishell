@@ -1,27 +1,5 @@
 #include "minishell.h"
 
-// static void	ft_remove_env(char **temp, int j, t_shell *shell)
-// {
-// 	int		k;
-//
-// 	k = 0;
-// 	while (shell->envp[k])
-// 	{
-// 		if (j == k)
-// 			k++;
-// 		else
-// 			temp[k] = ft_strdup(shell->envp[k]);
-// 		if (!temp[k])
-// 			return ;
-// 		k++;
-// 	}
-// 	shell->envp = temp;
-// 	k = 0;
-// 	while (temp[k])
-// 		free(temp[k++]);
-// 	free(temp);
-// }
-
 void	ft_copy_and_remove_envp(t_shell *shell, int j, int extra)
 {
 	char	**temp_envp;
@@ -61,16 +39,9 @@ void	ft_unset(t_token *cmdargs, t_shell *shell)
 		return ;
 	while (current)
 	{
-		if (ft_env_exist(current->content, &j, shell->envp) != -1 && !ft_env_duplicate(current))
+		if (ft_env_exist(current->content, &j, shell->envp) != -1
+			&& !ft_env_duplicate(current))
 			ft_copy_and_remove_envp(shell, j, -1);
 		current = current->next;
 	}
-	// cmdargs = head;
-	// while (cmdargs)
-	// {
-	// 	temp = ft_copy_envp(shell->envp, i);
-	// 	if (ft_env_exist(cmdargs->content, &j, shell->envp) != -1)
-	// 		ft_remove_env(temp, j, shell);
-	// 	cmdargs = cmdargs->next;
-	// }
 }
