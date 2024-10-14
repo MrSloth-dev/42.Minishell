@@ -1,5 +1,6 @@
 #include "ft_printf.h"
 #include "minishell.h"
+#include <unistd.h>
 
 void	ft_join_env(char *cmdargs, char **temp, int j)
 {
@@ -94,6 +95,19 @@ void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
 	}
 }
 
+// int	ft_valid_identifiers(t_token *cmdargs, t_shell *shell)
+// {
+// 	int	i;
+//
+// 	i = 0;
+// 	while (cmdargs->content[i] && cmdargs->content[i] != '=')
+// 	{
+// 		if (ft_isalpha(cmdargs->content[0]))
+//
+// 	}
+// 	return (ft_printf(STDERR_FILENO, ""));
+// }
+
 void	ft_export(t_token *cmdargs, t_shell *shell)
 {
 	char	**temp;
@@ -102,6 +116,8 @@ void	ft_export(t_token *cmdargs, t_shell *shell)
 
 	i = 0;
 	j = 0;
+	// if (!ft_valid_identifiers(cmdargs, shell))
+	// 	return ;
 	if (!cmdargs)
 	{
 		ft_export_no_args(*shell);
