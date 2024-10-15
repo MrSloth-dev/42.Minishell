@@ -13,7 +13,7 @@ char	*ft_find_path(char *envp[])
 	return (NULL);
 }
 
-t_shell	*ft_init_shell(char *envp[])
+t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 {
 	t_shell	*sh;
 
@@ -24,6 +24,7 @@ t_shell	*ft_init_shell(char *envp[])
 		return (NULL);
 	}
 	// sh->pid = ft_getpid(sh);
+	sh->prog_name = argv_zero;
 	sh->token_lst = NULL;
 	sh->envp = ft_copy_envp(envp, 0);
 	sh->path = ft_split(ft_find_path(sh->envp), ':'); //LEAKS come from HERE 11november

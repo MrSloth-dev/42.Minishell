@@ -45,7 +45,7 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 			else if (str[h.i] == '$')
 				exp = ft_itoa(sh->pid);
 			else if (str[h.i] == '0')
-				exp = ft_strdup("minishell");
+				exp = ft_strdup(sh->prog_name);
 			else if (ft_isdigit(str[h.i]) == TRUE)
 				exp = ft_strdup("");
 			else if (ft_isalnum(str[h.i]) == TRUE || str[h.i] == '_')

@@ -113,6 +113,7 @@ typedef struct s_shell
 {
 	t_token_lst	*token_lst;
 	int			exit_status;
+	char		*prog_name;
 	char		**envp;
 	char		**path;
 	char		*line;
@@ -157,7 +158,7 @@ char	*ft_expand(char *str, t_shell *shell);
 void	ft_make_expansions(t_shell *sh);
 
 //init
-t_shell	*ft_init_shell(char *envp[]);
+t_shell	*ft_init_shell(char *envp[], char *argv_zero);
 char	**ft_copy_envp(char **envp, int extra);
 
 // signals_and_readline

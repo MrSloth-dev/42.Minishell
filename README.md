@@ -123,6 +123,10 @@
  - [x] exit with no options (this shiet has signals)
    - [x] it exits
    - [x] clears memory
+ - [ ] LEAK CHECKS!!!!
+   - [ ] free on failed execve
+   - [ ] try pwd -> ENTER -> cat infile -> ENTER -> ctr + d -> LEAKS!
+   - [ ] more than 2 ENTER without line, have leaks
 
 # Ivan needs to understand: (Joao says xD)
 - [ ] Implement redirections : < > << >> 
