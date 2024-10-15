@@ -79,7 +79,8 @@ TOKENIZER = $(TOKENIZERDIR)/00_tokenizer.c \
 PARSE = $(PARSEDIR)/00_make_bin_tree.c
 
 EXEC =	$(EXECDIR)/exec_builtin.c \
-	$(EXECDIR)/execution.c
+	$(EXECDIR)/execution.c \
+	$(EXECDIR)/pipe.c
 
 UTILS = $(UTILSDIR)/iter.c
 
@@ -121,7 +122,6 @@ ivan : $(OBJS)
 
 le: all
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
-	cat	cmdlog.txt
 	cat leaks.log
 
 qk: ivan
