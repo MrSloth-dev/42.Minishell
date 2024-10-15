@@ -32,5 +32,6 @@ void	ft_exec_builtins(t_token *cmdargs, t_shell *shell)
 			ft_exit(NULL, shell);
 		else
 			ft_execute_command(temp_head, shell);
+		exit(0);
 	}
 }

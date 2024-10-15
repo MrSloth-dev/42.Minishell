@@ -23,6 +23,7 @@ t_shell	*ft_init_shell(char *envp[])
 		printf("Error allocating \"*sh\" struct!\n");
 		return (NULL);
 	}
+	// sh->pid = ft_getpid(sh);
 	sh->token_lst = NULL;
 	sh->envp = ft_copy_envp(envp, 0);
 	sh->path = ft_split(ft_find_path(sh->envp), ':'); //LEAKS come from HERE 11november
