@@ -1,28 +1,43 @@
 #include "minishell.h"
 #include <unistd.h>
 
+int	ft_isbuiltin(char *content)
+{
+	if (!ft_strcmp(content, "exit"))
+		return (1);
+	else if (!ft_strcmp(content, "env"))
+		return (1);
+	else if (!ft_strcmp(content, "pwd"))
+		return (1);
+	else if (!ft_strcmp(content, "export"))
+		return (1);
+	else if (!ft_strcmp(content, "echo"))
+		return (1);
+	else if (!ft_strcmp(content, "unset"))
+		return (1);
+	else if (!ft_strcmp(content, "cd"))
+		return (1);
+	else
+		return (0);
+}
 
+	// ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
+	// ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES
+	//ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
 void	ft_shellfault(t_shell *sh)
 {
-	sh->token_lst = ft_calloc(sizeof(t_token_lst), 1); //this probably need to go to init shell
+	sh->token_lst = ft_calloc(sizeof(t_token_lst), 1);
 	if (!sh->token_lst)
 		return ;
 	ft_tokenizer(sh->token_lst, sh->line, sh);
-	// ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
-	// ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES
 	sh->token_lst->first = ft_make_bin_tree(sh->token_lst->first, ND_EXEC);
-	//ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
-	if (sh && sh->token_lst->first->type != ND_PIPE)
-	{
-		if (fork() == 0)
-			ft_run_cmd(sh->token_lst->first, sh);
-		wait(0);
-	}
-	else if (sh && sh->token_lst->first->type == ND_PIPE)
+	if (!sh->token_lst->first)
+		return ;
+	if (fork() == 0)
 		ft_run_cmd(sh->token_lst->first, sh);
-	ft_free_tree(sh->token_lst);
+	wait(0);
+	// ft_free_tree(sh->token_lst);
 	return;
-	
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -41,7 +56,8 @@ int	main(int argc, char *argv[], char *envp[])
 			ft_print_syntax_error(have_syn_error); //MAYBE ADD HISTORY HERE
 		else
 			ft_shellfault(sh);
-		free(sh->token_lst);
+		// if (sh->token_lst)
+		// 	free(sh->token_lst);
 	}
 	return (0);
 }

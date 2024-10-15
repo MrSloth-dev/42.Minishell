@@ -122,7 +122,6 @@ ivan : $(OBJS)
 
 le: all
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
-	cat	cmdlog.txt
 	cat leaks.log
 
 qk: ivan

@@ -6,19 +6,7 @@ int	ft_getpid(t_shell *shell)
 
 	pid = fork();
 	if (pid == 0)
-	{
-		if (shell)
-		{
-			if (shell->line)
-				free(shell->line);
-			if (shell->envp)
-				ft_free_envp(shell->envp);
-			if (shell->path)
-				ft_free_envp(shell->path);
-			free(shell);
-		}
-		exit (EXIT_SUCCESS);
-	}
+		ft_free_and_exit(NULL, shell);
 	wait(0);
 	pid = pid - 1;
 	return (pid);

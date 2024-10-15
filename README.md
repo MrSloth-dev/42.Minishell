@@ -96,21 +96,21 @@
     - [x] check for leaks
     - [ ] convert to accept tokens
  - [x] env with no option or aguments
-    - [ ] convert to accept tokens
-    - [ ] check for leaks
+    - [x] convert to accept tokens
+    - [x] check for leaks
  - [ ] export with no options
     - [x] prints with "declare -x" with 0 args
     - [x] Append non existant env_var
     - [x] Swap existant env_var
     - [ ] Make sure name doesnt contain invalid identifiers
-    - [ ] Join with '+' existant env_var
-    - [ ] Fucking Works
-    - [ ] convert to accept tokens
-    - [ ] check for leaks
- - [ ] unset with no options
-    - [ ] Fucking Works
-    - [ ] convert to accept tokens
-    - [ ] check for leaks
+    - [x] Join with '+' existant env_var
+    - [x] Fucking Works
+    - [x] convert to accept tokens
+    - [x] check for leaks
+ - [x] unset with no options
+    - [x] Fucking Works
+    - [x] convert to accept tokens
+    - [x] check for leaks
  - [x] cd with only a relative or absoute path (no fucking cd ~) need readline to test
     - [x] cd with relative path
     - [x] cd with absolute path
@@ -118,8 +118,8 @@
     - [x] cd -- goes to home and set oldpwd to home too)
     - [x] cd ~ goes to HOME
     - [x] cd goes to HOME
-    - [ ] convert to accept tokens
-    - [ ] check for leaks
+    - [x] convert to accept tokens
+    - [x] check for leaks
  - [x] exit with no options (this shiet has signals)
    - [x] it exits
    - [x] clears memory
