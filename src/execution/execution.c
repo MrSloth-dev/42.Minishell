@@ -2,7 +2,7 @@
 #include "minishell.h"
 #include <unistd.h>
 
-char	*ft_get_cmd(t_token *token, t_shell *shell)
+char	*ft_get_cmdbin(t_token *token, t_shell *shell)
 {
 	char	*temp;
 	int		i;
@@ -60,11 +60,10 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 	if (!cmd->content)
 		return ;
 	cmdargs = ft_create_cmdargs(cmd);
-	cmdbin = ft_get_cmd(cmd, shell);
-	execve(cmdbin, cmdargs, shell->envp);
+	cmdbin = ft_get_cmdbin(cmd, shell);
+	if (cmdargs && cmdbin)
+		execve(cmdbin, cmdargs, shell->envp);
 	// ft_free_and_exit(NULL, shell);
-	exit(1);
-	ft_printf(1, "this should not print");
 	int i = 0;
 	while (cmdargs[i])
 	{
@@ -73,6 +72,7 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 	}
 	free(cmdargs);
 	free(cmdbin);
+	ft_free_and_exit(NULL, shell, TRUE);
 }
 
 /* ISILVA COMMENTED THIS FOR TESTING! SEE ABOVE NEW FT
