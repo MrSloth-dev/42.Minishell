@@ -79,9 +79,9 @@
 - [x] Handle ' to prevent shell from intrepeting the meta characters in the quoted sequence
 - [x] Handle " wich shoudl prevent the shell from interpreting the meta-characters in the quoted sequence except for $
 - [ ] Implement redirections : < > << >> 
-   - [ ] <
-   - [ ] >
-   - [ ] >>
+   - [x] <
+   - [x] >
+   - [x] >>
    - [ ] << HERE DOC
       - [ ] SIMPLE
       - [ ] MULTIPLE
@@ -97,6 +97,7 @@
 - [ ] Implement BUILT-INS:
  - [x] echo with -n
     - [x] check for leaks
+    - [ ] Works
     - [ ] convert to accept tokens
  - [x] pwd with no options
     - [x] check for leaks
@@ -105,10 +106,10 @@
     - [x] convert to accept tokens
     - [x] check for leaks
  - [ ] export with no options
+    - [ ] Make sure name doesnt contain invalid identifiers
     - [x] prints with "declare -x" with 0 args
     - [x] Append non existant env_var
     - [x] Swap existant env_var
-    - [ ] Make sure name doesnt contain invalid identifiers
     - [x] Join with '+' existant env_var
     - [x] Fucking Works
     - [x] convert to accept tokens
@@ -134,27 +135,7 @@
    - [x] try pwd -> ENTER -> cat infile -> ENTER -> ctr + d -> LEAKS!
    - [x] more than 2 ENTER without line, have leaks
    - [ ] handle signal if tries to remove file if protected.
-
-
-# Ivan needs to understand: (Joao says xD)
-- [ ] Implement redirections : < > << >> 
-
-## For parser flags
-```
-
-static struct { char* s; enum flag flag; } flags[] = {
-  {"foo", FLAG_FOO},
-  {"bar", FLAG_BAR},
-  ...
-};
-
-enum flag flag_from_str(char *s)
-{
-  for (size_t i = 0; i < sizeof flags / sizeof flags[0]; i++)
-    if (strcmp(flags[i].s, s) == 0)
-      return flags[i].flag;
-  return FLAG_NONE;
-}
+   - [ ] NORMINETTE, AMENO, DOMINE, AMENO NORMINETTE
 
 ```
 ## Tests to be made

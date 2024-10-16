@@ -148,3 +148,10 @@ ls > outfile
 cat outfile 
 ls > outfile >> outfile
 cat outfile 
+ls > outfile -la | wc -l < outfile
+cat outfile 
+cat outfile | wc -l
+export +=lol
+export
+env
+exit
