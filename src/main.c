@@ -26,6 +26,8 @@ int	ft_isbuiltin(char *content)
 	//ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
 void	ft_shellfault(t_shell *sh)
 {
+	if (!sh || !sh->line || sh->line[0] == 0)
+		return ;
 	sh->token_lst = ft_calloc(sizeof(t_token_lst), 1);
 	if (!sh->token_lst)
 		return ;

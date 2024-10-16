@@ -120,7 +120,7 @@ ivan : $(OBJS)
 	@$(CC) $(MAIN) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
-le: all
+le: fclean all
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
 	cat leaks.log
 

@@ -33,23 +33,20 @@ char	**ft_create_cmdargs(t_token *token)
 
 	head = token;
 	len = 0;
-	while (token && token->content != NULL)
+	while (head && head->content != NULL)
 	{
 		len++;
-		if (token->next != NULL)
-			token = token->next;
-		else
-			break ;
+		head = head->next;
 	}
-	token = head;
-	cmdargs = calloc(len + 1, sizeof(t_token *));
+	head = token;
+	cmdargs = ft_calloc(len + 1, sizeof(char *));
 	if (!cmdargs)
 		return (NULL);
 	len = 0;
-	while (token && token->content != NULL)
+	while (head && head->content != NULL)
 	{
-		cmdargs[len] = ft_strdup(token->content);
-		token = token->next;
+		cmdargs[len] = ft_strdup(head->content);
+		head = head->next;
 		len++;
 	}
 	return (cmdargs);
@@ -77,4 +74,35 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 	free(cmdargs);
 	free(cmdbin);
 }
+
+/* ISILVA COMMENTED THIS FOR TESTING! SEE ABOVE NEW FT
+char	**ft_create_cmdargs(t_token *token)
+{
+	char	**cmdargs;
+	t_token	*head;
+	int		len;
+
+	head = token;
+	len = 0;
+	while (token && token->content != NULL)
+	{
+		len++;
+		if (token->next != NULL)
+			token = token->next;
+		else
+			break ;
+	}
+	token = head;
+	cmdargs = calloc(len + 1, sizeof(t_token *));
+	if (!cmdargs)
+		return (NULL);
+	len = 0;
+	while (token && token->content != NULL)
+	{
+		cmdargs[len] = ft_strdup(token->content);
+		token = token->next;
+		len++;
+	}
+	return (cmdargs);
+}*/
 
