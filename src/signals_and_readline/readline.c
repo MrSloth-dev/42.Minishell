@@ -1,5 +1,6 @@
 #include "ft_printf.h"
 #include "minishell.h"
+#include <fcntl.h>
 
 static void	ft_handle_sig(int signal)
 {
@@ -25,6 +26,14 @@ static void	ft_start_sig()
 	//and program not quit with this combination
 }
 
+void	ft_cmd_log(char *line)
+{
+	char c = '\n';
+	int fd = open("cmdlogs", O_RDWR | O_CREAT | O_APPEND);
+	write(fd, line, ft_strlen(line));
+	write(fd, &c, 1);
+	close(fd);
+}
 t_shell	*ft_readline(t_shell *sh)
 {
 	char	*pwd;
@@ -38,7 +47,10 @@ t_shell	*ft_readline(t_shell *sh)
 	sh->line = NULL;
 	sh->line = readline(pwd);
 	if ((sh->line && *(sh->line)))
+	{
+		ft_cmd_log(sh->line); //WARNING :REMOVE
 		add_history(sh->line);
+	}
 	if (sh->line == NULL || ft_strncmp("exit", sh->line, 4) == 0)
 		ft_exit(pwd, sh);
 	free(pwd);
