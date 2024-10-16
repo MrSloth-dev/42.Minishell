@@ -7,6 +7,8 @@ void ft_free_bin_shell(t_token	*token)
 	t_token	*cur_right;
 	t_token	*tmp;
 
+	tmp = NULL;
+	cur = NULL;
 	cur_left = NULL;
 	cur_right = NULL;
 	
@@ -41,13 +43,17 @@ void ft_free_bin_shell(t_token	*token)
 		ft_free_bin_shell(cur->left);
 		ft_free_bin_shell(cur->right);
 		free (cur);
+		cur = NULL;
 	}
 }
 
 void	ft_free_tree(t_token_lst *token_lst)
 {
 	if (token_lst && token_lst->first)
+	{
 		ft_free_bin_shell(token_lst->first);
+		token_lst->first = NULL; //TAKE CARE OF THIS!
+	}
 }
 
 

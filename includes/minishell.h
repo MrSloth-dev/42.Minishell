@@ -151,7 +151,7 @@ void	ft_swap_env(char *cmdargs, char **temp, int j);
 void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell);
 void	ft_export_no_args(t_shell shell);
 int		ft_env_duplicate(t_token *cmdargs);
-void	ft_free_and_exit(char *pwd, t_shell *shell);
+void	ft_free_and_exit(char *pwd, t_shell *shell, int exit_flag);
 
 //EXPAND
 char	*ft_expand(char *str, t_shell *shell);

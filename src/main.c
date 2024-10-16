@@ -38,7 +38,8 @@ void	ft_shellfault(t_shell *sh)
 	if (fork() == 0)
 		ft_run_cmd(sh->token_lst->first, sh);
 	wait(0);
-	// ft_free_tree(sh->token_lst);
+
+	ft_free_tree(sh->token_lst);
 	return;
 }
 
