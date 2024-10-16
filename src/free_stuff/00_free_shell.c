@@ -54,6 +54,7 @@ void	ft_free_tree(t_token_lst *token_lst)
 		ft_free_bin_shell(token_lst->first);
 		token_lst->first = NULL; //TAKE CARE OF THIS!
 	}
+
 }
 
 
@@ -84,6 +85,7 @@ void	ft_free_envp(char	**envp)
 	while (envp[i])
 	{
 		free(envp[i]);
+		envp[i] = NULL;
 		i++;
 	}
 	free(envp);

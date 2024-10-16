@@ -2,29 +2,39 @@
 #include "minishell.h"
 #include <unistd.h>
 
-void	ft_free_and_exit(char *pwd, t_shell *shell, int exit_flag)
+void	ft_free_and_exit(char *pwd, t_shell *sh, int exit_flag)
 {
-	if (shell)
+	if (sh)
 	{
 		if (pwd != NULL)
-			free(pwd);
-		if (shell->line)
-			free(shell->line);
-
-		ft_free_tree(shell->token_lst);
-		
-		//ft_free_tree(shell->token_lst);
-		if (shell->token_lst)
 		{
-			free(shell->token_lst);
-			shell->token_lst = NULL;
+			free(pwd);
+			pwd = NULL;
+		}
+		if (sh->line)
+		{
+			free(sh->line);
+			sh->line = NULL;
+		}
+		ft_free_tree(sh->token_lst);
+		if (sh->token_lst)
+		{
+			free(sh->token_lst);
+			sh->token_lst = NULL;
 		}
 		
-		if (shell->envp)
-			ft_free_envp(shell->envp);
-		if (shell->path)
-			ft_free_envp(shell->path);
-		free(shell);
+		if (sh->envp)
+		{
+			ft_free_envp(sh->envp);
+			sh->envp = NULL;
+		}
+		if (sh->path)
+		{
+			ft_free_envp(sh->path);
+			sh->path = NULL;
+		}
+		free(sh);
+		//sh = NULL;
 	}
 	if (exit_flag == TRUE)
 		exit (EXIT_SUCCESS);

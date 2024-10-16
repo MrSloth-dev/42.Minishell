@@ -51,7 +51,6 @@ void	ft_shellfault(t_shell *sh)
 
 	// ft_free_and_exit(NULL, sh, FALSE);
 	ft_free_tree(sh->token_lst);
-	ft_reset_token_lst(sh);
 	return;
 }
 
