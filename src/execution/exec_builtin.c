@@ -31,7 +31,6 @@ void	ft_exec_builtins(t_token *cmdargs, t_shell *shell)
 		else if (ft_strcmp("exit", temp_head->content) == 0)
 			ft_exit(NULL, shell);
 	}
-	// exit(1);
 	ft_free_and_exit(NULL, shell, TRUE);
 }
 
