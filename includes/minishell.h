@@ -206,6 +206,6 @@ void	ft_free_envp(char **envp);
 void	ft_print_binary_tree(t_token_lst *token_lst);
 void	ft_print_tokens(t_token_lst *token_lst);
 
-int	ft_getpid(t_shell *shell);
+int		ft_getpid(t_shell *shell);
 
 #endif //MINISHELL_H_
