@@ -4,25 +4,26 @@
 
 void	ft_free_and_exit(char *pwd, t_shell *sh, int exit_flag)
 {
-	if (sh)
+	if (pwd != NULL)
 	{
-		if (pwd != NULL)
-		{
-			free(pwd);
-			pwd = NULL;
-		}
-		if (sh->line)
-		{
-			free(sh->line);
-			sh->line = NULL;
-		}
-		ft_free_tree(sh->token_lst);
-		if (sh->token_lst)
-		{
-			free(sh->token_lst);
-			sh->token_lst = NULL;
-		}
-		
+		free(pwd);
+		pwd = NULL;
+	}
+	if (!sh)
+		return ;
+	if (sh->line)
+	{
+		free(sh->line);
+		sh->line = NULL;
+	}
+	ft_free_tree(sh->token_lst);
+	if (sh->token_lst)
+	{
+		free(sh->token_lst);
+		sh->token_lst = NULL;
+	}
+	if (exit_flag == TRUE)
+	{
 		if (sh->envp)
 		{
 			ft_free_envp(sh->envp);
@@ -34,10 +35,9 @@ void	ft_free_and_exit(char *pwd, t_shell *sh, int exit_flag)
 			sh->path = NULL;
 		}
 		free(sh);
-		//sh = NULL;
-	}
-	if (exit_flag == TRUE)
 		exit (EXIT_SUCCESS);
+	}
+	free(sh);
 }
 
 void	ft_exit(char *pwd, t_shell *shell)

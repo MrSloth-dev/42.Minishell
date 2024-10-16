@@ -9,7 +9,7 @@ void	ft_change_home(t_token *cmdargs, t_shell *shell)
 	char	*home;
 	char	*old_home;
 
-	if (!cmdargs || !strcmp(cmdargs->content, "--"))
+	if (!cmdargs || !ft_strcmp(cmdargs->content, "--"))
 	{
 		old_home = getcwd(NULL, 0);
 		ft_update_directory(old_home, "OLDPWD=", shell);
@@ -18,7 +18,7 @@ void	ft_change_home(t_token *cmdargs, t_shell *shell)
 		ft_update_directory(home, "PWD=", shell);
 		free (old_home);
 	}
-	else if (!strcmp(cmdargs->content, "~"))
+	else if (!ft_strcmp(cmdargs->content, "~"))
 	{
 		home = ft_get_env_value("HOME", shell->envp, shell);
 		ft_safe_chdir(home, shell, 0);
@@ -39,7 +39,7 @@ void	ft_cd(t_token *cmdargs, t_shell *shell)
 			return (ft_safe_chdir(NULL, shell, 2));
 	}
 	update_old = getcwd(NULL, 0);
-	if (!cmdargs || !ft_strcmp(cmdargs->content, "~\0")
+	if (!cmdargs || !ft_strcmp(cmdargs->content, "~")
 		|| !ft_strncmp(cmdargs->content, "--", 2))
 		ft_change_home(cmdargs, shell);
 	else if (!ft_strcmp(cmdargs->content, "-"))
