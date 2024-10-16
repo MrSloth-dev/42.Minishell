@@ -6,3 +6,145 @@ tewafd
 regfd
 cat infile | dsfsfdc
 cat infile | grep Hello | pwd
+cd
+cd
+cd
+cd
+cd
+cd
+cd
+cd
+cd
+cd
+cd
+cd
+cd
+cd
+cd
+cd
+export ZSH=lol
+export
+cd
+cd
+cd 
+pwd
+cd
+ls
+cat infile
+cd
+pwd
+ls
+cd
+export
+export ZSH=lol | cat infile
+export ZSH | export
+export ZSH | export
+cd
+cd
+cd
+cd
+cd
+cd
+export | grep PWD
+pwd
+cat infile | grep Hello
+cat infile | grep Hello > outfile
+ls
+rm \:w
+rm :w
+ls
+rm cmdlog.txt 
+ls
+ls > outfile
+ls > outfile
+ls
+ls > outfile
+ls > outfile
+cat outfile 
+ls > outfile
+cat outfile 
+rm outfile 
+rm -fr outfile 
+ls
+ls
+ls > outfile
+cat outfile 
+ls > outfile
+cat outfile 
+ls > outfile
+cat outfile 
+cat infile
+< infile
+cat < infile
+cat < infile
+ls > infile
+ls > outfile
+rm -fr outfile
+ls
+ls > outfile
+cat outfile 
+rm outfile 
+outfile < ls
+ls < infile 
+echo < infile
+echo $USER > outfile
+ls
+echo '$USER' > outfile
+ls > outfile
+ls
+cat outfile 
+echo hello
+echo '$USER' > outfile
+cat outfile 
+'$USER' > outfile
+cat outfile 
+nvim outfile
+echo < outfile
+nvim outfile 
+echo < outfile
+echo $USER > outfile
+cat outfile 
+rm outfile 
+echo $USER > outfile
+cat < outfile
+ls > outfile
+cat outfile 
+wc -l < outfile
+echo
+cat infile
+cat outfile
+echo $USER >> outfile
+cat outfile 
+echo $USER > outfile
+ls >> outfile
+cat outfile 
+cd - > outfile
+cd $HOME
+$HOME
+echo $0
+echo $0
+cat infile
+cat infile > outfile
+cat outfile 
+ls >> outfile
+ls
+cat outfile 
+ls >> outfile >> outfile >> outfile > o
+cat o
+cat outfile 
+rm outfile 
+echo "whiskas" > outfile
+cd - > outfile
+ls
+ls > outfile
+ls
+cat outfile 
+ls > outfile > outfile > pwd > o
+cat outfile 
+ls > outfile
+cat outfile 
+rm outfile 
+ls > outfile
+cat outfile 
+ls > outfile >> outfile
+cat outfile 

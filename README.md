@@ -79,7 +79,13 @@
 - [x] Handle ' to prevent shell from intrepeting the meta characters in the quoted sequence
 - [x] Handle " wich shoudl prevent the shell from interpreting the meta-characters in the quoted sequence except for $
 - [ ] Implement redirections : < > << >> 
-- [ ] Implement pipes |
+   - [ ] <
+   - [ ] >
+   - [ ] >>
+   - [ ] << HERE DOC
+      - [ ] SIMPLE
+      - [ ] MULTIPLE
+- [x] Implement pipes |
 - [x] EXPANDER :
    - [x] Handle environment variables ($ followed by a sequence of characters) should expand
    - [ ] Handle $? wich should expand exit status of the most recently executed foreground pipeline
@@ -123,10 +129,12 @@
  - [x] exit with no options (this shiet has signals)
    - [x] it exits
    - [x] clears memory
- - [ ] LEAK CHECKS!!!!
-   - [ ] free on failed execve
-   - [ ] try pwd -> ENTER -> cat infile -> ENTER -> ctr + d -> LEAKS!
-   - [ ] more than 2 ENTER without line, have leaks
+ - [ ] TESTS TO SOLVE
+   - [x] free on failed execve
+   - [x] try pwd -> ENTER -> cat infile -> ENTER -> ctr + d -> LEAKS!
+   - [x] more than 2 ENTER without line, have leaks
+   - [ ] handle signal if tries to remove file if protected.
+
 
 # Ivan needs to understand: (Joao says xD)
 - [ ] Implement redirections : < > << >> 

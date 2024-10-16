@@ -36,6 +36,8 @@ void ft_reset_token_lst(t_shell *sh)
 	//ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
 void	ft_shellfault(t_shell *sh)
 {
+	t_token	*head;
+
 	if (!sh || !sh->line || sh->line[0] == 0)
 		return ;
 	sh->token_lst = ft_calloc(sizeof(t_token_lst), 1);
@@ -43,22 +45,25 @@ void	ft_shellfault(t_shell *sh)
 		return ;
 	ft_tokenizer(sh->token_lst, sh->line, sh);
 	sh->token_lst->first = ft_make_bin_tree(sh->token_lst->first, ND_EXEC);
-	if (!sh->token_lst->first)
+	head = sh->token_lst->first;
+	if (!head)
 		return ;
-	if (fork() == 0)
-		ft_run_cmd(sh->token_lst->first, sh);
-	wait(0);
-
-	// ft_free_and_exit(NULL, sh, FALSE);
+	if (head->type != ND_PIPE && ft_isbuiltin(head->left->content))
+		ft_exec_builtins_parent(sh->token_lst->first, sh);
+	else
+	{
+		if (fork() == 0)
+			ft_run_cmd(sh->token_lst->first, sh);
+		wait(0);
+	}
 	ft_free_tree(sh->token_lst);
 	ft_reset_token_lst(sh);
-	return;
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	*sh;
-	int	have_syn_error;
+	int		have_syn_error;
 
 	(void)argc;
 	sh = ft_init_shell(envp, argv[0]);

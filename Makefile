@@ -138,12 +138,19 @@ joao : $(OBJS)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 
-gdb : all
+gdb : re
 	tmux new-window  -n Gdb
 	tmux send-keys 'gdbtui ./minishell' C-m Escape
 	tmux split-window -h -l 30
 	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
 	tmux select-pane -t Gdb.1
+
+vgdb : re
+	tmux new-window  -n vGdb
+	tmux send-keys 'valgrind -q --vgdb-error=0 ./minishell' C-m Escape
+	tmux split-window -h
+	tmux send-keys -t Gdb.2 'gdbtui ./minishell' C-m
+	tmux select-pane -t vGdb.1
 
 clean:
 	@ $(RM) -f $(OBJS)

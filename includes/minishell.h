@@ -68,10 +68,6 @@
 # define WORD 2
 # define PIPELINE 3
 # define ENV 4
-# define REDIR_IN 5 //>
-# define REDIR_OUT 6 //<
-# define DBLE_REDIR_OUT 7 //<<
-# define HERE_DOC 8
 # define SINGLE_QTE 9
 # define DOUBLE_QTE 10
 
@@ -83,6 +79,11 @@
 // node classify
 # define ND_EXEC 1
 # define ND_PIPE 2
+# define ND_REDIR 3
+# define HERE_DOC 11 //
+# define REDIR_IN 12 //>
+# define REDIR_OUT 13 //<
+# define DBLE_REDIR_OUT 14 //>>
 
 // classification of nodes
 # define EXEC 1
@@ -191,6 +192,7 @@ void 	ft_free_lst_shell(t_shell *sh); //NOT NECESSARY TO DELIVER PROJECT
 
 //EXEC
 void	ft_exec_builtins(t_token *cmdargs, t_shell *shell);
+void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *shell);
 void	ft_execve(t_token *cmd, t_shell *shell);
 void	ft_run_cmd(t_token *token, t_shell *shell);
 int		ft_isbuiltin(char *content);
