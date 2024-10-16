@@ -47,6 +47,8 @@ char **ft_create_cmdargs(t_token *token)
 	cmdargs[len] = 0;
 	return (cmdargs);
 }
+
+/*
 void	ft_execute_command(t_token *cmd, t_shell *shell)
 {
 	pid_t	pid;
@@ -72,3 +74,4 @@ void	ft_execute_command(t_token *cmd, t_shell *shell)
 	close(fd[0]);
 	close(fd[1]);
 }
+*/
