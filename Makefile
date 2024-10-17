@@ -49,6 +49,7 @@ PARSEDIR = src/parse
 FREEDIR = src/free_stuff
 INITDIR = src/init
 UTILSDIR = src/utils
+H_DOCDIR = src/here_doc
 
 INIT = $(INITDIR)/00_init.c
 
@@ -89,7 +90,9 @@ WARNING = src/WARNING/print.c
 
 FREE = $(FREEDIR)/00_free_shell.c \
 
-SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC) $(UTILS)
+H_DOC = $(H_DOCDIR)/here_doc.c
+
+SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC) $(UTILS) $(H_DOC)
 
 MAIN = src/main.c
 
