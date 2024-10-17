@@ -1,8 +1,4 @@
-#include "ft_printf.h"
 #include "minishell.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 void	ft_run_cmd(t_token *token, t_shell *shell)
 {
@@ -59,8 +55,6 @@ void	ft_run_cmd(t_token *token, t_shell *shell)
 		}
 		close(pid_pipe[0]);
 		close(pid_pipe[1]);
-		// wait(0);
-		// wait(0);
 		waitpid(pid_child[0], &exit_status[0], 0);
 		waitpid(pid_child[1], &exit_status[1], 0);
 		ft_free_and_exit(NULL, shell, TRUE);

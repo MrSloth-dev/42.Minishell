@@ -24,34 +24,20 @@ static void	ft_start_sig()
 	//and program not quit with this combination
 }
 
-void	ft_cmd_log(char *line)
+t_shell	*ft_here_doc(t_shell *sh)
 {
-	char c = '\n';
-	int fd = open("teste", O_RDWR | O_CREAT | O_APPEND);
-	write(fd, line, ft_strlen(line));
-	write(fd, &c, 1);
-	close(fd);
-}
+	char	pwd[1];
 
-t_shell	*ft_readline(t_shell *sh)
-{
-	char	*pwd;
-
-	pwd = ft_strdup("\033[1;33m");
-	pwd = ft_strjoin_free(pwd, ft_strdup(ft_get_env_value("PWD", sh->envp, sh)));
-	pwd = ft_strjoin_free(pwd, ft_strdup(":$ "));
-	pwd = ft_strjoin_free(pwd, ft_strdup("\033[0m"));
+	pwd[0] = '>';
 	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
 	sh->line = NULL;
 	sh->line = readline(pwd);
 	if ((sh->line && *(sh->line)))
 	{
-		ft_cmd_log(sh->line); //WARNING :REMOVE
 		add_history(sh->line);
 	}
 	if (sh->line == NULL || ft_strncmp("exit", sh->line, 4) == 0)
 		ft_exit(pwd, sh);
-	free(pwd);
 	return (sh);
 }

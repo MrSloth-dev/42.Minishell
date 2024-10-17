@@ -45,7 +45,7 @@
 - stat --->>> tested but maybe not necessary
 - lstat NO
 - fstat NO
-- unlink - remove?- NO?
+- unlink - remove heredocs
 - execve - execute other binaries --->>> 31_execve
 - dup - duplicate the file descriptor
 - dup2 - rewrite the file descritor for another, used in redirection --->>>> 32_dup2_and_pipe BUT NEED UNDERSTAND!
@@ -130,6 +130,8 @@
  - [x] exit with no options (this shiet has signals)
    - [x] it exits
    - [x] clears memory
+ - [ ] Make safe functions
+   
  - [ ] TESTS TO SOLVE
    - [x] free on failed execve
    - [x] try pwd -> ENTER -> cat infile -> ENTER -> ctr + d -> LEAKS!
