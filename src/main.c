@@ -36,20 +36,11 @@ void ft_reset_token_lst(t_shell *sh)
 
 void	ft_make_heredoc_fd(int nb_heredoc, t_shell *sh)
 {
-
-
 	sh->heredoc_fd = ft_calloc(sizeof(int),  nb_heredoc + 1);
 	if (!sh->heredoc_fd)
 		ft_printf(1, "NEED TO DO SOMETHING HERE LIKE FREE MEM\n");
 	sh->heredoc_fd[nb_heredoc] = -1;
 
-
-
-	int i = 0;
-	ft_printf(1, "nb_heredoc: %d\n", sh->nb_heredoc);
-	while (i < nb_heredoc + 1)
-		ft_printf(1, "%d, ", sh->heredoc_fd[i++]);
-	ft_printf(1, "\n");
 }
 
 
