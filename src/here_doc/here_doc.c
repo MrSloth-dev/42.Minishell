@@ -1,17 +1,20 @@
+#include "ft_printf.h"
 #include "minishell.h"
+#include <curses.h>
+#include <fcntl.h>
 
 static void	ft_handle_sig(int signal)
 {
 	if (signal == SIGINT)
 	{
 		printf("\n");
-		rl_replace_line("", 0); // replace actual text (if exist) with empty str
-		rl_on_new_line(); //readline on newline in prompt
-		rl_redisplay(); //set defined in readline, again on display
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 }
 
-static void	ft_start_sig()
+static void	ft_start_sig(void)
 {
 	struct sigaction	sa;
 
@@ -19,25 +22,27 @@ static void	ft_start_sig()
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGINT);
-	sigaction(SIGINT, &sa, NULL); //handle ctrl + c INSIDE PROGRAM
-	signal(SIGQUIT, SIG_IGN); //ignore ctrl + \ OUTSIDE PROGRAM IN REAL TERMINAL, 
-	//and program not quit with this combination
+	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-t_shell	*ft_here_doc(t_shell *sh)
+void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id)
 {
-	char	pwd[1];
+	char	*line;
 
-	pwd[0] = '>';
+	sh->heredoc_fd[hd_id] = open(ft_itoa(hd_id), O_CREAT | O_RDWR | O_APPEND, 0644);
 	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
-	sh->line = NULL;
-	sh->line = readline(pwd);
-	if ((sh->line && *(sh->line)))
+	line = NULL;
+	line = readline("> ");
+	if (sh->line == NULL || ft_strncmp(delimiter, line, 4) == 0)
 	{
-		add_history(sh->line);
+		close(sh->heredoc_fd[hd_id]);
+		ft_exit(NULL, sh);
 	}
-	if (sh->line == NULL || ft_strncmp("exit", sh->line, 4) == 0)
-		ft_exit(pwd, sh);
-	return (sh);
+	else if ((line && *(line)))
+	{
+		ft_printf(sh->heredoc_fd[hd_id], "%s", line);
+		write(sh->heredoc_fd[hd_id], "\n", 1);
+	}
 }
