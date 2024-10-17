@@ -189,6 +189,7 @@ int		ft_how_much_consecutives_spaces(char *str);
 t_token	*ft_make_bin_tree(t_token *token, int nd_type);
 
 //here_doc
+void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id);
 void	ft_make_heredoc_fd(int nb_heredoc, t_shell *sh);
 
 //free_stuff
