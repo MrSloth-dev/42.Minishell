@@ -22,6 +22,8 @@ void	ft_free_and_exit(char *pwd, t_shell *sh, int exit_flag)
 		free(sh->token_lst);
 		sh->token_lst = NULL;
 	}
+	if (sh->nb_heredoc > 0) // WARNING HERE!!!!!!
+		free(sh->heredoc_fd); //sure?????
 	if (exit_flag == TRUE)
 	{
 		if (sh->envp)

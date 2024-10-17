@@ -1,36 +1,9 @@
 #include "minishell.h"
 
-void	ft_run_heredocs(t_token *token)
-{
-	t_iter	s;
-
-	if (!token)
-		return ;
-	s = set_iter(0);
-	s.cur = token;
-	while (s.cur && s.cur->type != ND_PIPE)
-	{
-		break ;
-	}
-
-}
-
-
-
-
-
-
-
-void	ft_create_and_run_heredocs(t_shell *sh)
-{
-	ft_make_heredoc_fd(sh->nb_heredoc, sh);
-	ft_run_heredocs(sh->token_lst->first);
-
-}
-
 	// ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
 	// ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES
 	//ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
+
 void	ft_shellfault(t_shell *sh)
 {
 	t_token	*head;
@@ -41,13 +14,11 @@ void	ft_shellfault(t_shell *sh)
 	if (!sh->token_lst)
 		return ;
 	ft_tokenizer(sh->token_lst, sh->line, sh);
+	sh->token_lst->first = ft_make_bin_tree(sh->token_lst->first, ND_EXEC);
 
 	if (sh->nb_heredoc > 0)
 		ft_create_and_run_heredocs(sh);
 
-
-
-	sh->token_lst->first = ft_make_bin_tree(sh->token_lst->first, ND_EXEC);
 	head = sh->token_lst->first;
 	if (!head)
 		return ;
@@ -61,6 +32,11 @@ void	ft_shellfault(t_shell *sh)
 	}
 	ft_free_tree(sh->token_lst);
 	ft_reset_token_lst(sh);
+	if (sh->nb_heredoc > 0) // WARNING HERE!!!!!!
+	{
+		free(sh->heredoc_fd);
+	}
+	sh->nb_heredoc = 0;
 }
 
 int	main(int argc, char *argv[], char *envp[])

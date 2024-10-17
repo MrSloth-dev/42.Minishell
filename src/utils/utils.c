@@ -3,7 +3,7 @@
 int	ft_isbuiltin(char *content)
 {
 	if (!ft_strcmp(content, "echo"))
-		return (1);
+	 	return (1);
 	else if (!ft_strcmp(content, "cd"))
 		return (1);
 	else if (!ft_strcmp(content, "pwd"))

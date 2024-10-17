@@ -138,6 +138,11 @@
    - [x] more than 2 ENTER without line, have leaks
    - [ ] handle signal if tries to remove file if protected.
    - [ ] NORMINETTE, AMENO, DOMINE, AMENO NORMINETTE
+   - [x] handle CTRL + D when use heredoc -> reseted sh->nb_heredoc
+   - [ ] handle CTRL + C in heredoc
+   - [ ] verify if have leaks with heredoc
+   - [ ] use a hidden directory to store files created from heredoc
+   - [ ] delete heredoc temp files after each execution
 
 ```
 ## Tests to be made
