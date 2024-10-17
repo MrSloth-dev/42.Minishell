@@ -1,28 +1,9 @@
 #include "minishell.h"
-#include <unistd.h>
-
-
-void ft_reset_token_lst(t_shell *sh)
-{
-	if (sh->token_lst)
-	{
-		free(sh->token_lst);
-		sh->token_lst = NULL;
-	}
-}
 
 
 
 
 
-void	ft_make_heredoc_fd(int nb_heredoc, t_shell *sh)
-{
-	sh->heredoc_fd = ft_calloc(sizeof(int),  nb_heredoc + 1);
-	if (!sh->heredoc_fd)
-		ft_printf(1, "NEED TO DO SOMETHING HERE LIKE FREE MEM\n");
-	sh->heredoc_fd[nb_heredoc] = -1;
-
-}
 
 
 
@@ -80,8 +61,6 @@ int	main(int argc, char *argv[], char *envp[])
 			ft_print_syntax_error(have_syn_error); //MAYBE ADD HISTORY HERE
 		else
 			ft_shellfault(sh);
-		// if (sh->token_lst)
-		// 	free(sh->token_lst);
 	}
 	return (0);
 }
