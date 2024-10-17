@@ -119,6 +119,8 @@ typedef struct s_shell
 	char		**path;
 	char		*line;
 	int			pid;
+	int			nb_heredoc;
+	int			*heredoc_fd;
 }	t_shell;
 /////////////////////////////
 // HELPER STRUCTS

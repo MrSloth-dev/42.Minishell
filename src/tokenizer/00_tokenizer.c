@@ -141,7 +141,7 @@ void ft_join_tokens(t_token_lst *token_lst)
 	
 }
 
-void	ft_delete_space_tokens(t_token_lst *token_lst)
+void	ft_delete_space_tokens_and_count_heredoc(t_token_lst *token_lst, t_shell *sh)
 {
 	t_token	*cur;
 	t_token	*tmp;
@@ -162,6 +162,10 @@ void	ft_delete_space_tokens(t_token_lst *token_lst)
 			free(tmp->content);
 			free(tmp);
 			continue ;
+		}
+		if (cur->type == HERE_DOC)
+		{
+			sh->nb_heredoc++;
 		}
 		cur = cur->next;
 	}
@@ -210,7 +214,8 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
 	ft_make_expansions(sh);
 
 	ft_join_tokens(token_lst);
-	ft_delete_space_tokens(token_lst);
+	ft_delete_space_tokens_and_count_heredoc(token_lst, sh);
+	
 
 	//ft_print_tokens(token_lst);
 }
