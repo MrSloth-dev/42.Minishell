@@ -95,6 +95,7 @@ typedef struct s_token
 {
 	int				status;
 	int				type;
+	int				hd_id;
 	char			*content;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -126,10 +127,14 @@ typedef struct s_shell
 // HELPER STRUCTS
 typedef struct s_iter
 {
-	int	i;
-	int	j;
-	int	k;
-	int len;
+	int		i;
+	int		j;
+	int		k;
+	int 	len;
+	t_token	*tmp;
+	t_token	*cur;
+	t_token	*cur_left;
+	t_token	*cur_right;
 }			t_iter;
 
 // BUILT-INS

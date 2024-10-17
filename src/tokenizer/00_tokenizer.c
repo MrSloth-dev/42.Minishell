@@ -14,6 +14,7 @@ int	ft_append_node(t_token_lst *token_lst, char *str, int type, int status)
 	new_token->content = str;
 	new_token->type = type;
 	new_token->next = NULL;
+	new_token->hd_id = -1;
 
 	if (!token_lst->first)
 	{
@@ -165,6 +166,7 @@ void	ft_delete_space_tokens_and_count_heredoc(t_token_lst *token_lst, t_shell *s
 		}
 		if (cur->type == HERE_DOC)
 		{
+			cur->hd_id = sh->nb_heredoc;
 			sh->nb_heredoc++;
 		}
 		cur = cur->next;

@@ -89,6 +89,7 @@ void	ft_free_envp(char	**envp)
 		i++;
 	}
 	free(envp);
+	envp = NULL;
 }
 
 void ft_reset_token_lst(t_shell *sh)

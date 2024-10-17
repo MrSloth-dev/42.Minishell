@@ -20,5 +20,11 @@ t_iter	set_iter(int n)
 	h.j = n;
 	h.k = n;
 	h.len = n;
+	h.tmp = NULL;
+	h.cur = NULL;
+	h.cur_left = NULL;
+	h.cur_right = NULL;
 	return (h);
 }
+
+
