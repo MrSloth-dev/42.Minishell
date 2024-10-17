@@ -200,8 +200,8 @@ void	ft_run_cmd(t_token *token, t_shell *shell);
 int		ft_isbuiltin(char *content);
 
 //UTILS
-t_iter	set_h(int n);
-
+t_iter	set_iter(int n);
+int		ft_isbuiltin(char *content);
 
 //STUF TO ORGANIZE BY IVAN. NEEDED STUFF IN OTHER FILES,THAT I USED ON MY MAIN FILE
 void	ft_free_envp(char **envp);

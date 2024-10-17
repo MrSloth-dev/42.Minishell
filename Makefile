@@ -82,7 +82,8 @@ EXEC =	$(EXECDIR)/exec_builtin.c \
 	$(EXECDIR)/execution.c \
 	$(EXECDIR)/pipe.c
 
-UTILS = $(UTILSDIR)/iter.c
+UTILS = $(UTILSDIR)/iter.c \
+		$(UTILSDIR)/utils.c
 
 WARNING = src/WARNING/print.c
 

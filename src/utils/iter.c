@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_iter	set_h(int n)
+t_iter	set_iter(int n)
 {
 	t_iter	h;
 
