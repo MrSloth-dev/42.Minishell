@@ -91,3 +91,11 @@ void	ft_free_envp(char	**envp)
 	free(envp);
 }
 
+void ft_reset_token_lst(t_shell *sh)
+{
+	if (sh->token_lst)
+	{
+		free(sh->token_lst);
+		sh->token_lst = NULL;
+	}
+}

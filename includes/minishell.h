@@ -188,9 +188,13 @@ int		ft_how_much_consecutives_spaces(char *str);
 //parse
 t_token	*ft_make_bin_tree(t_token *token, int nd_type);
 
+//here_doc
+void	ft_make_heredoc_fd(int nb_heredoc, t_shell *sh);
+
 //free_stuff
 void	ft_free_tree(t_token_lst *token_lst);
 void 	ft_free_lst_shell(t_shell *sh); //NOT NECESSARY TO DELIVER PROJECT
+void ft_reset_token_lst(t_shell *sh);
 
 //EXEC
 void	ft_exec_builtins(t_token *cmdargs, t_shell *shell);

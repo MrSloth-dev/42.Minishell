@@ -90,7 +90,8 @@ WARNING = src/WARNING/print.c
 
 FREE = $(FREEDIR)/00_free_shell.c \
 
-H_DOC = $(H_DOCDIR)/here_doc.c
+H_DOC = $(H_DOCDIR)/here_doc.c \
+		$(H_DOCDIR)/here_doc_utils.c
 
 SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC) $(UTILS) $(H_DOC)
 
