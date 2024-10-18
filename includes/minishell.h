@@ -197,6 +197,7 @@ t_token	*ft_make_bin_tree(t_token *token, int nd_type);
 void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id, char *file);
 void	ft_make_heredoc_fd(int nb_heredoc, t_shell *sh);
 void	ft_create_and_run_heredocs(t_shell *sh);
+void	ft_clean_here_doc(t_shell *sh);
 
 //free_stuff
 void	ft_free_tree(t_token_lst *token_lst);
@@ -204,8 +205,10 @@ void 	ft_free_lst_shell(t_shell *sh); //NOT NECESSARY TO DELIVER PROJECT
 void ft_reset_token_lst(t_shell *sh);
 
 //EXEC
-void	ft_exec_builtins(t_token *cmdargs, t_shell *shell);
+void	ft_exec_builtins(t_token *temp_head, t_shell *shell);
+void	ft_exec_builtins_child(t_token *cmdargs, t_shell *shell);
 void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *shell);
+int		ft_exec_redir(t_token *cur_redir);
 void	ft_execve(t_token *cmd, t_shell *shell);
 void	ft_run_cmd(t_token *token, t_shell *shell);
 int		ft_isbuiltin(char *content);

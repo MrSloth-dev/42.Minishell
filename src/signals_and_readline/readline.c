@@ -27,7 +27,7 @@ static void	ft_start_sig()
 void	ft_cmd_log(char *line)
 {
 	char c = '\n';
-	int fd = open("teste", O_RDWR | O_CREAT | O_APPEND);
+	int fd = open("cmdlogs", O_RDWR | O_CREAT | O_APPEND);
 	write(fd, line, ft_strlen(line));
 	write(fd, &c, 1);
 	close(fd);

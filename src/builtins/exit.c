@@ -23,7 +23,7 @@ void	ft_free_and_exit(char *pwd, t_shell *sh, int exit_flag)
 		sh->token_lst = NULL;
 	}
 	if (sh->nb_heredoc > 0) // WARNING HERE!!!!!!
-		free(sh->heredoc_fd); //sure?????
+		ft_clean_here_doc(sh);
 	if (exit_flag == TRUE)
 	{
 		if (sh->envp)

@@ -63,7 +63,6 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 	cmdbin = ft_get_cmdbin(cmd, shell);
 	if (cmdargs && cmdbin)
 		execve(cmdbin, cmdargs, shell->envp);
-	// ft_free_and_exit(NULL, shell);
 	int i = 0;
 	while (cmdargs[i])
 	{

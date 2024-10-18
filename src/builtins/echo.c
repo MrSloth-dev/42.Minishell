@@ -36,7 +36,7 @@ void	ft_echo(t_token *cmdargs, t_shell *sh)
 	skip = 0;
 	head = cmdargs;
 	current = head;
-	if (!current->content)
+	if (!current || !current->content)
 	{
 		sh->exit_status = ERROR;
 		return ;

@@ -3,6 +3,18 @@
 	// ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
 	// ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES
 	//ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
+void	ft_clean_here_doc(t_shell *sh)
+{
+	char *name;
+
+	while (sh->nb_heredoc--)
+	{
+		name = ft_itoa(sh->nb_heredoc);
+		unlink(name);
+		free(name);
+	}
+	free(sh->heredoc_fd);
+}
 
 void	ft_shellfault(t_shell *sh)
 {
@@ -22,9 +34,9 @@ void	ft_shellfault(t_shell *sh)
 	head = sh->token_lst->first;
 	if (!head)
 		return ;
-	if (head->type != ND_PIPE && ft_isbuiltin(head->left->content))
+	if (head->type != ND_PIPE && head->left && ft_isbuiltin(head->left->content))
 		ft_exec_builtins_parent(sh->token_lst->first, sh);
-	else
+	else if (head->left)
 	{
 		if (fork() == 0)
 			ft_run_cmd(sh->token_lst->first, sh);
@@ -33,10 +45,7 @@ void	ft_shellfault(t_shell *sh)
 	ft_free_tree(sh->token_lst);
 	ft_reset_token_lst(sh);
 	if (sh->nb_heredoc > 0) // WARNING HERE!!!!!!
-	{
-		free(sh->heredoc_fd);
-	}
-	sh->nb_heredoc = 0;
+		ft_clean_here_doc(sh);
 }
 
 int	main(int argc, char *argv[], char *envp[])
