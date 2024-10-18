@@ -45,5 +45,5 @@ void	ft_free_and_exit(char *pwd, t_shell *sh, int exit_flag)
 void	ft_exit(char *pwd, t_shell *shell)
 {
 	ft_printf(STDOUT_FILENO, "exit\n");
-	ft_free_and_exit(pwd, shell, TRUE);
+	ft_free_and_exit(pwd, shell,TRUE);
 }

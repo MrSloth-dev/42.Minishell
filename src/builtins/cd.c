@@ -60,7 +60,7 @@ void	ft_safe_chdir(char *path, t_shell *shell, int flags)
 
 	if (flags == 2)
 	{
-		ft_printf(STDERR_FILENO, "cd : too many args");
+		ft_printf(STDERR_FILENO, "cd : too many arguments");
 		shell->exit_status = EXIT_FAILURE;
 		return ;
 	}

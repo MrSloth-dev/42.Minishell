@@ -35,7 +35,7 @@ void	ft_unset(t_token *cmdargs, t_shell *shell)
 
 	current = cmdargs;
 	j = -1;
-	if (!current->content)
+	if (!current)
 		return ;
 	while (current)
 	{

@@ -32,7 +32,7 @@ int	ft_printf(int fd, const char *str, ...)
 			count += ft_formatprint(str[i], ap, fd);
 		}
 		else
-			count += write(1, &str[i], 1);
+			count += ft_putchar_fd(str[i], fd);
 		i++;
 	}
 	va_end(ap);
