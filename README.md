@@ -73,7 +73,7 @@
 ### Features to Implement
 - [x] Display a prompt when waiting for a new command;
 - [x] Have a Working History (up and down keys must show commands , ctrl + r search commands, and after show command, we can edit command)
-- [ ] Search and launch the right executable(based on PATH relative or absolute)
+- [x] Search and launch the right executable(based on PATH relative or absolute)
 - [ ] Avoid using more than one global variable
 - [x] Not interpret unclosed quotes
 - [x] Handle ' to prevent shell from intrepeting the meta characters in the quoted sequence
@@ -82,6 +82,7 @@
    - [x] <
    - [x] >
    - [x] >>
+   - [ ] Need to fix redirections on builtin parents, for some reasons it's fucking with signals
    - [ ] << HERE DOC
       - [ ] SIMPLE
       - [ ] MULTIPLE
@@ -97,8 +98,8 @@
 - [ ] Implement BUILT-INS:
  - [x] echo with -n
     - [x] check for leaks
-    - [ ] Works
-    - [ ] convert to accept tokens
+    - [x] Works
+    - [x] convert to accept tokens
  - [x] pwd with no options
     - [x] check for leaks
     - [ ] convert to accept tokens

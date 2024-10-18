@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <time.h>
 
 void	ft_exec_builtins(t_token *cmdargs, t_shell *shell)
 {
@@ -38,11 +39,29 @@ void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *shell)
 {
 	t_token	*temp_next;
 	t_token	*temp_head;
+	// t_token	*cur_redir;
+	// int		fd;
 
 	temp_head = cmdargs;
 	temp_next = NULL;
 	if (temp_head)
 	{
+		// cur_redir = cmdargs->right;
+		// while (cur_redir)
+		// {
+		// 	if (cur_redir->type > HERE_DOC)
+		// 	{
+		// 		if (cur_redir->type == DBLE_REDIR_OUT)
+		// 			fd = open(cur_redir->content, O_RDWR | O_CREAT | O_APPEND, 0644);
+		// 		else
+		// 			fd = open(cur_redir->content, O_RDWR | O_CREAT, 0644);
+		// 		if (cur_redir->type == REDIR_IN)
+		// 			dup2(fd, STDIN_FILENO);
+		// 		else if (cur_redir->type >= REDIR_OUT)
+		// 			dup2(fd, STDOUT_FILENO);
+		// 	}
+		// 	cur_redir = cur_redir->next;
+		// }
 		temp_head = temp_head->left;
 		if (temp_head && temp_head->next)
 		{
@@ -63,5 +82,6 @@ void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *shell)
 			ft_unset(temp_next, shell);
 		else if (ft_strcmp("exit", temp_head->content) == 0)
 			ft_exit(NULL, shell);
+		// close(fd);
 	}
 }
