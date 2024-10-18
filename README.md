@@ -109,6 +109,7 @@
     - [x] convert to accept tokens
     - [x] check for leaks
  - [x] export with no options
+    - [ ] If multiple variable to export and one of them has an error
     - [x] Make sure name doesnt contain invalid identifiers
     - [x] prints with "declare -x" with 0 args
     - [x] Append non existant env_var

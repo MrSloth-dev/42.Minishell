@@ -63,7 +63,7 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_readline(sh);
 		have_syn_error = ft_have_syntax_error(sh);
 		if (have_syn_error != FALSE)
-			ft_print_syntax_error(have_syn_error); //MAYBE ADD HISTORY HERE
+			ft_print_syntax_error(have_syn_error, sh); //MAYBE ADD HISTORY HERE
 		else
 			ft_shellfault(sh);
 	}

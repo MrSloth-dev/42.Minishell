@@ -2,13 +2,9 @@
 #include "minishell.h"
 #include <unistd.h>
 
-void	ft_free_and_exit(char *pwd, t_shell *sh, int exit_flag)
+void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 {
-	if (pwd != NULL)
-	{
-		free(pwd);
-		pwd = NULL;
-	}
+	(void)token;
 	if (!sh)
 		return ;
 	if (sh->line)
@@ -42,8 +38,8 @@ void	ft_free_and_exit(char *pwd, t_shell *sh, int exit_flag)
 	free(sh);
 }
 
-void	ft_exit(char *pwd, t_shell *shell)
+void	ft_exit(t_token *token, t_shell *shell)
 {
 	ft_printf(STDOUT_FILENO, "exit\n");
-	ft_free_and_exit(pwd, shell,TRUE);
+	ft_free_and_exit(token, shell,TRUE);
 }

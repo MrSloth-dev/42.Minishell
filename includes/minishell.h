@@ -146,7 +146,7 @@ void	ft_env(t_shell *shell);
 void	ft_export(t_token *cmdargs, t_shell *shell);
 void	ft_unset(t_token *cmdargs, t_shell *shell);
 void	ft_cd(t_token *cmdargs, t_shell *shell);
-void	ft_exit(char *pwd, t_shell *shell);
+void	ft_exit(t_token *token, t_shell *shell);
 
 //BUILT-INS UTILS
 char	*ft_get_env_key_and_value(char *env_key, t_shell *shell);
@@ -161,7 +161,7 @@ void	ft_swap_env(char *cmdargs, char **temp, int j);
 void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell);
 void	ft_export_no_args(t_shell shell);
 int		ft_env_duplicate(t_token *cmdargs);
-void	ft_free_and_exit(char *pwd, t_shell *shell, int exit_flag);
+void	ft_free_and_exit(t_token *token, t_shell *shell, int exit_flag);
 
 //EXPAND
 char	*ft_expand(char *str, t_shell *shell);
@@ -175,7 +175,7 @@ char	**ft_copy_envp(char **envp, int extra);
 t_shell	*ft_readline(t_shell *sh);
 
 // syntax_utils_file
-void	ft_print_syntax_error(int error);
+void	ft_print_syntax_error(int error, t_shell *shell);
 int		ft_check_status(int status, char c);
 int		ft_is_space(char c);
 int		ft_is_empty_token(char *line, int direction);

@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include <unistd.h>
 
 int	ft_check_n(t_token *cmdargs)
 {
@@ -38,13 +37,13 @@ void	ft_echo(t_token *cmdargs, t_shell *sh)
 	current = head;
 	if (!current || !current->content)
 	{
-		sh->exit_status = ERROR;
+		sh->exit_status = EXIT_FAILURE;
 		return ;
 	}
 	if (!current)
 	{
 		ft_printf(STDOUT_FILENO, "\n");
-		sh->exit_status = SUCCESS;
+		sh->exit_status = EXIT_SUCCESS;
 		return ;
 	}
 	if (current->content[0] == '-' && current->content[1] == 'n')
@@ -60,5 +59,5 @@ void	ft_echo(t_token *cmdargs, t_shell *sh)
 	}
 	if (ft_strcmp("-n", head->content) != 0)
 		ft_printf(STDOUT_FILENO, "\n");
-	sh->exit_status = SUCCESS;
+	sh->exit_status = EXIT_SUCCESS;
 }

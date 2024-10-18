@@ -50,12 +50,12 @@ char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell)
 	int		i;
 	int		len;
 
+	(void)shell;
 	if (!env_name)
 		return (NULL);
 	len = ft_strlen(env_name);
 	env = NULL;
 	i = 0;
-	shell->exit_status = EXIT_SUCCESS;
 	while (env_list[i])
 	{
 		if (!ft_strncmp(env_name, env_list[i], len))

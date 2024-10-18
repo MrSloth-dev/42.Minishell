@@ -42,7 +42,6 @@ t_shell	*ft_readline(t_shell *sh)
 	pwd = ft_strjoin_free(pwd, ft_strdup(ft_get_env_value("PWD", sh->envp, sh)));
 	pwd = ft_strjoin_free(pwd, ft_strdup(":$ "));
 	pwd = ft_strjoin_free(pwd, ft_strdup("\033[0m"));
-	sh->exit_status = EXIT_SUCCESS;
 	ft_start_sig();
 	sh->line = NULL;
 	sh->line = readline(pwd);
@@ -54,7 +53,10 @@ t_shell	*ft_readline(t_shell *sh)
 	if (g_rec_signal == SIGINT)
 		sh->exit_status = 130;
 	if (sh->line == NULL || ft_strncmp("exit", sh->line, 4) == 0)
-		ft_exit(pwd, sh);
+	{
+		free(pwd);
+		ft_exit(NULL, sh);
+	}
 	free(pwd);
 	return (sh);
 }

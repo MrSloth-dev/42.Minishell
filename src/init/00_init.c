@@ -29,6 +29,7 @@ t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 	sh->envp = ft_copy_envp(envp, 0);
 	sh->path = ft_split(ft_find_path(sh->envp), ':');
 	sh->nb_heredoc = 0;
+	sh->exit_status = EXIT_SUCCESS;
 	return (sh);
 }
 

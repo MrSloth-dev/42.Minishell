@@ -1,6 +1,4 @@
-#include "ft_printf.h"
 #include "minishell.h"
-#include <unistd.h>
 
 void	ft_join_env(char *cmdargs, char **temp, int j)
 {
@@ -72,6 +70,29 @@ int	ft_plus_mode(char *cmdargs)
 	return (0);
 }
 
+int	ft_valid_identifiers(t_token *cmdargs, t_shell *sh)
+{
+	int	i;
+
+	i = 0;
+	if (!cmdargs || !cmdargs->content)
+		return (0);
+	while (cmdargs && cmdargs->content[i])
+	{
+		if (!ft_isalpha(cmdargs->content[i]) && cmdargs->content[i] != '_')
+			return (ft_printf(STDERR_FILENO, "%s : export : `%s': not a valid identifier\n", sh->prog_name, cmdargs->content), 0);
+		i++;
+		while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
+		{
+			if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')
+				i++;
+			else
+				return (ft_printf(STDERR_FILENO, "%s : export : `%s': not a valid identifier\n", sh->prog_name, cmdargs->content), 0);
+		}
+	}
+	return (1);
+}
+
 void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
 {
 	t_token	*current;
@@ -81,43 +102,21 @@ void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
 	j = -1;
 	while (current && current->content)
 	{
+		if (!ft_valid_identifiers(cmdargs, shell))
+		{
+			current = current->next;
+			shell->exit_status = 1;
+			continue ;
+		}
 		plus_mode = ft_plus_mode(current->content);
 		if (ft_env_exist(current->content, &j, temp) != -1 && plus_mode)
 			ft_swap_plus_env(current->content, temp, j, shell);
 		else if (ft_env_exist(current->content, &j, temp) != -1 && !plus_mode)
 			ft_swap_env(current->content, temp, j);
 		else
-		{
 			ft_append_env(current->content, temp);
-
-		}
 		current = current->next;
 	}
-}
-
-int	ft_valid_identifiers(t_token *cmdargs, t_shell *sh)
-{
-	int	i;
-
-	i = 0;
-	if (!cmdargs || !cmdargs->content)
-		return (0);
-	while (cmdargs)
-	{
-		if (!ft_isalpha(cmdargs->content[i]) && cmdargs->content[i] != '_')
-				return (ft_printf(STDERR_FILENO, "%s : export : `%s': not a valid identifier\n", sh->prog_name, cmdargs->content), 0);
-		i++;
-		while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
-		{
-			if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')
-				i++;
-			else
-				return (ft_printf(STDERR_FILENO, "%s : export : `%s': not a valid identifier\n", sh->prog_name, cmdargs->content), 0);
-		}
-		cmdargs = cmdargs->next;
-		i = 0;
-	}
-		return (1);
 }
 
 void	ft_export(t_token *cmdargs, t_shell *shell)
@@ -128,14 +127,10 @@ void	ft_export(t_token *cmdargs, t_shell *shell)
 
 	i = 0;
 	j = 0;
+	shell->exit_status = EXIT_SUCCESS;
 	if (!cmdargs)
 	{
 		ft_export_no_args(*shell);
-		return ;
-	}
-	if (!ft_valid_identifiers(cmdargs, shell))
-	{
-		shell->exit_status = 1;
 		return ;
 	}
 	i = ft_export_size_increase(cmdargs, shell, &j);
@@ -145,5 +140,5 @@ void	ft_export(t_token *cmdargs, t_shell *shell)
 	ft_add_env(cmdargs, temp, 0, shell);
 	ft_free_envp(shell->envp);
 	shell->envp = temp;
-	i = -1;
+	shell->exit_status = EXIT_SUCCESS;
 }

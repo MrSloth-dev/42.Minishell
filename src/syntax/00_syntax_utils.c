@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_print_syntax_error(int error)
+void	ft_print_syntax_error(int error, t_shell *shell)
 {
 	char	*name;
 
@@ -23,6 +23,7 @@ void	ft_print_syntax_error(int error)
 		ft_printf(STDERR_FILENO, "%s unexpected token `|'\n", name);
 	else
 		ft_printf(STDERR_FILENO, "%s unexpected token `%c'\n", name, (char)error);
+	shell->exit_status = 2;
 }
 
 int	ft_check_status(int status, char c)
