@@ -8,6 +8,7 @@ static void	ft_handle_sig(int signal)
 		rl_replace_line("", 0); // replace actual text (if exist) with empty str
 		rl_on_new_line(); //readline on newline in prompt
 		rl_redisplay(); //set defined in readline, again on display
+		g_rec_signal = 2;
 	}
 }
 
@@ -50,6 +51,8 @@ t_shell	*ft_readline(t_shell *sh)
 		ft_cmd_log(sh->line); //WARNING :REMOVE
 		add_history(sh->line);
 	}
+	if (g_rec_signal == SIGINT)
+		sh->exit_status = 130;
 	if (sh->line == NULL || ft_strncmp("exit", sh->line, 4) == 0)
 		ft_exit(pwd, sh);
 	free(pwd);

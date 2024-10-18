@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+int	g_rec_signal;
+
 	// ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
 	// ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES
 	//ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE

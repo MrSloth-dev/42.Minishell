@@ -179,3 +179,8 @@ exit
 1<2<3
 teste
 1
+asd
+adsadas
+echo $?
+echo $?
+echo $?

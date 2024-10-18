@@ -91,6 +91,8 @@
 # define PIPE 3
 # define REDIR 4
 
+extern int	g_rec_signal;
+
 typedef struct s_token
 {
 	int				status;

@@ -217,7 +217,7 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
 
 	ft_join_tokens(token_lst);
 	ft_delete_space_tokens_and_count_heredoc(token_lst, sh);
-	
+	g_rec_signal = 0;
 
 	//ft_print_tokens(token_lst);
 }
