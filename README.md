@@ -78,14 +78,16 @@
 - [x] Not interpret unclosed quotes
 - [x] Handle ' to prevent shell from intrepeting the meta characters in the quoted sequence
 - [x] Handle " wich shoudl prevent the shell from interpreting the meta-characters in the quoted sequence except for $
-- [ ] Implement redirections : < > << >> 
+- [x] Implement redirections : < > << >> 
    - [x] <
    - [x] >
    - [x] >>
-   - [ ] Need to fix redirections on builtin parents, for some reasons it's fucking with signals
-   - [ ] << HERE DOC
-      - [ ] SIMPLE
-      - [ ] MULTIPLE
+   - [x] Need to fix redirections on builtin parents, for some reasons it's fucking with signals it kinda works?
+   - [x] << HERE DOC
+      - [x] SIMPLE
+      - [x] MULTIPLE
+      - [ ] heredoc exansions
+      - [ ] heredoc fucking work
 - [x] Implement pipes |
 - [x] EXPANDER :
    - [x] Handle environment variables ($ followed by a sequence of characters) should expand
@@ -95,19 +97,19 @@
     - [x] ctrl-C display a new prompt on a new line. (ready 02_rl_on_newline isilva-t - handled by sigaction)
     - [x] ctrl-D exits the shell (ready 02_rl_on_newline isilva-t - handled by readline itself, wich readline receives EOF)
     - [x] ctr-\ does nothing (ready 02_rl_on_newline isilva-t, but needs to check if need change value on global variable)
-- [ ] Implement BUILT-INS:
+- [x] Implement BUILT-INS:
  - [x] echo with -n
     - [x] check for leaks
     - [x] Works
     - [x] convert to accept tokens
  - [x] pwd with no options
     - [x] check for leaks
-    - [ ] convert to accept tokens
+    - [x] convert to accept tokens
  - [x] env with no option or aguments
     - [x] convert to accept tokens
     - [x] check for leaks
- - [ ] export with no options
-    - [ ] Make sure name doesnt contain invalid identifiers
+ - [x] export with no options
+    - [x] Make sure name doesnt contain invalid identifiers
     - [x] prints with "declare -x" with 0 args
     - [x] Append non existant env_var
     - [x] Swap existant env_var
