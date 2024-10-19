@@ -190,3 +190,14 @@ exit
 exit 123 4556
 echo $?
 exit deh
+exit 123 456
+exit 123 456
+exit 123 456
+exit 123 123
+exit 123 123
+exit 123 123
+exit 123 123
+exit 123 123
+exit 123
+exit 123
+exit 123

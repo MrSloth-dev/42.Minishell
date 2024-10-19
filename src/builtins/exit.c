@@ -27,10 +27,10 @@ void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 			ft_free_envp(sh->path);
 			sh->path = NULL;
 		}
-		free(sh);
+		sh = ft_free(sh);
 		exit (exit_status);
 	}
-	free(sh);
+	sh = ft_free(sh);
 }
 
 int	ft_invalid_exit_code(t_token *token, t_shell *sh)
@@ -69,7 +69,7 @@ void	ft_exit(t_token *token, t_shell *sh)
 	{
 		ft_printf(STDOUT_FILENO, "exit\n");
 		ft_printf(STDERR_FILENO, "%s : exit : too many arguments\n", sh->prog_name);
-		ft_free_and_exit(token, sh, FALSE);
+		//ft_free_and_exit(token, sh, FALSE);
 		return ;
 	}
 	ft_printf(STDOUT_FILENO, "exit\n");

@@ -54,9 +54,9 @@ t_shell	*ft_readline(t_shell *sh)
 		sh->exit_status = 130;
 	if (sh->line == NULL || ft_strcmp("exit", sh->line) == 0)
 	{
-		free(pwd);
+		pwd = ft_free(pwd);
 		ft_exit(NULL, sh);
 	}
-	free(pwd);
+	pwd = ft_free(pwd);
 	return (sh);
 }
