@@ -201,3 +201,23 @@ exit 123 123
 exit 123
 exit 123
 exit 123
+exit 123 123
+exit 123
+teste
+exit
+teste
+echo ::a
+echo <
+echo | teste
+echo   teste | cat << end
+echo    teste
+echo   teste   teste
+cat << end
+cat << 0
+cat <<end
+cat <<end
+cat << end
+cat << end
+cat << "end"
+cat << end
+cat << end

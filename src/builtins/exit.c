@@ -12,21 +12,15 @@ void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 		return ;
 	sh->line = ft_free(sh->line);
 	ft_free_tree(sh->token_lst);
-	ft_free(sh->token_lst);
+	sh->token_lst = ft_free(sh->token_lst);
 	if (sh->nb_heredoc > 0) // WARNING HERE!!!!!!
 		ft_clean_here_doc(sh);
 	if (exit_flag == TRUE)
 	{
 		if (sh->envp)
-		{
-			ft_free_envp(sh->envp);
-			sh->envp = NULL;
-		}
+			sh->envp = ft_free_envp(sh->envp);
 		if (sh->path)
-		{
-			ft_free_envp(sh->path);
-			sh->path = NULL;
-		}
+			sh->path = ft_free_envp(sh->path);
 		sh = ft_free(sh);
 		exit (exit_status);
 	}

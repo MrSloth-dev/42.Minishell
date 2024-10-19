@@ -71,7 +71,6 @@ int	ft_append_redir(t_token_lst *token_lst, char *line, int status)
 	int	i;
 
 	i = 0;
-
 	if (line[i] == '<')
 	{
 		if (line[i + 1] != 0 && line[i + 1] == '<')
@@ -102,10 +101,8 @@ int	ft_append_redir(t_token_lst *token_lst, char *line, int status)
 			i += ft_append_word(token_lst, line + i , REDIR_OUT, status);
 		}
 	}
-
 	return (i);
 }
-
 
 void ft_join_to_next_token(t_token *cur, t_token *to_join)
 {
@@ -127,7 +124,7 @@ void ft_join_tokens(t_token_lst *token_lst)
 {
 	t_token	*cur;
 
-	if (!token_lst || !token_lst->first)
+	if (!token_lst && !token_lst->first)
 		return ;
 	cur = token_lst->first;
 	while (cur)
@@ -139,7 +136,6 @@ void ft_join_tokens(t_token_lst *token_lst)
 			}
 		cur = cur->next;
 	}
-	
 }
 
 void	ft_delete_space_tokens_and_count_heredoc(t_token_lst *token_lst, t_shell *sh)
@@ -164,12 +160,14 @@ void	ft_delete_space_tokens_and_count_heredoc(t_token_lst *token_lst, t_shell *s
 			free(tmp);
 			continue ;
 		}
-		if (cur->type == HERE_DOC)
+		else if (cur->type == HERE_DOC)
 		{
 			cur->hd_id = sh->nb_heredoc;
 			sh->nb_heredoc++;
+			cur = cur->next;
 		}
-		cur = cur->next;
+		else
+			cur = cur->next;
 	}
 }
 
@@ -207,8 +205,6 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
 				i += ft_append_node(token_lst, ft_strdup("|"), PIPELINE, status);
 			else if (line[i] == '<' || line[i] == '>')
 				i += ft_append_redir(token_lst, line + i, status);
-			// else if (line[i] == '$')
-			// 	i += ft_append_node(token_lst, ft_strdup("$"), ENV, status);
 		}
 	}
 

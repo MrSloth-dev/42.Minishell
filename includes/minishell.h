@@ -99,6 +99,8 @@ typedef struct s_token
 	int				type;
 	int				hd_id;
 	char			*content;
+	struct s_token	*front;
+	struct s_token	*back;
 	struct s_token	*next;
 	struct s_token	*prev;
 	struct s_token	*left;
@@ -204,7 +206,9 @@ void	ft_clean_here_doc(t_shell *sh);
 //free_stuff
 void	ft_free_tree(t_token_lst *token_lst);
 void 	ft_free_lst_shell(t_shell *sh); //NOT NECESSARY TO DELIVER PROJECT
-void ft_reset_token_lst(t_shell *sh);
+void 	ft_reset_token_lst(t_shell *sh);
+void	*ft_free(void *pointer);
+void	*ft_free_envp(char **envp);
 
 //EXEC
 void	ft_exec_builtins(t_token *temp_head, t_shell *shell);
@@ -218,10 +222,6 @@ int		ft_isbuiltin(char *content);
 //UTILS
 t_iter	set_iter(int n);
 int		ft_isbuiltin(char *content);
-void	*ft_free(void *pointer);
-
-//STUF TO ORGANIZE BY IVAN. NEEDED STUFF IN OTHER FILES,THAT I USED ON MY MAIN FILE
-void	ft_free_envp(char **envp);
 
 // WARNING
 void	ft_print_binary_tree(t_token_lst *token_lst);
