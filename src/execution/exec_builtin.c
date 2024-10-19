@@ -26,7 +26,7 @@ void	ft_exec_builtins(t_token *temp_head, t_shell *shell)
 	else if (ft_strcmp("unset", temp_head->content) == 0)
 		ft_unset(temp_next, shell);
 	else if (ft_strcmp("exit", temp_head->content) == 0)
-		ft_exit(NULL, shell);
+		ft_exit(temp_next, shell);
 }
 
 void	ft_exec_builtins_child(t_token *cmdargs, t_shell *shell)

@@ -52,7 +52,7 @@ t_shell	*ft_readline(t_shell *sh)
 	}
 	if (g_rec_signal == SIGINT)
 		sh->exit_status = 130;
-	if (sh->line == NULL || ft_strncmp("exit", sh->line, 4) == 0)
+	if (sh->line == NULL || ft_strcmp("exit", sh->line) == 0)
 	{
 		free(pwd);
 		ft_exit(NULL, sh);
