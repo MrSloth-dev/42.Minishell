@@ -10,7 +10,7 @@ void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 	exit_status = sh->exit_status;
 	if (!sh)
 		return ;
-	ft_free(sh->line);
+	sh->line = ft_free(sh->line);
 	ft_free_tree(sh->token_lst);
 	ft_free(sh->token_lst);
 	if (sh->nb_heredoc > 0) // WARNING HERE!!!!!!

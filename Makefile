@@ -89,6 +89,7 @@ UTILS = $(UTILSDIR)/iter.c \
 WARNING = src/WARNING/print.c
 
 FREE = $(FREEDIR)/00_free_shell.c \
+	   $(FREEDIR)/free.c
 
 H_DOC = $(H_DOCDIR)/here_doc.c \
 		$(H_DOCDIR)/here_doc_utils.c

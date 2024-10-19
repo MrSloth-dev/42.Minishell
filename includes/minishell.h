@@ -218,7 +218,7 @@ int		ft_isbuiltin(char *content);
 //UTILS
 t_iter	set_iter(int n);
 int		ft_isbuiltin(char *content);
-void	ft_free(void *pointer);
+void	*ft_free(void *pointer);
 
 //STUF TO ORGANIZE BY IVAN. NEEDED STUFF IN OTHER FILES,THAT I USED ON MY MAIN FILE
 void	ft_free_envp(char **envp);

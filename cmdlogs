@@ -184,3 +184,9 @@ adsadas
 echo $?
 echo $?
 echo $?
+exit
+teste
+exit
+exit 123 4556
+echo $?
+exit deh
