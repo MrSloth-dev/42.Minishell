@@ -56,21 +56,20 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 {
 	char	**cmdargs;
 	char	*cmdbin;
+	int		error;
 
+	error = 0;
 	if (!cmd->content)
 		return ;
 	cmdargs = ft_create_cmdargs(cmd);
 	cmdbin = ft_get_cmdbin(cmd, shell);
 	if (cmdargs && cmdbin)
-		execve(cmdbin, cmdargs, shell->envp);
-	int i = 0;
-	while (cmdargs[i])
 	{
-		free(cmdargs[i]);
-		i++;
+		error = execve(cmdbin, cmdargs, shell->envp);
+		shell->exit_status = error;
 	}
-	free(cmdargs);
-	free(cmdbin);
+	ft_free_envp(cmdargs);
+	ft_free(cmdbin);
 	ft_free_and_exit(NULL, shell, TRUE);
 }
 

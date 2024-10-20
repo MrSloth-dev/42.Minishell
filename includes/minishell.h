@@ -214,7 +214,7 @@ void	*ft_free_envp(char **envp);
 void	ft_exec_builtins(t_token *temp_head, t_shell *shell);
 void	ft_exec_builtins_child(t_token *cmdargs, t_shell *shell);
 void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *shell);
-int		ft_exec_redir(t_token *cur_redir);
+int		ft_exec_redir(t_token *cur_redir, t_shell *shell);
 void	ft_execve(t_token *cmd, t_shell *shell);
 void	ft_run_cmd(t_token *token, t_shell *shell);
 int		ft_isbuiltin(char *content);

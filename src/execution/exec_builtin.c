@@ -1,7 +1,4 @@
 #include "minishell.h"
-#include <fcntl.h>
-#include <time.h>
-#include <unistd.h>
 
 void	ft_exec_builtins(t_token *temp_head, t_shell *shell)
 {
@@ -42,7 +39,7 @@ void	ft_exec_builtins_child(t_token *cmdargs, t_shell *shell)
 	ft_free_and_exit(NULL, shell, TRUE);
 }
 
-void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *shell)
+void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *sh)
 {
 	int		fd;
 	int		std_out;
@@ -53,8 +50,8 @@ void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *shell)
 		std_out = dup(STDOUT_FILENO);
 		std_in = dup(STDIN_FILENO);
 	}
-	fd = ft_exec_redir(cmdargs->right);
-	ft_exec_builtins(cmdargs->left, shell);
+	fd = ft_exec_redir(cmdargs->right, sh);
+	ft_exec_builtins(cmdargs->left, sh);
 	if (fd != -1)
 	{
 		dup2(std_out, STDOUT_FILENO);
@@ -65,7 +62,8 @@ void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *shell)
 	}
 }
 
-int	ft_exec_redir(t_token *cur_redir)
+//Need to check safe open methods, to get different methods maybe exit?
+int	ft_exec_redir(t_token *cur_redir, t_shell *sh)
 {
 	int		fd;
 
@@ -87,6 +85,8 @@ int	ft_exec_redir(t_token *cur_redir)
 				dup2(fd, STDOUT_FILENO);
 		}
 		cur_redir = cur_redir->next;
+		if (fd == -1)
+			sh->exit_status = EXIT_FAILURE;
 	}
 	return (fd);
 }

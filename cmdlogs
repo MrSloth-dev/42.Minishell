@@ -221,3 +221,39 @@ cat << end
 cat << "end"
 cat << end
 cat << end
+export
+export A-
+export ASd-=asd
+echo $a
+cat minishell.h | grep ");"
+echo 4?
+cat minishell.h | grep ");"
+echo $?
+cat minishell.h | grep error
+cat infile
+echo 4?
+cat infile
+echo $?
+cat infile | grep 123
+echo $?
+cat src/pipe | grep int
+echo $?
+cat infile | grep rror
+export GHOST=123 | env | GHOST
+export GHOST=123 | env | grep GHOST
+export GHOST=123 | env| grep GHOST
+env
+export GHOST=123 | env
+export GHOST=123 | env | grep GHOST
+export
+export GHOST=123
+export GHOST=123 | env | grep GHOST
+cat infile
+echo $?
+cat infile
+echo $?
+$
+$
+cat <asd
+ls
+echo <"leaks.log"

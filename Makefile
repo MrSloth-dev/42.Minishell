@@ -85,12 +85,11 @@ EXEC =	$(EXECDIR)/exec_builtin.c \
 
 UTILS = $(UTILSDIR)/iter.c \
 		$(UTILSDIR)/utils.c \
-		$(UTILSDIR)/free.c
 
 WARNING = src/WARNING/print.c
 
-FREE = $(FREEDIR)/00_free_shell.c \
-	   $(FREEDIR)/free.c
+FREE =	$(FREEDIR)/00_free_shell.c \
+	$(FREEDIR)/free.c
 
 H_DOC = $(H_DOCDIR)/here_doc.c \
 		$(H_DOCDIR)/here_doc_utils.c
@@ -168,6 +167,19 @@ fclean: clean
 	@echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✅"
 
 re : fclean all
+
+TESTER_URL = https://github.com/LucasKuhn/minishell_tester.git
+TESTER_DIR = minishell_tester
+TESTER_BIN = tester
+
+
+$(TESTER_DIR):
+	@git clone $(TESTER_URL) $(TESTER_DIR)
+
+
+tester: $(TESTER_DIR)
+	@cd $(TESTER_DIR) && ./$(TESTER_BIN)
+
 
 hell :
 	@echo "$(RED) <-. (\`-')    _      <-. (\`-')_   _       (\`-').->  (\`-')  _       "

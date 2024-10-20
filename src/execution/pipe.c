@@ -1,6 +1,7 @@
 #include "minishell.h"
+#include <stdlib.h>
 
-void	ft_run_cmd(t_token *token, t_shell *shell)
+void	ft_run_cmd(t_token *token, t_shell *sh)
 {
 	int		exit_status[3];
 	int		pid_child[3];
@@ -12,13 +13,13 @@ void	ft_run_cmd(t_token *token, t_shell *shell)
 		exit (10);
 	if (token->type == ND_EXEC)
 	{
-		fd = ft_exec_redir(token->right);
+		fd = ft_exec_redir(token->right, sh);
 		if (!ft_isbuiltin(token->left->content))
-			ft_execve(token->left, shell);
+			ft_execve(token->left, sh);
 		else
-			ft_exec_builtins_child(token, shell);
-	if (fd != -1)
-		close(fd);
+			ft_exec_builtins_child(token, sh);
+		if (fd != -1)
+			close(fd);
 	}
 	else if (token->type == ND_PIPE)
 	{
@@ -30,7 +31,7 @@ void	ft_run_cmd(t_token *token, t_shell *shell)
 			dup2(pid_pipe[1], STDOUT_FILENO);
 			close(pid_pipe[0]);
 			close(pid_pipe[1]);
-			ft_run_cmd(token->left, shell);
+			ft_run_cmd(token->left, sh);
 		}
 		pid_child[1] = fork();
 		if (pid_child[1] == 0)
@@ -38,14 +39,14 @@ void	ft_run_cmd(t_token *token, t_shell *shell)
 			dup2(pid_pipe[0], STDIN_FILENO);
 			close(pid_pipe[1]);
 			close(pid_pipe[0]);
-			ft_run_cmd(token->right, shell);
+			ft_run_cmd(token->right, sh);
 		}
 		close(pid_pipe[0]);
 		close(pid_pipe[1]);
 		waitpid(pid_child[0], &exit_status[0], 0);
 		waitpid(pid_child[1], &exit_status[1], 0);
-		shell->exit_status = exit_status[1];
-		ft_free_and_exit(NULL, shell, TRUE);
+		// ft_free_and_exit(NULL, sh, TRUE);
+		sh->exit_status = WEXITSTATUS(exit_status[1]);
 	}
-	ft_free_and_exit(NULL, shell, TRUE);
+	ft_free_and_exit(NULL, sh, TRUE);
 }

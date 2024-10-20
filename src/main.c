@@ -21,6 +21,7 @@ void	ft_clean_here_doc(t_shell *sh)
 void	ft_shellfault(t_shell *sh)
 {
 	t_token	*head;
+	int		exit_status;
 
 	if (!sh || !sh->line || sh->line[0] == 0)
 		return ;
@@ -42,7 +43,8 @@ void	ft_shellfault(t_shell *sh)
 	{
 		if (fork() == 0)
 			ft_run_cmd(sh->token_lst->first, sh);
-		waitpid(0, &sh->exit_status, 0);
+		waitpid(0, &exit_status, 0);
+		sh->exit_status = WEXITSTATUS(exit_status);
 	}
 	ft_free_tree(sh->token_lst);
 	// ft_free(sh->token_lst); //this doesn't work wtf
