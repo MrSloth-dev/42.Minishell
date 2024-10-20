@@ -57,7 +57,7 @@ void	ft_echo(t_token *cmdargs, t_shell *sh)
 			ft_printf(STDOUT_FILENO, " ");
 		current = current->next;
 	}
-	if (ft_strcmp("-n", head->content) != 0)
+	if (ft_strncmp("-n", head->content, 2) != 0)
 		ft_printf(STDOUT_FILENO, "\n");
 	sh->exit_status = EXIT_SUCCESS;
 }

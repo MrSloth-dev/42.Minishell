@@ -140,6 +140,7 @@
    - [x] free on failed execve
    - [x] try pwd -> ENTER -> cat infile -> ENTER -> ctr + d -> LEAKS!
    - [x] more than 2 ENTER without line, have leaks
+   - [ ] Maybe need to handle tabs as whitespaces
    - [ ] handle signal if tries to remove file if protected.
    - [ ] NORMINETTE, AMENO, DOMINE, AMENO NORMINETTE
    - [x] handle CTRL + D when use heredoc -> reseted sh->nb_heredoc

@@ -1,6 +1,4 @@
-#include "ft_printf.h"
 #include "minishell.h"
-#include <unistd.h>
 
 void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 {
@@ -30,12 +28,18 @@ void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 int	ft_invalid_exit_code(t_token *token, t_shell *sh)
 {
 	int	i;
+	int	exit_status;
 
 	if (token && token->next)
 	{
 		return (sh->exit_status = 1, 1);
 	}
 	i = 0;
+	exit_status = 0;
+	if (token->content[i] == '-')
+		exit_status = 156;
+	if (!ft_isdigit(token->content[0]) || token->content[0] == '+')
+		i++;
 	while (token && token->content[i])
 	{
 		if (!ft_isdigit(token->content[i++]))
@@ -44,7 +48,7 @@ int	ft_invalid_exit_code(t_token *token, t_shell *sh)
 			return (sh->exit_status = 2, 2);
 		}
 	}
-	return (0);
+	return (exit_status);
 }
 
 void	ft_exit(t_token *token, t_shell *sh)
@@ -63,10 +67,12 @@ void	ft_exit(t_token *token, t_shell *sh)
 	{
 		ft_printf(STDOUT_FILENO, "exit\n");
 		ft_printf(STDERR_FILENO, "%s : exit : too many arguments\n", sh->prog_name);
-		//ft_free_and_exit(token, sh, FALSE);
+		sh->exit_status = 1;
 		return ;
 	}
+	else
+		sh->exit_status = exit_status;
 	ft_printf(STDOUT_FILENO, "exit\n");
 	ft_free_and_exit(token, sh, TRUE);
-	exit(sh->exit_status);
+	exit(exit_status);
 }
