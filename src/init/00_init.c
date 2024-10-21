@@ -13,6 +13,15 @@ char	*ft_find_path(char *envp[])
 	return (NULL);
 }
 
+static void	ft_cmd_log_newline()
+{
+	int		fd;
+
+	fd = open("cmdlogs", O_RDWR | O_CREAT | O_APPEND);
+	ft_printf(fd, "_____________________________\n\n");
+	close(fd);
+}
+
 t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 {
 	t_shell	*sh;
@@ -30,6 +39,7 @@ t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 	sh->path = ft_split(ft_find_path(sh->envp), ':');
 	sh->nb_heredoc = 0;
 	sh->exit_status = EXIT_SUCCESS;
+	ft_cmd_log_newline();
 	return (sh);
 }
 

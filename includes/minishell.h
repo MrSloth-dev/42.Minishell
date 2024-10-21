@@ -131,10 +131,14 @@ typedef struct s_shell
 // HELPER STRUCTS
 typedef struct s_iter
 {
+	char	c;
 	int		i;
 	int		j;
 	int		k;
+	int		status;
 	int 	len;
+	char	*str;
+	char	*line;
 	t_token	*tmp;
 	t_token	*cur;
 	t_token	*cur_left;
@@ -220,7 +224,7 @@ void	ft_run_cmd(t_token *token, t_shell *shell);
 int		ft_isbuiltin(char *content);
 
 //UTILS
-t_iter	set_iter(int n);
+t_iter	ft_set_iter(int n);
 int		ft_isbuiltin(char *content);
 
 // WARNING

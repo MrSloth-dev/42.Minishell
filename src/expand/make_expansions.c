@@ -30,7 +30,7 @@ void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 	
 	if (!cur && !cur->content)
 		return ;
-	h = set_iter(0);
+	h = ft_set_iter(0);
 	exp = NULL;
 	name_var = NULL;
 	str = cur->content;

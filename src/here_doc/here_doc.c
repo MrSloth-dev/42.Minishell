@@ -59,7 +59,7 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 
 	if (!token || !sh)
 		return ;
-	s = set_iter(0);
+	s = ft_set_iter(0);
 	s.cur = token;
 	if (s.cur && s.cur->type != ND_PIPE && s.cur->right)
 	{

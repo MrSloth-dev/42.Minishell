@@ -12,14 +12,17 @@
 
 #include "minishell.h"
 
-t_iter	set_iter(int n)
+t_iter	ft_set_iter(int n)
 {
 	t_iter	h;
 
+	h.c = n;
 	h.i = n;
 	h.j = n;
 	h.k = n;
 	h.len = n;
+	h.str = NULL;
+	h.line = NULL;
 	h.tmp = NULL;
 	h.cur = NULL;
 	h.cur_left = NULL;

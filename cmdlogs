@@ -257,3 +257,73 @@ $
 cat <asd
 ls
 echo <"leaks.log"
+______________________ DEU INVALID READS AQUI
+echo "teste"
+	
+echo 	"teste"
+echo 	teste
+	echo teste
+cat <<	exit
+echo " teste"
+echo "	teste"
+export	zz=123
+export
+export 	zz=123
+export 	zz=abc
+export
+export 	zz=abc
+export zz=123
+export 	zz=123
+cat << end
+echo " teste"
+echo "	teste"
+echo "	teste"
+echo "	teste"
+export zz=123
+ezport 	zz=abc
+export 	zz=abc
+export
+_____________________________
+echo
+cat
+teste
+exit
+
+teste
+echo
+cat e
+_____________________________
+teste
+teste
+_____________________________
+teste
+teste
+_____________________________
+
+teste
+teste
+a
+d
+b
+fdgdf
+_____________________________
+
+echo  < teste
+echo "teste"
+cat << end
+_____________________________
+
+cat << teste
+_____________________________
+
+teste teste
+echo teste
+cat teste | teste
+_____________________________
+
+cat << end | grep hello > outfile
+cat << end | grep hello > outfile
+_____________________________
+
+cat << end | grep hello > outfile
+cat outfile
