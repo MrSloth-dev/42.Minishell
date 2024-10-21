@@ -13,16 +13,6 @@ char	*ft_get_env_key_and_value(char *env_key, t_shell *shell)
 			return (shell->envp[i]);
 	return (NULL);
 }
-/* char	*ft_get_env_key(char *env_str)
-{
-	char *temp;
-
-	temp = ft_strdup(env_str);
-	*ft_strchr(temp, '=') = '\0';
-
-	return (temp);
-}
-*/
 
 char	*ft_get_env_key(char *env_str)
 {
@@ -56,9 +46,9 @@ char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell)
 	len = ft_strlen(env_name);
 	env = NULL;
 	i = 0;
-	while (env_list[i])
+	while (env_list[i] && env_list[i][0])
 	{
-		if (!ft_strncmp(env_name, env_list[i], len))
+		if (ft_strncmp(env_name, env_list[i], len) == 0)
 		{
 			env = ft_strchr(env_list[i], '=') + 1;
 			if (!env || !ft_strchr(env_list[i], '='))

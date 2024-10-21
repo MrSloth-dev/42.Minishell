@@ -34,14 +34,27 @@ void	ft_cmd_log(char *line)
 	close(fd);
 }
 
+char	*ft_get_prompt(t_shell *sh)
+{
+	char	*pwd;
+	char	*cur_pwd;
+
+	cur_pwd = ft_get_env_value("PWD", sh->envp, sh);
+	if (!cur_pwd[0])
+		return (free(cur_pwd), NULL);
+	pwd = ft_strdup("\033[1;33m");
+	pwd = ft_strjoin_free(pwd, ft_strdup(cur_pwd));
+	pwd = ft_strjoin_free(pwd, ft_strdup(":$ "));
+	pwd = ft_strjoin_free(pwd, ft_strdup("\033[0m"));
+	return (pwd);
+}
 t_shell	*ft_readline(t_shell *sh)
 {
 	char	*pwd;
 
-	pwd = ft_strdup("\033[1;33m");
-	pwd = ft_strjoin_free(pwd, ft_strdup(ft_get_env_value("PWD", sh->envp, sh)));
-	pwd = ft_strjoin_free(pwd, ft_strdup(":$ "));
-	pwd = ft_strjoin_free(pwd, ft_strdup("\033[0m"));
+	pwd = ft_get_prompt(sh);
+	if (!pwd)
+		pwd = ft_strdup("minishell :$ ");
 	ft_start_sig();
 	sh->line = NULL;
 	sh->line = readline(pwd);

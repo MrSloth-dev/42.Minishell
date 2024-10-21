@@ -82,7 +82,7 @@ void	*ft_free_envp(char	**envp)
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (envp[i]  && envp[i])
 	{
 		free(envp[i]);
 		envp[i] = NULL;

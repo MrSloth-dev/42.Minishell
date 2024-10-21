@@ -74,7 +74,7 @@
 - [x] Display a prompt when waiting for a new command;
 - [x] Have a Working History (up and down keys must show commands , ctrl + r search commands, and after show command, we can edit command)
 - [x] Search and launch the right executable(based on PATH relative or absolute)
-- [ ] Avoid using more than one global variable
+- [x] Avoid using more than one global variable
 - [x] Not interpret unclosed quotes
 - [x] Handle ' to prevent shell from intrepeting the meta characters in the quoted sequence
 - [x] Handle " wich shoudl prevent the shell from interpreting the meta-characters in the quoted sequence except for $
@@ -91,7 +91,7 @@
 - [x] Implement pipes |
 - [x] EXPANDER :
    - [x] Handle environment variables ($ followed by a sequence of characters) should expand
-   - [ ] Handle $? wich should expand exit status of the most recently executed foreground pipeline
+   - [x] Handle $? wich should expand exit status of the most recently executed foreground pipeline
 - [x] Handle ctrl -C, ctrl -D and ctrl -\ which should behave like in bash (ready 02_rl_on_newline isilva-t)
 - [x] In Interactive mode:
     - [x] ctrl-C display a new prompt on a new line. (ready 02_rl_on_newline isilva-t - handled by sigaction)
@@ -106,6 +106,7 @@
     - [x] check for leaks
     - [x] convert to accept tokens
  - [x] env with no option or aguments
+   
     - [x] convert to accept tokens
     - [x] check for leaks
  - [x] export with no options

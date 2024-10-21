@@ -1,5 +1,7 @@
 #include "ft_printf.h"
 #include "minishell.h"
+#include <fcntl.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 char	*ft_get_cmdbin(t_token *token, t_shell *shell)
@@ -20,32 +22,25 @@ char	*ft_get_cmdbin(t_token *token, t_shell *shell)
 		free(temp);
 		i++;
 	}
-	shell->exit_status = 127;
-	ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
 	return (NULL);
 }
 
 int	ft_check_bin(char *bin, t_token *token, t_shell *shell)
 {
-	// if (bin[0] == '.' && bin[1] == '/')
-	// {
-	// 	if (access(bin, F_OK) == -1 && ft_get_cmdbin(token, shell))
-	// 	{
-	// 		ft_printf(STDERR_FILENO, "%s : is a directory\n", token->content);
-	// 		return (shell->exit_status = 126, 0);
-	// 	}
-	// }
-	if (access(bin, F_OK) == 0 && access(bin, X_OK) == -1)
+	struct stat	path_stat;
+
+	stat(bin, &path_stat);
+	if (S_ISDIR(path_stat.st_mode))
 	{
-		ft_printf(STDERR_FILENO, "%s : is a directory\n", token->content);
+		ft_printf(STDERR_FILENO, "%s : Is a directory\n", token->content);
 		return (shell->exit_status = 126, 0);
 	}
-	if (access(bin, F_OK) == -1)
+	else if (access(bin, X_OK) == -1)
 	{
 		ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
 		return (shell->exit_status = 127, 0);
 	}
-	return (0);
+	return (1);
 }
 
 char	**ft_create_cmdargs(t_token *token)
@@ -79,18 +74,14 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 {
 	char	**cmdargs;
 	char	*cmdbin;
-	// int		error;
-	//
-	// error = 0;
+
 	if (!cmd->content)
 		return ;
 	cmdargs = ft_create_cmdargs(cmd);
 	cmdbin = ft_get_cmdbin(cmd, shell);
-	// error = ft_check_bin(cmdbin, cmd, shell);
-	if (cmdargs && cmdbin)
+	if (ft_check_bin(cmdbin, cmd, shell))
 	{
 		execve(cmdbin, cmdargs, shell->envp);
-		// shell->exit_status = error;
 	}
 	ft_free_envp(cmdargs);
 	ft_free(cmdbin);
