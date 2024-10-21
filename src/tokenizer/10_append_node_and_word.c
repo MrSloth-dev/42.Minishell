@@ -17,17 +17,14 @@ int	ft_append_node(t_token_lst *token_lst, char *str, int type, int status)
 	t_token	*cur;
 	t_token	*new_token;
 
-	cur = NULL;
 	new_token = ft_calloc(sizeof(t_token), 1);
 	if (!new_token)
 		return (0);
-	
 	new_token->status = status;
 	new_token->content = str;
 	new_token->type = type;
 	new_token->next = NULL;
 	new_token->hd_id = -1;
-
 	if (!token_lst->first)
 	{
 		token_lst->first = new_token;
@@ -53,8 +50,7 @@ int	ft_append_word(t_token_lst *token_lst, char *str, int type, int status)
 	{
 		while (str[len] && ft_is_word(str[len]) == TRUE)
 			len++;
-
 		ft_append_node(token_lst, ft_substr(str, 0, len), type, status);
 	}
-	return(len);
+	return (len);
 }

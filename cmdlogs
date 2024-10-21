@@ -341,3 +341,15 @@ teste
 echo "teste"
 echo "teste" > outfile
 echo < outfile
+_____________________________
+
+teste este
+fdsf
+echo "teste"
+echo "teste" > outfile
+echo outfile
+_____________________________
+
+teste
+_____________________________
+

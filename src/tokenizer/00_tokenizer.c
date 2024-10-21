@@ -7,10 +7,8 @@ int	ft_append_inside_quotes(t_token_lst *token_lst, char *str, int status)
 
 	qte = *str;
 	len = 1;
-
 	while (str[len] && str[len] != qte)
 		len++;
-	
 	if (len == 1)
 		ft_append_node(token_lst, ft_strdup(""), WORD, status);
 	else
@@ -18,7 +16,6 @@ int	ft_append_inside_quotes(t_token_lst *token_lst, char *str, int status)
 
 	return (len + 1);
 }
-
 
 void ft_join_to_next_token(t_token *cur, t_token *to_join)
 {
@@ -36,7 +33,7 @@ void ft_join_to_next_token(t_token *cur, t_token *to_join)
 	free(str_to_free);
 }
 
-void ft_join_tokens(t_token_lst *token_lst)
+void	ft_join_tokens(t_token_lst *token_lst)
 {
 	t_token	*cur;
 
@@ -45,49 +42,45 @@ void ft_join_tokens(t_token_lst *token_lst)
 	cur = token_lst->first;
 	while (cur)
 	{
-			if (cur->type == WORD || cur->type == HERE_DOC)
-			{
-				while (cur->next && (cur->next->type == WORD))
-					ft_join_to_next_token(cur, cur->next);
-			}
+		if (cur->type == WORD || cur->type == HERE_DOC)
+		{
+			while (cur->next && (cur->next->type == WORD))
+				ft_join_to_next_token(cur, cur->next);
+		}
 		cur = cur->next;
 	}
 }
 
-void	ft_delete_space_tokens_and_count_heredoc(t_token_lst *token_lst, t_shell *sh)
+void	ft_delete_space_and_count_hd(t_token_lst *token_lst, t_shell *sh)
 {
-	t_token	*cur;
-	t_token	*tmp;
+	t_iter	s;
 
 	if (!token_lst || !token_lst->first)
 		return ;
-	cur = token_lst->first;
-	while (cur)
+	s.cur = token_lst->first;
+	while (s.cur)
 	{
-		if (cur->type == WHITE_SPACE)
+		s.tmp = s.cur;
+		s.cur = s.cur->next;
+		if (s.tmp->type == WHITE_SPACE)
 		{
-			tmp = cur;
-			cur = cur->next;
-			if (cur)
-				cur->prev = tmp->prev;
-			if (tmp->prev)
-				tmp->prev->next = cur;
-			free(tmp->content);
-			free(tmp);
+			if (s.cur)
+				s.cur->prev = s.tmp->prev;
+			if (s.tmp->prev)
+				s.tmp->prev->next = s.cur;
+			free(s.tmp->content);
+			free(s.tmp);
 			continue ;
 		}
-		else if (cur->type == HERE_DOC)
+		else if (s.tmp->type == HERE_DOC)
 		{
-			cur->hd_id = sh->nb_heredoc;
+			s.tmp->hd_id = sh->nb_heredoc;
 			sh->nb_heredoc++;
-			cur = cur->next;
 		}
-		else
-			cur = cur->next;
 	}
 }
 
-void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
+void	ft_create_tokens(t_token_lst *token_lst, char *line)
 {
 	int	status;
 	int	i;
@@ -123,13 +116,14 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
 				i += ft_append_redir(token_lst, line + i, status);
 		}
 	}
+}
 
 
+void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
+{
+	ft_create_tokens(token_lst, line);
 	ft_make_expansions(sh);
-
 	ft_join_tokens(token_lst);
-	ft_delete_space_tokens_and_count_heredoc(token_lst, sh);
+	ft_delete_space_and_count_hd(token_lst, sh);
 	g_rec_signal = 0;
-
-	//ft_print_tokens(token_lst);
 }

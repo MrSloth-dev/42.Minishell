@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 static void	ft_append_redir_in(t_token_lst *token_lst, t_iter *h)
-{	
+{
 	if (h->line[h->i + 1] && h->line[h->i + 1] == '<')
 	{
 		h->i += ft_how_much_consecutives_spaces(h->line + h->i + 2) + 2;
@@ -31,7 +31,8 @@ static void	ft_append_redir_out(t_token_lst *token_lst, t_iter *h)
 	if (h->line[h->i + 1] && h->line[h->i + 1] == '>')
 	{
 		h->i += ft_how_much_consecutives_spaces(h->line + h->i + 2) + 2;
-		h->i += ft_append_word(token_lst, h->line + h->i, DBLE_REDIR_OUT, h->status);
+		h->i += ft_append_word(token_lst, h->line + h->i,
+				DBLE_REDIR_OUT, h->status);
 	}
 	else
 	{

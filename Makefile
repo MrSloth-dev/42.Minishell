@@ -180,6 +180,7 @@ $(TESTER_DIR):
 
 
 tester: $(TESTER_DIR)
+	make re
 	@cd $(TESTER_DIR) && ./$(TESTER_BIN)
 
 
