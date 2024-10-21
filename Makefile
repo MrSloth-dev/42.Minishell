@@ -75,6 +75,8 @@ SYNTAX = $(SYNTAXDIR)/00_syntax_utils.c \
 		 $(SYNTAXDIR)/40_special_chars.c
 
 TOKENIZER = $(TOKENIZERDIR)/00_tokenizer.c \
+			$(TOKENIZERDIR)/10_append_node_and_word.c \
+			$(TOKENIZERDIR)/11_append_redir.c \
 			$(TOKENIZERDIR)/88_tokenizer_utils.c
 
 PARSE = $(PARSEDIR)/00_make_bin_tree.c

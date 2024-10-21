@@ -1,52 +1,5 @@
 #include "minishell.h"
 
-int	ft_append_node(t_token_lst *token_lst, char *str, int type, int status)
-{
-	t_token	*cur;
-	t_token	*new_token;
-
-	cur = NULL;
-	new_token = ft_calloc(sizeof(t_token), 1);
-	if (!new_token)
-		return (0);
-	
-	new_token->status = status;
-	new_token->content = str;
-	new_token->type = type;
-	new_token->next = NULL;
-	new_token->hd_id = -1;
-
-	if (!token_lst->first)
-	{
-		token_lst->first = new_token;
-		new_token->prev = NULL;
-	}
-	else if (token_lst->first)
-	{
-		cur = token_lst->first;
-		while (cur->next)
-			cur = cur->next;
-		cur->next = new_token;
-		new_token->prev = cur;
-	}
-	return (ft_strlen(str));
-}
-
-int	ft_append_word(t_token_lst *token_lst, char *str, int type, int status)
-{
-	int	len;
-
-	len = 0;
-	if (status == NORMAL)
-	{
-		while (str[len] && ft_is_word(str[len]) == TRUE)
-			len++;
-
-		ft_append_node(token_lst, ft_substr(str, 0, len), type, status);
-	}
-	return(len);
-}
-
 int	ft_append_inside_quotes(t_token_lst *token_lst, char *str, int status)
 {
 	int		len;
@@ -66,50 +19,6 @@ int	ft_append_inside_quotes(t_token_lst *token_lst, char *str, int status)
 	return (len + 1);
 }
 
-static void	ft_append_redir_in(t_token_lst *token_lst, t_iter *h)
-{	
-	if (h->line[h->i + 1] && h->line[h->i + 1] == '<')
-	{
-		h->i += ft_how_much_consecutives_spaces(h->line + h->i + 2) + 2;
-		h->i += ft_append_word(token_lst, h->line + h->i, HERE_DOC, h->status);
-	}
-	else
-	{
-		h->i += ft_how_much_consecutives_spaces(h->line + h->i + 1) + 1;
-		h->i += ft_append_word(token_lst, h->line + h->i, REDIR_IN, h->status);
-	}
-}
-
-static void	ft_append_redir_out(t_token_lst *token_lst, t_iter *h)
-{
-	if (h->line[h->i + 1] && h->line[h->i + 1] == '>')
-	{
-		h->i += ft_how_much_consecutives_spaces(h->line + h->i + 2) + 2;
-		h->i += ft_append_word(token_lst, h->line + h->i, DBLE_REDIR_OUT, h->status);
-	}
-	else
-	{
-		h->i += ft_how_much_consecutives_spaces(h->line + h->i + 1) + 1;
-		h->i += ft_append_word(token_lst, h->line + h->i, REDIR_OUT, h->status);
-	}
-}
-
-int	ft_append_redir(t_token_lst *token_lst, char *line, int status)
-{
-	t_iter	h;
-
-	if (!line || !token_lst)
-		return (0);
-	h = ft_set_iter(0);
-	h.line = line;
-	h.c = line[0];
-	h.status = status;
-	if (h.c == '<')
-		ft_append_redir_in(token_lst, &h);
-	else if (h.c == '>')
-		ft_append_redir_out(token_lst, &h);
-	return (h.i);
-}
 
 void ft_join_to_next_token(t_token *cur, t_token *to_join)
 {

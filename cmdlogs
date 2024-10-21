@@ -327,3 +327,17 @@ _____________________________
 
 cat << end | grep hello > outfile
 cat outfile
+_____________________________
+
+wetewsa
+dfg
+fdfa
+fdfsd
+gfd
+_____________________________
+
+teste
+teste
+echo "teste"
+echo "teste" > outfile
+echo < outfile

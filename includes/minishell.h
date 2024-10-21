@@ -194,6 +194,12 @@ int		ft_have_syntax_error(t_shell *sh);
 
 //tokenizer
 void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh);
+//append_node_and_word
+int		ft_append_node(t_token_lst *token_lst, char *str, int type, int status);
+int		ft_append_word(t_token_lst *token_lst, char *str, int type, int status);
+//append_redir
+int	ft_append_redir(t_token_lst *token_lst, char *line, int status);
+
 //tokenizer utils
 int		ft_is_word(char c);
 int		ft_how_much_consecutives_spaces(char *str);
