@@ -86,7 +86,7 @@
    - [x] << HERE DOC
       - [x] SIMPLE
       - [x] MULTIPLE
-      - [ ] heredoc exansions
+      - [ ] heredoc exansions //will not be done
       - [ ] heredoc fucking work
 - [x] Implement pipes |
 - [x] EXPANDER :
