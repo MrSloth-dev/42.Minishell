@@ -25,6 +25,29 @@ char	*ft_get_cmdbin(t_token *token, t_shell *shell)
 	return (NULL);
 }
 
+int	ft_check_bin(char *bin, t_token *token, t_shell *shell)
+{
+	// if (bin[0] == '.' && bin[1] == '/')
+	// {
+	// 	if (access(bin, F_OK) == -1 && ft_get_cmdbin(token, shell))
+	// 	{
+	// 		ft_printf(STDERR_FILENO, "%s : is a directory\n", token->content);
+	// 		return (shell->exit_status = 126, 0);
+	// 	}
+	// }
+	if (access(bin, F_OK) == 0 && access(bin, X_OK) == -1)
+	{
+		ft_printf(STDERR_FILENO, "%s : is a directory\n", token->content);
+		return (shell->exit_status = 126, 0);
+	}
+	if (access(bin, F_OK) == -1)
+	{
+		ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
+		return (shell->exit_status = 127, 0);
+	}
+	return (0);
+}
+
 char	**ft_create_cmdargs(t_token *token)
 {
 	char	**cmdargs;
@@ -56,17 +79,18 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 {
 	char	**cmdargs;
 	char	*cmdbin;
-	int		error;
-
-	error = 0;
+	// int		error;
+	//
+	// error = 0;
 	if (!cmd->content)
 		return ;
 	cmdargs = ft_create_cmdargs(cmd);
 	cmdbin = ft_get_cmdbin(cmd, shell);
+	// error = ft_check_bin(cmdbin, cmd, shell);
 	if (cmdargs && cmdbin)
 	{
-		error = execve(cmdbin, cmdargs, shell->envp);
-		shell->exit_status = error;
+		execve(cmdbin, cmdargs, shell->envp);
+		// shell->exit_status = error;
 	}
 	ft_free_envp(cmdargs);
 	ft_free(cmdbin);
