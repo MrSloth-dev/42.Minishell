@@ -1,9 +1,6 @@
-#include "ft_printf.h"
 #include "minishell.h"
-#include <string.h>
 
-
-static char	*make_new_cmd(char *str, char *exp, t_iter h)
+static char	*ft_make_new_cmd(char *str, char *exp, t_iter h)
 {
 	char	*r_str;
 	int		start_r_str;
@@ -20,53 +17,49 @@ static char	*make_new_cmd(char *str, char *exp, t_iter h)
 	return (str);
 }
 
-
 void	ft_expand_on_this_node(t_token	*cur, t_shell *sh)
 {
 	t_iter	h;
-	char	*str;
-	char	*name_var;
-	char	*exp;
 	
 	if (!cur && !cur->content)
 		return ;
 	h = ft_set_iter(0);
-	exp = NULL;
-	name_var = NULL;
-	str = cur->content;
-	while (str[h.i] && str[h.i + 1])
+	h.exp = NULL;
+	h.name_var = NULL;
+	h.str = cur->content;
+	while (h.str[h.i] && h.str[h.i + 1])
 	{
 		h.j = 1;
-		if (str[h.i] == '$')
+		if (h.str[h.i] == '$')
 		{
 			h.i++;
-			if (str [h.i] == '?')
-				exp = ft_itoa(sh->exit_status);
-			else if (str[h.i] == '$')
-				exp = ft_itoa(sh->pid);
-			else if (str[h.i] == '0')
-				exp = ft_strdup(sh->prog_name);
-			else if (ft_isdigit(str[h.i]) == TRUE)
-				exp = ft_strdup("");
-			else if (ft_isalnum(str[h.i]) == TRUE || str[h.i] == '_')
+			if (h.str [h.i] == '?')
+				h.exp = ft_itoa(sh->exit_status);
+			else if (h.str[h.i] == '$')
+				h.exp = ft_itoa(sh->pid);
+			else if (h.str[h.i] == '0')
+				h.exp = ft_strdup(sh->prog_name);
+			else if (ft_isdigit(h.str[h.i]) == TRUE)
+				h.exp = ft_strdup("");
+			else if (ft_isalnum(h.str[h.i]) == TRUE || h.str[h.i] == '_')
 			{
 				h.j = 0;
-				while (str[h.i + h.j]
-					&& (ft_isalnum(str[h.i + h.j]) == TRUE || str[h.i + h.j] == '_') && ft_is_space(str[h.i + h.j]) == FALSE)
+				while (h.str[h.i + h.j]
+					&& (ft_isalnum(h.str[h.i + h.j]) == TRUE || h.str[h.i + h.j] == '_') && ft_is_space(h.str[h.i + h.j]) == FALSE)
 					h.j++;
-				name_var = ft_substr(str, h.i, h.j);
-				exp = ft_expand(name_var, sh);
-				free(name_var);
+				h.name_var = ft_substr(h.str, h.i, h.j);
+				h.exp = ft_expand(h.name_var, sh);
+				h.name_var = ft_free(h.name_var);
 			}
 			else
-				exp = ft_strjoin_free(ft_strdup("$"), ft_substr(str, h.i, 1));
-			h.k = ft_strlen(exp);
-			str = make_new_cmd(str, exp, h);
+				h.exp = ft_strjoin_free(ft_strdup("$"), ft_substr(h.str, h.i, 1));
+			h.k = ft_strlen(h.exp);
+			h.str = ft_make_new_cmd(h.str, h.exp, h);
 			h.i += h.k - 2;
 		}
 		h.i++;
 	}
-	cur->content = str;
+	cur->content = h.str;
 }
 
 void	ft_make_expansions(t_shell *sh)

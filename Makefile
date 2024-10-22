@@ -154,7 +154,6 @@ norm:
 	@norminette | grep rror!
 
 
-
 gdb : re
 	tmux new-window  -n Gdb
 	tmux send-keys 'gdbtui ./minishell' C-m Escape
@@ -192,6 +191,9 @@ tester: $(TESTER_DIR)
 	make re
 	@cd $(TESTER_DIR) && ./$(TESTER_BIN)
 
+te:	$(TESTER_DIR)
+	@make re
+	@cd $(TESTER_DIR) && ./$(TESTER_BIN) 2>/dev/null | grep /146
 
 hell :
 	@echo "$(RED) <-. (\`-')    _      <-. (\`-')_   _       (\`-').->  (\`-')  _       "

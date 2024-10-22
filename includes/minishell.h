@@ -141,6 +141,8 @@ typedef struct s_iter
 	int		k;
 	int		status;
 	int		len;
+	char	*exp;
+	char	*name_var;
 	char	*str;
 	char	*line;
 	t_token	*tmp;
