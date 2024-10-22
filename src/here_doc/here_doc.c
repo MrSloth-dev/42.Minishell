@@ -2,11 +2,13 @@
 #include "minishell.h"
 #include <curses.h>
 #include <fcntl.h>
+#include <sys/wait.h>
 
-// static void	ft_handle_sig(int signal)
+// static void	ft_handle_sig_here(int signal)
 // {
 // 	if (signal == SIGINT)
 // 	{
+//
 // 		printf("\n");
 // 		rl_replace_line("", 0);
 // 		rl_on_new_line();
@@ -18,21 +20,20 @@
 // {
 // 	struct sigaction	sa;
 //
-// 	sa.sa_handler = &ft_handle_sig;
+// 	sa.sa_handler = &ft_handle_sig_here;
 // 	sa.sa_flags = SA_RESTART;
 // 	sigemptyset(&sa.sa_mask);
 // 	sigaddset(&sa.sa_mask, SIGINT);
 // 	sigaction(SIGINT, &sa, NULL);
 // 	signal(SIGQUIT, SIG_IGN);
 // }
-
+//
 void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id, char *file)
 {
 	char	*line;
 
 	sh->heredoc_fd[hd_id] = open(file, O_CREAT | O_RDWR | O_APPEND, 0644);
 	sh->exit_status = EXIT_SUCCESS;
-//	ft_start_sig_in_this_scope();
 	line = NULL;
 	while (1)
 	{
@@ -51,26 +52,41 @@ void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id, char *file)
 	}
 }
 
+// void	ft_sig_heredoc(void)
+// {
+// //	signal(SIGINT, SIG_DFL);
+// 	signal(SIGQUIT, SIG_IGN);
+// }
+//
 void	ft_run_heredocs(t_token *token, t_shell *sh)
 {
 	t_iter	s;
 	char	*file;
 	char	*tmp;
+	int		pid_child;
 
 	if (!token || !sh)
 		return ;
 	s = ft_set_iter(0);
 	s.cur = token;
+	// ft_start_sig_in_this_scope();
+//	ft_sig_heredoc();
 	while (s.cur && sh)
 	{
 		if (s.cur->type == HERE_DOC)
 		{
 			s.cur->type = REDIR_IN;
 			file = ft_itoa(s.cur->hd_id);
-			ft_here_doc(sh, s.cur->content, s.cur->hd_id, file);
+			pid_child = fork();
+			if (pid_child == 0)
+			{
+				ft_here_doc(sh, s.cur->content, s.cur->hd_id, file);
+			}
+			wait(&pid_child);
 			tmp = s.cur->content;
 			s.cur->content = file;
 			free(tmp);
+
 		}
 		s.cur = s.cur->front;
 	}
