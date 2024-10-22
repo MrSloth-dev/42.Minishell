@@ -9,6 +9,7 @@ void	ft_exec_builtins(t_token *temp_head, t_shell *shell)
 	{
 		temp_next = temp_head->next;
 		temp_next->prev = NULL;
+	}
 		if (ft_strcmp(temp_head->content, "cd") == 0)
 			ft_cd(temp_next, shell);
 		else if (ft_strcmp(temp_head->content, "env") == 0)
@@ -23,7 +24,6 @@ void	ft_exec_builtins(t_token *temp_head, t_shell *shell)
 			ft_unset(temp_next, shell);
 		else if (ft_strcmp(temp_head->content, "exit") == 0)
 			ft_exit(temp_next, shell);
-	}
 }
 
 void	ft_exec_builtins_child(t_token *cmdargs, t_shell *shell)
