@@ -129,7 +129,8 @@ print : $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
 	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT)  -D PRINT_DATA=1 -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
-	./minishell
+	valgrind $(VALGRINDFLAGS) ./$(NAME)
+	cat leaks.log
 
 le: fclean all
 	valgrind $(VALGRINDFLAGS) ./$(NAME)

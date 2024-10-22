@@ -537,3 +537,6 @@ teste < teste | teste > teste
 _____________________________
 
 teste
+_____________________________
+
+echo "teste" | cat outfile
