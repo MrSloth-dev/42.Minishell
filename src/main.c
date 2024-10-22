@@ -2,9 +2,56 @@
 
 int	g_rec_signal;
 
-	// ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
-	// ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES
-	//ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
+void	ft_add_node_exec(t_token_lst *token_lst, t_shell *sh)
+{
+	t_iter	h;
+	t_token *exec_node;
+
+	if (!token_lst || !token_lst->first || !sh)
+		return ;
+	
+	h = ft_set_iter(0);
+	exec_node = ft_new_token();
+	if (!exec_node)
+		return ;
+	exec_node->type = ND_EXEC;
+	exec_node->content = ft_strdup("ND_EXEC ");
+	token_lst->first->back = exec_node;
+	exec_node->front = token_lst->first;
+	token_lst->first = exec_node;
+	h.cur = exec_node->front;
+	while (h.cur)
+	{
+		h.tmp = h.cur;
+		h.cur = h.cur->front;
+		if (h.tmp->type == ND_PIPE && h.cur)
+		{
+			exec_node = ft_new_token();
+			if (!exec_node)
+				return ;
+			exec_node->type = ND_EXEC;
+			exec_node->content = ft_strdup("ND_EXEC ");
+
+			h.cur->back = exec_node;
+			exec_node->front = h.cur;
+			h.tmp->front = exec_node;
+			exec_node->back = h.tmp;
+		}
+	}
+}
+
+
+
+void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
+{
+	ft_create_tokens(token_lst, line);
+	ft_make_expansions(sh);
+	ft_join_tokens(token_lst);
+	ft_delete_space_and_count_hd(token_lst, sh);
+	ft_add_node_exec(token_lst, sh);
+	g_rec_signal = 0;
+}
+
 void	ft_clean_here_doc(t_shell *sh)
 {
 	char *name;
@@ -29,14 +76,19 @@ void	ft_shellfault(t_shell *sh)
 	if (!sh->token_lst)
 		return ;
 	ft_tokenizer(sh->token_lst, sh->line, sh);
-	sh->token_lst->first = ft_make_bin_tree(sh->token_lst->first, ND_EXEC);
+
+
+	sh->token_lst->start = sh->token_lst->first;
+	sh->token_lst->first = ft_make_bin_tree(sh->token_lst->first);
+	
+	// ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
+	// ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE
 
 	if (sh->nb_heredoc > 0)
-		ft_create_and_run_heredocs(sh);
-
+	 	ft_create_and_run_heredocs(sh);
 	head = sh->token_lst->first;
 	if (!head)
-		return ;
+	 	return ;
 	if (head->type != ND_PIPE && head->left && ft_isbuiltin(head->left->content))
 		ft_exec_builtins_parent(sh->token_lst->first, sh);
 	else if (head->left)
@@ -46,7 +98,10 @@ void	ft_shellfault(t_shell *sh)
 		waitpid(0, &exit_status, 0);
 		sh->exit_status = WEXITSTATUS(exit_status);
 	}
-	ft_free_tree(sh->token_lst);
+
+	//ft_free_tree(sh->token_lst);
+	ft_free_lst_shell(sh);
+
 	// ft_free(sh->token_lst); //this doesn't work wtf
 	ft_reset_token_lst(sh);
 	if (sh->nb_heredoc > 0) // WARNING HERE!!!!!!
@@ -71,3 +126,5 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	return (0);
 }
+	// ft_free_lst_shell(sh); // FREE TOKEN LINKED LIST, ONLY FOR TESTING PURPOSES
+	//ft_print_binary_tree(sh->token_lst);  // SEE BIN TREE

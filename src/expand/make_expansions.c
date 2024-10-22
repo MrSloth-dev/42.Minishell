@@ -83,6 +83,6 @@ void	ft_make_expansions(t_shell *sh)
 			if (cur->content && cur->type == WORD && cur->status != IN_SINGLE_QTE)
 				ft_expand_on_this_node(cur, sh);
 		}
-		cur = cur->next;
+		cur = cur->front;
 	}
 }

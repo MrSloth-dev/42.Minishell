@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   30_pipe.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isilva-t <isilva-t@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 16:47:31 by isilva-t          #+#    #+#             */
+/*   Updated: 2024/10/21 16:47:54 by isilva-t         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	ft_is_redir_or_pipe_before(char *str)
@@ -7,7 +19,7 @@ static int	ft_is_redir_or_pipe_before(char *str)
 		if (*str == '<' || *str == '>' || *str == '|')
 			return (TRUE);
 		if (ft_is_space(*str) == FALSE)
-			break;
+			break ;
 		str--;
 	}
 	return (FALSE);
@@ -20,7 +32,7 @@ static int	ft_is_pipe_repeated(char *str)
 		if (*str == '|')
 			return (TRUE);
 		if (ft_is_space(*str) == FALSE)
-			break;
+			break ;
 		str++;
 	}
 	return (FALSE);
@@ -34,7 +46,7 @@ static int	ft_this_pipe_have_error(char *str)
 		return (ERR_PIPE);
 	if (ft_is_redir_or_pipe_before(str - 2) == TRUE)
 		return (ERR_PIPE);
-	while(*str)
+	while (*str)
 	{
 		if (ft_is_empty_token(str, RIGHT_TOKEN) == TRUE)
 			return (ERR_PIPE);

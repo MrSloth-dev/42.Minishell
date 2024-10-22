@@ -14,74 +14,53 @@ t_token	*ft_new_bin_token()
 	return (new);
 }
 
-t_token	*ft_make_bin_tree(t_token *token, int nd_type)
+t_token	*ft_make_bin_tree(t_token *token)
 {
-	t_token	*tmp;
-	t_token	*cur;
-	t_token	*new;
-	t_token	*cur_left;
-	t_token	*cur_right;
+	t_iter	s;
 
-	if (!token)
+	if (!token || !token->front)
 		return (NULL);
-	cur = token;
-	new = NULL;
-	//if (!new)
-	//{
-		new = ft_new_bin_token();
-		new->type = nd_type;
-	//}
-	while (cur && cur->type != PIPELINE)
+	s = ft_set_iter(0);
+	s.cur = token->front;
+	while (s.cur && s.cur->type != ND_PIPE)
 	{
-		tmp = cur;
-		cur = cur->next;
-		if (tmp->type == WORD)
+		if (s.cur->type == WORD && s.cur->type != ND_EXEC)
 		{
-			if (!new->left)
+			if (!token->left)
 			{
-				new->left = tmp;
-				tmp->next = NULL;
-				tmp->prev = new;
-				cur_left = tmp;
+				token->left = s.cur;
+				s.cur_left = s.cur;
 			}
 			else
 			{
-				cur_left->next = tmp;
-				tmp->next = NULL;
-				tmp->prev = cur_left;
-				cur_left = cur_left->next;
+				s.cur->prev = s.cur_left;
+				s.cur->prev->next = s.cur;
+				s.cur_left = s.cur_left->next;
 			}
 		}
-		else
+		else if (s.cur->type != ND_EXEC)
 		{
-			if (!new->right)
+			if (!token->right)
 			{
-				new->right = tmp;
-				tmp->next = NULL;
-				tmp->prev = new;
-				cur_right = tmp;
+				token->right = s.cur;
+				s.cur_right = s.cur;
 			}
 			else
 			{
-				cur_right->next = tmp;
-				tmp->next = NULL;
-				tmp->prev = cur_right;
-				cur_right = cur_right->next;
+				s.cur->prev = s.cur_right;
+				s.cur->prev->next = s.cur;
+				s.cur_right = s.cur_right->next;
 			}
 		}
+		s.cur = s.cur->front;
 	}
-	if (cur && cur->type == PIPELINE)
+	if (s.cur && s.cur->type == ND_PIPE)
 	{
-		tmp = cur;
-		free (cur->content);
-		cur = cur->next;
-		tmp->type = ND_PIPE;
-		tmp->left = new;
-		tmp->left->prev = tmp;
-		tmp->next = NULL;
-		tmp->prev = NULL;
-		tmp->right = ft_make_bin_tree(cur, ND_EXEC);
-		new = tmp;
+		//s.cur->content = ft_free(s.cur->content);
+		s.cur->left = token;
+		//s.tmp->left->prev = s.tmp;
+		s.cur->right = ft_make_bin_tree(s.cur->front);
+		token = s.cur;
 	}
-	return (new);
+	return (token);
 }

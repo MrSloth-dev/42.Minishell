@@ -494,3 +494,12 @@ cat cmdlogs | grep 129812739
 cat outfile | grep 123123123
 echo $?
 exit
+_____________________________
+
+echo "teste" | cat teste
+_____________________________
+
+_____________________________
+
+echo "teste" | cat teste
+

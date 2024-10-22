@@ -64,12 +64,6 @@
 # define ERR_EMPTY_TOKEN 16
 
 // token types
-# define WHITE_SPACE 1
-# define WORD 2
-# define PIPELINE 3
-# define ENV 4
-# define SINGLE_QTE 9
-# define DOUBLE_QTE 10
 
 // status
 # define NORMAL 0
@@ -77,14 +71,20 @@
 # define IN_DOUBLE_QTE 2
 
 // node classify
-# define ND_EXEC 1
-# define ND_PIPE 2
-# define ND_REDIR 3
+# define WHITE_SPACE 1
+# define WORD 2
+# define PIPELINE 3
+# define ENV 4
+# define SINGLE_QTE 5
+# define DOUBLE_QTE 6
+# define ND_EXEC 7
+# define ND_PIPE 8
+//# define ND_REDIR 9
 # define HERE_DOC 11 //
 # define REDIR_IN 12 //>
 # define REDIR_OUT 13 //<
 # define DBLE_REDIR_OUT 14 //>>
-
+//
 // classification of nodes
 # define EXEC 1
 # define BUILTIN 2
@@ -110,7 +110,7 @@ typedef struct s_token
 typedef struct s_token_lst
 {
 	t_token	*first;
-	t_token	*last;
+	t_token	*start;
 }		t_token_lst;
 ///////////////////////////////
 
@@ -194,18 +194,23 @@ int		ft_have_syntax_error(t_shell *sh);
 
 //tokenizer
 void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh);
+
+t_token	*ft_new_token();
+void	ft_create_tokens(t_token_lst *token_lst, char *line);
 //append_node_and_word
 int		ft_append_node(t_token_lst *token_lst, char *str, int type, int status);
 int		ft_append_word(t_token_lst *token_lst, char *str, int type, int status);
 //append_redir
-int	ft_append_redir(t_token_lst *token_lst, char *line, int status);
+int		ft_append_redir(t_token_lst *token_lst, char *line, int status);
+void	ft_join_tokens(t_token_lst *token_lst);
+void	ft_delete_space_and_count_hd(t_token_lst *token_lst, t_shell *sh);
 
 //tokenizer utils
 int		ft_is_word(char c);
 int		ft_how_much_consecutives_spaces(char *str);
 
 //parse
-t_token	*ft_make_bin_tree(t_token *token, int nd_type);
+t_token	*ft_make_bin_tree(t_token *token);
 
 //here_doc
 void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id, char *file);

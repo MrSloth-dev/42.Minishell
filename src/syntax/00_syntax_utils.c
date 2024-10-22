@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   00_syntax_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isilva-t <isilva-t@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 16:48:09 by isilva-t          #+#    #+#             */
+/*   Updated: 2024/10/21 16:48:33 by isilva-t         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_print_syntax_error(int error, t_shell *shell)
@@ -22,7 +34,8 @@ void	ft_print_syntax_error(int error, t_shell *shell)
 	else if (error == ERR_PIPE)
 		ft_printf(STDERR_FILENO, "%s unexpected token `|'\n", name);
 	else
-		ft_printf(STDERR_FILENO, "%s unexpected token `%c'\n", name, (char)error);
+		ft_printf(STDERR_FILENO, "%s unexpected token `%c'\n",
+			name, (char)error);
 	shell->exit_status = 2;
 }
 
