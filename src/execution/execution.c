@@ -4,6 +4,33 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+int	ft_check_bin(char *bin, t_token *token, t_shell *shell)
+{
+	struct stat	path_stat;
+
+	if (stat(bin, &path_stat) == -1)
+	{
+		ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
+		return (shell->exit_status = 127, 0);
+	}
+	else if (S_ISDIR(path_stat.st_mode))
+	{
+		ft_printf(STDERR_FILENO, "%s : Is a directory\n", token->content);
+		return (shell->exit_status = 126, 0);
+	}
+	else if (S_ISREG(path_stat.st_mode) && access(bin, X_OK) == -1)
+	{
+		ft_printf(STDERR_FILENO, "%s : permission denied\n", token->content);
+		return (shell->exit_status = 126, 0);
+	}
+	else if (access(bin, X_OK) == -1)
+	{
+		ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
+		return (shell->exit_status = 127, 0);
+	}
+	return (1);
+}
+
 char	*ft_get_cmdbin(t_token *token, t_shell *shell)
 {
 	char	*temp;
@@ -23,24 +50,6 @@ char	*ft_get_cmdbin(t_token *token, t_shell *shell)
 		i++;
 	}
 	return (NULL);
-}
-
-int	ft_check_bin(char *bin, t_token *token, t_shell *shell)
-{
-	struct stat	path_stat;
-
-	stat(bin, &path_stat);
-	if (S_ISDIR(path_stat.st_mode))
-	{
-		ft_printf(STDERR_FILENO, "%s : Is a directory\n", token->content);
-		return (shell->exit_status = 126, 0);
-	}
-	else if (access(bin, X_OK) == -1)
-	{
-		ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
-		return (shell->exit_status = 127, 0);
-	}
-	return (1);
 }
 
 char	**ft_create_cmdargs(t_token *token)
@@ -78,44 +87,12 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 	if (!cmd->content)
 		return ;
 	cmdargs = ft_create_cmdargs(cmd);
-	cmdbin = ft_get_cmdbin(cmd, shell);
-	if (ft_check_bin(cmdbin, cmd, shell))
+	if (!ft_check_bin(cmd->content, cmd, shell))
 	{
+		cmdbin = ft_get_cmdbin(cmd, shell);
 		execve(cmdbin, cmdargs, shell->envp);
+		ft_free(cmdbin);
 	}
 	ft_free_envp(cmdargs);
-	ft_free(cmdbin);
 	ft_free_and_exit(NULL, shell, TRUE);
 }
-
-/* ISILVA COMMENTED THIS FOR TESTING! SEE ABOVE NEW FT
-char	**ft_create_cmdargs(t_token *token)
-{
-	char	**cmdargs;
-	t_token	*head;
-	int		len;
-
-	head = token;
-	len = 0;
-	while (token && token->content != NULL)
-	{
-		len++;
-		if (token->next != NULL)
-			token = token->next;
-		else
-			break ;
-	}
-	token = head;
-	cmdargs = calloc(len + 1, sizeof(t_token *));
-	if (!cmdargs)
-		return (NULL);
-	len = 0;
-	while (token && token->content != NULL)
-	{
-		cmdargs[len] = ft_strdup(token->content);
-		token = token->next;
-		len++;
-	}
-	return (cmdargs);
-}*/
-
