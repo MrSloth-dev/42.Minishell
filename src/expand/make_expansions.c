@@ -6,7 +6,7 @@
 /*   By: isilva-t <isilva-t@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:18:38 by isilva-t          #+#    #+#             */
-/*   Updated: 2024/10/22 15:36:37 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:40:34 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ static char	*ft_make_new_cmd(char *str, char *exp, t_iter *h)
 
 int	ft_expand_util_edge_cases(t_iter *h, t_shell *sh)
 {
-		if (h->str[h->i] == '?')
-			h->exp = ft_itoa(sh->exit_status);
-		else if (h->str[h->i] == '$')
-			h->exp = ft_itoa(sh->pid);
-		else if (h->str[h->i] == '0')
-			h->exp = ft_strdup(sh->prog_name);
-		else if (ft_isdigit(h->str[h->i]) == TRUE)
-			h->exp = ft_strdup("");
-		else
-			return (0);
+	if (h->str[h->i] == '?')
+		h->exp = ft_itoa(sh->exit_status);
+	else if (h->str[h->i] == '$')
+		h->exp = ft_itoa(sh->pid);
+	else if (h->str[h->i] == '0')
+		h->exp = ft_strdup(sh->prog_name);
+	else if (ft_isdigit(h->str[h->i]) == TRUE)
+		h->exp = ft_strdup("");
+	else
+		return (0);
 	return (1);
 }
 
