@@ -151,7 +151,7 @@ joao : $(OBJS)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 norm:
-	norminette | grep rror!
+	@norminette | grep rror!
 
 
 

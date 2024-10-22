@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:21:12 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/10/22 13:02:11 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:08:40 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 # define RIGHT_TOKEN 1
 
 //exit codes
-#define EXIT_SYNTAX
+# define EXIT_SYNTAX
 
 //parsing errors
 # define ERR_REDIR_LEFT 2
@@ -140,7 +140,7 @@ typedef struct s_iter
 	int		j;
 	int		k;
 	int		status;
-	int 	len;
+	int		len;
 	char	*str;
 	char	*line;
 	t_token	*tmp;
@@ -198,7 +198,7 @@ int		ft_have_syntax_error(t_shell *sh);
 
 //tokenizer
 void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh);
-t_token	*ft_new_token();
+t_token	*ft_new_token(void);
 void	ft_create_tokens(t_token_lst *token_lst, char *line);
 int		ft_append_node(t_token_lst *token_lst, char *str, int type, int status);
 int		ft_append_word(t_token_lst *token_lst, char *str, int type, int status);
@@ -221,7 +221,7 @@ void	ft_create_and_run_heredocs(t_shell *sh);
 void	ft_clean_here_doc(t_shell *sh);
 
 //free_stuff
-void 	ft_free_lst_shell(t_shell *sh); //NOT NECESSARY TO DELIVER PROJECT
+void	ft_free_lst_shell(t_shell *sh);
 void	*ft_free(void *pointer);
 void	*ft_free_envp(char **envp);
 void	ft_clean_here_doc(t_shell *sh);
