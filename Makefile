@@ -153,7 +153,6 @@ joao : $(OBJS)
 norm:
 	@norminette | grep rror!
 
-
 gdb : re
 	tmux new-window  -n Gdb
 	tmux send-keys 'gdbtui ./minishell' C-m Escape

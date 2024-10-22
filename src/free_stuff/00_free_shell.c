@@ -6,7 +6,7 @@
 /*   By: isilva-t <isilva-t@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:13:39 by isilva-t          #+#    #+#             */
-/*   Updated: 2024/10/22 13:22:10 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:30:21 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ void	ft_clean_here_doc(t_shell *sh)
 
 	name = NULL;
 	i = 0;
-	while (i++ != sh->nb_heredoc)
+	while (i != sh->nb_heredoc)
 	{
-		name = ft_itoa(sh->nb_heredoc);
+		name = ft_itoa(i);
 		unlink(name);
 		name = ft_free(name);
+		i++;
 	}
 	if (sh->nb_heredoc > 0)
 		sh->heredoc_fd = ft_free(sh->heredoc_fd);

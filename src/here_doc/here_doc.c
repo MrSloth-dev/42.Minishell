@@ -61,27 +61,18 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 		return ;
 	s = ft_set_iter(0);
 	s.cur = token;
-	if (s.cur && s.cur->type != ND_PIPE && s.cur->right)
+	while (s.cur && s.cur->content && sh)
 	{
-		s.cur = s.cur->right;
-		while (s.cur)
+		if (s.cur->type == HERE_DOC)
 		{
-			if (s.cur->type == HERE_DOC)
-			{
-				s.cur->type = REDIR_IN;
-				file = ft_itoa(s.cur->hd_id);
-				ft_here_doc(sh, s.cur->content, s.cur->hd_id, file);
-				tmp = s.cur->content;
-				s.cur->content = file;
-				free(tmp);
-			}
-			s.cur = s.cur->next;
+			s.cur->type = REDIR_IN;
+			file = ft_itoa(s.cur->hd_id);
+			ft_here_doc(sh, s.cur->content, s.cur->hd_id, file);
+			tmp = s.cur->content;
+			s.cur->content = file;
+			free(tmp);
 		}
-	}
-	else if (s.cur)
-	{
-		ft_run_heredocs(s.cur->left, sh);
-		ft_run_heredocs(s.cur->right, sh);
+		s.cur = s.cur->front;
 	}
 }
 
