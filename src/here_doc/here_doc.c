@@ -61,7 +61,7 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 		return ;
 	s = ft_set_iter(0);
 	s.cur = token;
-	while (s.cur && s.cur->content && sh)
+	while (s.cur && sh)
 	{
 		if (s.cur->type == HERE_DOC)
 		{
