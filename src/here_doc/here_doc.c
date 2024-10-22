@@ -86,9 +86,10 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 }
 
 void	ft_create_and_run_heredocs(t_shell *sh)
-{
+{	
+	if (!(sh->nb_heredoc != 0))
+		return ;
 	ft_make_heredoc_fd(sh->nb_heredoc, sh);
 	ft_run_heredocs(sh->token_lst->first, sh);
-
 }
 

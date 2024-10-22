@@ -79,6 +79,7 @@ TOKENIZER = $(TOKENIZERDIR)/00_create_tokens.c \
 			$(TOKENIZERDIR)/11_append_redir.c \
 			$(TOKENIZERDIR)/12_join_tokens.c \
 			$(TOKENIZERDIR)/13_delete_spaces_and_count_hd.c \
+			$(TOKENIZERDIR)/14_add_node_exec.c \
 			$(TOKENIZERDIR)/88_tokenizer_utils.c
 
 PARSE = $(PARSEDIR)/00_make_bin_tree.c

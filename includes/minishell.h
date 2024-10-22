@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:21:12 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/09/24 17:05:30 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:02:11 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,15 +198,13 @@ int		ft_have_syntax_error(t_shell *sh);
 
 //tokenizer
 void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh);
-
 t_token	*ft_new_token();
 void	ft_create_tokens(t_token_lst *token_lst, char *line);
-//append_node_and_word
 int		ft_append_node(t_token_lst *token_lst, char *str, int type, int status);
 int		ft_append_word(t_token_lst *token_lst, char *str, int type, int status);
-//append_redir
 int		ft_append_redir(t_token_lst *token_lst, char *line, int status);
 void	ft_join_tokens(t_token_lst *token_lst);
+void	ft_add_node_exec(t_token_lst *token_lst, t_shell *sh);
 void	ft_delete_space_and_count_hd(t_token_lst *token_lst, t_shell *sh);
 
 //tokenizer utils
@@ -223,11 +221,10 @@ void	ft_create_and_run_heredocs(t_shell *sh);
 void	ft_clean_here_doc(t_shell *sh);
 
 //free_stuff
-void	ft_free_tree(t_token_lst *token_lst);
 void 	ft_free_lst_shell(t_shell *sh); //NOT NECESSARY TO DELIVER PROJECT
-void 	ft_reset_token_lst(t_shell *sh);
 void	*ft_free(void *pointer);
 void	*ft_free_envp(char **envp);
+void	ft_clean_here_doc(t_shell *sh);
 
 //EXEC
 void	ft_exec_builtins(t_token *temp_head, t_shell *shell);
