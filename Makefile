@@ -149,6 +149,10 @@ joao : $(OBJS)
 	@$(CC) $(OBJS) $(MAINJ) $(CFLAGS) $(PRINTFT) -o minijoao
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
+norm:
+	norminette | grep rror!
+
+
 
 gdb : re
 	tmux new-window  -n Gdb

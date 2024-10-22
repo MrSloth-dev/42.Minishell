@@ -1,4 +1,3 @@
-#include "ft_printf.h"
 #include "minishell.h"
 
 char	*ft_find_path(char *envp[])
@@ -13,7 +12,7 @@ char	*ft_find_path(char *envp[])
 	return (NULL);
 }
 
-static void	ft_cmd_log_newline()
+static void	ft_cmd_log_newline(void)
 {
 	int		fd;
 

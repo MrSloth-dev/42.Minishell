@@ -6,7 +6,7 @@
 /*   By: isilva-t <isilva-t@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 13:16:05 by isilva-t          #+#    #+#             */
-/*   Updated: 2024/10/09 13:16:09 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:44:36 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,3 @@ t_iter	ft_set_iter(int n)
 	h.cur_right = NULL;
 	return (h);
 }
-
-

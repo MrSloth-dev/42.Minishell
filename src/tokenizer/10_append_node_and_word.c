@@ -6,13 +6,13 @@
 /*   By: isilva-t <isilva-t@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:57:30 by isilva-t          #+#    #+#             */
-/*   Updated: 2024/10/21 17:56:53 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:44:04 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*ft_new_token()
+t_token	*ft_new_token(void)
 {
 	t_token	*new;
 
@@ -42,7 +42,6 @@ int	ft_append_node(t_token_lst *token_lst, char *str, int type, int status)
 	new_token->content = str;
 	new_token->type = type;
 	new_token->hd_id = -1;
-	
 	if (!token_lst->first)
 		token_lst->first = new_token;
 	else
