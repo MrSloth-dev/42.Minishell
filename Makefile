@@ -123,18 +123,19 @@ $(NAME): $(OBJS) $(HEADER)
 	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 
-ivan : $(OBJS)
+print : $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	@$(CC) $(MAIN) $(CFLAGS) $(OBJS) $(READLINE_FLAG)  $(PRINTFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT)  -D PRINT_DATA=1 -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
+	./minishell
 
 le: fclean all
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
 	cat leaks.log
 
-qk: ivan
+qk: all
 	./minishell
 
 deb : ivan

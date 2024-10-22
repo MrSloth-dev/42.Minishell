@@ -52,6 +52,7 @@ void	ft_create_tokens(t_token_lst *token_lst, char *line)
 
 	i = 0;
 	status = NORMAL;
+	ft_append_node(token_lst, ft_strdup("ND_EXEC "), ND_EXEC, NORMAL);
 	while (line[i])
 	{
 		if (ft_is_word(line[i]) == TRUE)

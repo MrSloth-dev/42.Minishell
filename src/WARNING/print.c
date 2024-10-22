@@ -59,7 +59,7 @@ static char	*ft_print_exec(t_token *cur, char *spaces, int fd)
 	return (spaces);
 }
 
-void	ft_print_binary_tree(t_token_lst *token_lst)
+void	ft_print_binary_tree(t_shell *sh)
 {
 	t_token	*cur;
 	char	*to_free;
@@ -67,12 +67,12 @@ void	ft_print_binary_tree(t_token_lst *token_lst)
 
 	fd = 1;
 	to_free = NULL;
-	if (!token_lst && !token_lst->first)
+	if (!sh->head)
 	{
 		printf("NO TREE TO PRINT!\n");
 		return ;
 	}
-	cur = token_lst->first;
+	cur = sh->head;
 	to_free = ft_print_exec(cur, ft_strdup(""), fd);
 	if (to_free)
 		free(to_free);
@@ -129,18 +129,13 @@ void	ft_print_tokens(t_token_lst *token_lst)
 			printf("D_R_OUT ");
 		cur = cur->front;
 	}
-//	printf("\n");
-	// cur = token_lst->first;
-	// printf("STATUS: ");
-	// while (cur)
-	// {
-	// 	if (cur->status == NORMAL)
-	// 		printf("normal ");
-	// 	else if (cur->status == IN_DOUBLE_QTE)
-	// 		printf("in_DOUBLE_qte ");
-	// 	else if (cur->status == IN_SINGLE_QTE)
-	// 		printf("in_SINGLE_qte ");
-	// 	cur = cur->next;
-	// }
 	 printf("\n\n");
+}
+
+void	ft_print_data(t_shell *sh, int is_to_print)
+{
+	if (is_to_print == FALSE)
+		return ;
+	ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
+	ft_print_binary_tree(sh);  // SEE BIN TREE
 }

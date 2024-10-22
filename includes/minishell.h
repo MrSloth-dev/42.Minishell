@@ -30,6 +30,10 @@
 # define YELLOW "\e[1;3;93m"
 # define RESET "\e[0m"
 
+# ifndef PRINT_DATA
+#  define PRINT_DATA 0
+# endif
+
 # define SUCCESS 0
 # define ERROR 1
 # define INVALID -1
@@ -110,7 +114,6 @@ typedef struct s_token
 typedef struct s_token_lst
 {
 	t_token	*first;
-	t_token	*start;
 }		t_token_lst;
 ///////////////////////////////
 
@@ -118,6 +121,7 @@ typedef struct s_token_lst
 typedef struct s_shell
 {
 	t_token_lst	*token_lst;
+	t_token		*head;
 	int			exit_status;
 	char		*prog_name;
 	char		**envp;
@@ -239,8 +243,7 @@ t_iter	ft_set_iter(int n);
 int		ft_isbuiltin(char *content);
 
 // WARNING
-void	ft_print_binary_tree(t_token_lst *token_lst);
-void	ft_print_tokens(t_token_lst *token_lst);
+void	ft_print_data(t_shell *sh, int is_to_print);
 
 int		ft_getpid(t_shell *shell);
 

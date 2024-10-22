@@ -1,18 +1,9 @@
 #include "minishell.h"
 
-t_token	*ft_new_bin_token()
-{
-	t_token	*new;
 
-	new = ft_calloc(sizeof(t_token), 1);
-	if (!new)
-		return (NULL);
-	new->next = NULL;
-	new->prev = NULL;
-	new->left = NULL;
-	new->right = NULL;
-	return (new);
-}
+
+
+
 
 t_token	*ft_make_bin_tree(t_token *token)
 {
@@ -56,9 +47,7 @@ t_token	*ft_make_bin_tree(t_token *token)
 	}
 	if (s.cur && s.cur->type == ND_PIPE)
 	{
-		//s.cur->content = ft_free(s.cur->content);
 		s.cur->left = token;
-		//s.tmp->left->prev = s.tmp;
 		s.cur->right = ft_make_bin_tree(s.cur->front);
 		token = s.cur;
 	}
