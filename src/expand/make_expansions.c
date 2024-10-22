@@ -6,7 +6,7 @@
 /*   By: isilva-t <isilva-t@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:18:38 by isilva-t          #+#    #+#             */
-/*   Updated: 2024/10/22 15:40:34 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:41:26 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*ft_make_new_cmd(char *str, char *exp, t_iter *h)
 	return (str);
 }
 
-int	ft_expand_util_edge_cases(t_iter *h, t_shell *sh)
+static int	ft_expand_util_edge_cases(t_iter *h, t_shell *sh)
 {
 	if (h->str[h->i] == '?')
 		h->exp = ft_itoa(sh->exit_status);
@@ -59,7 +59,7 @@ static void	ft_expand_util_valid_chars(t_iter *h, t_shell *sh)
 	h->name_var = ft_free(h->name_var);
 }
 
-void	ft_expand_on_this_node(t_iter *h, t_token	*cur, t_shell *sh)
+static void	ft_expand_on_this_node(t_iter *h, t_token	*cur, t_shell *sh)
 {
 	if ((!cur && !cur->content) || !sh || !h)
 		return ;
