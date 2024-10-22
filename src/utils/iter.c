@@ -21,6 +21,8 @@ t_iter	ft_set_iter(int n)
 	h.j = n;
 	h.k = n;
 	h.len = n;
+	h.exp = NULL;
+	h.name_var = NULL;
 	h.str = NULL;
 	h.line = NULL;
 	h.tmp = NULL;

@@ -182,10 +182,8 @@ TESTER_URL = https://github.com/LucasKuhn/minishell_tester.git
 TESTER_DIR = minishell_tester
 TESTER_BIN = tester
 
-
 $(TESTER_DIR):
 	@git clone $(TESTER_URL) $(TESTER_DIR)
-
 
 tester: $(TESTER_DIR)
 	make re
