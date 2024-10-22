@@ -14,7 +14,7 @@ void	ft_run_cmd(t_token *token, t_shell *sh)
 	if (token->type == ND_EXEC)
 	{
 		fd = ft_exec_redir(token->right, sh);
-		if (!ft_isbuiltin(token->left->content))
+		if (token->left && !ft_isbuiltin(token->left->content))
 			ft_execve(token->left, sh);
 		else
 			ft_exec_builtins_child(token, sh);
@@ -45,7 +45,6 @@ void	ft_run_cmd(t_token *token, t_shell *sh)
 		close(pid_pipe[1]);
 		waitpid(pid_child[0], &exit_status[0], 0);
 		waitpid(pid_child[1], &exit_status[1], 0);
-		// ft_free_and_exit(NULL, sh, TRUE);
 		sh->exit_status = WEXITSTATUS(exit_status[1]);
 	}
 	ft_free_and_exit(NULL, sh, TRUE);

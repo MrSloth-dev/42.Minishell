@@ -48,6 +48,7 @@ char	*ft_get_prompt(t_shell *sh)
 	pwd = ft_strjoin_free(pwd, ft_strdup("\033[0m"));
 	return (pwd);
 }
+
 t_shell	*ft_readline(t_shell *sh)
 {
 	char	*pwd;

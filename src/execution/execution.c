@@ -1,34 +1,46 @@
-#include "ft_printf.h"
 #include "minishell.h"
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
-int	ft_check_bin(char *bin, t_token *token, t_shell *shell)
+int	ft_print_execve_error(int error, t_token *token, t_shell *shell)
+{
+	if (error == 127)
+	{
+		ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
+		return (shell->exit_status = 127, 127);
+	}
+	else if (error == 128)
+	{
+		ft_printf(STDERR_FILENO, "%s : Is a directory\n", token->content);
+		return (shell->exit_status = 126, 126);
+	}
+	else if (error == 126)
+	{
+		if (token->content[0] == '.' && token->content[1] == '/')
+		{
+			ft_printf(STDERR_FILENO, "%s : Permission denied\n", token->content);
+			return (shell->exit_status = 126, 126);
+		}
+		else
+		{
+			ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
+			return (shell->exit_status = 127, 127);
+		}
+	}
+	return (0);
+}
+
+int	ft_check_bin_error(char *bin, t_shell *shell)
 {
 	struct stat	path_stat;
 
 	if (stat(bin, &path_stat) == -1)
-	{
-		ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
-		return (shell->exit_status = 127, 0);
-	}
+		return (shell->exit_status = 127, 127);
 	else if (S_ISDIR(path_stat.st_mode))
-	{
-		ft_printf(STDERR_FILENO, "%s : Is a directory\n", token->content);
-		return (shell->exit_status = 126, 0);
-	}
+		return (shell->exit_status = 126, 128);
 	else if (S_ISREG(path_stat.st_mode) && access(bin, X_OK) == -1)
-	{
-		ft_printf(STDERR_FILENO, "%s : permission denied\n", token->content);
-		return (shell->exit_status = 126, 0);
-	}
-	else if (access(bin, X_OK) == -1)
-	{
-		ft_printf(STDERR_FILENO, "%s : command not found\n", token->content);
-		return (shell->exit_status = 127, 0);
-	}
-	return (1);
+		return (shell->exit_status = 126, 126);
+	else if (access(bin, R_OK) == -1)
+		return (shell->exit_status = 127, 127);
+	return (0);
 }
 
 char	*ft_get_cmdbin(t_token *token, t_shell *shell)
@@ -83,16 +95,24 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 {
 	char	**cmdargs;
 	char	*cmdbin;
+	int		error;
 
+	error = 0;
 	if (!cmd->content)
 		return ;
 	cmdargs = ft_create_cmdargs(cmd);
-	if (!ft_check_bin(cmd->content, cmd, shell))
+	cmdbin = ft_get_cmdbin(cmd, shell);
+	error = ft_check_bin_error(cmdbin, shell);
+	if (!error)
+		error = execve(cmdbin, cmdargs, shell->envp);
+	else
 	{
-		cmdbin = ft_get_cmdbin(cmd, shell);
-		execve(cmdbin, cmdargs, shell->envp);
-		ft_free(cmdbin);
+		error = ft_check_bin_error(cmd->content, shell);
+		if (!error)
+			execve(cmd->content, cmdargs, shell->envp);
 	}
+	ft_print_execve_error(error, cmd, shell);
+	ft_free(cmdbin);
 	ft_free_envp(cmdargs);
 	ft_free_and_exit(NULL, shell, TRUE);
 }

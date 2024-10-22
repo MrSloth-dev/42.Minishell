@@ -18,13 +18,13 @@ void	ft_copy_and_remove_envp(t_shell *shell, int j, int extra)
 	{
 		if (i == j)
 			k++;
+		if (!shell->envp[i + k])
+			break ;
 		temp_envp[i] = ft_strdup(shell->envp[i + k]);
 		i++;
 	}
 	temp_envp[i] = 0;
-	while (i >= 0)
-		free(shell->envp[i--]);
-	free(shell->envp);
+	ft_free_envp(shell->envp);
 	shell->envp = temp_envp;
 }
 
@@ -41,7 +41,7 @@ void	ft_unset(t_token *cmdargs, t_shell *shell)
 	{
 		if (ft_env_exist(current->content, &j, shell->envp) != -1
 			&& !ft_env_duplicate(current))
-			ft_copy_and_remove_envp(shell, j, -1);
+			ft_copy_and_remove_envp(shell, j, 0);
 		current = current->next;
 	}
 }

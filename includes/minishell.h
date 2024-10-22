@@ -152,7 +152,7 @@ typedef struct s_iter
 }			t_iter;
 
 // BUILT-INS
-void	ft_echo(t_token *cmd_args, t_shell *sh);
+int		ft_echo(t_token *cmd_args, t_shell *sh);
 void	ft_pwd(t_shell *shell);
 void	ft_env(t_shell *shell);
 void	ft_export(t_token *cmdargs, t_shell *shell);
