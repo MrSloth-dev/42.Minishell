@@ -19,6 +19,7 @@ t_token	*ft_new_token(void)
 	new = ft_calloc(sizeof(t_token), 1);
 	if (!new)
 		return (NULL);
+	new->file = NULL;
 	new->content = NULL;
 	new->next = NULL;
 	new->prev = NULL;

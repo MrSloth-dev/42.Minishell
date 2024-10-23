@@ -102,6 +102,7 @@ typedef struct s_token
 	int				status;
 	int				type;
 	int				hd_id;
+	char			*file;
 	char			*content;
 	struct s_token	*front;
 	struct s_token	*back;
@@ -128,6 +129,7 @@ typedef struct s_shell
 	char		**path;
 	char		*line;
 	int			pid;
+	char		*hd_path;
 	int			nb_heredoc;
 	int			*heredoc_fd;
 }	t_shell;

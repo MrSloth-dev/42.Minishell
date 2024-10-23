@@ -34,16 +34,18 @@ void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id, char *file)
 
 	sh->heredoc_fd[hd_id] = open(file, O_CREAT | O_RDWR | O_APPEND, 0644);
 	sh->exit_status = EXIT_SUCCESS;
-	ft_free(file);
 	line = NULL;
 	while (1)
 	{
 		line = readline("> ");
-		if (sh->line == NULL || ft_strcmp(delimiter, line)  == 0)
+		if (sh->line == NULL)
 		{
 			close(sh->heredoc_fd[hd_id]);
-
-			//ft_free_and_exit(NULL, sh, TRUE);
+			break ;
+		}
+		else if (ft_strcmp(delimiter, line)  == 0)
+		{
+			close(sh->heredoc_fd[hd_id]);
 			break ;
 		}
 		else if ((line && *(line)))
@@ -73,55 +75,40 @@ void	ft_sig_ignore(void)
 void	ft_run_heredocs(t_token *token, t_shell *sh)
 {
 	t_iter	s;
-	char	*file;
-	char	*tmp;
-	int		pid_child;
+	int		pid;
 	int		status;
 
 	if (!token || !sh)
 		return ;
 	s = ft_set_iter(0);
 	s.cur = token;
+	pid = fork();
 	// ft_start_sig_in_this_scope();
-	while (s.cur && sh)
+	if (pid == 0)
 	{
-		if (s.cur->type == HERE_DOC)
-		{
-			s.cur->type = REDIR_IN;
-			file = ft_itoa(s.cur->hd_id);
-
-			pid_child = fork();
-			if (pid_child == 0)
+		ft_sig_heredoc();
+		while (s.cur && sh)
+		{		
+			if (s.cur->file)
 			{
-				ft_sig_heredoc();
-				ft_here_doc(sh, s.cur->content, s.cur->hd_id, file);
-				//ft_free_and_exit(NULL, sh, TRUE);
+				ft_here_doc(sh, s.cur->content, s.cur->hd_id, s.cur->file);
 			}
-			else if (pid_child > 0)
-			{
-				ft_sig_ignore();
-				waitpid(pid_child, &status, 0);
-				if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-				{
-					ft_printf(1, "\n");
-					free(file);
-					sh->head = NULL;
-					ft_sig_default();
-					return ;
-				}
-				tmp = s.cur->content;
-				s.cur->content = file;
-				free(tmp);
-			}
-			else
-			{
-				free(file);
-				return ;
-			}
-
+			s.cur = s.cur->front;
 		}
-		s.cur = s.cur->front;
+		ft_free_and_exit(NULL, sh, TRUE);
 	}
+	else if (pid > 0)
+	{
+		ft_sig_ignore();
+		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			ft_printf(1, "\n");
+			sh->head = NULL;
+			ft_sig_default();
+		}
+	}
+
 }
 
 void	ft_create_and_run_heredocs(t_shell *sh)

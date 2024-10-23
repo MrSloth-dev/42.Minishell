@@ -25,6 +25,7 @@ void	ft_free_lst_shell(t_shell *sh)
 		{
 			tmp = cur;
 			cur = cur->front;
+			tmp->file = ft_free(tmp->file);
 			tmp->content = ft_free(tmp->content);
 			tmp = ft_free(tmp);
 		}
@@ -54,10 +55,10 @@ void	ft_clean_here_doc(t_shell *sh)
 
 	name = NULL;
 	i = 0;
-	while (i != sh->nb_heredoc)
+	while (i < sh->nb_heredoc)
 	{
 		name = ft_itoa(i);
-		unlink(name);
+		unlink(sh->hd_path);
 		name = ft_free(name);
 		i++;
 	}
