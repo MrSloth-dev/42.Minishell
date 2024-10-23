@@ -9,7 +9,7 @@ int	ft_check_file_access(char *file, int redir, t_shell *sh)
 	if (stat(file, &stat_path) == -1 && (redir != REDIR_OUT || redir != DBLE_REDIR_OUT))
 		return (ft_printf(STDERR_FILENO, "%s: %s: No such file or directory\n",
 				sh->prog_name, file), 0);
-	if (redir == REDIR_IN)
+	if (redir == REDIR_IN || redir == HERE_DOC)
 		if (access(file, R_OK) == -1)
 			return (ft_printf(STDERR_FILENO, "%s: %s: Permission denied\n",
 					sh->prog_name, file), 0);
@@ -20,26 +20,27 @@ int	ft_check_file_access(char *file, int redir, t_shell *sh)
 	return (1);
 }
 
-// void	ft_reset_fds
 void	ft_run_cmd(t_token *token, t_shell *sh)
 {
 	int		exit_status[3];
 	int		pid_child[3];
 	int		pid_pipe[2];
-	// int		fd;
+	int		fd;
 
-	// fd = -1;
+	fd = 420;
 	if (!token)
 		exit (10);
 	if (token->type == ND_EXEC)
 	{
-		/* fd =  */ft_exec_redir(token->right, sh);
-		if (token->left && !ft_isbuiltin(token->left->content))
-			ft_execve(token->left, sh);
-		else if(fd != -1)
-			ft_exec_builtins_child(token, sh);
-		// if (fd != -1)
-		// 	close(fd);
+		if (token->right)
+			fd = ft_exec_redir(token->right, sh);
+		if (fd != -1)
+		{
+			if (token->left && !ft_isbuiltin(token->left->content))
+				ft_execve(token->left, sh);
+			else
+				ft_exec_builtins_child(token, sh);
+		}
 	}
 	else if (token->type == ND_PIPE)
 	{
