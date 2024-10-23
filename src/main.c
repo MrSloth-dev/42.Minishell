@@ -39,8 +39,6 @@ ft_print_data(sh, PRINT_DATA); //REMOVE BEFORE DELIVER
 		waitpid(0, &exit_status, 0);
 		sh->exit_status = WEXITSTATUS(exit_status);
 	}
-
-
 	ft_clean_hd_files(sh);
 	ft_free_lst_shell(sh);
 	sh->nb_heredoc = 0;

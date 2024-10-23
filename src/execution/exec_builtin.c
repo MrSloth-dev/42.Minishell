@@ -78,8 +78,10 @@ int	ft_exec_redir(t_token *cur_redir, t_shell *sh)
 	{
 		if (cur_redir->type >= HERE_DOC)
 		{
-			if (!ft_check_file_access(cur_redir->content, cur_redir->type, sh))
+			if ((cur_redir->type == HERE_DOC && !ft_check_file_access(cur_redir->file, cur_redir->type, sh)) && !ft_check_file_access(cur_redir->content, cur_redir->type, sh))
 				return (-1);
+			// if (!ft_check_file_access(cur_redir->content, cur_redir->type, sh))
+			// 	return (-1);
 			if (cur_redir->type == DBLE_REDIR_OUT)
 				fd = open(cur_redir->content, O_RDWR
 						| O_CREAT | O_APPEND, 0644);
