@@ -54,14 +54,11 @@ char	**ft_copy_envp(char **envp, int extra)
 	temp_envp = ft_calloc(sizeof(char *), i + extra + 1);
 	if (!temp_envp)
 		return (NULL);
-	i = 0;
-	while (envp[i])
-	{
+	i = -1;
+	while (envp[++i])
 		temp_envp[i] = ft_strdup(envp[i]);
-		i++;
-	}
 	while (extra-- > 0)
 		temp_envp[i++] = 0;
-	temp_envp[i] = 0;
+	// temp_envp[i] = 0;
 	return (temp_envp);
 }

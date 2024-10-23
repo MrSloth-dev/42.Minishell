@@ -6,20 +6,20 @@ void	ft_run_cmd(t_token *token, t_shell *sh)
 	int		exit_status[3];
 	int		pid_child[3];
 	int		pid_pipe[2];
-	int		fd;
+	// int		fd;
 
-	fd = -1;
+	// fd = -1;
 	if (!token)
 		exit (10);
 	if (token->type == ND_EXEC)
 	{
-		fd = ft_exec_redir(token->right, sh);
+		/* fd =  */ft_exec_redir(token->right, sh);
 		if (token->left && !ft_isbuiltin(token->left->content))
 			ft_execve(token->left, sh);
 		else
 			ft_exec_builtins_child(token, sh);
-		if (fd != -1)
-			close(fd);
+		// if (fd != -1)
+		// 	close(fd);
 	}
 	else if (token->type == ND_PIPE)
 	{

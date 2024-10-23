@@ -32,13 +32,13 @@ void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id, char *file)
 {
 	char	*line;
 
-	sh->heredoc_fd[hd_id] = open(file, O_CREAT | O_RDWR | O_APPEND, 0644);
+	sh->heredoc_fd[hd_id] = open(file, O_RDWR | O_APPEND, 0644);
 	sh->exit_status = EXIT_SUCCESS;
 	line = NULL;
 	while (1)
 	{
 		line = readline("> ");
-		if (sh->line == NULL)
+		if (line == NULL)
 		{
 			close(sh->heredoc_fd[hd_id]);
 			break ;
@@ -76,7 +76,7 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 {
 	t_iter	s;
 	int		pid;
-	int		status;
+//	int		status;
 
 	if (!token || !sh)
 		return ;
@@ -86,8 +86,8 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 	// ft_start_sig_in_this_scope();
 	if (pid == 0)
 	{
-		ft_sig_heredoc();
-		while (s.cur && sh)
+//		ft_sig_heredoc();
+		while (s.cur)
 		{		
 			if (s.cur->file)
 			{
@@ -97,25 +97,25 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 		}
 		ft_free_and_exit(NULL, sh, TRUE);
 	}
-	else if (pid > 0)
+	else
 	{
-		ft_sig_ignore();
-		waitpid(pid, &status, 0);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		{
-			ft_printf(1, "\n");
-			sh->head = NULL;
-			ft_sig_default();
-		}
+		//wait(0);
+		waitpid(pid, NULL, 0);
+//		ft_sig_ignore();
+	//	waitpid(0, &status, 0);
+//		ft_sig_default();
+		// if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		// {
+		// 	ft_printf(1, "\n");
+		// 	sh->head = NULL;
+		// }
 	}
-
 }
 
 void	ft_create_and_run_heredocs(t_shell *sh)
 {	
-	if (!(sh->nb_heredoc != 0))
+	if (sh->nb_heredoc < 1)
 		return ;
-	ft_make_heredoc_fd(sh->nb_heredoc, sh);
 	ft_run_heredocs(sh->token_lst->first, sh);
 }
 

@@ -19,14 +19,49 @@ void	ft_make_hd_file(t_shell *sh, int hd_id, char *file)
 	close(sh->heredoc_fd[hd_id]);
 }
 
-void	ft_delete_space_and_count_hd(t_token_lst *token_lst, t_shell *sh)
+void	ft_do_heredoc_files(t_token *token, t_shell *sh)
+{
+	t_iter	s;
+
+	if (!token || !sh)
+		return ;
+	s = ft_set_iter(0);
+	s.cur = token;
+	sh->nb_heredoc = 0;
+	while (s.cur)
+	{
+		if (s.cur->type == HERE_DOC)
+		{
+			//s.tmp->type = REDIR_IN;
+			sh->nb_heredoc++;
+			s.cur->file = ft_strjoin_free(ft_strdup(sh->hd_path), ft_itoa(sh->nb_heredoc));
+		}
+		s.cur = s.cur->front;
+	}
+	if (sh->nb_heredoc > 0)
+	{
+		s.cur = token;
+		ft_make_heredoc_fd(sh->nb_heredoc, sh);
+		while (s.cur)
+		{
+			if (s.cur->file)
+			{
+				s.cur->hd_id = ++s.i;
+				ft_make_hd_file(sh, s.cur->hd_id, s.cur->file);
+			}
+			s.cur = s.cur->front;
+		}
+	}
+}
+
+void	ft_delete_spaces(t_token_lst *token_lst, t_shell *sh)
 {
 	t_iter	s;
 
 	if (!token_lst || !token_lst->first)
 		return ;
 	s.cur = token_lst->first;
-	while (s.cur)
+	while (s.cur && sh)
 	{
 		s.tmp = s.cur;
 		s.cur = s.cur->front;
@@ -38,15 +73,8 @@ void	ft_delete_space_and_count_hd(t_token_lst *token_lst, t_shell *sh)
 				s.tmp->back->front = s.cur;
 			free(s.tmp->content);
 			free(s.tmp);
-			continue ;
-		}
-		else if (s.tmp->type == HERE_DOC)
-		{
-			s.tmp->type = REDIR_IN;
-			sh->nb_heredoc++;
-			s.tmp->hd_id = sh->nb_heredoc;
-			s.tmp->file = ft_strjoin_free(sh->hd_path, ft_itoa(sh->nb_heredoc));
-			//ft_make_hd_file(sh, s.tmp->hd_id, s.tmp->file);
 		}
 	}
 }
+
+

@@ -209,7 +209,8 @@ int		ft_append_word(t_token_lst *token_lst, char *str, int type, int status);
 int		ft_append_redir(t_token_lst *token_lst, char *line, int status);
 void	ft_join_tokens(t_token_lst *token_lst);
 void	ft_add_node_exec(t_token_lst *token_lst, t_shell *sh);
-void	ft_delete_space_and_count_hd(t_token_lst *token_lst, t_shell *sh);
+void	ft_delete_spaces(t_token_lst *token_lst, t_shell *sh);
+void	ft_do_heredoc_files(t_token *token, t_shell *sh);
 
 //tokenizer utils
 int		ft_is_word(char c);
@@ -222,13 +223,13 @@ t_token	*ft_make_bin_tree(t_token *token);
 void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id, char *file);
 void	ft_make_heredoc_fd(int nb_heredoc, t_shell *sh);
 void	ft_create_and_run_heredocs(t_shell *sh);
-void	ft_clean_here_doc(t_shell *sh);
 
 //free_stuff
 void	ft_free_lst_shell(t_shell *sh);
 void	*ft_free(void *pointer);
 void	*ft_free_envp(char **envp);
-void	ft_clean_here_doc(t_shell *sh);
+void	ft_clean_hd_files(t_shell *sh);
+void	ft_clean_hd_array(t_shell *sh);
 
 //EXEC
 void	ft_exec_builtins(t_token *temp_head, t_shell *shell);

@@ -1,28 +1,5 @@
 #include "minishell.h"
 
-void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
-{
-	int	exit_status;
-
-	(void)token;
-	exit_status = sh->exit_status;
-	if (!sh)
-		return ;
-	sh->line = ft_free(sh->line);
-	ft_free_lst_shell(sh);
-	sh->token_lst = ft_free(sh->token_lst);
-	ft_clean_here_doc(sh);
-	if (exit_flag == TRUE)
-	{
-		if (sh->envp)
-			sh->envp = ft_free_envp(sh->envp);
-		if (sh->path)
-			sh->path = ft_free_envp(sh->path);
-		sh = ft_free(sh);
-		exit (exit_status);
-	}
-	sh = ft_free(sh);
-}
 
 int	ft_invalid_exit_code(t_token *token, t_shell *sh)
 {
