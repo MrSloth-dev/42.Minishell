@@ -140,15 +140,8 @@ le: fclean all
 qk: all
 	./minishell
 
-deb : ivan
+deb : re
 	tmux send-keys 'gdbtui ./minishell' C-m Escape
-
-joao : $(OBJS)
-	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
-	@make -C $(PRINTDIR) -s
-	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
-	@$(CC) $(OBJS) $(MAINJ) $(CFLAGS) $(PRINTFT) -o minijoao
-	@echo "$(GREEN)$(NAME) created[0m ✅"
 
 norm:
 	@norminette | grep rror!

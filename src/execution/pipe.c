@@ -1,6 +1,26 @@
 #include "minishell.h"
 #include <stdlib.h>
+#include <unistd.h>
 
+int	ft_check_file_access(char *file, int redir, t_shell *sh)
+{
+	struct stat	stat_path;
+
+	if (stat(file, &stat_path) == -1 && (redir != REDIR_OUT || redir != DBLE_REDIR_OUT))
+		return (ft_printf(STDERR_FILENO, "%s: %s: No such file or directory\n",
+				sh->prog_name, file), 0);
+	if (redir == REDIR_IN)
+		if (access(file, R_OK) == -1)
+			return (ft_printf(STDERR_FILENO, "%s: %s: Permission denied\n",
+					sh->prog_name, file), 0);
+	if (redir == REDIR_OUT)
+		if (stat(file, &stat_path) != -1 && access(file, W_OK) == -1)
+			return (ft_printf(STDERR_FILENO, "%s: %s: Permission denied\n",
+					sh->prog_name, file), 0);
+	return (1);
+}
+
+// void	ft_reset_fds
 void	ft_run_cmd(t_token *token, t_shell *sh)
 {
 	int		exit_status[3];
@@ -16,7 +36,7 @@ void	ft_run_cmd(t_token *token, t_shell *sh)
 		/* fd =  */ft_exec_redir(token->right, sh);
 		if (token->left && !ft_isbuiltin(token->left->content))
 			ft_execve(token->left, sh);
-		else
+		else if(fd != -1)
 			ft_exec_builtins_child(token, sh);
 		// if (fd != -1)
 		// 	close(fd);
