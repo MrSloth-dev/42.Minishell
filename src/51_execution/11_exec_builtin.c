@@ -64,8 +64,5 @@ void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *sh)
 		// close(fd);
 	}
 	if (cmdargs->right)
-	{
-		close(std_in);
-		close(std_out);
-	}
+		ft_restore_fd(std_in, std_out, sh);
 }
