@@ -51,7 +51,7 @@ SIGNALDIR = src/02_signals_and_readline
 SYNTAXDIR = src/11_syntax
 TOKENIZERDIR = src/12_tokenizer
 EXPDIR = src/13_expand
-H_DOCDIR = src/21_here_doc
+H_DOCDIR = src/32_here_doc
 PARSEDIR = src/31_parse_data
 EXECDIR = ./src/51_execution
 BDIR = src/61_builtins
@@ -77,7 +77,7 @@ TOKENIZER = \
 			$(TOKENIZERDIR)/10_append_node_and_word.c \
 			$(TOKENIZERDIR)/11_append_redir.c \
 			$(TOKENIZERDIR)/12_join_tokens.c \
-			$(TOKENIZERDIR)/13_delete_spaces_and_count_hd.c \
+			$(TOKENIZERDIR)/13_delete_spaces.c \
 			$(TOKENIZERDIR)/14_add_node_exec.c \
 			$(TOKENIZERDIR)/88_tokenizer_utils.c
 
@@ -86,7 +86,8 @@ EXPAND = \
 		 $(EXPDIR)/88_expand.c 
 
 H_DOC = \
-		$(H_DOCDIR)/00_here_doc.c \
+		$(H_DOCDIR)/11_do_heredoc_files.c \
+		$(H_DOCDIR)/31_here_doc.c \
 		$(H_DOCDIR)/88_here_doc_utils.c
 
 PARSE = \
