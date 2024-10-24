@@ -26,12 +26,12 @@ void	ft_here_doc(char *prog_name, char *delimiter, int hd_id, char *file)
 {
 	char	*line;
 	//sh->exit_status = EXIT_SUCCESS;
-	hd_id = open(file, O_RDWR | O_APPEND, 0644);
 	line = NULL;
 	while (1)
 	{
 		ft_sig_heredoc();
 		line = readline("> ");
+		hd_id = open(file, O_RDWR | O_APPEND, 0644);
 		if (line == NULL)
 		{
 			ft_printf(1, "%s: warning: here-document delimited by end-of-file (wanted `%s')\n", prog_name, delimiter);
@@ -47,6 +47,7 @@ void	ft_here_doc(char *prog_name, char *delimiter, int hd_id, char *file)
 		{
 			ft_printf(hd_id, "%s", line);
 			write(hd_id, "\n", 1);
+			close(hd_id);
 		}
 		line = ft_free(line);
 	}
