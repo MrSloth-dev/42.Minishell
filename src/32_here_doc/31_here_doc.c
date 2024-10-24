@@ -25,7 +25,6 @@ void	ft_sig_ignore(void)
 void	ft_here_doc(char *prog_name, char *delimiter, int hd_id, char *file)
 {
 	char	*line;
-	//sh->exit_status = EXIT_SUCCESS;
 	line = NULL;
 	while (1)
 	{
@@ -53,7 +52,7 @@ void	ft_here_doc(char *prog_name, char *delimiter, int hd_id, char *file)
 	}
 }
 
-void	ft_free_heredoc(t_shell *sh)
+void	ft_free_inside_heredoc(t_shell *sh)
 {
 	if (!sh)
 		return ;
@@ -83,41 +82,39 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 		return ;
 	s = ft_set_iter(0);
 	s.cur = token;
-	// ft_start_sig_in_this_scope();
 	ft_bzero(prog_name, 256);
 	ft_strlcpy(prog_name, sh->prog_name, ft_strlen(sh->prog_name));
 	while (s.cur)
 	{		
 		if (s.cur->file)
 		{
+
 			ft_bzero(delimiter, 4096);
 			ft_bzero(file, 256);
-			
 			ft_strlcpy(delimiter, s.cur->content, ft_strlen(s.cur->content));
 			ft_strlcpy(file, s.cur->file, ft_strlen(s.cur->file));
 
 			pid = fork();
 			if (pid == 0)
 			{
-				ft_free_heredoc(sh);
+				ft_free_inside_heredoc(sh);
 				ft_sig_default();
 				ft_here_doc(prog_name, delimiter, hd_id, file);
 				exit (0);
 			}
 			else
 			{
-				//waitpid(pid, NULL, 0);
 				ft_sig_ignore();
 				waitpid(pid, &status, 0);
 				if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 				{
 					ft_printf(1, "\n");
 					sh->head = NULL;
+					sh->exit_status = 130;
 					ft_sig_default();
 					break ;
 				}
 			}
-
 		}
 		s.cur = s.cur->front;
 	}
