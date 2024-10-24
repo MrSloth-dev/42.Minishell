@@ -27,6 +27,13 @@ VALGRINDFLAGS          = -s --suppressions=$(READLINE_SUPP) \
                          --track-fds=yes --show-below-main=no \
 			 --log-file=$(LEAKS_LOG)
 
+VALGRINDONTIME          = -s --suppressions=$(READLINE_SUPP) \
+			 --tool=memcheck -q --leak-check=full \
+                         --show-leak-kinds=all --track-origins=yes \
+                         --track-fds=yes --show-below-main=no
+
+
+
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -150,6 +157,9 @@ print : $(OBJS) $(HEADER)
 le: fclean all
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
 	cat leaks.log
+
+va: fclean all
+	valgrind $(VALGRINDONTIME) ./$(NAME)
 
 qk: all
 	./minishell

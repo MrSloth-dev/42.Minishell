@@ -65,7 +65,10 @@ int	ft_append_word(t_token_lst *token_lst, char *str, int type, int status)
 	{
 		while (str[len] && ft_is_word(str[len]) == TRUE)
 			len++;
-		ft_append_node(token_lst, ft_substr(str, 0, len), type, status);
+		if (len == 0)
+			ft_append_node(token_lst, ft_strdup(""), type, status);
+		else
+			ft_append_node(token_lst, ft_substr(str, 0, len), type, status);
 	}
 	return (len);
 }

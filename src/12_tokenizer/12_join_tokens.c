@@ -23,9 +23,9 @@ static void	ft_join_to_next_token(t_token *cur, t_token *to_join)
 	cur->front = to_join->front;
 	if (cur->front)
 		cur->front->back = cur;
-	free(to_join->content);
-	free(to_join);
-	free(str_to_free);
+	to_join->content = ft_free(to_join->content);
+	to_join = ft_free(to_join);
+	str_to_free = ft_free(str_to_free);
 }
 
 void	ft_join_tokens(t_token_lst *token_lst)

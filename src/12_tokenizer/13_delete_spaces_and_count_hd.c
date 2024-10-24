@@ -71,8 +71,8 @@ void	ft_delete_spaces(t_token_lst *token_lst, t_shell *sh)
 				s.cur->back = s.tmp->back;
 			if (s.tmp->back)
 				s.tmp->back->front = s.cur;
-			free(s.tmp->content);
-			free(s.tmp);
+			s.tmp->content = ft_free(s.tmp->content);
+			s.tmp = ft_free(s.tmp);
 		}
 	}
 }
