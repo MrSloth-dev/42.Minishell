@@ -43,7 +43,7 @@ void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id, char *file)
 			close(sh->heredoc_fd[hd_id]);
 			break ;
 		}
-		else if (ft_strcmp(delimiter, line)  == 0)
+		else if (ft_strcmp(line, delimiter)  == 0)
 		{
 			close(sh->heredoc_fd[hd_id]);
 			break ;
