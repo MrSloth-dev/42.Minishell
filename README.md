@@ -86,8 +86,9 @@
    - [x] << HERE DOC
       - [x] SIMPLE
       - [x] MULTIPLE
-      - [ ] heredoc exansions //will not be done
-      - [ ] heredoc fucking work
+      - [x] heredoc exansions //will not be done
+      - [x] heredoc fucking work
+      - [ ] working with signal Ctrl+c Ctrl + d
 - [x] Implement pipes |
 - [x] EXPANDER :
    - [x] Handle environment variables ($ followed by a sequence of characters) should expand
@@ -128,7 +129,7 @@
     - [x] cd with absolute path
     - [x] cd - goes to OLDPWD
     - [x] cd -- goes to home and set oldpwd to home too)
-    - [x] cd ~ goes to HOME
+    - [ ] cd ~ goes to HOME of the system
     - [x] cd goes to HOME
     - [x] convert to accept tokens
     - [x] check for leaks
@@ -141,6 +142,7 @@
    - [x] free on failed execve
    - [x] try pwd -> ENTER -> cat infile -> ENTER -> ctr + d -> LEAKS!
    - [x] more than 2 ENTER without line, have leaks
+   - [ ] Readline is erasing history
    - [ ] Maybe need to handle tabs as whitespaces
    - [ ] handle signal if tries to remove file if protected.
    - [ ] NORMINETTE, AMENO, DOMINE, AMENO NORMINETTE

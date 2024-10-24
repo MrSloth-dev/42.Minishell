@@ -1375,3 +1375,117 @@ _____________________________
 
 _____________________________
 
+_____________________________
+
+<<1|<<2
+_____________________________
+
+<<1|<<2
+_____________________________
+
+<<1<<2
+_____________________________
+
+<<1<<2
+_____________________________
+
+cat <minishell.h>outfile
+_____________________________
+
+_____________________________
+
+_____________________________
+
+cat<minishell.h>outfile
+_____________________________
+
+cat<minishell.h>outfile
+_____________________________
+
+cat<minishell.h>outfile
+_____________________________
+
+_____________________________
+
+cat<asdasdasd>outfile
+cat<asdasdasd
+_____________________________
+
+cat<infile
+ls
+rm infile
+_____________________________
+
+cat <infile
+_____________________________
+
+cat<infile
+echo $?
+_____________________________
+
+echo < minishell.h
+_____________________________
+
+echo <infile
+cat <infile
+echo $?
+_____________________________
+
+cat<minishell.h
+cat<minishell.h>asodij
+cat<minishell.h>outfile 
+_____________________________
+
+cd minishell_tester/
+_____________________________
+
+<<1<<2
+_____________________________
+
+ls
+echo >> dirteste/ls
+ls
+echo >> ./dirteste/ls
+ls
+echo hi >>./.tmp/outfile
+cat ./.tmp/outfile 
+echo hi >>./.tmp/outfile | echo bye
+echo hi >>./.tmp/outfile | echo bye
+cat ./.tmp/outfile 
+chmod 000 ./.tmp/outfile 
+echo hi >> ./.tmp/outfile | echo bye
+_____________________________
+
+cat leaks.log 
+cat leaks.
+cat leaks.l 
+_____________________________
+
+ls
+chmod 000 teste.c
+ls < teste.c
+_____________________________
+
+ls < infile | echo hi
+echo $?
+_____________________________
+
+.
+./
+a
+v
+_____________________________
+
+a
+_____________________________
+
+	
+..
+cd ..
+_____________________________
+
+a|a
+_____________________________
+
+cd minishell
+cd minishell_tester/
