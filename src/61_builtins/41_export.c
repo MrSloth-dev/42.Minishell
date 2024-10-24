@@ -77,16 +77,26 @@ int	ft_valid_identifiers(t_token *cmdargs, t_shell *sh)
 	if (!cmdargs || !cmdargs->content)
 		return (0);
 	if (ft_strchr("=+", cmdargs->content[0]))
-		return (ft_printf(STDERR_FILENO, "%s : export : `%s': not a valid identifier\n", sh->prog_name, cmdargs->content), 0);
+		return (ft_printf(STDERR_FILENO,
+				"%s : export : `%s': not a valid identifier\n",
+				sh->prog_name, cmdargs->content), 0);
 	if (!ft_isalpha(cmdargs->content[0]) && cmdargs->content[0] != '_')
-		return (ft_printf(STDERR_FILENO, "%s : export : `%s': not a valid identifier\n", sh->prog_name, cmdargs->content), 0);
+		return (ft_printf(STDERR_FILENO,
+				"%s : export : `%s': not a valid identifier\n",
+				sh->prog_name, cmdargs->content), 0);
 	i = 1;
+	if (!ft_strchr(cmdargs->content, '=') && ft_strchr(cmdargs->content, '+'))
+		return (ft_printf(STDERR_FILENO,
+				"%s : export : `%s': not a valid identifier\n",
+				sh->prog_name, cmdargs->content), 0);
 	while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
 	{
 		if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')
 			i++;
 		else
-			return (ft_printf(STDERR_FILENO, "%s : export : `%s': not a valid identifier\n", sh->prog_name, cmdargs->content), 0);
+			return (ft_printf(STDERR_FILENO,
+					"%s : export : `%s': not a valid identifier\n",
+					sh->prog_name, cmdargs->content), 0);
 	}
 	return (1);
 }

@@ -35,7 +35,8 @@ void	ft_exec_builtins_child(t_token *cmdargs, t_shell *sh)
 
 void	ft_restore_fd(int std_in, int std_out, t_shell *sh)
 {
-	sh->exit_status = 1;
+	(void)sh->exit_status;
+	// sh->exit_status = 1;
 	dup2(std_out, STDOUT_FILENO);
 	dup2(std_in, STDIN_FILENO);
 	close(std_in);

@@ -14,7 +14,7 @@ int	ft_check_file_access(char *file, int redir, t_shell *sh)
 					sh->prog_name, file), 0);
 	}
 	else if (redir == REDIR_OUT || redir == DBLE_REDIR_OUT)
-		if (stat(file, &stat_path) != -1 && access(file, W_OK) == -1)
+		if (access(file, F_OK) == 0 && access(file, W_OK) == -1)
 			return (ft_printf(STDERR_FILENO, "%s: %s: Permission denied\n",
 					sh->prog_name, file), 0);
 	return (1);
