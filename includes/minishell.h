@@ -95,6 +95,9 @@
 # define PIPE 3
 # define REDIR 4
 
+// shorten messages
+# define INV_ID "%s : export : `%s': not a valid identifier\n"
+
 extern int	g_rec_signal;
 
 typedef struct s_token

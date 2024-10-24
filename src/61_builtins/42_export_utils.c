@@ -1,28 +1,4 @@
-#include "ft_printf.h"
 #include "minishell.h"
-#include <unistd.h>
-/*
-void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell)
-{
-	int		k;
-	char	*joinvalue;
-
-	if (!ft_strchr(cmdargs, '='))
-		joinvalue = ft_strdup("");
-	else
-		joinvalue = ft_strchr(cmdargs, '=') + 1;
-	k = 0;
-	while (temp[k])
-	{
-		if (j == k)
-			temp[k] = ft_strjoin_free(temp[k], ft_strdup(joinvalue));
-		if (!temp[k])
-			return ;
-		k++;
-	}
-	shell->exit_status = EXIT_SUCCESS;
-} */
-
 
 void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell)
 {

@@ -105,6 +105,7 @@ BUILTIN = \
 		$(BDIR)/31_pwd.c \
 		$(BDIR)/41_export.c \
 		$(BDIR)/42_export_utils.c \
+		$(BDIR)/42_export_utils_2.c \
 		$(BDIR)/51_unset.c \
 		$(BDIR)/61_env.c \
 		$(BDIR)/71_exit.c \
