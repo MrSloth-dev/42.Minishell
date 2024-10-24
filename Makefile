@@ -110,7 +110,8 @@ BUILTIN = \
 		$(BDIR)/81_utils.c 
 
 PRINT = \
-		$(PRINT_MSG_DIR)/01_check_file_access.c
+		$(PRINT_MSG_DIR)/01_check_file_access.c \
+		$(PRINT_MSG_DIR)/02_print_execve_error.c
 
 UTILS = \
 		$(UTILSDIR)/11_iter.c \

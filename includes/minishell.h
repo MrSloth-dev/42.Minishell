@@ -243,6 +243,7 @@ int		ft_check_file_access(char *file, int redir, t_shell *sh);
 
 //print error
 int		ft_check_file_access(char *file, int redir, t_shell *sh);
+int	ft_print_execve_error(int error, t_token *token, t_shell *shell);
 
 //UTILS
 t_iter	ft_set_iter(int n);
