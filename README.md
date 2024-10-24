@@ -142,6 +142,7 @@
    - [x] free on failed execve
    - [x] try pwd -> ENTER -> cat infile -> ENTER -> ctr + d -> LEAKS!
    - [x] more than 2 ENTER without line, have leaks
+   - [x] "" | "" is missing addings a ND_EXEC after the pipe
    - [ ] Readline is erasing history
    - [ ] Maybe need to handle tabs as whitespaces
    - [ ] handle signal if tries to remove file if protected.

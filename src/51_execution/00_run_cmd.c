@@ -11,7 +11,7 @@ void	ft_run_cmd(t_token *token, t_shell *sh)
 
 	fd = 420;
 	if (!token)
-		exit (10);
+		ft_free_and_exit(NULL, sh, TRUE);
 	if (token->type == ND_EXEC)
 	{
 		if (token->right)
