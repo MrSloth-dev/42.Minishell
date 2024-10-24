@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   00_init.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isilva-t <isilva-t@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/24 14:35:17 by isilva-t          #+#    #+#             */
+/*   Updated: 2024/10/24 14:35:26 by isilva-t         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*ft_find_path(char *envp[])
@@ -59,6 +71,6 @@ char	**ft_copy_envp(char **envp, int extra)
 		temp_envp[i] = ft_strdup(envp[i]);
 	while (extra-- > 0)
 		temp_envp[i++] = 0;
-	// temp_envp[i] = 0;
 	return (temp_envp);
 }
+	// temp_envp[i] = 0;

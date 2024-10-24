@@ -23,7 +23,7 @@ void	ft_delete_spaces(t_token_lst *token_lst, t_shell *sh)
 	{
 		s.tmp = s.cur;
 		s.cur = s.cur->front;
-		if (s.tmp->type == WHITE_SPACE || !ft_strcmp(s.tmp->content, "") )
+		if (s.tmp->type == WHITE_SPACE || !ft_strcmp(s.tmp->content, ""))
 		{
 			if (s.cur)
 				s.cur->back = s.tmp->back;
@@ -34,5 +34,3 @@ void	ft_delete_spaces(t_token_lst *token_lst, t_shell *sh)
 		}
 	}
 }
-
-

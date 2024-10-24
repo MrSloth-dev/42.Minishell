@@ -13,23 +13,23 @@ void	ft_do_heredoc_files(t_token *token, t_shell *sh)
 
 	if (!token || !sh)
 		return ;
+	sh->nb_heredoc = 0;
 	s = ft_set_iter(0);
 	s.cur = token;
-	sh->nb_heredoc = 0;
 	while (s.cur)
 	{
 		if (s.cur->type == HERE_DOC)
 		{
-			//s.tmp->type = REDIR_IN;
 			sh->nb_heredoc++;
-			s.cur->file = ft_strjoin_free(ft_strdup(sh->hd_path), ft_itoa(sh->nb_heredoc));
+			s.cur->file = ft_strjoin_free(ft_strdup(sh->hd_path),
+					ft_itoa(sh->nb_heredoc));
 		}
 		s.cur = s.cur->front;
 	}
 	if (sh->nb_heredoc > 0)
 	{
 		s.cur = token;
-		ft_make_heredoc_fd(sh->nb_heredoc, sh);
+		ft_make_heredoc_fd_array(sh->nb_heredoc, sh);
 		while (s.cur)
 		{
 			if (s.cur->file)

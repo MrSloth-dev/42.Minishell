@@ -23,9 +23,6 @@ void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 	sh->line = ft_free(sh->line);
 	ft_free_lst_shell(sh);
 	sh->token_lst = ft_free(sh->token_lst);
-
-
-
 	if (exit_flag == TRUE)
 	{
 		if (sh->envp)
@@ -36,7 +33,6 @@ void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 		sh = ft_free(sh);
 		exit (exit_status);
 	}
-
 	sh = ft_free(sh);
 }
 
