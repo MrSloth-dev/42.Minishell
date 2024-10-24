@@ -223,7 +223,6 @@ int		ft_how_much_consecutives_spaces(char *str);
 t_token	*ft_make_bin_tree(t_token *token);
 
 //here_doc
-void	ft_here_doc(t_shell *sh, char *delimiter, int hd_id, char *file);
 void	ft_make_heredoc_fd_array(int nb_heredoc, t_shell *sh);
 void	ft_create_and_run_heredocs(t_shell *sh);
 void	ft_do_heredoc_files(t_token *token, t_shell *sh);
