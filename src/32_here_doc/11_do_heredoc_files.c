@@ -6,7 +6,7 @@
 /*   By: isilva-t <isilva-t@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:48:45 by isilva-t          #+#    #+#             */
-/*   Updated: 2024/10/24 14:48:45 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:32:07 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	ft_make_hd_files(t_shell *sh, t_iter *s)
 	{
 		if (s->cur->file)
 		{
-			s->cur->hd_id = ++s->i;
+			++s->i;
+			s->cur->hd_id = s->i;
 			ft_make_this_file(sh, s->cur->hd_id, s->cur->file);
 		}
 		s->cur = s->cur->front;
