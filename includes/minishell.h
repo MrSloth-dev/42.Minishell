@@ -241,6 +241,9 @@ void	ft_run_cmd(t_token *token, t_shell *shell);
 int		ft_isbuiltin(char *content);
 int		ft_check_file_access(char *file, int redir, t_shell *sh);
 
+//print error
+int		ft_check_file_access(char *file, int redir, t_shell *sh);
+
 //UTILS
 t_iter	ft_set_iter(int n);
 int		ft_isbuiltin(char *content);

@@ -55,6 +55,7 @@ H_DOCDIR = src/21_here_doc
 PARSEDIR = src/31_parse_data
 EXECDIR = ./src/51_execution
 BDIR = src/61_builtins
+PRINT_MSG_DIR = src/71_print_msg
 UTILSDIR = src/81_utils
 FREEDIR = src/88_free_stuff
 
@@ -93,6 +94,7 @@ PARSE = \
 
 EXEC =	\
 		$(EXECDIR)/00_run_cmd.c \
+		$(EXECDIR)/01_exec_redir.c \
 		$(EXECDIR)/11_exec_builtin.c \
 		$(EXECDIR)/21_execve.c
 
@@ -107,6 +109,9 @@ BUILTIN = \
 		$(BDIR)/71_exit.c \
 		$(BDIR)/81_utils.c 
 
+PRINT = \
+		$(PRINT_MSG_DIR)/01_check_file_access.c
+
 UTILS = \
 		$(UTILSDIR)/11_iter.c \
 		$(UTILSDIR)/12_isbuiltin.c \
@@ -117,7 +122,7 @@ FREE =	\
 
 WARNING = src/WARNING/print.c
 
-SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC) $(UTILS) $(H_DOC)
+SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC) $(UTILS) $(H_DOC) $(PRINT)
 
 TMPDIR = .tmp
 
@@ -139,11 +144,11 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
-	@mkdir $(TMPDIR)
 	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
 	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
+	@mkdir $(TMPDIR)
 
 print : $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
