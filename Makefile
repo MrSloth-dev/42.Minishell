@@ -39,42 +39,33 @@ HEADER = minishell.h ft_printf.h
 PRINTDIR = ./includes/ft_printf/
 PRINTFT = ./includes/ft_printf/libftprintf.a
 
-BDIR = src/builtins
-EXECDIR = ./src/execution
-EXPDIR = src/expand
-SIGNALDIR = src/signals_and_readline
-SYNTAXDIR = src/syntax
-TOKENIZERDIR = src/tokenizer
-PARSEDIR = src/parse
-FREEDIR = src/free_stuff
-INITDIR = src/init
-UTILSDIR = src/utils
-H_DOCDIR = src/here_doc
+INITDIR = src/01_init
+SIGNALDIR = src/02_signals_and_readline
+SYNTAXDIR = src/11_syntax
+TOKENIZERDIR = src/12_tokenizer
+EXPDIR = src/13_expand
+H_DOCDIR = src/21_here_doc
+PARSEDIR = src/31_parse_data
+EXECDIR = ./src/51_execution
+BDIR = src/61_builtins
+UTILSDIR = src/81_utils
+FREEDIR = src/88_free_stuff
 
-INIT = $(INITDIR)/00_init.c
+INIT = \
+	   $(INITDIR)/00_init.c
 
-EXPAND = $(EXPDIR)/expand.c \
-		 $(EXPDIR)/make_expansions.c
+SIGNAL = \
+		 $(SIGNALDIR)/00_readline.c
 
-BUILTIN = $(BDIR)/echo.c \
-		$(BDIR)/pwd.c \
-		$(BDIR)/cd.c \
-		$(BDIR)/env.c \
-		$(BDIR)/export.c \
-		$(BDIR)/unset.c \
-		$(BDIR)/utils.c \
-		$(BDIR)/export_utils.c \
-		$(BDIR)/exit.c
+SYNTAX = \
+		 $(SYNTAXDIR)/00_syn_utils.c \
+		 $(SYNTAXDIR)/10_syn_quotes.c \
+		 $(SYNTAXDIR)/20_syn_redir.c \
+		 $(SYNTAXDIR)/30_syn_pipe.c \
+		 $(SYNTAXDIR)/40_syn_special_chars.c
 
-SIGNAL = $(SIGNALDIR)/readline.c
-
-SYNTAX = $(SYNTAXDIR)/00_syntax_utils.c \
-		 $(SYNTAXDIR)/10_quotes.c \
-		 $(SYNTAXDIR)/20_redir.c \
-		 $(SYNTAXDIR)/30_pipe.c \
-		 $(SYNTAXDIR)/40_special_chars.c
-
-TOKENIZER = $(TOKENIZERDIR)/00_create_tokens.c \
+TOKENIZER = \
+			$(TOKENIZERDIR)/00_create_tokens.c \
 			$(TOKENIZERDIR)/10_append_node_and_word.c \
 			$(TOKENIZERDIR)/11_append_redir.c \
 			$(TOKENIZERDIR)/12_join_tokens.c \
@@ -82,22 +73,42 @@ TOKENIZER = $(TOKENIZERDIR)/00_create_tokens.c \
 			$(TOKENIZERDIR)/14_add_node_exec.c \
 			$(TOKENIZERDIR)/88_tokenizer_utils.c
 
-PARSE = $(PARSEDIR)/00_make_bin_tree.c
+EXPAND = \
+		 $(EXPDIR)/00_make_expansions.c \
+		 $(EXPDIR)/88_expand.c 
 
-EXEC =	$(EXECDIR)/exec_builtin.c \
-	$(EXECDIR)/execution.c \
-	$(EXECDIR)/pipe.c
+H_DOC = \
+		$(H_DOCDIR)/00_here_doc.c \
+		$(H_DOCDIR)/88_here_doc_utils.c
 
-UTILS = $(UTILSDIR)/iter.c \
-		$(UTILSDIR)/utils.c \
+PARSE = \
+		$(PARSEDIR)/00_make_bin_tree.c
+
+EXEC =	\
+		$(EXECDIR)/00_run_cmd.c \
+		$(EXECDIR)/11_exec_builtin.c \
+		$(EXECDIR)/21_execve.c
+
+BUILTIN = \
+		$(BDIR)/11_echo.c \
+		$(BDIR)/21_cd.c \
+		$(BDIR)/31_pwd.c \
+		$(BDIR)/41_export.c \
+		$(BDIR)/42_export_utils.c \
+		$(BDIR)/51_unset.c \
+		$(BDIR)/61_env.c \
+		$(BDIR)/71_exit.c \
+		$(BDIR)/81_utils.c 
+
+UTILS = \
+		$(UTILSDIR)/11_iter.c \
+		$(UTILSDIR)/12_isbuiltin.c \
+
+FREE =	\
+		$(FREEDIR)/00_free_shell.c \
+		$(FREEDIR)/88_free_and_null.c
 
 WARNING = src/WARNING/print.c
-
-FREE =	$(FREEDIR)/00_free_shell.c \
-	$(FREEDIR)/free.c
-
-H_DOC = $(H_DOCDIR)/here_doc.c \
-		$(H_DOCDIR)/here_doc_utils.c
 
 SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC) $(UTILS) $(H_DOC)
 
