@@ -42,6 +42,11 @@ void	ft_join_tokens(t_token_lst *token_lst)
 			while (cur->front && (cur->front->type == WORD))
 				ft_join_to_next_token(cur, cur->front);
 		}
+		else if (cur->type > HERE_DOC)
+		{
+			while (cur->front && cur->front->type == WORD)
+				ft_join_to_next_token(cur, cur->front);
+		}
 		cur = cur->front;
 	}
 }

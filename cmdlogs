@@ -1489,3 +1489,11 @@ _____________________________
 
 cd minishell
 cd minishell_tester/
+_____________________________
+
+echo < "teste"
+echo < teste
+echo < a"teste"
+_____________________________
+
+echo < "teste"
