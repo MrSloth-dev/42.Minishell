@@ -101,6 +101,8 @@ H_DOC = $(H_DOCDIR)/here_doc.c \
 
 SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC) $(UTILS) $(H_DOC)
 
+TMPDIR = .tmp
+
 MAIN = src/main.c
 
 OBJS = $(SRCS:.c=.o)
@@ -119,6 +121,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
+	@mkdir $(TMPDIR)
 	@make -C $(PRINTDIR) -s
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
 	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT) -o $(NAME)
@@ -162,6 +165,7 @@ vgdb : re
 
 clean:
 	@ $(RM) -f $(OBJS)
+	@ $(RM) $(TMPDIR)
 	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✅"
 
 fclean: clean

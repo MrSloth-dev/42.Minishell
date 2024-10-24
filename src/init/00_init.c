@@ -36,7 +36,7 @@ t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 	sh->token_lst = NULL;
 	sh->envp = ft_copy_envp(envp, 0);
 	sh->path = ft_split(ft_find_path(sh->envp), ':');
-	sh->hd_path = ft_strjoin_free(getcwd(NULL, 0), ft_strdup("/tmp/"));
+	sh->hd_path = ft_strjoin_free(getcwd(NULL, 0), ft_strdup("/.tmp/"));
 	sh->nb_heredoc = 0;
 	sh->exit_status = EXIT_SUCCESS;
 	ft_cmd_log_newline();
