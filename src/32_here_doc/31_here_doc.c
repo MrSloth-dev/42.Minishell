@@ -40,20 +40,6 @@ int	ft_here_doc(char delimiter[128], char file[32])
 	}
 }
 
-static void	ft_free_inside_heredoc(t_shell *sh)
-{
-	if (!sh)
-		return ;
-	sh->line = ft_free(sh->line);
-	ft_free_tokens(sh);
-	sh->token_lst = ft_free(sh->token_lst);
-	if (sh->envp)
-		sh->envp = ft_free_envp(sh->envp);
-	if (sh->path)
-		sh->path = ft_free_envp(sh->path);
-	sh->hd_path = ft_free(sh->hd_path);
-	sh = ft_free(sh);
-}
 
 static int	ft_do_this_hd(t_shell *sh, char delimiter[128], char file[32])
 {
@@ -81,30 +67,6 @@ static int	ft_do_this_hd(t_shell *sh, char delimiter[128], char file[32])
 		}
 	}
 	return (0);
-}
-
-void	ft_get_file_name(char hd_file[32], char *src_file)
-{
-	int		len;
-
-	len = 0;
-	ft_bzero(hd_file, 32);
-	len = ft_strlen(src_file) + 1;
-	if (len >= 31)
-		len = 30;
-	ft_strlcpy(hd_file, src_file, len);
-}
-
-void	ft_get_delimiter(char delimiter[128], char *content)
-{
-	int	len;
-
-	len = 0;
-	ft_bzero(delimiter, 128);
-	len = ft_strlen(content) + 1;
-	if (len >= 127)
-		len = 126;
-	ft_strlcpy(delimiter, content, len);
 }
 
 int	ft_run_heredocs(t_token *token, t_shell *sh)
