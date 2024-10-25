@@ -5,22 +5,6 @@
 #include <sys/wait.h>
 
 
-void	ft_sig_default(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-}
-void	ft_sig_heredoc(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	ft_sig_ignore(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-}
 
 void	ft_here_doc(char *prog_name, char *delimiter, int hd_id, char *file)
 {
@@ -28,7 +12,6 @@ void	ft_here_doc(char *prog_name, char *delimiter, int hd_id, char *file)
 	line = NULL;
 	while (1)
 	{
-		ft_sig_heredoc();
 		line = readline("> ");
 		hd_id = open(file, O_RDWR | O_APPEND, 0644);
 		if (line == NULL)
@@ -97,28 +80,28 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 			pid = fork();
 			if (pid == 0)
 			{
+				ft_sig_child();
 				ft_free_inside_heredoc(sh);
-				ft_sig_default();
 				ft_here_doc(prog_name, delimiter, hd_id, file);
 				exit (0);
 			}
 			else
 			{
-				ft_sig_ignore();
+				ft_sig_mute();
 				waitpid(pid, &status, 0);
 				if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 				{
 					ft_printf(1, "\n");
 					sh->head = NULL;
 					sh->exit_status = 130;
-					ft_sig_default();
+					ft_sig_restore();
 					break ;
 				}
 			}
 		}
 		s.cur = s.cur->front;
 	}
-	ft_sig_default();
+	ft_sig_restore();
 }
 
 void	ft_create_and_run_heredocs(t_shell *sh)

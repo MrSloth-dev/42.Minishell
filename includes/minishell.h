@@ -190,6 +190,9 @@ char	**ft_copy_envp(char **envp, int extra);
 
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
+void	ft_sig_restore(void);
+void	ft_sig_child(void);
+void	ft_sig_mute(void);
 
 // syntax_utils_file
 void	ft_print_syntax_error(int error, t_shell *shell);

@@ -63,7 +63,8 @@ INIT = \
 	   $(INITDIR)/00_init.c
 
 SIGNAL = \
-		 $(SIGNALDIR)/00_readline.c
+		 $(SIGNALDIR)/00_readline.c \
+		 $(SIGNALDIR)/01_signal_handle.c
 
 SYNTAX = \
 		 $(SYNTAXDIR)/00_syn_utils.c \
@@ -213,10 +214,12 @@ $(TESTER_DIR):
 tester: $(TESTER_DIR)
 	make re
 	@cd $(TESTER_DIR) && ./$(TESTER_BIN)
+	make fclean
 
 te:	$(TESTER_DIR)
 	@make re
 	@cd $(TESTER_DIR) && ./$(TESTER_BIN) 2>/dev/null | grep /146
+	@make fclean
 
 hell :
 	@echo "$(RED) <-. (\`-')    _      <-. (\`-')_   _       (\`-').->  (\`-')  _       "
