@@ -30,17 +30,7 @@ void	ft_exec_builtins_child(t_token *cmdargs, t_shell *sh)
 {
 	if (cmdargs)
 		ft_exec_builtins(cmdargs->left, sh);
-	ft_free_and_exit(NULL, sh, TRUE);
-}
-
-void	ft_restore_fd(int std_in, int std_out, t_shell *sh)
-{
-	(void)sh->exit_status;
-	// sh->exit_status = 1;
-	dup2(std_out, STDOUT_FILENO);
-	dup2(std_in, STDIN_FILENO);
-	close(std_in);
-	close(std_out);
+	// ft_free_and_exit(NULL, sh, TRUE);
 }
 
 void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *sh)
@@ -61,7 +51,6 @@ void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *sh)
 		ft_exec_builtins(cmdargs->left, sh);
 		if (cmdargs->right)
 			ft_restore_fd(std_in, std_out, sh);
-		// close(fd);
 	}
 	if (cmdargs->right)
 		ft_restore_fd(std_in, std_out, sh);

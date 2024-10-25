@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <unistd.h>
 
 void	ft_pwd(t_shell *shell)
 {
@@ -11,7 +12,7 @@ void	ft_pwd(t_shell *shell)
 		shell->exit_status = EXIT_FAILURE;
 		return ;
 	}
-	printf("%s\n", pwd);
+	ft_printf(STDOUT_FILENO, "%s\n", pwd);
 	shell->exit_status = EXIT_SUCCESS;
 	free(pwd);
 }

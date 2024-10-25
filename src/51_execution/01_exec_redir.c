@@ -35,12 +35,19 @@ int	ft_exec_redir(t_token *cur_redir, t_shell *sh)
 		else if (!ft_check_file_access(cur_redir->content, cur_redir->type, sh))
 			fd = -1;
 	}
-
-
-
 	if (fd == -1)
 		sh->exit_status = 1;
 	else
 		sh->exit_status = 0;
 	return (fd);
 }
+
+void	ft_restore_fd(int std_in, int std_out, t_shell *sh)
+{
+	(void)sh->exit_status;
+	dup2(std_out, STDOUT_FILENO);
+	dup2(std_in, STDIN_FILENO);
+	close(std_in);
+	close(std_out);
+}
+

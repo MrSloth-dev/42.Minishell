@@ -86,5 +86,4 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 	ft_print_execve_error(error, cmd, shell);
 	cmdbin = ft_free(cmdbin);
 	ft_free_envp(cmdargs);
-	ft_free_and_exit(NULL, shell, TRUE);
 }
