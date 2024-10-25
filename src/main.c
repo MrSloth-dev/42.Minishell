@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:04:52 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/10/25 10:04:52 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:16:57 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ int	g_rec_signal;
 void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
 {
 	ft_create_tokens(token_lst, line);
-	//ft_make_expansions(sh);
+	ft_make_expansions(sh);
 	ft_join_tokens(token_lst);
 	ft_delete_spaces(token_lst, sh);
-	ft_make_expansions(sh);
 	ft_add_node_exec(token_lst, sh);
 	g_rec_signal = 0;
 }

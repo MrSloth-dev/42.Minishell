@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:21:12 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/10/24 14:39:38 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:14:36 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ typedef struct s_iter
 	int		j;
 	int		k;
 	int		fd;
+	int		std_in;
+	int		std_out;
 	int		pid;
 	int		len;
 	int		status;
@@ -259,6 +261,7 @@ int	ft_print_execve_error(int error, t_token *token, t_shell *shell);
 //UTILS
 t_iter	ft_set_iter(int n);
 int		ft_isbuiltin(char *content);
+void	ft_restore_fd(int std_in, int std_out, t_shell *sh);
 
 // WARNING
 void	ft_print_data(t_shell *sh, int is_to_print);
