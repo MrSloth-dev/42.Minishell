@@ -17,6 +17,8 @@ void	ft_env(t_shell *shell)
 	int	i;
 
 	i = 0;
+	if (!shell->envp)
+		return ;
 	while (shell->envp[i])
 	{
 		if (ft_strchr(shell->envp[i], '='))

@@ -37,10 +37,23 @@ void	ft_change_home(t_token *cmdargs, t_shell *shell)
 	}
 }
 
+static void	ft_old_pwd(t_shell *shell)
+{
+	char	*old_pwd;
+
+	old_pwd = ft_get_env_value("OLDPWD", shell->envp, shell);
+	if (old_pwd && *old_pwd)
+	{
+		ft_printf(STDOUT_FILENO, "%s\n", old_pwd);
+		ft_safe_chdir(old_pwd, shell, 0);
+	}
+	else
+		ft_printf(STDOUT_FILENO, "%s: cd: OLDPWD not set\n", shell->prog_name);
+}
+
 void	ft_cd(t_token *cmdargs, t_shell *shell)
 {
 	char	*update_old;
-	char	*old_pwd;
 
 	if (cmdargs)
 	{
@@ -54,16 +67,7 @@ void	ft_cd(t_token *cmdargs, t_shell *shell)
 		|| !ft_strncmp(cmdargs->content, "--", 2))
 		ft_change_home(cmdargs, shell);
 	else if (!ft_strcmp(cmdargs->content, "-"))
-	{
-		old_pwd = ft_get_env_value("OLDPWD", shell->envp, shell);
-		if (old_pwd && *old_pwd)
-		{
-			ft_printf(STDOUT_FILENO, "%s\n", old_pwd);
-			ft_safe_chdir(old_pwd, shell, 0);
-		}
-		else
-			ft_printf(STDOUT_FILENO, "%s : cd: OLDPWD not set\n", shell->prog_name);
-	}
+		ft_old_pwd(shell);
 	else
 		ft_safe_chdir(cmdargs->content, shell, 0);
 	ft_update_directory(update_old, "OLDPWD=", shell);

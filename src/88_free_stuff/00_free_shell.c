@@ -86,4 +86,5 @@ void	ft_clean_hd_files(t_shell *sh)
 		}
 		cur = cur->front;
 	}
+	sh->nb_heredoc = 0;
 }

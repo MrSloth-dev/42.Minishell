@@ -20,7 +20,7 @@ static int	ft_export_size_increase(t_token *cmdargs, t_shell *shell, int *j)
 	i = 0;
 	*j = -1;
 	current = cmdargs;
-	while (shell->envp[i])
+	while (shell->envp && shell->envp[i])
 		i++;
 	while (current)
 	{
@@ -64,7 +64,10 @@ int	ft_valid_identifiers(t_token *cmdargs, t_shell *sh)
 	i = 1;
 	while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
 	{
-		if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')
+		if (cmdargs->content[i] == '+' && cmdargs->content[i] != '=')
+			return (ft_printf(STDERR_FILENO, INV_ID,
+					sh->prog_name, cmdargs->content), 0);
+		else if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')
 			i++;
 		else
 			return (ft_printf(STDERR_FILENO, INV_ID,

@@ -46,11 +46,11 @@ char	*ft_get_cmdbin(t_token *token, t_shell *shell)
 		temp = ft_strjoin_free(temp, ft_strdup(token->content));
 		err = access(temp, X_OK);
 		if (err == 0)
-			return (temp);
+			return (ft_free(path), temp);
 		free(temp);
 		i++;
 	}
-	return (NULL);
+	return (ft_free(path), NULL);
 }
 
 char	**ft_create_cmdargs(t_token *token)

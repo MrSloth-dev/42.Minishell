@@ -53,20 +53,21 @@ char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell)
 	int		len;
 
 	(void)shell;
-	if (!env_name)
+	if (!env_name || !env_list)
 		return (NULL);
 	len = ft_strlen(env_name);
 	env = NULL;
 	i = 0;
-	while (env_list[i] && env_list[i][0])
+	while (env_list[i] && *env_list[i])
 	{
-		if (ft_strncmp(env_name, env_list[i], len) == 0)
+		if (ft_strncmp(env_name, env_list[i], len) == 0
+			&& ft_strchr(env_list[i], '='))
 		{
 			env = ft_strchr(env_list[i], '=') + 1;
 			if (!env || !ft_strchr(env_list[i], '='))
 				return (NULL);
 			else
-				return (env);
+				return (ft_strdup(env));
 		}
 		i++;
 	}
@@ -85,7 +86,7 @@ int	ft_env_exist(char *var, int *j, char **env_list)
 	key = ft_get_env_key(var);
 	if (!key || key[0] == 0)
 		return (free(key), -1);
-	while (env_list[index])
+	while (env_list && env_list[index])
 	{
 		name = ft_get_env_key(env_list[index]);
 		if (!name && index++)

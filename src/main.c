@@ -51,7 +51,6 @@ void	ft_shellfault(t_shell *sh)
 	}
 	ft_clean_hd_files(sh);
 	ft_free_tokens(sh);
-	sh->nb_heredoc = 0;
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -60,6 +59,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int		have_syn_error;
 
 	(void)argc;
+	// envp = NULL;
 	sh = ft_init_shell(envp, argv[0]);
 	while (1)
 	{

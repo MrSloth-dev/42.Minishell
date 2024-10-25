@@ -1,7 +1,14 @@
 #include "minishell.h"
 #include <fcntl.h>
 
-//ft_print_data(sh, PRINT_DATA); //REMOVE BEFORE DELIVER
+static void	ft_cmd_log_newline(void)
+{
+	int		fd;
+
+	fd = open("cmdlogs", O_RDWR | O_CREAT | O_APPEND);
+	ft_printf(fd, "_____________________________\n\n");
+	close(fd);
+}
 
 static char	*ft_print_exec(t_token *cur, char *spaces, int fd)
 {

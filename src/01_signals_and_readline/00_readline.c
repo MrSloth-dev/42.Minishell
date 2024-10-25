@@ -51,15 +51,17 @@ char	*ft_compress_home(char *path, t_shell *sh)
 	{
 		if (path[ft_strlen(home)] == 0 || path[ft_strlen(home)] == '/')
 		{
-			compressed = malloc(sizeof(char) *(ft_strlen(path) - ft_strlen(home) + 2));
+			compressed = malloc(sizeof(char)
+					* (ft_strlen(path) - ft_strlen(home) + 2));
 			if (!compressed)
 				return (NULL);
 			compressed[0] = '~';
-			ft_strlcpy(compressed + 1, path + ft_strlen(home), ft_strlen(path) - ft_strlen(home) + 1);
+			ft_strlcpy(compressed + 1, path + ft_strlen(home),
+				ft_strlen(path) - ft_strlen(home) + 1);
 			return (compressed);
 		}
 	}
-	return (ft_strdup(path));
+	return (path);
 }
 
 char	*ft_get_prompt(t_shell *sh)
@@ -67,44 +69,27 @@ char	*ft_get_prompt(t_shell *sh)
 	char	*prompt;
 	char	*cwd;
 
-	ft_printf(STDOUT_FILENO, RED);
-	cwd = ft_get_env_value("PWD", sh->envp, sh);
+	ft_printf(STDOUT_FILENO, YELLOW);
+	if (ft_env_exist("PWD", NULL, sh->envp) == -1
+		|| ft_env_exist("PWD", NULL, sh->envp) == -1)
+		return (NULL);
 	prompt = ft_get_env_value("USER", sh->envp, sh);
-	if (!prompt | !cwd)
-		return (NULL);
-	prompt = ft_strjoin(prompt, RESET"@"YELLOW);
-	if (!prompt || !*ft_get_env_value("SESSION_MANAGER", sh->envp, sh))
-		return (NULL);
+	prompt = ft_strjoin_free(prompt, ft_strdup("@"));
+	if (!prompt || ft_env_exist("SESSION_MANAGER", NULL, sh->envp) == -1)
+		return (ft_free(prompt), NULL);
 	prompt = ft_strjoin_free(prompt,
 			ft_strdup(ft_get_env_value("SESSION_MANAGER", sh->envp, sh) + 6));
 	if (!prompt)
-		return (NULL);
+		return (ft_free(prompt), NULL);
 	*strchr(prompt, '.') = 0;
-	prompt = ft_strjoin_free(prompt, ft_strdup(RESET":"GREEN));
-	if (!prompt)
-		return (NULL);
-	if (cwd)
-		prompt = ft_strjoin_free(prompt, ft_compress_home(cwd, sh));
+	prompt = ft_strjoin_free(prompt, ft_strdup(":"));
+	cwd = ft_get_env_value("PWD", sh->envp, sh);
+	prompt = ft_strjoin_free(prompt, ft_compress_home(cwd, sh));
 	prompt = ft_strjoin_free(prompt, ft_strdup("$ "RESET));
 	if (!prompt)
-		return (NULL);
+		return (ft_free(prompt), ft_free(cwd), NULL);
 	return (prompt);
 }
-
-// char	*ft_get_prompt(t_shell *sh)
-// {
-// 	char	*pwd;
-// 	char	*cur_pwd;
-//
-// 	cur_pwd = ft_get_env_value("PWD", sh->envp, sh);
-// 	if (!cur_pwd[0])
-// 		return (free(cur_pwd), NULL);
-// 	pwd = ft_strdup("\033[1;33m");
-// 	pwd = ft_strjoin_free(pwd, ft_strdup(cur_pwd));
-// 	pwd = ft_strjoin_free(pwd, ft_strdup(":$ "));
-// 	pwd = ft_strjoin_free(pwd, ft_strdup("\033[0m"));
-// 	return (pwd);
-// }
 
 t_shell	*ft_readline(t_shell *sh)
 {

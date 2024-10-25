@@ -67,6 +67,8 @@ char	**ft_order_env(char **env)
 
 	i = 0;
 	size = 0;
+	if (!env)
+		return (NULL);
 	order = ft_copy_envp(env, 0);
 	while (order[size])
 		size++;
@@ -92,9 +94,11 @@ void	ft_export_no_args(t_shell shell)
 	char	*value;
 	char	*key;
 
+	if (!shell.envp)
+		return ;
 	order = ft_order_env(shell.envp);
 	i = -1;
-	while (order[++i])
+	while (order && order[++i])
 	{
 		key = ft_get_env_key(order[i]);
 		ft_printf(STDOUT_FILENO, "declare -x %s", key);
@@ -103,10 +107,8 @@ void	ft_export_no_args(t_shell shell)
 			ft_printf(STDOUT_FILENO, "\n");
 		else
 			ft_printf(STDOUT_FILENO, "=\"%s\"\n", value);
-		free(key);
+		ft_free(key);
+		ft_free(value);
 	}
-	i = 0;
-	while (order[i])
-		free(order[i++]);
-	free(order);
+	ft_free_envp(order);
 }
