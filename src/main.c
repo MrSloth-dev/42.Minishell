@@ -44,7 +44,7 @@ void	ft_shellfault(t_shell *sh)
 	else if (sh->head && sh->head->left)
 	{
 		if (fork() == 0)
-			ft_run_cmd(sh->head, sh);
+			ft_run(sh->head, sh);
 		waitpid(0, &exit_status, 0);
 		sh->exit_status = WEXITSTATUS(exit_status);
 	}

@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   21_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/25 15:18:50 by joao-pol          #+#    #+#             */
+/*   Updated: 2024/10/25 15:18:50 by joao-pol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-#include <unistd.h>
 
 void	ft_safe_chdir(char *path, t_shell *shell, int flags);
 void	ft_update_directory(char *path, char *variable, t_shell *shell);
@@ -86,7 +97,7 @@ void	ft_update_directory(char *path, char *variable, t_shell *shell)
 	int		j;
 
 	if (!path || !variable)
-		return ; 
+		return ;
 	path_str = ft_strjoin(variable, path);
 	j = -1;
 	if (ft_env_exist(path_str, &j, shell->envp) == -1)

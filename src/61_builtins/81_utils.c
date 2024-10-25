@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   81_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/25 15:21:02 by joao-pol          #+#    #+#             */
+/*   Updated: 2024/10/25 15:22:07 by joao-pol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 #include "ft_printf.h"
 
@@ -65,7 +77,6 @@ int	ft_env_exist(char *var, int *j, char **env_list)
 {
 	char	*name;
 	char	*key;
-	int		len;
 	int		index;
 
 	if (!var)
@@ -74,13 +85,12 @@ int	ft_env_exist(char *var, int *j, char **env_list)
 	key = ft_get_env_key(var);
 	if (!key || key[0] == 0)
 		return (free(key), -1);
-	len = ft_strlen(key);
 	while (env_list[index])
 	{
 		name = ft_get_env_key(env_list[index]);
 		if (!name && index++)
 			continue ;
-		if (ft_strncmp(key, name, len) == 0)
+		if (ft_strncmp(key, name, ft_strlen(key)) == 0)
 		{
 			if (j)
 				*j = index;

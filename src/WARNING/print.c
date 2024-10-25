@@ -139,3 +139,17 @@ void	ft_print_data(t_shell *sh, int is_to_print)
 	ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
 	ft_print_binary_tree(sh);  // SEE BIN TREE
 }
+
+void	ft_cmd_log(char *line)
+{
+	char	c;
+	int		fd;
+
+	if (!PRINT_DATA)
+		return ;
+	c = '\n';
+	fd = open(".cmdlogs", O_RDWR | O_CREAT | O_APPEND);
+	write(fd, line, ft_strlen(line));
+	write(fd, &c, 1);
+	close(fd);
+}

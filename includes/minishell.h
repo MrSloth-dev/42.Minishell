@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:21:12 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/10/25 13:14:36 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:12:28 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef struct s_shell
 {
 	t_token_lst	*token_lst;
 	t_token		*head;
-	int			exit_status;
+	long		exit_status;
 	char		*prog_name;
 	char		**envp;
 	char		**path;
@@ -251,13 +251,13 @@ void	ft_exec_builtins_child(t_token *cmdargs, t_shell *shell);
 void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *shell);
 int		ft_exec_redir(t_token *cur_redir, t_shell *shell);
 void	ft_execve(t_token *cmd, t_shell *shell);
-void	ft_run_cmd(t_token *token, t_shell *shell);
+void	ft_run(t_token *token, t_shell *shell);
 int		ft_isbuiltin(char *content);
 int		ft_check_file_access(char *file, int redir, t_shell *sh);
 
 //print error
 int		ft_check_file_access(char *file, int redir, t_shell *sh);
-int	ft_print_execve_error(int error, t_token *token, t_shell *shell);
+int		ft_print_execve_error(int error, t_token *token, t_shell *shell);
 
 //UTILS
 t_iter	ft_set_iter(int n);
@@ -266,6 +266,7 @@ void	ft_restore_fd(int std_in, int std_out, t_shell *sh);
 
 // WARNING
 void	ft_print_data(t_shell *sh, int is_to_print);
+void		ft_cmd_log(char *line); //ASDASD
 
 int		ft_getpid(t_shell *shell);
 

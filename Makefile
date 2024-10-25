@@ -46,8 +46,8 @@ HEADER = minishell.h ft_printf.h
 PRINTDIR = ./includes/ft_printf/
 PRINTFT = ./includes/ft_printf/libftprintf.a
 
-INITDIR = src/01_init
-SIGNALDIR = src/02_signals_and_readline
+INITDIR = src/00_init
+SIGNALDIR = src/01_signals_and_readline
 SYNTAXDIR = src/11_syntax
 TOKENIZERDIR = src/12_tokenizer
 EXPDIR = src/13_expand
@@ -152,7 +152,7 @@ $(NAME): $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
 	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
-	@mkdir $(TMPDIR)
+	@mkdir -p $(TMPDIR)
 
 print : $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
@@ -177,7 +177,7 @@ deb : re
 	tmux send-keys 'gdbtui ./minishell' C-m Escape
 
 norm:
-	@norminette | grep rror!
+	@norminette | grep -E 'Error:|rror!'
 
 gdb : re
 	tmux new-window  -n Gdb
