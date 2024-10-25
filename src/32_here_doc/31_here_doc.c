@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 
 int	ft_here_doc(char delimiter[128], char file[32])
 {
@@ -39,7 +38,6 @@ int	ft_here_doc(char delimiter[128], char file[32])
 		line = ft_free(line);
 	}
 }
-
 
 static int	ft_do_this_hd(t_shell *sh, char delimiter[128], char file[32])
 {

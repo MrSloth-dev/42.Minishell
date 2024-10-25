@@ -1,6 +1,8 @@
 #include "minishell.h"
 #include <fcntl.h>
 
+//ft_print_data(sh, PRINT_DATA); //REMOVE BEFORE DELIVER
+
 static char	*ft_print_exec(t_token *cur, char *spaces, int fd)
 {
 	t_token	*cmd;

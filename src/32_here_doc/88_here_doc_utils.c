@@ -51,13 +51,13 @@ void	ft_get_delimiter(char delimiter[128], char *content)
 	ft_strlcpy(delimiter, content, len);
 }
 
-void	ft_make_heredoc_fd_array(int nb_heredoc, t_shell *sh)
-{
-	sh->heredoc_fd = ft_calloc(sizeof(int), nb_heredoc + 1);
-	if (!sh->heredoc_fd)
-	{
-		ft_free_tokens(sh);
-		return ;
-	}
-	sh->heredoc_fd[nb_heredoc] = -1;
-}
+// void	ft_make_heredoc_fd_array(int nb_heredoc, t_shell *sh)
+// {
+// 	sh->heredoc_fd = ft_calloc(sizeof(int), nb_heredoc + 1);
+// 	if (!sh->heredoc_fd)
+// 	{
+// 		ft_free_tokens(sh);
+// 		return ;
+// 	}
+// 	sh->heredoc_fd[nb_heredoc] = -1;
+// }

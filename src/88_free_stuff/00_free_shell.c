@@ -54,7 +54,6 @@ void	ft_free_tokens(t_shell *sh)
 			tmp = ft_free(tmp);
 		}
 	}
-//	ft_clean_hd_array(sh);
 	sh->token_lst = ft_free(sh->token_lst);
 }
 
@@ -88,9 +87,3 @@ void	ft_clean_hd_files(t_shell *sh)
 		cur = cur->front;
 	}
 }
-
-// void	ft_clean_hd_array(t_shell *sh)
-// {
-// 	if (sh->nb_heredoc > 0)
-// 		sh->heredoc_fd = ft_free(sh->heredoc_fd);
-// }
