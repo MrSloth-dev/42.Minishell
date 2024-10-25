@@ -87,7 +87,7 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 	cmdargs = ft_create_cmdargs(cmd);
 	cmdbin = ft_get_cmdbin(cmd, shell);
 	error = ft_check_bin_error(cmdbin, shell);
-	if (!error)
+	if (!error && (cmd->content[0] != '.' && cmd->content[1] != '/'))
 		error = execve(cmdbin, cmdargs, shell->envp);
 	else
 	{

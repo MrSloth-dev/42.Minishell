@@ -36,7 +36,6 @@ void	ft_shellfault(t_shell *sh)
 	ft_tokenizer(sh->token_lst, sh->line, sh);
 	sh->head = ft_make_bin_tree(sh->token_lst->first);
 	ft_do_heredoc_files(sh->token_lst->first, sh);
-	ft_print_data(sh, PRINT_DATA); //REMOVE BEFORE DELIVER
 	ft_run_heredocs(sh->token_lst->first, sh);
 	if (sh->head && sh->head->type != ND_PIPE
 		&& sh->head->left && ft_isbuiltin(sh->head->left->content))
@@ -45,7 +44,9 @@ void	ft_shellfault(t_shell *sh)
 	{
 		if (fork() == 0)
 			ft_run(sh->head, sh);
+		ft_sig_mute();
 		waitpid(0, &exit_status, 0);
+		ft_sig_restore();
 		sh->exit_status = WEXITSTATUS(exit_status);
 	}
 	ft_clean_hd_files(sh);

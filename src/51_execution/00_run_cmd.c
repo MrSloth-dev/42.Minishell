@@ -37,6 +37,7 @@ void	ft_close_pipe(int exit[2], int pid[2], int pipe[2], t_shell *sh)
 {
 	close(pipe[0]);
 	close(pipe[1]);
+	// ft_sig_mute();
 	waitpid(pid[0], &exit[0], 0);
 	waitpid(pid[1], &exit[1], 0);
 	sh->exit_status = WEXITSTATUS(exit[1]);
@@ -50,9 +51,11 @@ void	ft_run_pipe(t_token *token, t_shell *sh)
 
 	if (pipe(pid_pipe) < 0)
 		ft_printf(STDERR_FILENO, "Error in Pipe\n");
+	ft_sig_mute();
 	pid_child[0] = fork();
 	if (pid_child[0] == 0)
 	{
+		ft_sig_restore();
 		dup2(pid_pipe[1], STDOUT_FILENO);
 		close(pid_pipe[1]);
 		close(pid_pipe[0]);
@@ -61,6 +64,7 @@ void	ft_run_pipe(t_token *token, t_shell *sh)
 	pid_child[1] = fork();
 	if (pid_child[1] == 0)
 	{
+		ft_sig_restore();
 		dup2(pid_pipe[0], STDIN_FILENO);
 		close(pid_pipe[1]);
 		close(pid_pipe[0]);
