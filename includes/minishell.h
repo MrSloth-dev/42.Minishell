@@ -267,7 +267,7 @@ void	ft_restore_fd(int std_in, int std_out, t_shell *sh);
 
 // WARNING
 // void	ft_print_data(t_shell *sh, int is_to_print);
-// void		ft_cmd_log(char *line); //ASDASD
+void		ft_cmd_log(char *line); //ASDASD
 
 int		ft_getpid(t_shell *shell);
 
