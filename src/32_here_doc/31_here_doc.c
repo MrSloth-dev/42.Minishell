@@ -11,28 +11,30 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
-int	ft_here_doc(char *prog_name, char *delimiter, int hd_id, char *file)
+int	ft_here_doc(char delimiter[128], char file[32])
 {
+	int		fd;
 	char	*line;
 
 	while (1)
 	{
 		line = readline("> ");
-		hd_id = open(file, O_RDWR | O_APPEND, 0644);
+		fd = open(file, O_RDWR | O_APPEND, 0644);
 		if (line == NULL)
 		{
-			ft_printf(1, "%s: warning: here-document delimited ", prog_name);
+			ft_printf(1, "%minishell: warning: here-document delimited ");
 			ft_printf(1, "by end-of-file (wanted `%s')\n", delimiter);
-			return (close(hd_id), 0);
+			return (close(fd), 0);
 		}
 		else if (ft_strcmp(line, delimiter) == 0)
-			return (close(hd_id), 0);
+			return (close(fd), 0);
 		else if ((line || *(line)))
 		{
-			ft_printf(hd_id, "%s", line);
-			write(hd_id, "\n", 1);
-			close(hd_id);
+			ft_printf(fd, "%s", line);
+			write(fd, "\n", 1);
+			close(fd);
 		}
 		line = ft_free(line);
 	}
@@ -53,80 +55,76 @@ static void	ft_free_inside_heredoc(t_shell *sh)
 	sh = ft_free(sh);
 }
 
-static void	ft_get_vars_for_this_hd(t_iter *s, char *delimiter, char *file)
+static int	ft_do_this_hd(t_shell *sh, char delimiter[128], char file[32])
 {
-	ft_bzero(delimiter, 4096);
-	s->i = ft_strlen(s->cur->content) + 1;
-	if (s->i >= 4095)
-		s->i = 4094;
-	ft_strlcpy(delimiter, s->cur->content, s->i);
-	s->i = 0;
-	ft_bzero(file, 256);
-	s->j = ft_strlen(s->cur->file) + 1;
-	if (s->j >= 255)
-		s->j = 254;
-	ft_strlcpy(file, s->cur->file, s->j);
-	s->j = 0;
-}
+	int	pid;
+	int	status;
 
-static void	ft_init_hd_vars(t_iter *s, char	*prog_name,
-							t_token *token, t_shell *sh)
-{
-	s->cur = token;
-	ft_bzero(prog_name, 256);
-	s->k = ft_strlen(sh->prog_name) + 1;
-	ft_strlcpy(prog_name, sh->prog_name, s->k);
-	prog_name[254] = 0;
-	s->k = 0;
-}
-
-void	ft_run_heredocs(t_token *token, t_shell *sh)
-{
-	t_iter	s;
-	int		status;
-	char	delimiter[4096];
-	char	prog_name[256];
-	char	file[256];
-
-	if (!token || !sh)
-		return ;
-	s = ft_set_iter(0);
-	ft_init_hd_vars(&s, prog_name, token, sh);
-	while (s.cur)
+	pid = fork();
+	if (pid == 0)
 	{
-		if (s.cur->file)
-		{
-			ft_get_vars_for_this_hd(&s, delimiter, file);
-			s.pid = fork();
-			if (s.pid == 0)
-			{
-				ft_sig_child();
-				ft_free_inside_heredoc(sh);
-				ft_here_doc(prog_name, delimiter, s.fd, file);
-				exit (0);
-			}
-			else
-			{
-				ft_sig_mute();
-				waitpid(s.pid, &status, 0);
-				if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-				{
-					ft_printf(1, "\n");
-					sh->head = NULL;
-					sh->exit_status = 130;
-					ft_sig_restore();
-					break ;
-				}
-			}
-		}
-		s.cur = s.cur->front;
+		ft_sig_child();
+		ft_free_inside_heredoc(sh);
+		ft_here_doc(delimiter, file);
+		exit (0);
 	}
-	ft_sig_restore();
+	else
+	{
+		ft_sig_mute();
+		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			ft_printf(STDOUT_FILENO, "\n");
+			sh->head = NULL;
+			sh->exit_status = 130;
+			return (ft_sig_restore(), 0);
+		}
+	}
+	return (0);
 }
 
-void	ft_create_and_run_heredocs(t_shell *sh)
+void	ft_get_file_name(char hd_file[32], char *src_file)
 {
-	if (sh->nb_heredoc < 1)
-		return ;
-	ft_run_heredocs(sh->token_lst->first, sh);
+	int		len;
+
+	len = 0;
+	ft_bzero(hd_file, 32);
+	len = ft_strlen(src_file) + 1;
+	if (len >= 31)
+		len = 30;
+	ft_strlcpy(hd_file, src_file, len);
+}
+
+void	ft_get_delimiter(char delimiter[128], char *content)
+{
+	int	len;
+
+	len = 0;
+	ft_bzero(delimiter, 128);
+	len = ft_strlen(content) + 1;
+	if (len >= 127)
+		len = 126;
+	ft_strlcpy(delimiter, content, len);
+}
+
+int	ft_run_heredocs(t_token *token, t_shell *sh)
+{
+	t_token	*cur;
+	char	hd_file[32];
+	char	delimiter[128];
+
+	if (!token || !sh || sh->nb_heredoc < 1)
+		return (1);
+	cur = token;
+	while (cur)
+	{
+		if (cur->file)
+		{
+			ft_get_file_name(hd_file, cur->file);
+			ft_get_delimiter(delimiter, cur->content);
+			ft_do_this_hd(sh, delimiter, hd_file);
+		}
+		cur = cur->front;
+	}
+	return (ft_sig_restore(), 0);
 }

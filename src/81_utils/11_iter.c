@@ -24,7 +24,7 @@ t_iter	ft_set_iter(int n)
 	h.len = n;
 	h.pid = n;
 	h.std_in = n;
-	h.std_out= n;
+	h.std_out = n;
 	h.status = n;
 	h.delimiter = NULL;
 	h.file = NULL;
