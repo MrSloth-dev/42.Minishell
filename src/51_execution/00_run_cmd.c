@@ -7,13 +7,15 @@ void	ft_run_cmd(t_token *token, t_shell *sh)
 	int		exit_status[3];
 	int		pid_child[3];
 	int		pid_pipe[2];
-	int		fd;
+	t_iter	helper;
 
-	fd = 420;
+	helper.fd = 420;
 	if (!token)
 		ft_free_and_exit(NULL, sh, TRUE);
 	if (token->type == ND_EXEC)
 	{
+	int		stdin = dup(STDIN_FILENO);
+	int		stdout = dup(STDOUT_FILENO);
 		if (token->right)
 			fd = ft_exec_redir(token->right, sh);
 		if (token->left && fd != -1)
@@ -23,6 +25,7 @@ void	ft_run_cmd(t_token *token, t_shell *sh)
 			else
 				ft_exec_builtins_child(token, sh);
 		}
+		ft_restore_fd(stdin, stdout, sh);
 	}
 	else if (token->type == ND_PIPE)
 	{
@@ -32,8 +35,8 @@ void	ft_run_cmd(t_token *token, t_shell *sh)
 		if (pid_child[0] == 0)
 		{
 			dup2(pid_pipe[1], STDOUT_FILENO);
-			close(pid_pipe[0]);
 			close(pid_pipe[1]);
+			close(pid_pipe[0]);
 			ft_run_cmd(token->left, sh);
 		}
 		pid_child[1] = fork();
@@ -46,6 +49,7 @@ void	ft_run_cmd(t_token *token, t_shell *sh)
 		}
 		close(pid_pipe[0]);
 		close(pid_pipe[1]);
+		
 		waitpid(pid_child[0], &exit_status[0], 0);
 		waitpid(pid_child[1], &exit_status[1], 0);
 		sh->exit_status = WEXITSTATUS(exit_status[1]);
