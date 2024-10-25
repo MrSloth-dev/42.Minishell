@@ -89,7 +89,7 @@
       - [x] heredoc exansions //will not be done
       - [x] heredoc fucking work
       - [x] working with signal Ctrl+c Ctrl + d
-      - [ ] NO FUCKING EXPANSIONS when have spaces befor quotes on heredoc!!!!!
+      - [x] NO FUCKING EXPANSIONS when have spaces befor quotes on heredoc!!!!!
 - [x] Implement pipes |
 - [x] EXPANDER :
    - [x] Handle environment variables ($ followed by a sequence of characters) should expand
@@ -145,14 +145,14 @@
    - [x] more than 2 ENTER without line, have leaks
    - [x] "" | "" is missing addings a ND_EXEC after the pipe
    - [ ] Readline is erasing history
-   - [ ] Maybe need to handle tabs as whitespaces
-   - [ ] handle signal if tries to remove file if protected.
+   - [x] Maybe need to handle tabs as whitespaces
    - [ ] NORMINETTE, AMENO, DOMINE, AMENO NORMINETTE
    - [x] handle CTRL + D when use heredoc -> reseted sh->nb_heredoc
-   - [ ] handle CTRL + C in heredoc
-   - [ ] verify if have leaks with heredoc
-   - [ ] use a hidden directory to store files created from heredoc
-   - [ ] delete heredoc temp files after each execution
+   - [x] handle CTRL + C in heredoc
+   - [x] verify if have leaks with heredoc
+   - [x] use a hidden directory to store files created from heredoc
+   - [x] delete heredoc temp files after each execution
+   - [ ] verify add history if it's ok
 
 ```
 ## Tests to be made
