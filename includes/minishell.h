@@ -144,8 +144,13 @@ typedef struct s_iter
 	int		i;
 	int		j;
 	int		k;
-	int		status;
+	int		fd;
+	int		pid;
 	int		len;
+	int		status;
+	char	*delimiter;
+	char	*file;
+	char	*prog_name;
 	char	*exp;
 	char	*name_var;
 	char	*str;
@@ -178,7 +183,6 @@ void	ft_swap_env(char *cmdargs, char **temp, int j);
 void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell);
 void	ft_export_no_args(t_shell shell);
 int		ft_env_duplicate(t_token *cmdargs);
-void	ft_free_and_exit(t_token *token, t_shell *shell, int exit_flag);
 
 //EXPAND
 char	*ft_expand(char *str, t_shell *shell);
@@ -231,11 +235,12 @@ void	ft_create_and_run_heredocs(t_shell *sh);
 void	ft_do_heredoc_files(t_token *token, t_shell *sh);
 
 //free_stuff
-void	ft_free_lst_shell(t_shell *sh);
+void	ft_free_tokens(t_shell *sh);
 void	*ft_free(void *pointer);
 void	*ft_free_envp(char **envp);
 void	ft_clean_hd_files(t_shell *sh);
 void	ft_clean_hd_array(t_shell *sh);
+void	ft_free_and_exit(t_token *token, t_shell *shell, int exit_flag);
 
 //EXEC
 void	ft_exec_builtins(t_token *temp_head, t_shell *shell);

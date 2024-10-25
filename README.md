@@ -88,7 +88,8 @@
       - [x] MULTIPLE
       - [x] heredoc exansions //will not be done
       - [x] heredoc fucking work
-      - [ ] working with signal Ctrl+c Ctrl + d
+      - [x] working with signal Ctrl+c Ctrl + d
+      - [ ] NO FUCKING EXPANSIONS when have spaces befor quotes on heredoc!!!!!
 - [x] Implement pipes |
 - [x] EXPANDER :
    - [x] Handle environment variables ($ followed by a sequence of characters) should expand

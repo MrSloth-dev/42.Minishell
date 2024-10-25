@@ -20,7 +20,13 @@ t_iter	ft_set_iter(int n)
 	h.i = n;
 	h.j = n;
 	h.k = n;
+	h.fd = n;
 	h.len = n;
+	h.pid = n;
+	h.status = n;
+	h.delimiter = NULL;
+	h.file = NULL;
+	h.prog_name = NULL;
 	h.exp = NULL;
 	h.name_var = NULL;
 	h.str = NULL;

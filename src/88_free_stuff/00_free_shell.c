@@ -21,7 +21,7 @@ void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 	if (!sh)
 		return ;
 	sh->line = ft_free(sh->line);
-	ft_free_lst_shell(sh);
+	ft_free_tokens(sh);
 	sh->token_lst = ft_free(sh->token_lst);
 	if (exit_flag == TRUE)
 	{
@@ -36,7 +36,7 @@ void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 	sh = ft_free(sh);
 }
 
-void	ft_free_lst_shell(t_shell *sh)
+void	ft_free_tokens(t_shell *sh)
 {
 	t_token	*cur;
 	t_token	*tmp;
@@ -65,8 +65,7 @@ void	*ft_free_envp(char	**envp)
 	i = 0;
 	while (envp && envp[i])
 	{
-		free(envp[i]);
-		envp[i] = NULL;
+		envp[i] = ft_free(envp[i]);
 		i++;
 	}
 	envp = ft_free(envp);

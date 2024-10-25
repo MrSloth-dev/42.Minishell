@@ -5,9 +5,10 @@ int	g_rec_signal;
 void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
 {
 	ft_create_tokens(token_lst, line);
-	ft_make_expansions(sh);
+	//ft_make_expansions(sh);
 	ft_join_tokens(token_lst);
 	ft_delete_spaces(token_lst, sh);
+	ft_make_expansions(sh);
 	ft_add_node_exec(token_lst, sh);
 	g_rec_signal = 0;
 }
@@ -39,7 +40,7 @@ ft_print_data(sh, PRINT_DATA); //REMOVE BEFORE DELIVER
 		sh->exit_status = WEXITSTATUS(exit_status);
 	}
 	ft_clean_hd_files(sh);
-	ft_free_lst_shell(sh);
+	ft_free_tokens(sh);
 	sh->nb_heredoc = 0;
 }
 

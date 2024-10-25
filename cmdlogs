@@ -1780,3 +1780,27 @@ _____________________________
 
 cat << 1 << 2
 fdgfd
+_____________________________
+
+cat << 1
+echo $?
+cat << 1
+echo $?
+_____________________________
+
+cat << 1
+_____________________________
+
+cat << end1 <<end2 <<     "fd$USER"
+_____________________________
+
+echo "$ $abc $USER $PWD $$ $) $JFGHFGHGF $?" | cat    <<    " fd$USER"
+echo "$ $abc $USER $PWD $$ $) $JFGHFGHGF $?" | cat    <<    " fd$USER"
+echo "$ $abc $USER $PWD $$ $) $JFGHFGHGF $?" | cat    <<    " fd$USER"
+echo "$ $abc $USER $PWD $$ $) $JFGHFGHGF $?" | cat    <<    " fd$USER"
+_____________________________
+
+echo "$ $abc $USER $PWD $$ $$ $0 $JFDFSDSF $?" << 	" F$USER"
+_____________________________
+
+echo "$ $abc $USER $PWD $$ $$ $0 $JFDFSDSF $?" <<     " F$USER"
