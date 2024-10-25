@@ -66,7 +66,7 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 	s = ft_set_iter(0);
 	s.cur = token;
 	ft_bzero(prog_name, 256);
-	ft_strlcpy(prog_name, sh->prog_name, ft_strlen(sh->prog_name));
+	ft_strlcpy(prog_name, sh->prog_name, ft_strlen(sh->prog_name) + 1);
 	while (s.cur)
 	{		
 		if (s.cur->file)
@@ -74,8 +74,8 @@ void	ft_run_heredocs(t_token *token, t_shell *sh)
 
 			ft_bzero(delimiter, 4096);
 			ft_bzero(file, 256);
-			ft_strlcpy(delimiter, s.cur->content, ft_strlen(s.cur->content));
-			ft_strlcpy(file, s.cur->file, ft_strlen(s.cur->file));
+			ft_strlcpy(delimiter, s.cur->content, ft_strlen(s.cur->content) + 1);
+			ft_strlcpy(file, s.cur->file, ft_strlen(s.cur->file) + 1);
 
 			pid = fork();
 			if (pid == 0)
