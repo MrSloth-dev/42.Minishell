@@ -56,13 +56,18 @@ void	ft_cd(t_token *cmdargs, t_shell *shell)
 	else if (!ft_strcmp(cmdargs->content, "-"))
 	{
 		old_pwd = ft_get_env_value("OLDPWD", shell->envp, shell);
-		ft_printf(STDOUT_FILENO, "%s\n", old_pwd);
-		ft_safe_chdir(old_pwd, shell, 0);
+		if (old_pwd && *old_pwd)
+		{
+			ft_printf(STDOUT_FILENO, "%s\n", old_pwd);
+			ft_safe_chdir(old_pwd, shell, 0);
+		}
+		else
+			ft_printf(STDOUT_FILENO, "%s : cd: OLDPWD not set\n", shell->prog_name);
 	}
 	else
 		ft_safe_chdir(cmdargs->content, shell, 0);
 	ft_update_directory(update_old, "OLDPWD=", shell);
-	free(update_old);
+	ft_free(update_old);
 }
 
 void	ft_safe_chdir(char *path, t_shell *shell, int flags)

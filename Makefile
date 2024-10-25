@@ -25,13 +25,6 @@ VALGRINDFLAGS          = -s --suppressions=$(READLINE_SUPP) \
 			 --tool=memcheck -q --leak-check=full \
                          --show-leak-kinds=all --track-origins=yes \
                          --track-fds=yes --show-below-main=no \
-			 --log-file=$(LEAKS_LOG)
-
-VALGRINDONTIME          = -s --suppressions=$(READLINE_SUPP) \
-			 --tool=memcheck -q --leak-check=full \
-                         --show-leak-kinds=all --track-origins=yes \
-                         --track-fds=yes --show-below-main=no
-
 
 
 
@@ -124,9 +117,8 @@ FREE =	\
 		$(FREEDIR)/00_free_shell.c \
 		$(FREEDIR)/88_free_and_null.c
 
-WARNING = src/WARNING/print.c
 
-SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(WARNING) $(EXEC) $(UTILS) $(H_DOC) $(PRINT)
+SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(EXEC) $(UTILS) $(H_DOC) $(PRINT)
 
 TMPDIR = .tmp
 
@@ -142,7 +134,7 @@ OBJS = $(SRCS:.c=.o)
 ################################################################################
 
 
-.PHONY: all clean fclean re debug hell sync_bash
+.PHONY: all clean fclean re debug hell sync
 
 all: $(NAME)
 
@@ -166,15 +158,6 @@ print : $(OBJS) $(HEADER)
 le: fclean all
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
 	cat leaks.log
-
-va: fclean all
-	valgrind $(VALGRINDONTIME) ./$(NAME)
-
-qk: all
-	./minishell
-
-deb : re
-	tmux send-keys 'gdbtui ./minishell' C-m Escape
 
 norm:
 	@norminette | grep -E 'Error:|rror!'
@@ -219,28 +202,16 @@ TESTER_BIN = tester
 $(TESTER_DIR):
 	@git clone $(TESTER_URL) $(TESTER_DIR)
 
-tester: $(TESTER_DIR)
+tester: $(TESTER_DIR) $(NAME)
 	make re
 	@cd $(TESTER_DIR) && ./$(TESTER_BIN)
 	make fclean
 
-te:	$(TESTER_DIR)
-	@make re
-	@cd $(TESTER_DIR) && ./$(TESTER_BIN) 2>/dev/null | grep /146
-	@make fclean
+va : re
+	valgrind $(VALGRINDFLAGS) ./$(NAME)
 
 hell :
-	@echo "$(RED) <-. (\`-')    _      <-. (\`-')_   _       (\`-').->  (\`-')  _       "
-	@echo "    \\(OO )_  (_)        \\( OO) ) (_)      (OO )__   ( OO).-/    <-.       <-.    "
-	@echo " ,--./  ,-.) ,-(\`-') ,--./ ,--/  ,-(\`-') ,--. ,'-' (,------.  ,--. )    ,--. )   "
-	@echo " |   \`.'   | | ( OO) |   \\ |  |  | ( OO) |  | |  |  |  .---'  |  (\`-')  |  (\`-') "
-	@echo " |  |'.'|  | |  |  ) |  . '|  |) |  |  ) |  \`-'  | (|  '--.   |  |OO )  |  |OO ) "
-	@echo " |  |   |  |(|  |_/  |  |\\    | (|  |_/  |  .-.  |  |  .--'  (|  '__ | (|  '__ | "
-	@echo " |  |   |  | |  |'-> |  | \\   |  |  |'-> |  | |  |  |  \`---.  |     |'  |     |' "
-	@echo " \`--'   \`--' \`--'    \`--'  \`--'  \`--'    \`--' \`--'  \`------'  \`-----'   \`-----'  "
-	@echo "                                                                                 $(CLR_RMV)"
 	@echo "$(RED) A Project developed by Ivan Teixeira && Joao Barbosa$(CLR_RMV)"
 
-
-.SILENT: all re gdb
+.SILENT: re all vgdb gdb
 

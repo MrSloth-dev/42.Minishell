@@ -193,6 +193,7 @@ void	ft_make_expansions(t_shell *sh);
 //init
 t_shell	*ft_init_shell(char *envp[], char *argv_zero);
 char	**ft_copy_envp(char **envp, int extra);
+int		ft_getpid(t_shell *shell);
 
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
@@ -265,10 +266,5 @@ t_iter	ft_set_iter(int n);
 int		ft_isbuiltin(char *content);
 void	ft_restore_fd(int std_in, int std_out, t_shell *sh);
 
-// WARNING
-// void	ft_print_data(t_shell *sh, int is_to_print);
-void		ft_cmd_log(char *line); //ASDASD
-
-int		ft_getpid(t_shell *shell);
 
 #endif //MINISHELL_H_

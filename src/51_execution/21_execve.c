@@ -30,11 +30,16 @@ int	ft_check_bin_error(char *bin, t_shell *shell)
 char	*ft_get_cmdbin(t_token *token, t_shell *shell)
 {
 	char	*temp;
+	char	*path;
 	int		i;
 	int		err;
 
 	i = 0;
 	temp = NULL;
+	path = ft_get_env_value("PATH", shell->envp, shell);
+	shell->path = ft_split(path, ':');
+	if (!shell->path || !*shell->path)
+		return (ft_free(path), NULL);
 	while (shell->path[i])
 	{
 		temp = ft_strjoin(shell->path[i], "/");

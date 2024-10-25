@@ -12,18 +12,18 @@
 
 #include "minishell.h"
 
-char	*ft_find_path(char *envp[])
-{
-	while (*envp)
-	{
-		if (ft_strncmp("PATH=", *envp, 5) != 0)
-			envp++;
-		else
-			return (*envp + 5);
-	}
-	return (NULL);
-}
-
+// char	*ft_find_path(char *envp[])
+// {
+// 	while (*envp)
+// 	{
+// 		if (ft_strncmp("PATH=", *envp, 5) != 0)
+// 			envp++;
+// 		else
+// 			return (*envp + 5);
+// 	}
+// 	return (NULL);
+// }
+//
 static void	ft_cmd_log_newline(void)
 {
 	int		fd;
@@ -47,7 +47,7 @@ t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 	sh->prog_name = argv_zero + 2;
 	sh->token_lst = NULL;
 	sh->envp = ft_copy_envp(envp, 0);
-	sh->path = ft_split(ft_find_path(sh->envp), ':');
+	sh->path = NULL;
 	sh->hd_path = ft_strjoin_free(getcwd(NULL, 0), ft_strdup("/.tmp/"));
 	sh->nb_heredoc = 0;
 	sh->exit_status = EXIT_SUCCESS;

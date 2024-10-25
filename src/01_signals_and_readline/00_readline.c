@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 #include "minishell.h"
+#include <unistd.h>
 
 static void	ft_handle_sig(int signal)
 {
@@ -44,7 +45,7 @@ char	*ft_compress_home(char *path, t_shell *sh)
 
 	compressed = NULL;
 	home = ft_get_env_value("HOME", sh->envp, sh);
-	if (!home | !path)
+	if (!*home | !*path)
 		return (ft_strdup(""));
 	if (ft_strncmp(path, home, ft_strlen(home)) == 0)
 	{
@@ -66,23 +67,25 @@ char	*ft_get_prompt(t_shell *sh)
 	char	*prompt;
 	char	*cwd;
 
+	ft_printf(STDOUT_FILENO, RED);
 	cwd = ft_get_env_value("PWD", sh->envp, sh);
 	prompt = ft_get_env_value("USER", sh->envp, sh);
-	if (!prompt)
+	if (!prompt | !cwd)
 		return (NULL);
-	prompt = ft_strjoin(prompt, "@");
-	if (!prompt)
+	prompt = ft_strjoin(prompt, RESET"@"YELLOW);
+	if (!prompt || !*ft_get_env_value("SESSION_MANAGER", sh->envp, sh))
 		return (NULL);
-	prompt = ft_strjoin_free(prompt, ft_strdup(ft_get_env_value("SESSION_MANAGER", sh->envp, sh) + 6));
+	prompt = ft_strjoin_free(prompt,
+			ft_strdup(ft_get_env_value("SESSION_MANAGER", sh->envp, sh) + 6));
 	if (!prompt)
 		return (NULL);
 	*strchr(prompt, '.') = 0;
-	prompt = ft_strjoin_free(prompt, ft_strdup(":"));
+	prompt = ft_strjoin_free(prompt, ft_strdup(RESET":"GREEN));
 	if (!prompt)
 		return (NULL);
 	if (cwd)
 		prompt = ft_strjoin_free(prompt, ft_compress_home(cwd, sh));
-	prompt = ft_strjoin_free(prompt, ft_strdup("$ "));
+	prompt = ft_strjoin_free(prompt, ft_strdup("$ "RESET));
 	if (!prompt)
 		return (NULL);
 	return (prompt);
@@ -114,10 +117,7 @@ t_shell	*ft_readline(t_shell *sh)
 	sh->line = NULL;
 	sh->line = readline(prompt);
 	if ((sh->line && *(sh->line)))
-	{
-		ft_cmd_log(sh->line);
 		add_history(sh->line);
-	}
 	if (g_rec_signal == SIGINT)
 		sh->exit_status = 130;
 	if (sh->line == NULL || (ft_strcmp(sh->line, "exit") == 0))
