@@ -18,8 +18,8 @@ void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
 {
 	ft_create_tokens(token_lst, line);
 	ft_join_tokens(token_lst);
-	ft_delete_spaces(token_lst, sh);
 	ft_make_expansions(sh);
+	ft_delete_spaces(token_lst, sh);
 	ft_add_node_exec(token_lst, sh);
 	g_rec_signal = 0;
 }

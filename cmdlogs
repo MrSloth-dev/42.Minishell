@@ -1855,3 +1855,8 @@ $USER " $USER " '$USER' "'$USER'" '"$USER"'
 echo $USER " $USER " '$USER' "'$USER'" '"$USER"'
 $USER " $USER " '$USER' "'$USER'" '"$USER'
 echo $USER " $USER " '$USER' "'$USER'" '"$USER'
+_____________________________
+
+cat << " fd $USER"
+cat <<  	 " 	 fd $USER"
+cat <<  	 end" fd $USER"
