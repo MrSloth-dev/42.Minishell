@@ -186,6 +186,14 @@ gdb : re
 	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
 	tmux select-pane -t Gdb.1
 
+sync : re
+	tmux new-window  -n sync
+	tmux send-keys './minishell' C-m Escape
+	tmux split-window -h
+	tmux send-keys -t sync.2 'bash' C-m
+	tmux select-pane -t sync.1
+	tmux setw synchronize-panes on
+
 vgdb : re
 	tmux new-window  -n vGdb
 	tmux send-keys 'valgrind -q --vgdb-error=0 ./minishell' C-m Escape
