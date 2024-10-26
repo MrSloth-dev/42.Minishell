@@ -44,19 +44,19 @@ char	*ft_compress_home(char *path, t_shell *sh)
 	char	*compressed;
 
 	compressed = NULL;
-	home = ft_get_env_value("HOME", sh->envp, sh);
-	if (!*path)
+	if (path || !*path)
 		return (ft_strdup(""));
-	if (!*home)
+	home = ft_get_env_value("HOME", sh->envp, sh);
+	if (!home || !*home)
 		return (ft_strdup(path));
 	if (ft_strncmp(path, home, ft_strlen(home)) == 0)
 	{
 		if (path[ft_strlen(home)] == 0 || path[ft_strlen(home)] == '/')
 		{
-			compressed = malloc(sizeof(char)
-					* (ft_strlen(path) - ft_strlen(home) + 2));
+			compressed = ft_calloc(sizeof(char), 
+					(ft_strlen(path) - ft_strlen(home) + 2));
 			if (!compressed)
-				return (NULL);
+				return (ft_strdup(""));
 			compressed[0] = '~';
 			ft_strlcpy(compressed + 1, path + ft_strlen(home),
 				ft_strlen(path) - ft_strlen(home) + 1);
