@@ -97,7 +97,7 @@ void	ft_safe_chdir(char *path, t_shell *shell, int flags)
 	shell->exit_status = EXIT_SUCCESS;
 	pwd = getcwd(NULL, 0);
 	ft_update_directory(pwd, "PWD=", shell);
-	free(pwd);
+	pwd = ft_free(pwd);
 }
 
 void	ft_update_directory(char *path, char *variable, t_shell *shell)
