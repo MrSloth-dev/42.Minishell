@@ -113,5 +113,5 @@ void	ft_update_directory(char *path, char *variable, t_shell *shell)
 		ft_append_env(path_str, shell->envp);
 	else
 		ft_swap_env(path_str, shell->envp, j);
-	free(path_str);
+	path_str = ft_free(path_str);
 }
