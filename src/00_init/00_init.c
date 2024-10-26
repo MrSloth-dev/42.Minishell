@@ -12,6 +12,26 @@
 
 #include "minishell.h"
 
+char	*ft_get_hostname(void)
+{
+	char	*hostname;
+	int		fd;
+	int		size_read;
+
+	fd = open("/etc/hostname", O_RDONLY);
+	hostname = malloc(sizeof(char) * 256);
+	if (!hostname)
+		return (close(fd), NULL);
+	if (fd == -1)
+		return (NULL);
+	size_read = read(fd, hostname, 255);
+	close(fd);
+	if (size_read > 0)
+		return (hostname[size_read - 1] = 0, hostname);
+	free(hostname);
+	return (ft_strdup("localhost"));
+}
+
 t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 {
 	t_shell	*sh;
@@ -26,6 +46,8 @@ t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 	sh->prog_name = argv_zero + 2;
 	sh->token_lst = NULL;
 	sh->envp = ft_copy_envp(envp, 0);
+	sh->hostname = ft_get_hostname();
+	sh->user = getenv("USER");
 	sh->path = NULL;
 	sh->hd_path = ft_strjoin_free(getcwd(NULL, 0), ft_strdup("/.tmp/"));
 	sh->nb_heredoc = 0;

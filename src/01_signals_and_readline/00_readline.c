@@ -45,8 +45,10 @@ char	*ft_compress_home(char *path, t_shell *sh)
 
 	compressed = NULL;
 	home = ft_get_env_value("HOME", sh->envp, sh);
-	if (!*home | !*path)
+	if (!*path)
 		return (ft_strdup(""));
+	if (!*home)
+		return (ft_strdup(path));
 	if (ft_strncmp(path, home, ft_strlen(home)) == 0)
 	{
 		if (path[ft_strlen(home)] == 0 || path[ft_strlen(home)] == '/')
@@ -61,31 +63,27 @@ char	*ft_compress_home(char *path, t_shell *sh)
 			return (compressed);
 		}
 	}
-	return (path);
+	return (ft_strdup(path));
 }
 
 char	*ft_get_prompt(t_shell *sh)
 {
+	char	*compressed;
 	char	*prompt;
 	char	*cwd;
 
-	ft_printf(STDOUT_FILENO, YELLOW);
-	if (ft_env_exist("PWD", NULL, sh->envp) == -1
-		|| ft_env_exist("PWD", NULL, sh->envp) == -1)
-		return (NULL);
-	prompt = ft_get_env_value("USER", sh->envp, sh);
+	prompt = ft_strdup("");
+	prompt = ft_strjoin_free(prompt, ft_strdup(sh->user));
 	prompt = ft_strjoin_free(prompt, ft_strdup("@"));
-	if (!prompt || ft_env_exist("SESSION_MANAGER", NULL, sh->envp) == -1)
-		return (ft_free(prompt), NULL);
-	prompt = ft_strjoin_free(prompt,
-			ft_strdup(ft_get_env_value("SESSION_MANAGER", sh->envp, sh) + 6));
-	if (!prompt)
-		return (ft_free(prompt), NULL);
-	*strchr(prompt, '.') = 0;
+	prompt = ft_strjoin_free(prompt, ft_strdup(sh->hostname));
 	prompt = ft_strjoin_free(prompt, ft_strdup(":"));
 	cwd = ft_get_env_value("PWD", sh->envp, sh);
-	prompt = ft_strjoin_free(prompt, ft_compress_home(cwd, sh));
-	prompt = ft_strjoin_free(prompt, ft_strdup("$ "RESET));
+	if (cwd)
+	{
+		compressed = ft_compress_home(cwd, sh);
+		prompt = ft_strjoin_free(prompt, compressed);
+	}
+	prompt = ft_strjoin_free(prompt, ft_strdup("$ "));
 	if (!prompt)
 		return (ft_free(prompt), ft_free(cwd), NULL);
 	return (prompt);

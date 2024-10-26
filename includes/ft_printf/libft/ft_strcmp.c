@@ -19,7 +19,7 @@ int	ft_strcmp(char *s1, char *s2)
 
 	i = 0;
 	diff = 0;
-	while (((s2[i] || s1[i])) && diff == 0)
+	while (diff == 0 && ((s2[i] || s1[i])))
 	{
 		diff = s1[i] - s2[i];
 		i++;

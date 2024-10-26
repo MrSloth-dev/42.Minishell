@@ -26,7 +26,7 @@ static int	ft_export_size_increase(t_token *cmdargs, t_shell *shell, int *j)
 	{
 		if (ft_env_exist(current->content, j, shell->envp) == -1)
 			i++;
-		if (ft_env_duplicate(current))
+		if (ft_env_duplicate(current) || !ft_check_valid_identifiers(current))
 			i--;
 		current = current->next;
 	}
@@ -46,36 +46,6 @@ int	ft_plus_mode(char *cmdargs)
 	return (0);
 }
 
-int	ft_valid_identifiers(t_token *cmdargs, t_shell *sh)
-{
-	int	i;
-
-	if (!cmdargs || !cmdargs->content)
-		return (0);
-	if (ft_strchr("=+", cmdargs->content[0]))
-		return (ft_printf(STDERR_FILENO, INV_ID,
-				sh->prog_name, cmdargs->content), 0);
-	if (!ft_isalpha(cmdargs->content[0]) && cmdargs->content[0] != '_')
-		return (ft_printf(STDERR_FILENO, INV_ID,
-				sh->prog_name, cmdargs->content), 0);
-	if (!ft_strchr(cmdargs->content, '=') && ft_strchr(cmdargs->content, '+'))
-		return (ft_printf(STDERR_FILENO, INV_ID,
-				sh->prog_name, cmdargs->content), 0);
-	i = 1;
-	while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
-	{
-		if (cmdargs->content[i] == '+' && cmdargs->content[i] != '=')
-			return (ft_printf(STDERR_FILENO, INV_ID,
-					sh->prog_name, cmdargs->content), 0);
-		else if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')
-			i++;
-		else
-			return (ft_printf(STDERR_FILENO, INV_ID,
-					sh->prog_name, cmdargs->content), 0);
-	}
-	return (1);
-}
-
 void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
 {
 	t_token	*current;
@@ -85,7 +55,7 @@ void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
 	j = -1;
 	while (current && current->content)
 	{
-		if (!ft_valid_identifiers(cmdargs, shell))
+		if (!ft_valid_identifiers_msg(current, shell))
 		{
 			current = current->next;
 			shell->exit_status = EXIT_FAILURE;
@@ -125,3 +95,25 @@ void	ft_export(t_token *cmdargs, t_shell *shell)
 	ft_free_envp(shell->envp);
 	shell->envp = temp;
 }
+
+void	ft_join_env(char *cmdargs, char **temp, int j)
+{
+	int		k;
+	char	*start;
+
+	start = NULL;
+	k = 0;
+	j--;
+	while (temp[k])
+	{
+		if (j == k)
+		{
+			start = ft_strchr(&cmdargs[k], '=');
+			temp[k] = ft_strjoin(temp[k], ++start);
+		}
+		if (!temp[k])
+			return ;
+		k++;
+	}
+}
+

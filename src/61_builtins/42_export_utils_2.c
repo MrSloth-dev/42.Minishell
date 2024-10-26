@@ -21,29 +21,62 @@ int	ft_env_duplicate(t_token *cmdargs)
 	while (cmdargs)
 	{
 		if (ft_strcmp(cmdargs->content, temp) == 0)
-			return (ft_printf(1, "dup"));
+			return (1);
 		cmdargs = cmdargs->prev;
 	}
 	return (0);
 }
 
-void	ft_join_env(char *cmdargs, char **temp, int j)
+static int	ft_valid_first_char(t_token *cmdargs)
 {
-	int		k;
-	char	*start;
+	if (!cmdargs || !cmdargs->content)
+		return (0);
+	if (ft_strchr("=+", cmdargs->content[0]))
+		return (0);
+	if (!ft_isalpha(cmdargs->content[0]) && cmdargs->content[0] != '_')
+		return (0);
+	if (!ft_strchr(cmdargs->content, '=') && ft_strchr(cmdargs->content, '+'))
+		return (0);
+	return (1);
+}
 
-	start = NULL;
-	k = 0;
-	j--;
-	while (temp[k])
+int	ft_check_valid_identifiers(t_token *cmdargs)
+{
+	int	i;
+
+	if (ft_valid_first_char(cmdargs) == 0)
+		return (0);
+	i = 1;
+	while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
 	{
-		if (j == k)
-		{
-			start = ft_strchr(&cmdargs[k], '=');
-			temp[k] = ft_strjoin(temp[k], ++start);
-		}
-		if (!temp[k])
-			return ;
-		k++;
+		if (cmdargs->content[i] == '+' && cmdargs->content[i] != '=')
+			return (0);
+		else if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')
+			i++;
+		else
+			return (0);
 	}
+	return (1);
+}
+
+int	ft_valid_identifiers_msg(t_token *cmdargs, t_shell *sh)
+{
+	int	i;
+
+	if (ft_valid_first_char(cmdargs) == 0)
+		return (ft_printf(STDERR_FILENO, INV_ID,
+				sh->prog_name, cmdargs->content), 0);
+	i = 1;
+	while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
+	{
+		if (cmdargs->content[i] == '+' && cmdargs->content[i] != '=')
+			return (ft_printf(STDERR_FILENO, INV_ID,
+					sh->prog_name, cmdargs->content), 0);
+		else if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')
+			i++;
+		else
+			return (ft_printf(STDERR_FILENO, INV_ID,
+					sh->prog_name, cmdargs->content), 0);
+	}
+	return (1);
 }

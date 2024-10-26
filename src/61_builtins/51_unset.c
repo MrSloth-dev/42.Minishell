@@ -54,6 +54,8 @@ void	ft_unset(t_token *cmdargs, t_shell *shell)
 		if (ft_env_exist(current->content, &j, shell->envp) != -1
 			&& !ft_env_duplicate(current))
 			ft_copy_and_remove_envp(shell, j, 0);
+		else
 		current = current->next;
 	}
+	shell->exit_status = EXIT_SUCCESS;
 }

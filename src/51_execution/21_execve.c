@@ -39,18 +39,18 @@ char	*ft_get_cmdbin(t_token *token, t_shell *shell)
 	path = ft_get_env_value("PATH", shell->envp, shell);
 	shell->path = ft_split(path, ':');
 	if (!shell->path || !*shell->path)
-		return (ft_free(path), NULL);
+		return (NULL);
 	while (shell->path[i])
 	{
 		temp = ft_strjoin(shell->path[i], "/");
 		temp = ft_strjoin_free(temp, ft_strdup(token->content));
 		err = access(temp, X_OK);
 		if (err == 0)
-			return (ft_free(path), temp);
+			return (temp);
 		free(temp);
 		i++;
 	}
-	return (ft_free(path), NULL);
+	return (NULL);
 }
 
 char	**ft_create_cmdargs(t_token *token)
@@ -101,6 +101,5 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 			execve(cmd->content, cmdargs, shell->envp);
 	}
 	ft_print_execve_error(error, cmd, shell);
-	cmdbin = ft_free(cmdbin);
 	ft_free_envp(cmdargs);
 }

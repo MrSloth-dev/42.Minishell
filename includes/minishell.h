@@ -124,6 +124,8 @@ typedef struct s_token_lst
 ///////////////////////////////
 typedef struct s_shell
 {
+	char		*hostname;
+	char		*user;
 	t_token_lst	*token_lst;
 	t_token		*head;
 	long		exit_status;
@@ -185,6 +187,8 @@ void	ft_swap_env(char *cmdargs, char **temp, int j);
 void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell);
 void	ft_export_no_args(t_shell shell);
 int		ft_env_duplicate(t_token *cmdargs);
+int	ft_valid_identifiers_msg(t_token *cmdargs, t_shell *sh);
+int	ft_check_valid_identifiers(t_token *cmdargs);
 
 //EXPAND
 char	*ft_expand(char *str, t_shell *shell);
@@ -194,7 +198,7 @@ void	ft_make_expansions(t_shell *sh);
 t_shell	*ft_init_shell(char *envp[], char *argv_zero);
 char	**ft_copy_envp(char **envp, int extra);
 int		ft_getpid(t_shell *shell);
-
+char	*ft_get_hostname(void);
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
 void	ft_sig_restore(void);

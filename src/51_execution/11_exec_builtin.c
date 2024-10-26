@@ -58,11 +58,7 @@ void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *sh)
 		fd = ft_exec_redir(cmdargs->right, sh);
 	}
 	if (fd != -1)
-	{
 		ft_exec_builtins(cmdargs->left, sh);
-		if (cmdargs->right)
-			ft_restore_fd(std_in, std_out, sh);
-	}
 	if (cmdargs->right)
 		ft_restore_fd(std_in, std_out, sh);
 }

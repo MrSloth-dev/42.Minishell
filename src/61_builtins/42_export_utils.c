@@ -108,7 +108,6 @@ void	ft_export_no_args(t_shell shell)
 		else
 			ft_printf(STDOUT_FILENO, "=\"%s\"\n", value);
 		ft_free(key);
-		ft_free(value);
 	}
 	ft_free_envp(order);
 }

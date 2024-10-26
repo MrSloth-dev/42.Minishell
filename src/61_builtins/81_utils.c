@@ -67,11 +67,11 @@ char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell)
 			if (!env || !ft_strchr(env_list[i], '='))
 				return (NULL);
 			else
-				return (ft_strdup(env));
+				return (env);
 		}
 		i++;
 	}
-	return (ft_strdup(""));
+	return ("");
 }
 
 int	ft_env_exist(char *var, int *j, char **env_list)
