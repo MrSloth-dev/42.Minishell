@@ -112,7 +112,7 @@
     - [x] convert to accept tokens
     - [x] check for leaks
  - [x] export with no options
-    - [ ] If multiple variable to export and one of them has an error
+    - [x] If multiple variable to export and one of them has an error
     - [x] Make sure name doesnt contain invalid identifiers
     - [x] prints with "declare -x" with 0 args
     - [x] Append non existant env_var
@@ -154,20 +154,21 @@
    - [x] delete heredoc temp files after each execution
    - [ ] verify add history if it's ok
    - [x] >>$a|""|''|>$b open fd - ok?
-   - [ ] cd "" need to stay put
+   - [ ] cd "" need to stay put  - JOAO
    - [x] /'' - OK
    - [x] <'<'ec redirect fail from '<ec' OK!
    - [x] export T+T= ok!
-   - [ ] echo <123 <2456 koo | echo 1 fd open - ok ?
+   - [x] echo <123 <2456 koo | echo 1 fd open - ok ?
    - [x] | echo oi this error propagates to another erros of invalid read of one empty token
    - [ ] "|" echo  oi
    - [x] echo | "|" ok
    - [x] echo |"$?"
    - [x] export UNO=1 DOS-2 TRES=3 | env | grep TRES
-   - [ ] export | grep
-   - [ ] joao-pol@c2r5s2:~/CommonCore/3.MiniShell$ < $A
+   - [ ] export | grep - joao
+   - [ ] joao-pol@c2r5s2:~/CommonCore/3.MiniShell$ < $A IVAN
          bash: $A: ambiguous redirect
-   - [ ] Ctrl + \ for child processes that are awaiting
+   - [ ] Ctrl + \ for child processes that are awaiting IVAN
+   - [ ] Test here_doc
 
 ```
 ## Tests to be made
