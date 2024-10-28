@@ -158,12 +158,13 @@
    - [ ] /''
    - [ ] <'<'ec redirect fail from '<ec'
    - [ ] export T+T=
-   - [ ] echo <123 <2456 koo | echo 1
-   - [ ] | echo oi
+   - [ ] echo <123 <2456 koo | echo 1 fd open
+   - [ ] | echo oi this error propagates to another erros of invalid read of one empty token
    - [ ] "|" echo  oi
    - [ ] echo | "|"
    - [ ] echo |"$?"
    - [ ] export UNO=1 DOS-2 TRES=3 | env | grep TRES
+   - [ ] export | grep
 
 ```
 ## Tests to be made

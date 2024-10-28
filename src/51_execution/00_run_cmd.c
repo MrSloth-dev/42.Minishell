@@ -14,6 +14,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+static void	ft_multiple_close(int fd1, int fd2)
+{
+	close(fd1);
+	close(fd2);
+}
+
 void	ft_run_exec_node(t_token *token, t_shell *sh)
 {
 	t_iter	h;
@@ -21,8 +27,10 @@ void	ft_run_exec_node(t_token *token, t_shell *sh)
 	h.fd = 420;
 	if (token->right)
 	{
-		sh->std_in = dup(STDIN_FILENO);
-		sh->std_out = dup(STDOUT_FILENO);
+		if (sh->std_in == -1)
+			sh->std_in = dup(STDIN_FILENO);
+		if (sh->std_out == -1)
+			sh->std_out = dup(STDOUT_FILENO);
 		h.fd = ft_exec_redir(token->right, sh);
 	}
 	if (token->left && h.fd != -1)
@@ -37,8 +45,7 @@ void	ft_run_exec_node(t_token *token, t_shell *sh)
 
 void	ft_close_pipe(int exit[2], int pid[2], int pipe[2], t_shell *sh)
 {
-	close(pipe[0]);
-	close(pipe[1]);
+	ft_multiple_close(pipe[0], pipe[1]);
 	waitpid(pid[0], &exit[0], 0);
 	waitpid(pid[1], &exit[1], 0);
 	sh->exit_status = WEXITSTATUS(exit[1]);
@@ -58,8 +65,7 @@ void	ft_run_pipe(t_token *token, t_shell *sh)
 	{
 		ft_sig_restore();
 		dup2(pid_pipe[1], STDOUT_FILENO);
-		close(pid_pipe[1]);
-		close(pid_pipe[0]);
+		ft_multiple_close(pid_pipe[0], pid_pipe[1]);
 		ft_run(token->left, sh);
 	}
 	pid_child[1] = fork();
@@ -67,8 +73,7 @@ void	ft_run_pipe(t_token *token, t_shell *sh)
 	{
 		ft_sig_restore();
 		dup2(pid_pipe[0], STDIN_FILENO);
-		close(pid_pipe[1]);
-		close(pid_pipe[0]);
+		ft_multiple_close(pid_pipe[0], pid_pipe[1]);
 		ft_run(token->right, sh);
 	}
 	ft_close_pipe(exit_status, pid_child, pid_pipe, sh);

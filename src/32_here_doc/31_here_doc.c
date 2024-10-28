@@ -76,6 +76,7 @@ int	ft_run_heredocs(t_token *token, t_shell *sh)
 	if (!token || !sh || sh->nb_heredoc < 1)
 		return (1);
 	cur = token;
+	sh->hostname = ft_free(sh->hostname);
 	while (cur)
 	{
 		if (cur->file)
