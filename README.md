@@ -153,6 +153,17 @@
    - [x] use a hidden directory to store files created from heredoc
    - [x] delete heredoc temp files after each execution
    - [ ] verify add history if it's ok
+   - [ ] >>$a|""|''|>$b open fd
+   - [ ] cd "" need to stay put
+   - [ ] /''
+   - [ ] <'<'ec redirect fail from '<ec'
+   - [ ] export T+T=
+   - [ ] echo <123 <2456 koo | echo 1
+   - [ ] | echo oi
+   - [ ] "|" echo  oi
+   - [ ] echo | "|"
+   - [ ] echo |"$?"
+   - [ ] export UNO=1 DOS-2 TRES=3 | env | grep TRES
 
 ```
 ## Tests to be made

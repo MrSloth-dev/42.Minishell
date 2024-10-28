@@ -46,10 +46,10 @@ int	ft_check_valid_identifiers(t_token *cmdargs)
 
 	if (ft_valid_first_char(cmdargs) == 0)
 		return (0);
-	i = 1;
+	i = 0;
 	while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
 	{
-		if (cmdargs->content[i] == '+' && cmdargs->content[i] != '=')
+		if (cmdargs->content[i] == '+' && cmdargs->content[i + 1] != '=')
 			return (0);
 		else if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')
 			i++;
@@ -66,10 +66,10 @@ int	ft_valid_identifiers_msg(t_token *cmdargs, t_shell *sh)
 	if (ft_valid_first_char(cmdargs) == 0)
 		return (ft_printf(STDERR_FILENO, INV_ID,
 				sh->prog_name, cmdargs->content), 0);
-	i = 1;
+	i = 0;
 	while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
 	{
-		if (cmdargs->content[i] == '+' && cmdargs->content[i] != '=')
+		if (cmdargs->content[i] == '+' && cmdargs->content[i + 1] != '=')
 			return (ft_printf(STDERR_FILENO, INV_ID,
 					sh->prog_name, cmdargs->content), 0);
 		else if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')

@@ -19,10 +19,12 @@ void	ft_run_exec_node(t_token *token, t_shell *sh)
 	t_iter	h;
 
 	h.fd = 420;
-	sh->std_in = dup(STDIN_FILENO);
-	sh->std_out = dup(STDOUT_FILENO);
 	if (token->right)
+	{
+		sh->std_in = dup(STDIN_FILENO);
+		sh->std_out = dup(STDOUT_FILENO);
 		h.fd = ft_exec_redir(token->right, sh);
+	}
 	if (token->left && h.fd != -1)
 	{
 		if (!ft_isbuiltin(token->left->content))
@@ -37,7 +39,6 @@ void	ft_close_pipe(int exit[2], int pid[2], int pipe[2], t_shell *sh)
 {
 	close(pipe[0]);
 	close(pipe[1]);
-	// ft_sig_mute();
 	waitpid(pid[0], &exit[0], 0);
 	waitpid(pid[1], &exit[1], 0);
 	sh->exit_status = WEXITSTATUS(exit[1]);

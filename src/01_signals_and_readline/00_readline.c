@@ -74,9 +74,9 @@ char	*ft_get_prompt(t_shell *sh)
 
 	prompt = ft_strdup("");
 	prompt = ft_strjoin_free(prompt, ft_strdup(sh->user));
-	prompt = ft_strjoin_free(prompt, ft_strdup("@"));
+	prompt = ft_strjoin_free(prompt, ft_strdup(RED"@"RESET));
 	prompt = ft_strjoin_free(prompt, ft_strdup(sh->hostname));
-	prompt = ft_strjoin_free(prompt, ft_strdup(":"));
+	prompt = ft_strjoin_free(prompt, ft_strdup(RED":"RESET));
 	cwd = ft_get_env_value("PWD", sh->envp, sh);
 	if (cwd && *cwd)
 	{

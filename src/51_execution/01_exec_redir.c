@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 void	ft_handle_exit_redir(t_token *cur_redir, t_shell *sh, int *fd)
 {
@@ -69,10 +70,14 @@ void	ft_restore_fd(int std_in, int std_out, t_shell *sh)
 {
 	char buffer[1];
 	(void)sh->exit_status;
-	dup2(std_out, STDOUT_FILENO);
-	dup2(std_in, STDIN_FILENO);
 	if (read(std_in, buffer, 0) != -1)
+	{
+		dup2(std_in, STDIN_FILENO);
 		close(std_in);
+	}
 	if (read(std_out, buffer, 0) != -1)
+	{
+		dup2(std_out, STDOUT_FILENO);
 		close(std_out);
+	}
 }
