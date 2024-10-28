@@ -102,4 +102,5 @@ void	ft_execve(t_token *cmd, t_shell *shell)
 	}
 	ft_print_execve_error(error, cmd, shell);
 	ft_free_envp(cmdargs);
+	ft_free(cmdbin);
 }

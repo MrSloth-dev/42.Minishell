@@ -53,7 +53,7 @@ char	*ft_compress_home(char *path, t_shell *sh)
 	{
 		if (path[ft_strlen(home)] == 0 || path[ft_strlen(home)] == '/')
 		{
-			compressed = ft_calloc(sizeof(char), 
+			compressed = ft_calloc(sizeof(char),
 					(ft_strlen(path) - ft_strlen(home) + 2));
 			if (!compressed)
 				return (ft_strdup(""));
@@ -82,12 +82,13 @@ char	*ft_get_prompt(t_shell *sh)
 	if (sh->hostname)
 		prompt = ft_strjoin_free(prompt, ft_strdup(sh->hostname));
 	prompt = ft_strjoin_free(prompt, ft_strdup(":"RESET));
-	cwd = ft_get_env_value("PWD", sh->envp, sh);
+	cwd = ft_strdup(ft_get_env_value("PWD", sh->envp, sh));
 	if (cwd && *cwd)
 	{
 		compressed = ft_compress_home(cwd, sh);
 		prompt = ft_strjoin_free(prompt, compressed);
 	}
+	ft_free(cwd);
 	prompt = ft_strjoin_free(prompt, ft_strdup("$ "));
 	if (!prompt)
 		return (ft_free(prompt), ft_free(cwd), NULL);
@@ -110,6 +111,7 @@ t_shell	*ft_readline(t_shell *sh)
 		sh->exit_status = 130;
 	if (sh->line == NULL || (ft_strcmp(sh->line, "exit") == 0))
 	{
+		ft_printf(STDOUT_FILENO, "exit\n");
 		prompt = ft_free(prompt);
 		ft_exit(NULL, sh);
 	}

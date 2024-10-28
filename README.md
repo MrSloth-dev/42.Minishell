@@ -153,18 +153,21 @@
    - [x] use a hidden directory to store files created from heredoc
    - [x] delete heredoc temp files after each execution
    - [ ] verify add history if it's ok
-   - [ ] >>$a|""|''|>$b open fd
+   - [x] >>$a|""|''|>$b open fd - ok?
    - [ ] cd "" need to stay put
-   - [ ] /''
-   - [ ] <'<'ec redirect fail from '<ec'
-   - [ ] export T+T=
-   - [ ] echo <123 <2456 koo | echo 1 fd open
-   - [ ] | echo oi this error propagates to another erros of invalid read of one empty token
+   - [x] /'' - OK
+   - [x] <'<'ec redirect fail from '<ec' OK!
+   - [x] export T+T= ok!
+   - [ ] echo <123 <2456 koo | echo 1 fd open - ok ?
+   - [x] | echo oi this error propagates to another erros of invalid read of one empty token
    - [ ] "|" echo  oi
-   - [ ] echo | "|"
-   - [ ] echo |"$?"
-   - [ ] export UNO=1 DOS-2 TRES=3 | env | grep TRES
+   - [x] echo | "|" ok
+   - [x] echo |"$?"
+   - [x] export UNO=1 DOS-2 TRES=3 | env | grep TRES
    - [ ] export | grep
+   - [ ] joao-pol@c2r5s2:~/CommonCore/3.MiniShell$ < $A
+         bash: $A: ambiguous redirect
+   - [ ] Ctrl + \ for child processes that are awaiting
 
 ```
 ## Tests to be made

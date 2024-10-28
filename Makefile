@@ -134,7 +134,7 @@ OBJS = $(SRCS:.c=.o)
 ################################################################################
 
 
-.PHONY: all clean fclean re debug hell sync
+.PHONY: all clean fclean re debug sync
 
 all: $(NAME)
 
@@ -145,6 +145,7 @@ $(NAME): $(OBJS) $(HEADER)
 	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 	@mkdir -p $(TMPDIR)
+	@echo "$(RED) A Project developed by Ivan Teixeira && Joao Barbosa$(CLR_RMV)"
 
 print : $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
@@ -209,9 +210,6 @@ tester: $(TESTER_DIR) $(NAME)
 
 va : re
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
-
-hell :
-	@echo "$(RED) A Project developed by Ivan Teixeira && Joao Barbosa$(CLR_RMV)"
 
 .SILENT: re all vgdb gdb
 

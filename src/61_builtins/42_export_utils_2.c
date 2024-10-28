@@ -47,7 +47,7 @@ int	ft_check_valid_identifiers(t_token *cmdargs)
 	if (ft_valid_first_char(cmdargs) == 0)
 		return (0);
 	i = 0;
-	while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
+	while (cmdargs->content[i] && cmdargs->content[i] != '=')
 	{
 		if (cmdargs->content[i] == '+' && cmdargs->content[i + 1] != '=')
 			return (0);
@@ -67,7 +67,7 @@ int	ft_valid_identifiers_msg(t_token *cmdargs, t_shell *sh)
 		return (ft_printf(STDERR_FILENO, INV_ID,
 				sh->prog_name, cmdargs->content), 0);
 	i = 0;
-	while (cmdargs->content[i] && !ft_strchr("=+", cmdargs->content[i]))
+	while (cmdargs->content[i] && cmdargs->content[i] != '=')
 	{
 		if (cmdargs->content[i] == '+' && cmdargs->content[i + 1] != '=')
 			return (ft_printf(STDERR_FILENO, INV_ID,

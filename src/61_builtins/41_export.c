@@ -41,7 +41,7 @@ int	ft_plus_mode(char *cmdargs)
 		return (0);
 	i = 0;
 	while (cmdargs[i] && cmdargs[i] != '=')
-		if (cmdargs[i++] == '+')
+		if (cmdargs[i++] == '+' && cmdargs[i + 1] == '=')
 			return (1);
 	return (0);
 }

@@ -40,7 +40,7 @@ static int	ft_is_pipe_repeated(char *str)
 
 static int	ft_this_pipe_have_error(char *str)
 {
-	if (!*str)
+	if (!str || !*str)
 		return (ERR_PIPE);
 	if (ft_is_empty_token(str - 2, LEFT_TOKEN) == TRUE)
 		return (ERR_PIPE);
