@@ -152,7 +152,7 @@
    - [x] verify if have leaks with heredoc
    - [x] use a hidden directory to store files created from heredoc
    - [x] delete heredoc temp files after each execution
-   - [ ] verify add history if it's ok
+   - [ ] verify add history if it's ok - IVAN
    - [x] >>$a|""|''|>$b open fd - ok?
    - [ ] cd "" need to stay put  - JOAO
    - [x] /'' - OK
@@ -160,7 +160,7 @@
    - [x] export T+T= ok!
    - [x] echo <123 <2456 koo | echo 1 fd open - ok ?
    - [x] | echo oi this error propagates to another erros of invalid read of one empty token
-   - [ ] "|" echo  oi
+   - [x] "|" echo  oi
    - [x] echo | "|" ok
    - [x] echo |"$?"
    - [x] export UNO=1 DOS-2 TRES=3 | env | grep TRES
