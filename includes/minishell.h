@@ -126,6 +126,8 @@ typedef struct s_shell
 {
 	char		*hostname;
 	char		*user;
+	int			std_in;
+	int			std_out;
 	t_token_lst	*token_lst;
 	t_token		*head;
 	long		exit_status;

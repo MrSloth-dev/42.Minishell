@@ -44,7 +44,7 @@ char	*ft_compress_home(char *path, t_shell *sh)
 	char	*compressed;
 
 	compressed = NULL;
-	if (path || !*path)
+	if (!path || !*path)
 		return (ft_strdup(""));
 	home = ft_get_env_value("HOME", sh->envp, sh);
 	if (!home || !*home)
@@ -78,7 +78,7 @@ char	*ft_get_prompt(t_shell *sh)
 	prompt = ft_strjoin_free(prompt, ft_strdup(sh->hostname));
 	prompt = ft_strjoin_free(prompt, ft_strdup(":"));
 	cwd = ft_get_env_value("PWD", sh->envp, sh);
-	if (cwd)
+	if (cwd && *cwd)
 	{
 		compressed = ft_compress_home(cwd, sh);
 		prompt = ft_strjoin_free(prompt, compressed);

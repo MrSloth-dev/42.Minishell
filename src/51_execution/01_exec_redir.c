@@ -67,9 +67,12 @@ int	ft_exec_redir(t_token *cur_redir, t_shell *sh)
 
 void	ft_restore_fd(int std_in, int std_out, t_shell *sh)
 {
+	char buffer[1];
 	(void)sh->exit_status;
 	dup2(std_out, STDOUT_FILENO);
 	dup2(std_in, STDIN_FILENO);
-	close(std_in);
-	close(std_out);
+	if (read(std_in, buffer, 0) != -1)
+		close(std_in);
+	if (read(std_out, buffer, 0) != -1)
+		close(std_out);
 }

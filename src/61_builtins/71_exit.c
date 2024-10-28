@@ -42,6 +42,7 @@ void	ft_exit(t_token *token, t_shell *sh)
 {
 	int	exit_status;
 
+	ft_restore_fd(sh->std_in, sh->std_out, sh);
 	if (!token)
 	{
 		sh->exit_status = 0;
