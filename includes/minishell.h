@@ -77,7 +77,7 @@
 // node classify
 # define WHITE_SPACE 1
 # define WORD 2
-# define PIPELINE 3
+//# define EMPTY 3
 # define ENV 4
 # define SINGLE_QTE 5
 # define DOUBLE_QTE 6
@@ -105,6 +105,7 @@ typedef struct s_token
 	int				status;
 	int				type;
 	int				hd_id;
+	int				to_delete;
 	char			*file;
 	char			*content;
 	struct s_token	*front;

@@ -27,6 +27,7 @@ t_token	*ft_new_token(void)
 	new->right = NULL;
 	new->front = NULL;
 	new->back = NULL;
+	new->to_delete = FALSE;
 	return (new);
 }
 

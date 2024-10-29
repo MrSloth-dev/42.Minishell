@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	ft_join_to_next_token(t_token *cur, t_token *to_join)
+static void	ft_join_to_next_token(t_token *cur, t_token *to_join, int type)
 {
 	char	*str_to_free;
 
@@ -26,11 +26,13 @@ static void	ft_join_to_next_token(t_token *cur, t_token *to_join)
 	to_join->content = ft_free(to_join->content);
 	to_join = ft_free(to_join);
 	str_to_free = ft_free(str_to_free);
+	cur->type = type;
 }
 
 void	ft_join_tokens(t_token_lst *token_lst)
 {
 	t_token	*cur;
+	int		type;
 
 	if (!token_lst && !token_lst->first)
 		return ;
@@ -38,15 +40,16 @@ void	ft_join_tokens(t_token_lst *token_lst)
 	while (cur)
 	{
 		//if (cur->type == WORD || cur->type == HERE_DOC)
-		if (cur->type == WORD)
+		if (cur->type > HERE_DOC)
+		{
+			type = cur->type;
+			while (cur->front && cur->front->type == WORD)
+				ft_join_to_next_token(cur, cur->front, type);
+		}
+		else if (cur->type == WORD)
 		{
 			while (cur->front && (cur->front->type == WORD))
-				ft_join_to_next_token(cur, cur->front);
-		}
-		else if (cur->type > HERE_DOC)
-		{
-			while (cur->front && cur->front->type == WORD)
-				ft_join_to_next_token(cur, cur->front);
+				ft_join_to_next_token(cur, cur->front, WORD);
 		}
 		cur = cur->front;
 	}
@@ -64,7 +67,7 @@ void	ft_join_heredoc_to_words(t_token_lst *token_lst)
 		if (cur->type == HERE_DOC)
 		{
 			while (cur->front && (cur->front->type == WORD))
-				ft_join_to_next_token(cur, cur->front);
+				ft_join_to_next_token(cur, cur->front, HERE_DOC);
 		}
 		cur = cur->front;
 	}
