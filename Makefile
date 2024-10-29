@@ -93,6 +93,7 @@ PARSE = \
 
 EXEC =	\
 		$(EXECDIR)/00_run_cmd.c \
+		$(EXECDIR)/02_run_cmd_utils.c \
 		$(EXECDIR)/01_exec_redir.c \
 		$(EXECDIR)/11_exec_builtin.c \
 		$(EXECDIR)/21_execve.c
@@ -175,12 +176,12 @@ gdb : re
 	tmux select-pane -t Gdb.1
 
 sync : re
-	tmux new-window  -n sync
-	tmux send-keys './minishell' C-m Escape
-	tmux split-window -h
-	tmux send-keys -t sync.2 'bash' C-m
-	tmux select-pane -t sync.1
-	tmux setw synchronize-panes on
+	@tmux new-window  -n sync
+	@tmux send-keys './minishell' C-m Escape
+	@tmux split-window -h
+	@tmux send-keys -t sync.2 'bash' C-m
+	@tmux select-pane -t sync.1
+	@tmux setw synchronize-panes on
 
 vgdb : re
 	tmux new-window  -n vGdb
@@ -215,5 +216,5 @@ tester: $(TESTER_DIR) $(NAME)
 va : re
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
 
-.SILENT: re all vgdb gdb
+.SILENT: re all vgdb gdb sync va
 

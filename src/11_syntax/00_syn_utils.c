@@ -81,24 +81,24 @@ int	ft_is_empty_token(char *line, int direction)
 
 int	ft_have_syntax_error(t_shell *sh)
 {
-	int	have_error;
+	int		have_error;
 	char	*str_error;
 
 	have_error = FALSE;
-	str_error = ft_calloc(sizeof(char) , (ft_strlen(sh->line) + 2));
+	str_error = ft_calloc(sizeof(char), (ft_strlen(sh->line) + 2));
 	if (!str_error)
 		return (ERR_PIPE);
 	ft_strlcpy(str_error + 1, sh->line, ft_strlen(sh->line) + 1);
-	have_error = ft_have_unclosed_qtes(str_error+1);
+	have_error = ft_have_unclosed_qtes(str_error + 1);
 	if (have_error != FALSE)
 		return (ft_free(str_error), have_error);
-	have_error = ft_check_redirs(str_error+1);
+	have_error = ft_check_redirs(str_error + 1);
 	if (have_error != FALSE)
 		return (ft_free(str_error), have_error);
-	have_error = ft_check_pipes(str_error+1);
+	have_error = ft_check_pipes(str_error + 1);
 	if (have_error != FALSE)
 		return (ft_free(str_error), have_error);
-	have_error = ft_check_special_char(str_error+1);
+	have_error = ft_check_special_char(str_error + 1);
 	if (have_error != FALSE)
 		return (ft_free(str_error), have_error);
 	return (ft_free(str_error), have_error);

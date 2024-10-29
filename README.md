@@ -99,6 +99,7 @@
     - [x] ctrl-C display a new prompt on a new line. (ready 02_rl_on_newline isilva-t - handled by sigaction)
     - [x] ctrl-D exits the shell (ready 02_rl_on_newline isilva-t - handled by readline itself, wich readline receives EOF)
     - [x] ctr-\ does nothing (ready 02_rl_on_newline isilva-t, but needs to check if need change value on global variable)
+    - [ ] ctrl-\ in a child proccess(e.g. cat) will do core Dump.
 - [x] Implement BUILT-INS:
  - [x] echo with -n
     - [x] check for leaks
@@ -121,6 +122,7 @@
     - [x] Fucking Works
     - [x] convert to accept tokens
     - [x] check for leaks
+    - [x] change to strcmp if env_exists
  - [x] unset with no options
     - [x] Fucking Works
     - [x] convert to accept tokens
@@ -137,7 +139,7 @@
  - [x] exit with no options (this shiet has signals)
    - [x] it exits
    - [x] clears memory
- - [ ] Make safe functions
+ - [x] Make safe functions
    
  - [ ] TESTS TO SOLVE
    - [x] free on failed execve
