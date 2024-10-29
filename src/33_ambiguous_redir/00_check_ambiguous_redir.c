@@ -20,10 +20,9 @@ void	ft_check_ambiguous_redir(t_token *token, t_shell *sh)
 	{
 		if (token->type > HERE_DOC && ft_strlen(token->content) == 0)
 		{
-			sh->head = NULL;
 			sh->exit_status = 1;
+			//token->type = WORD;
 			ft_printf(1, "%s: ambiguous redirect\n", sh->prog_name);
-			break ;
 		}
 		token = token->front;
 	}
