@@ -164,8 +164,8 @@
    - [x] echo | "|" ok
    - [x] echo |"$?"
    - [x] export UNO=1 DOS-2 TRES=3 | env | grep TRES
-   - [ ] export | grep - joao
-   - [ ] joao-pol@c2r5s2:~/CommonCore/3.MiniShell$ < $A IVAN
+   - [x] export | grep - joao
+   - [x] joao-pol@c2r5s2:~/CommonCore/3.MiniShell$ < $A IVAN
          bash: $A: ambiguous redirect
    - [ ] Ctrl + \ for child processes that are awaiting IVAN
    - [ ] Test here_doc
