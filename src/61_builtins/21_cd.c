@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:18:50 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/10/25 15:18:50 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:26:44 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_change_home(t_token *cmdargs, t_shell *shell)
 	}
 	else if (!ft_strcmp(cmdargs->content, "~"))
 	{
-		home = ft_get_env_value("HOME", shell->envp, shell);
+		home = getenv("HOME");
 		ft_safe_chdir(home, shell, 0);
 		ft_update_directory(home, "PWD=", shell);
 	}

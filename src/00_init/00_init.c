@@ -95,7 +95,7 @@ t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 	sh->prog_name = argv_zero + 2;
 	sh->token_lst = NULL;
 	sh->envp = ft_copy_envp(envp, 0);
-	// ft_handle_shlvl(sh->envp, sh);
+	ft_handle_shlvl(sh->envp, sh);
 	sh->hostname = ft_get_hostname();
 	sh->user = getenv("USER");
 	sh->path = NULL;

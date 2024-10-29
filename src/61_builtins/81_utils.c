@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:21:02 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/10/25 15:22:07 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:57:14 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_env_exist(char *var, int *j, char **env_list)
 		name = ft_get_env_key(env_list[index]);
 		if (!name && index++)
 			continue ;
-		if (ft_strncmp(key, name, ft_strlen(key)) == 0)
+		if (ft_strcmp(key, name) == 0)
 		{
 			if (j)
 				*j = index;

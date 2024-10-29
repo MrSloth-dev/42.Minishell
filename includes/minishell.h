@@ -6,7 +6,7 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:21:12 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/10/25 16:12:28 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:48:26 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,7 @@ int		ft_print_execve_error(int error, t_token *token, t_shell *shell);
 t_iter	ft_set_iter(int n);
 int		ft_isbuiltin(char *content);
 void	ft_restore_fd(int std_in, int std_out, t_shell *sh);
-
+void	ft_multiple_close(int fd1, int fd2);
+void	ft_close_pipe(int exit[2], int pid[2], int pipe[2], t_shell *sh);
 
 #endif //MINISHELL_H_
