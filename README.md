@@ -169,6 +169,7 @@
          bash: $A: ambiguous redirect
    - [ ] Ctrl + \ for child processes that are awaiting IVAN
    - [ ] Test here_doc
+   - [ ] cat "" -VER O QUE A MERDA DO BASH DA
 
 ```
 ## Tests to be made

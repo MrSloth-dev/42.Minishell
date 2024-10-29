@@ -20,8 +20,15 @@ void	ft_print_data(t_shell *sh, int is_to_print);
 void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
 {
 	ft_create_tokens(token_lst, line);
-	ft_join_tokens(token_lst);
+
+	
+	ft_join_heredoc_to_words(token_lst);
+
 	ft_make_expansions(sh);
+
+	ft_join_tokens(token_lst);
+
+
 	ft_delete_spaces(token_lst, sh);
 	ft_add_node_exec(token_lst, sh);
 	g_rec_signal = 0;
@@ -40,10 +47,10 @@ void	ft_shellfault(t_shell *sh)
 	sh->head = ft_make_bin_tree(sh->token_lst->first);
 	ft_do_heredoc_files(sh->token_lst->first, sh);
 	ft_run_heredocs(sh->token_lst->first, sh);
-//	ft_print_data(sh, PRINT_DATA);
-
+	ft_print_data(sh, PRINT_DATA);
 	ft_check_ambiguous_redir(sh->token_lst->first, sh);
-	
+//sh->head = NULL;	
+
 	if (sh->head && sh->head->type != ND_PIPE
 		&& sh->head->left && ft_isbuiltin(sh->head->left->content))
 		ft_exec_builtins_parent(sh->head, sh);

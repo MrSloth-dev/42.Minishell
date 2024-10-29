@@ -37,7 +37,8 @@ void	ft_join_tokens(t_token_lst *token_lst)
 	cur = token_lst->first;
 	while (cur)
 	{
-		if (cur->type == WORD || cur->type == HERE_DOC)
+		//if (cur->type == WORD || cur->type == HERE_DOC)
+		if (cur->type == WORD)
 		{
 			while (cur->front && (cur->front->type == WORD))
 				ft_join_to_next_token(cur, cur->front);
@@ -45,6 +46,24 @@ void	ft_join_tokens(t_token_lst *token_lst)
 		else if (cur->type > HERE_DOC)
 		{
 			while (cur->front && cur->front->type == WORD)
+				ft_join_to_next_token(cur, cur->front);
+		}
+		cur = cur->front;
+	}
+}
+
+void	ft_join_heredoc_to_words(t_token_lst *token_lst)
+{
+	t_token	*cur;
+
+	if (!token_lst && !token_lst->first)
+		return ;
+	cur = token_lst->first;
+	while (cur)
+	{
+		if (cur->type == HERE_DOC)
+		{
+			while (cur->front && (cur->front->type == WORD))
 				ft_join_to_next_token(cur, cur->front);
 		}
 		cur = cur->front;

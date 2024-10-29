@@ -23,7 +23,7 @@ int	ft_here_doc(char delimiter[128], char file[32])
 		fd = open(file, O_RDWR | O_APPEND, 0644);
 		if (line == NULL)
 		{
-			ft_printf(1, "%minishell: warning: here-document delimited ");
+			ft_printf(1, "minishell: warning: here-document delimited ");
 			ft_printf(1, "by end-of-file (wanted `%s')\n", delimiter);
 			return (close(fd), 0);
 		}

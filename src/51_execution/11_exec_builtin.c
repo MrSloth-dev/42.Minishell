@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 void	ft_exec_builtins(t_token *temp_head, t_shell *shell)
 {
@@ -41,7 +42,9 @@ void	ft_exec_builtins(t_token *temp_head, t_shell *shell)
 void	ft_exec_builtins_child(t_token *cmdargs, t_shell *sh)
 {
 	if (cmdargs)
+	{
 		ft_exec_builtins(cmdargs->left, sh);
+	}
 }
 
 void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *sh)
