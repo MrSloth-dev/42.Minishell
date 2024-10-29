@@ -45,6 +45,7 @@ SYNTAXDIR = src/11_syntax
 TOKENIZERDIR = src/12_tokenizer
 EXPDIR = src/13_expand
 H_DOCDIR = src/32_here_doc
+AMBIG_RE_DIR = src/33_ambiguous_redir
 PARSEDIR = src/31_parse_data
 EXECDIR = ./src/51_execution
 BDIR = src/61_builtins
@@ -84,6 +85,9 @@ H_DOC = \
 		$(H_DOCDIR)/31_here_doc.c \
 		$(H_DOCDIR)/88_here_doc_utils.c
 
+AMBIG_REDIRECT = \
+		$(AMBIG_RE_DIR)/00_check_ambiguous_redir.c
+
 PARSE = \
 		$(PARSEDIR)/00_make_bin_tree.c
 
@@ -118,7 +122,7 @@ FREE =	\
 		$(FREEDIR)/88_free_and_null.c
 
 
-SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(EXEC) $(UTILS) $(H_DOC) $(PRINT)
+SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(EXEC) $(UTILS) $(H_DOC) $(AMBIG_REDIRECT) $(PRINT)
 
 TMPDIR = .tmp
 

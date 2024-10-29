@@ -245,6 +245,8 @@ void	ft_get_file_name(char hd_file[32], char *src_file);
 void	ft_get_delimiter(char delimiter[128], char *content);
 void	ft_free_inside_heredoc(t_shell *sh);
 
+// ambiguous redir
+void	ft_check_ambiguous_redir(t_token *token, t_shell *sh);
 //free_stuff
 void	ft_free_tokens(t_shell *sh);
 void	*ft_free(void *pointer);

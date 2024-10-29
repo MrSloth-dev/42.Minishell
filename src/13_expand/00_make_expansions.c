@@ -98,7 +98,7 @@ void	ft_make_expansions(t_shell *sh)
 	{
 		if (cur->content && cur->type != HERE_DOC)
 		{
-			if (cur->content && cur->type == WORD
+			if (cur->content && (cur->type == WORD || cur->type > HERE_DOC)
 				&& cur->status != IN_SINGLE_QTE)
 			{
 				h = ft_set_iter(0);

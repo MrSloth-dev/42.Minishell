@@ -10,6 +10,20 @@ static void	ft_cmd_log_newline(void)
 	close(fd);
 }
 
+void	ft_cmd_log(char *line)
+{
+	char	c;
+	int		fd;
+
+	if (!PRINT_DATA)
+		return ;
+	c = '\n';
+	fd = open(".cmdlogs", O_RDWR | O_CREAT | O_APPEND);
+	write(fd, line, ft_strlen(line));
+	write(fd, &c, 1);
+	close(fd);
+}
+
 static char	*ft_print_exec(t_token *cur, char *spaces, int fd)
 {
 	t_token	*cmd;
@@ -68,7 +82,7 @@ static char	*ft_print_exec(t_token *cur, char *spaces, int fd)
 	return (spaces);
 }
 
-void	ft_print_binary_tree(t_shell *sh)
+static void	ft_print_binary_tree(t_shell *sh)
 {
 	t_token	*cur;
 	char	*to_free;
@@ -147,18 +161,4 @@ void	ft_print_data(t_shell *sh, int is_to_print)
 		return ;
 	ft_print_tokens(sh->token_lst); // SEE TOKEN LINKED LIST
 	ft_print_binary_tree(sh);  // SEE BIN TREE
-}
-
-void	ft_cmd_log(char *line)
-{
-	char	c;
-	int		fd;
-
-	if (!PRINT_DATA)
-		return ;
-	c = '\n';
-	fd = open(".cmdlogs", O_RDWR | O_CREAT | O_APPEND);
-	write(fd, line, ft_strlen(line));
-	write(fd, &c, 1);
-	close(fd);
 }
