@@ -227,6 +227,7 @@ int		ft_append_node(t_token_lst *token_lst, char *str, int type, int status);
 int		ft_append_word(t_token_lst *token_lst, char *str, int type, int status);
 int		ft_append_redir(t_token_lst *token_lst, char *line, int status);
 void	ft_join_tokens(t_token_lst *token_lst);
+void	ft_join_heredoc_to_words(t_token_lst *token_lst);
 void	ft_add_node_exec(t_token_lst *token_lst, t_shell *sh);
 void	ft_delete_spaces(t_token_lst *token_lst, t_shell *sh);
 void	ft_do_heredoc_files(t_token *token, t_shell *sh);

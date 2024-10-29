@@ -51,32 +51,49 @@ void	ft_close_pipe(int exit[2], int pid[2], int pipe[2], t_shell *sh)
 	sh->exit_status = WEXITSTATUS(exit[1]);
 }
 
+void	ft_run_this_pipe(int fd, int fd_pipe[2], t_token *token, t_shell *sh)
+{
+	ft_sig_restore();
+	dup2(fd, STDOUT_FILENO);
+	ft_multiple_close(fd_pipe[0], fd_pipe[1]);
+	ft_run(token->left, sh);
+}
+
 void	ft_run_pipe(t_token *token, t_shell *sh)
 {
 	int		exit_status[2];
 	int		pid_child[2];
-	int		pid_pipe[2];
+	int		fd_pipe[2];
 
-	if (pipe(pid_pipe) < 0)
+	if (pipe(fd_pipe) < 0)
 		ft_printf(STDERR_FILENO, "Error in Pipe\n");
 	ft_sig_mute();
 	pid_child[0] = fork();
 	if (pid_child[0] == 0)
+		// ft_run_this_pipe(fd_pipe[2], fd_pipe, token->left, sh);
 	{
 		ft_sig_restore();
-		dup2(pid_pipe[1], STDOUT_FILENO);
-		ft_multiple_close(pid_pipe[0], pid_pipe[1]);
+		dup2(fd_pipe[1], STDOUT_FILENO);
+		ft_multiple_close(fd_pipe[0], fd_pipe[1]);
 		ft_run(token->left, sh);
 	}
+
+	// teste com     export | greo
+	if (token->left && token->left->left &&
+		ft_isbuiltin(token->left->left->content) == TRUE
+		&& ft_isbuiltin(token->right->left->content) == FALSE)
+		wait(0);
+
 	pid_child[1] = fork();
 	if (pid_child[1] == 0)
+		// ft_run_this_pipe(fd_pipe[0], fd_pipe, token->right, sh);
 	{
 		ft_sig_restore();
-		dup2(pid_pipe[0], STDIN_FILENO);
-		ft_multiple_close(pid_pipe[0], pid_pipe[1]);
+		dup2(fd_pipe[0], STDIN_FILENO);
+		ft_multiple_close(fd_pipe[0], fd_pipe[1]);
 		ft_run(token->right, sh);
 	}
-	ft_close_pipe(exit_status, pid_child, pid_pipe, sh);
+	ft_close_pipe(exit_status, pid_child, fd_pipe, sh);
 }
 
 void	ft_run(t_token *token, t_shell *sh)
