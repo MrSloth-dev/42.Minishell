@@ -6,7 +6,7 @@
 /*   By: isilva-t <isilva-t@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:13:39 by isilva-t          #+#    #+#             */
-/*   Updated: 2024/10/24 17:30:20 by isilva-t         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:56:52 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	*ft_free_envp(char	**envp)
 		envp[i] = ft_free(envp[i]);
 		i++;
 	}
+	envp[i] = ft_free(envp[i]);
 	envp = ft_free(envp);
 	return (NULL);
 }

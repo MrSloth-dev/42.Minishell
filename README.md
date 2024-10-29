@@ -146,7 +146,7 @@
    - [x] try pwd -> ENTER -> cat infile -> ENTER -> ctr + d -> LEAKS!
    - [x] more than 2 ENTER without line, have leaks
    - [x] "" | "" is missing addings a ND_EXEC after the pipe
-   - [ ] Readline is erasing history
+   - [x] Readline is erasing history
    - [x] Maybe need to handle tabs as whitespaces
    - [ ] NORMINETTE, AMENO, DOMINE, AMENO NORMINETTE
    - [x] handle CTRL + D when use heredoc -> reseted sh->nb_heredoc
@@ -154,9 +154,8 @@
    - [x] verify if have leaks with heredoc
    - [x] use a hidden directory to store files created from heredoc
    - [x] delete heredoc temp files after each execution
-   - [ ] verify add history if it's ok - IVAN
+   - [x] verify add history if it's ok - IVAN
    - [x] >>$a|""|''|>$b open fd - ok?
-   - [ ] cd "" need to stay put  - JOAO
    - [x] /'' - OK
    - [x] <'<'ec redirect fail from '<ec' OK!
    - [x] export T+T= ok!
@@ -172,7 +171,8 @@
    - [ ] Ctrl + \ for child processes that are awaiting IVAN
    - [ ] Test here_doc
    - [ ] cat "" -VER O QUE A MERDA DO BASH DA
-
+   - [ ] cd "" need to stay put  - JOAO
+   - [x] multiple unset have invalid reads
 ```
 ## Tests to be made
 

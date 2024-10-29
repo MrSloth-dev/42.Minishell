@@ -24,8 +24,11 @@ void	ft_change_home(t_token *cmdargs, t_shell *shell)
 	{
 		old_home = getcwd(NULL, 0);
 		ft_update_directory(old_home, "OLDPWD=", shell);
-		home = ft_get_env_value("HOME", shell->envp, shell);
-		ft_safe_chdir(home, shell, 0);
+		home = ft_get_env_value("HOME=", shell->envp, shell);
+		if (!*home)
+			ft_safe_chdir(home, shell, 1);
+		else
+			ft_safe_chdir(home, shell, 0);
 		ft_update_directory(home, "PWD=", shell);
 		free (old_home);
 	}
@@ -80,13 +83,13 @@ void	ft_safe_chdir(char *path, t_shell *shell, int flags)
 
 	if (flags == 2)
 	{
-		ft_printf(STDERR_FILENO, "cd : too many arguments");
+		ft_printf(STDERR_FILENO, "cd : too many arguments\n");
 		shell->exit_status = EXIT_FAILURE;
 		return ;
 	}
 	else if (chdir(path) == -1)
 	{
-		if (flags == 2)
+		if (flags == 1)
 			ft_printf(STDERR_FILENO, "cd : HOME not set\n");
 		else
 			ft_printf(STDERR_FILENO, "cd : %s: No such file or directory\n",

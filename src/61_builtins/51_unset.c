@@ -6,13 +6,13 @@
 /*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:20:27 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/10/25 15:20:27 by joao-pol         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:26:20 by joao-pol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_copy_and_remove_envp(t_shell *shell, int j, int extra)
+void	ft_copy_and_remove_envp(t_shell *shell, int j)
 {
 	char	**temp_envp;
 	int		i;
@@ -22,7 +22,7 @@ void	ft_copy_and_remove_envp(t_shell *shell, int j, int extra)
 	k = 0;
 	while (shell->envp[i])
 		i++;
-	temp_envp = ft_calloc(sizeof(char *), i + extra + 1);
+	temp_envp = ft_calloc(sizeof(char *), i + 2);
 	if (!temp_envp)
 		return ;
 	i = 0;
@@ -35,7 +35,6 @@ void	ft_copy_and_remove_envp(t_shell *shell, int j, int extra)
 		temp_envp[i] = ft_strdup(shell->envp[i + k]);
 		i++;
 	}
-	temp_envp[i] = 0;
 	ft_free_envp(shell->envp);
 	shell->envp = temp_envp;
 }
@@ -51,10 +50,8 @@ void	ft_unset(t_token *cmdargs, t_shell *shell)
 		return ;
 	while (current)
 	{
-		if (ft_env_exist(current->content, &j, shell->envp) != -1
-			&& !ft_env_duplicate(current))
-			ft_copy_and_remove_envp(shell, j, 0);
-		else
+		if (ft_env_exist(current->content, &j, shell->envp) != -1)
+			ft_copy_and_remove_envp(shell, j);
 		current = current->next;
 	}
 	shell->exit_status = EXIT_SUCCESS;

@@ -111,7 +111,6 @@ t_shell	*ft_readline(t_shell *sh)
 		sh->exit_status = 130;
 	if (sh->line == NULL || (ft_strcmp(sh->line, "exit") == 0))
 	{
-		ft_printf(STDOUT_FILENO, "exit\n");
 		prompt = ft_free(prompt);
 		ft_exit(NULL, sh);
 	}

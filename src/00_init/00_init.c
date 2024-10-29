@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "minishell.h"
-#include <unistd.h>
 
 void	ft_update_shlvl(int value, char **envp)
 {
@@ -102,7 +100,6 @@ t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 	sh->hd_path = ft_strjoin_free(getcwd(NULL, 0), ft_strdup("/.tmp/"));
 	sh->nb_heredoc = 0;
 	sh->exit_status = EXIT_SUCCESS;
-	// SET DEFAULT VARS TO ENV? env -i bash
 	return (sh);
 }
 
