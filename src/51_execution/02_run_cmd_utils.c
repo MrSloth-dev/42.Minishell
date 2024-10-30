@@ -22,7 +22,7 @@ int	ft_get_exit_signal(int *exit, t_shell *sh)
 {
 	int	exit_status[2];
 
-	if (WIFSIGNALED(exit[0]) || WIFSIGNALED(exit[0]))
+	if (WIFSIGNALED(exit[0]) || WIFSIGNALED(exit[1]))
 	{
 		exit_status[0] = WTERMSIG(exit[0]);
 		exit_status[1] = WTERMSIG(exit[1]);
