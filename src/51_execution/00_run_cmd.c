@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 void	ft_run_exec_node(t_token *token, t_shell *sh)
 {

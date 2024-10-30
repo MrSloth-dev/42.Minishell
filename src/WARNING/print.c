@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include <fcntl.h>
 
 static void	ft_cmd_log_newline(void)
 {

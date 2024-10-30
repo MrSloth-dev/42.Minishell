@@ -99,7 +99,7 @@
     - [x] ctrl-C display a new prompt on a new line. (ready 02_rl_on_newline isilva-t - handled by sigaction)
     - [x] ctrl-D exits the shell (ready 02_rl_on_newline isilva-t - handled by readline itself, wich readline receives EOF)
     - [x] ctr-\ does nothing (ready 02_rl_on_newline isilva-t, but needs to check if need change value on global variable)
-    - [ ] ctrl-\ in a child proccess(e.g. cat) will do core Dump.
+    - [x] ctrl-\ in a child proccess(e.g. cat) will do core Dump.
 - [x] Implement BUILT-INS:
  - [x] echo with -n
     - [x] check for leaks
@@ -148,7 +148,7 @@
    - [x] "" | "" is missing addings a ND_EXEC after the pipe
    - [x] Readline is erasing history
    - [x] Maybe need to handle tabs as whitespaces
-   - [ ] NORMINETTE, AMENO, DOMINE, AMENO NORMINETTE
+   - [x] NORMINETTE, AMENO, DOMINE, AMENO NORMINETTE
    - [x] handle CTRL + D when use heredoc -> reseted sh->nb_heredoc
    - [x] handle CTRL + C in heredoc
    - [x] verify if have leaks with heredoc

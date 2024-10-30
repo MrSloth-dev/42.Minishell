@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "minishell.h"
-#include <unistd.h>
 
 static void	ft_handle_sig(int signal)
 {

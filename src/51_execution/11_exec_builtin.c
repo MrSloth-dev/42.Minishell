@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 
 void	ft_exec_builtins(t_token *temp_head, t_shell *shell)
 {

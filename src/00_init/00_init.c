@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 
 void	ft_update_shlvl(int value, char **envp)
 {

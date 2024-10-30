@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 
 void	ft_handle_exit_redir(t_token *cur_redir, t_shell *sh, int *fd)
 {

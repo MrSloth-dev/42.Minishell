@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdlib.h>
 
 int	ft_here_doc(char delimiter[128], char file[32])
 {

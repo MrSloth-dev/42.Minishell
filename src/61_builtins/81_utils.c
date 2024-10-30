@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "ft_printf.h"
+#include "minishell.h"
 
 char	*ft_get_env_key_and_value(char *env_key, t_shell *shell)
 {

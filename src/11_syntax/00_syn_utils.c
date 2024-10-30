@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "minishell.h"
 
 void	ft_print_syntax_error(int error, t_shell *shell)
