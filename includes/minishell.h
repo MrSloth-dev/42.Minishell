@@ -167,6 +167,10 @@ typedef struct s_iter
 	t_token	*cur;
 	t_token	*cur_left;
 	t_token	*cur_right;
+	t_token *front;
+	t_token	*back;
+	t_token_lst *new_lst;
+	char	**split;
 }			t_iter;
 
 // BUILT-INS
