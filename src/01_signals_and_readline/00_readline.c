@@ -36,7 +36,7 @@ static void	ft_start_sig(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-char	*ft_compress_home(char *path, t_shell *sh)
+static char	*ft_compress_home(char *path, t_shell *sh)
 {
 	char	*home;
 	char	*compressed;
@@ -64,7 +64,7 @@ char	*ft_compress_home(char *path, t_shell *sh)
 	return (ft_strdup(path));
 }
 
-char	*ft_get_prompt(t_shell *sh)
+static char	*ft_get_prompt(t_shell *sh)
 {
 	char	*compressed;
 	char	*prompt;

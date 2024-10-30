@@ -168,7 +168,7 @@
    - [x] export | grep - joao
    - [x] joao-pol@c2r5s2:~/CommonCore/3.MiniShell$ < $A IVAN
          bash: $A: ambiguous redirect
-   - [ ] Ctrl + \ for child processes that are awaiting IVAN
+   - [x] Ctrl + \ for child processes that are awaiting IVAN (joao did it)
    - [ ] Test here_doc
    - [x] cat "" -VER O QUE A MERDA DO BASH DA
    - [x] cd "" need to stay put  - JOAO

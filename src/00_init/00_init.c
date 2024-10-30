@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_update_shlvl(int value, char **envp)
+static void	ft_update_shlvl(int value, char **envp)
 {
 	char	*value_str;
 	char	*key;
@@ -37,7 +37,7 @@ void	ft_update_shlvl(int value, char **envp)
 	value_str = ft_free(value_str);
 }
 
-void	ft_handle_shlvl(char **envp, t_shell *sh)
+static void	ft_handle_shlvl(char **envp, t_shell *sh)
 {
 	int		shlvl_value;
 	char	*shlvl_str;
@@ -59,7 +59,7 @@ void	ft_handle_shlvl(char **envp, t_shell *sh)
 		ft_update_shlvl(shlvl_value + 1, sh->envp);
 }
 
-char	*ft_get_hostname(void)
+static char	*ft_get_hostname(void)
 {
 	char	*hostname;
 	int		fd;

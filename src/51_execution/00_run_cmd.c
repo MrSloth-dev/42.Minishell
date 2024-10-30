@@ -52,6 +52,8 @@ void	ft_run_pipes(t_token *token, t_shell *sh)
 	int		pid_child[2];
 	int		fd_pipe[2];
 
+	exit_status[0] = 0;
+	exit_status[1] = 0;
 	if (pipe(fd_pipe) < 0)
 		ft_printf(STDERR_FILENO, "Error in Pipe\n");
 	ft_sig_mute();

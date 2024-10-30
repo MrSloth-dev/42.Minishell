@@ -61,7 +61,7 @@ static int	ft_do_this_hd(t_shell *sh, char delimiter[128], char file[32])
 			ft_printf(STDOUT_FILENO, "\n");
 			sh->head = NULL;
 			sh->exit_status = 128 + WTERMSIG(status);
-			return (ft_sig_restore(), 0);
+			return (ft_sig_restore(), 1);
 		}
 	}
 	return (0);
@@ -72,7 +72,9 @@ int	ft_run_heredocs(t_token *token, t_shell *sh)
 	t_token	*cur;
 	char	hd_file[32];
 	char	delimiter[128];
+	int		hd_continue;
 
+	hd_continue = -1;
 	if (!token || !sh || sh->nb_heredoc < 1)
 		return (1);
 	cur = token;
@@ -83,8 +85,10 @@ int	ft_run_heredocs(t_token *token, t_shell *sh)
 		{
 			ft_get_file_name(hd_file, cur->file);
 			ft_get_delimiter(delimiter, cur->content);
-			ft_do_this_hd(sh, delimiter, hd_file);
+			hd_continue = ft_do_this_hd(sh, delimiter, hd_file);
 		}
+		if (hd_continue == 1)
+			break ;
 		cur = cur->front;
 	}
 	return (ft_sig_restore(), 0);

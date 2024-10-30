@@ -146,32 +146,32 @@ typedef struct s_shell
 // HELPER STRUCTS
 typedef struct s_iter
 {
-	char	c;
-	int		i;
-	int		j;
-	int		k;
-	int		fd;
-	int		std_in;
-	int		std_out;
-	int		pid;
-	int		len;
-	int		status;
-	char	*delimiter;
-	char	*file;
-	char	*prog_name;
-	char	*exp;
-	char	*name_var;
-	char	*str;
-	char	*line;
-	t_token	*tmp;
-	t_token	*cur;
-	t_token	*cur_left;
-	t_token	*cur_right;
-	t_token *front;
-	t_token	*back;
-	t_token_lst *new_lst;
-	char	**split;
-}			t_iter;
+	char		c;
+	int			i;
+	int			j;
+	int			k;
+	int			fd;
+	int			std_in;
+	int			std_out;
+	int			pid;
+	int			len;
+	int			status;
+	char		*delimiter;
+	char		*file;
+	char		*prog_name;
+	char		*exp;
+	char		*name_var;
+	char		*str;
+	char		*line;
+	t_token		*tmp;
+	t_token		*cur;
+	t_token		*cur_left;
+	t_token		*cur_right;
+	t_token		*front;
+	t_token		*back;
+	t_token_lst	*new_lst;
+	char		**split;
+}				t_iter;
 
 // BUILT-INS
 int		ft_echo(t_token *cmd_args, t_shell *sh);
@@ -198,8 +198,8 @@ char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell);
 int		ft_env_exist(char *var, int *j, char **temp);
 
 //EXPAND
-void	ft_make_expansions(t_shell *sh);
 char	*ft_expand(char *str, t_shell *shell);
+void	ft_make_expansions(t_shell *sh);
 void	ft_delete_null_expansions_if_needed(t_shell *sh);
 void	ft_split_tokens_with_white_spaces(t_shell *sh);
 void	ft_split_this_node(t_iter *out);
@@ -208,7 +208,6 @@ void	ft_split_this_node(t_iter *out);
 t_shell	*ft_init_shell(char *envp[], char *argv_zero);
 char	**ft_copy_envp(char **envp, int extra);
 int		ft_getpid(t_shell *shell);
-char	*ft_get_hostname(void);
 
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
@@ -290,4 +289,35 @@ void	ft_restore_fd(int std_in, int std_out, t_shell *sh);
 void	ft_multiple_close(int fd1, int fd2);
 void	ft_close_pipe(int exit[2], int pid[2], int pipe[2], t_shell *sh);
 
+//00_INIT/
+t_shell	*ft_init_shell(char *envp[], char *argv_zero);
+char	**ft_copy_envp(char **envp, int extra);
+//01_SIGNALS_AND_READLINE/
+t_shell	*ft_readline(t_shell *sh);
+void	ft_sig_restore(void);
+void	ft_sig_child(void);
+void	ft_sig_mute(void);
+int		ft_get_exit_status(int exit_code, t_shell *sh);
+//11_SYNTAX/
+void	ft_print_syntax_error(int error, t_shell *shell);
+int		ft_check_status(int status, char c);
+int		ft_is_space(char c);
+int		ft_is_empty_token(char *line, int direction);
+int		ft_have_syntax_error(t_shell *sh);
+int	ft_have_unclosed_qtes(char *line);
+int	ft_check_redirs(char *line);
+int	ft_check_pipes(char *line);
+int	ft_check_special_char(char *line);
+//12_TOKENIZER/
+void	ft_create_tokens(t_token_lst *token_lst, char *line);
+//13_EXPAND/
+//21_HERE_DOC/
+//31_PARSE_DATA/
+//32_HERE_DOC/
+//33_AMBIGUOUS_REDIR/
+//51_EXECUTION/
+//61_BUILTINS/
+//71_PRINT_MSG/
+//81_UTILS/
+//88_FREE_STUFF/
 #endif //MINISHELL_H_
