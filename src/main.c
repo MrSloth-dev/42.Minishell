@@ -79,7 +79,6 @@ int	main(int argc, char *argv[], char *envp[])
 	int		have_syn_error;
 
 	(void)argc;
-	//envp = NULL;
 	sh = ft_init_shell(envp, argv[0]);
 	while (1)
 	{

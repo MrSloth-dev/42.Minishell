@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "minishell.h"
 
-static int	ft_export_size_increase(t_token *cmdargs, t_shell *shell, int *j)
+static int	ft_export_size_increase(t_token *cmdargs, t_shell *sh, int *j)
 {
 	t_token	*current;
 	int		i;
@@ -21,11 +21,11 @@ static int	ft_export_size_increase(t_token *cmdargs, t_shell *shell, int *j)
 	i = 0;
 	*j = -1;
 	current = cmdargs;
-	while (shell->envp && shell->envp[i])
+	while (sh->envp && sh->envp[i])
 		i++;
 	while (current)
 	{
-		if (ft_env_exist(current->content, j, shell->envp) == -1)
+		if (ft_env_exist(current->content, j, sh->envp) == -1)
 			i++;
 		if (ft_env_duplicate(current) || !ft_check_valid_identifiers(current))
 			i--;
@@ -50,7 +50,7 @@ static int	ft_plus_mode(char *cmdargs)
 	return (0);
 }
 
-static void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
+static void	ft_add_env(t_token *cmdargs, char **temp, int plus_mod, t_shell *sh)
 {
 	t_token	*current;
 	int		j;
@@ -59,25 +59,25 @@ static void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *sh
 	j = -1;
 	while (current && current->content)
 	{
-		if (!ft_valid_identifiers_msg(current, shell))
+		if (!ft_valid_identifiers_msg(current, sh))
 		{
 			current = current->next;
-			shell->exit_status = EXIT_FAILURE;
+			sh->exit_status = EXIT_FAILURE;
 			continue ;
 		}
-		plus_mode = ft_plus_mode(current->content);
-		if (ft_env_exist(current->content, &j, temp) != -1 && plus_mode)
-			ft_swap_plus_env(current->content, temp, j, shell);
-		else if (ft_env_exist(current->content, &j, temp) != -1 && !plus_mode)
+		plus_mod = ft_plus_mode(current->content);
+		if (ft_env_exist(current->content, &j, temp) != -1 && plus_mod)
+			ft_swap_plus_env(current->content, temp, j, sh);
+		else if (ft_env_exist(current->content, &j, temp) != -1 && !plus_mod)
 			ft_swap_env(current->content, temp, j);
 		else
 			ft_append_env(current->content, temp);
 		current = current->next;
-		shell->exit_status = EXIT_SUCCESS;
+		sh->exit_status = EXIT_SUCCESS;
 	}
 }
 
-void	ft_export(t_token *cmdargs, t_shell *shell)
+void	ft_export(t_token *cmdargs, t_shell *sh)
 {
 	char	**temp;
 	int		i;
@@ -85,38 +85,17 @@ void	ft_export(t_token *cmdargs, t_shell *shell)
 
 	i = 0;
 	j = 0;
-	shell->exit_status = EXIT_SUCCESS;
+	sh->exit_status = EXIT_SUCCESS;
 	if (!cmdargs)
 	{
-		ft_export_no_args(*shell);
+		ft_export_no_args(*sh);
 		return ;
 	}
-	i = ft_export_size_increase(cmdargs, shell, &j);
-	temp = ft_copy_envp(shell->envp, i);
+	i = ft_export_size_increase(cmdargs, sh, &j);
+	temp = ft_copy_envp(sh->envp, i);
 	if (!temp)
 		return ;
-	ft_add_env(cmdargs, temp, 0, shell);
-	ft_free_envp(shell->envp);
-	shell->envp = temp;
+	ft_add_env(cmdargs, temp, 0, sh);
+	ft_free_envp(sh->envp);
+	sh->envp = temp;
 }
-
-/* void	ft_join_env(char *cmdargs, char **temp, int j)
-{
-	int		k;
-	char	*start;
-
-	start = NULL;
-	k = 0;
-	j--;
-	while (temp[k])
-	{
-		if (j == k)
-		{
-			start = ft_strchr(&cmdargs[k], '=');
-			temp[k] = ft_strjoin(temp[k], ++start);
-		}
-		if (!temp[k])
-			return ;
-		k++;
-	}
-} */

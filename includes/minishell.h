@@ -67,8 +67,6 @@
 # define ERR_PIPE 14
 # define ERR_EMPTY_TOKEN 16
 
-// token types
-
 // status
 # define NORMAL 0
 # define IN_SINGLE_QTE 1
@@ -95,11 +93,17 @@
 # define PIPE 3
 # define REDIR 4
 
-// shorten messages
+// SHORTEN MESSAGES
 # define INV_ID "%s : export : `%s': not a valid identifier\n"
 
+///////////////////////////////
+//      NODE STRUCT         //
+//////////////////////////////
 extern int	g_rec_signal;
 
+///////////////////////////////
+//      NODE STRUCT         //
+///////////////////////////////
 typedef struct s_token
 {
 	int				status;
@@ -121,7 +125,7 @@ typedef struct s_token_lst
 	t_token	*first;
 }		t_token_lst;
 ///////////////////////////////
-
+//      MAIN STRUCT         //
 ///////////////////////////////
 typedef struct s_shell
 {
@@ -143,7 +147,7 @@ typedef struct s_shell
 	int			ambig_redir;
 }	t_shell;
 /////////////////////////////
-//HELPER STRUCT
+//      HELPER STRUCT      //
 /////////////////////////////
 typedef struct s_iter
 {
@@ -174,121 +178,6 @@ typedef struct s_iter
 	char		**split;
 }				t_iter;
 
-/* // BUILT-INS
-int		ft_echo(t_token *cmd_args, t_shell *sh);
-void	ft_pwd(t_shell *shell);
-void	ft_env(t_shell *shell);
-void	ft_export(t_token *cmdargs, t_shell *shell);
-void	ft_unset(t_token *cmdargs, t_shell *shell);
-void	ft_cd(t_token *cmdargs, t_shell *shell);
-void	ft_exit(t_token *token, t_shell *shell);
-
-//BUILT-INS UTILS
-char	*ft_strjoin_free(char const *s1, char const *s2);
-void	ft_append_env(char *cmdargs, char **temp);
-void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell);
-void	ft_swap_env(char *cmdargs, char **temp, int j);
-void	ft_export_no_args(t_shell shell);
-int		ft_env_duplicate(t_token *cmdargs);
-int		ft_valid_identifiers_msg(t_token *cmdargs, t_shell *sh);
-int		ft_check_valid_identifiers(t_token *cmdargs);
-//ENV UTILS
-char	*ft_get_env_key_and_value(char *env_key, t_shell *shell);
-char	*ft_get_env_key(char *env_str);
-char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell);
-int		ft_env_exist(char *var, int *j, char **temp);
-
-//EXPAND
-char	*ft_expand(char *str, t_shell *shell);
-void	ft_make_expansions(t_shell *sh);
-void	ft_delete_null_expansions_if_needed(t_shell *sh);
-void	ft_split_tokens_with_white_spaces(t_shell *sh);
-void	ft_split_this_node(t_iter *out);
-
-//init
-t_shell	*ft_init_shell(char *envp[], char *argv_zero);
-char	**ft_copy_envp(char **envp, int extra);
-int		ft_getpid(t_shell *shell);
-
-// signals_and_readline
-t_shell	*ft_readline(t_shell *sh);
-void	ft_sig_restore(void);
-void	ft_sig_child(void);
-void	ft_sig_mute(void);
-int		ft_get_exit_status(int exit_code, t_shell *sh);
-
-// syntax_utils_file
-void	ft_print_syntax_error(int error, t_shell *shell);
-int		ft_check_status(int status, char c);
-int		ft_is_space(char c);
-int		ft_is_empty_token(char *line, int direction);
-// syntax
-int		ft_have_unclosed_qtes(char *line);
-int		ft_check_redirs(char *line);
-int		ft_check_pipes(char *line);
-int		ft_check_special_char(char *line);
-int		ft_have_syntax_error(t_shell *sh);
-
-//tokenizer
-t_token	*ft_new_token(void);
-void	ft_create_tokens(t_token_lst *token_lst, char *line);
-int		ft_append_node(t_token_lst *token_lst, char *str, int type, int status);
-int		ft_append_word(t_token_lst *token_lst, char *str, int type, int status);
-int		ft_append_redir(t_token_lst *token_lst, char *line, int status);
-void	ft_join_tokens(t_token_lst *token_lst);
-void	ft_join_heredoc_to_words(t_token_lst *token_lst);
-void	ft_add_node_exec(t_token_lst *token_lst, t_shell *sh);
-void	ft_delete_spaces(t_token_lst *token_lst, t_shell *sh);
-void	ft_do_heredoc_files(t_token *token, t_shell *sh);
-void	ft_convert_empty_strings(t_token *token);
-
-//tokenizer utils
-int		ft_is_word(char c);
-int		ft_how_much_consecutives_spaces(char *str);
-
-//parse
-t_token	*ft_make_bin_tree(t_token *token);
-
-//here_doc
-void	ft_do_heredoc_files(t_token *token, t_shell *sh);
-int		ft_run_heredocs(t_token *token, t_shell *sh);
-void	ft_get_file_name(char hd_file[32], char *src_file);
-void	ft_get_delimiter(char delimiter[128], char *content);
-void	ft_free_inside_heredoc(t_shell *sh);
-
-// ambiguous redir
-void	ft_check_ambiguous_redir(t_token *token, t_shell *sh);
-void	ft_print_ambiguous_redir_msg(t_shell *sh);
-
-//free_stuff
-void	ft_free_tokens(t_shell *sh);
-void	*ft_free(void *pointer);
-void	*ft_free_envp(char **envp);
-void	ft_clean_hd_files(t_shell *sh);
-void	ft_clean_hd_array(t_shell *sh);
-void	ft_free_and_exit(t_token *token, t_shell *shell, int exit_flag);
-
-//EXEC
-void	ft_exec_builtins(t_token *temp_head, t_shell *shell);
-void	ft_exec_builtins_child(t_token *cmdargs, t_shell *shell);
-void	ft_exec_builtins_parent(t_token *cmdargs, t_shell *shell);
-int		ft_exec_redir(t_token *cur_redir, t_shell *shell);
-void	ft_execve(t_token *cmd, t_shell *shell);
-void	ft_run(t_token *token, t_shell *shell);
-int		ft_isbuiltin(char *content);
-int		ft_check_file_access(char *file, int redir, t_shell *sh);
-
-//PRINT ERROR
-int		ft_check_file_access(char *file, int redir, t_shell *sh);
-int		ft_print_execve_error(int error, t_token *token, t_shell *shell);
-
-//UTILS
-t_iter	ft_set_iter(int n);
-int		ft_isbuiltin(char *content);
-void	ft_restore_fd(int std_in, int std_out, t_shell *sh);
-void	ft_multiple_close(int fd1, int fd2);
-void	ft_close_pipe(int exit[2], int pid[2], int pipe[2], t_shell *sh);
-*/
 //00_INIT/
 t_shell	*ft_init_shell(char *envp[], char *argv_zero);
 char	**ft_copy_envp(char **envp, int extra);
