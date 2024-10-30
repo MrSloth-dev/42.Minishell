@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_check_if_need_to_split_spaces(char *str)
+static int	ft_check_if_need_to_split_spaces(char *str)
 {
 	int	i;
 	int	have_spaces;
