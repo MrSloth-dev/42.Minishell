@@ -3,131 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joao-pol <joao-pol@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: isilva-t <isilva-t@students.42porto.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 13:45:15 by joao-pol          #+#    #+#             */
-/*   Updated: 2024/08/08 11:25:20 by joao-pol         ###   ########.fr       */
+/*   Created: 2024/04/22 08:12:08 by isilva-t          #+#    #+#             */
+/*   Updated: 2024/04/22 16:04:25 by isilva-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-static	void	*ft_free(char **str, size_t index);
-static	int	ft_count_words(char *str, char c);
-static char	*ft_strdupword(char *str, int len);
-
-static char	*ft_get_next_word(char *str, char c, int *i, int *in_quotes)
+static int	count_words(const char *s, char c)
 {
-	int	start;
-	int	len;
-
-	start = *i;
-	len = 0;
-	while (str[*i])
-	{
-		if (str[*i] == '\'' && !(*in_quotes))
-		{
-			*in_quotes = 1;
-			if ((*i)++ | len++)
-				continue ;
-		}
-		if (str[*i] == '\'' && *in_quotes)
-		{
-			*in_quotes = 0;
-			if ((*i)++ | len++)
-				continue ;
-		}
-		if (str[*i] == c && (*in_quotes) == 0)
-			break ;
-		(*i)++;
-		len++;
-	}
-	return (ft_strdupword(&str[start], len));
-}
-
-char	**ft_split(char *str, char c)
-{
-	char	**split;
-	int		iq;
-	int		j;
-	int		i;
-
-	split = NULL;
-	iq = 0;
-	i = 0;
-	j = 0;
-	split = malloc((ft_count_words(str, c) + 1) * sizeof(char *));
-	if (!split || !str)
-		return (NULL);
-	while (str[i] && j < ft_count_words(str, c))
-	{
-		if ((str[i] == c && !iq) || (str[i] == '\'' && str[i + 1] == '\''))
-			i++;
-		else
-		{
-			split[j] = ft_get_next_word(str, c, &i, &iq);
-			if (!split)
-				return (ft_free(split, j), NULL);
-			j++;
-		}
-	}
-	return (split[j] = NULL, split);
-}
-
-static int	ft_count_words(char *str, char c)
-{
-	int	in_quotes;
-	int	count;
 	int	i;
+	int	count;
 
-	if (!str)
-		return (0);
-	in_quotes = 0;
-	count = 0;
 	i = 0;
-	while (str[i])
+	count = 0;
+	while (*(s + i))
 	{
-		if (str[i] != c && !in_quotes && (i == 0 || str[i - 1] == c))
+		if (*(s + i) != c)
+		{
 			count++;
-		if (str[i] == '\'')
-			in_quotes = !in_quotes;
-		i++;
+			while (*(s + i) && *(s + i) != c)
+				i++;
+		}
+		else if (*(s + i) == c)
+			i++;
 	}
 	return (count);
 }
 
-static char	*ft_strdupword(char *str, int len)
+static int	get_len(const char *s, char c)
 {
-	char	*dup;
-	int		i;
-	int		j;
+	int	len;
 
-	i = 0;
-	j = 0;
-	dup = malloc((len + 1) * sizeof(char));
-	if (!dup)
-		return (NULL);
-	while (i < len && str[i])
+	len = 0;
+	while (*(s + len) && *(s + len) != c)
 	{
-		if (str[i] == '\'')
-			i++;
-		dup[j++] = str[i++];
+		len++;
 	}
-	dup[j] = '\0';
-	return (dup);
+	return (len);
 }
 
-static void	*ft_free(char **str, size_t index)
+void	free_mem(int in_word, char **array)
 {
-	size_t	j;
-
-	j = 0;
-	while (j < index)
+	while (in_word >= 0)
 	{
-		free(str[j]);
-		j++;
+		free(*(array + in_word));
+		in_word--;
 	}
-	free(str);
-	return (NULL);
+	free(array);
+}
+
+char	**split(char const *s, char c, char **array, int n_words)
+{
+	int	in_word;
+	int	on_char;
+
+	in_word = 0;
+	on_char = 0;
+	while (in_word < n_words)
+	{
+		while (*(s + on_char) && *(s + on_char) == c)
+			on_char++;
+		*(array + in_word) = ft_substr(s, on_char, get_len((s + on_char), c));
+		if (!*(array + in_word))
+		{
+			free_mem(in_word, array);
+			return (NULL);
+		}
+		while (*(s + on_char) && *(s + on_char) != c)
+		{
+			on_char++;
+		}
+		in_word++;
+	}
+	*(array + in_word) = NULL;
+	return (array);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	int		n_words;
+	char	**array;
+
+	n_words = count_words(s, c);
+	if (!s)
+		return (NULL);
+	array = (char **)malloc(sizeof(char *) * (n_words + 1));
+	if (!array)
+		return (NULL);
+	array = split(s, c, array, n_words);
+	return (array);
 }
