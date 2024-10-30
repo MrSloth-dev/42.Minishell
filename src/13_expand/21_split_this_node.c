@@ -38,17 +38,15 @@ static int	ft_set_backup_nodes_and_alloc_lst(t_iter *in, t_iter *out)
 
 static int	ft_create_new_lst_to_link(t_iter *in)
 {
-	in->i++;
-	while (in->i >= 0)
+	in->j = 0;
+	in->k = 0;
+	while (in->split[in->k])
 	{
-		if (in->i % 2 == 0)
-		{
-			ft_append_node(in->new_lst, in->split[in->j], WORD, NORMAL);
-			in->j++;
-		}
+		if ((in->j % 2) == 0)
+			ft_append_node(in->new_lst, in->split[in->k++], WORD, NORMAL);
 		else
 			ft_append_node(in->new_lst, ft_strdup(" "), WHITE_SPACE, NORMAL);
-		in->i--;
+		in->j++;
 	}
 	if (!in->new_lst->first)
 		return (FALSE);
