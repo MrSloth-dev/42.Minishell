@@ -40,7 +40,7 @@ char	*ft_get_env_key(char *env_str)
 		plus = 1;
 	while (env_str[i] && env_str[i] != '=')
 		i++;
-	if (i == (int)ft_strlen(env_str) - plus)
+	if (i == (int)ft_strlen(env_str) - plus + 1)
 		return (NULL);
 	return (ft_substr(env_str, 0, i - plus));
 }
