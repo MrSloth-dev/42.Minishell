@@ -26,7 +26,7 @@ static int	ft_check_if_need_to_split_spaces(char *str)
 		if (ft_is_space(str[i]) == TRUE)
 		{
 			have_spaces = TRUE;
-			break ;
+			str[i] = 32;
 		}
 		i++;
 	}
