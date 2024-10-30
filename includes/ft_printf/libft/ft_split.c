@@ -82,7 +82,7 @@ char	**split(char const *s, char c, char **array, int n_words)
 	return (array);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	int		n_words;
 	char	**array;
