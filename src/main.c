@@ -16,28 +16,33 @@ int	g_rec_signal;
 
 void	ft_print_data(t_shell *sh, int is_to_print);
 
-void	ft_delete_null_expansions(t_shell *sh)
+void	ft_delete_null_expansions_if_needed(t_shell *sh)
 {
 	t_iter	s;
+	int		is_to_delete;
 
 	if (!sh || !sh->token_lst || !sh->token_lst->first)
 		return ;
 	s.cur = sh->token_lst->first;
 	while (s.cur && sh)
 	{
+		is_to_delete = FALSE;
 		s.tmp = s.cur;
 		s.cur = s.cur->front;
-		if (s.tmp->to_delete == TRUE)
+		if (s.tmp->maybe_to_delete == TRUE)
 		{
-			if (s.cur)
+			if (s.cur && s.cur->type != WORD)
 			{
-				//s.cur->type = s.tmp->type; //ATENCAO AQUI
+				is_to_delete = TRUE;
 				s.cur->back = s.tmp->back;
 			}
-			if (s.tmp->back)
-				s.tmp->back->front = s.cur;
-			s.tmp->content = ft_free(s.tmp->content);
-			s.tmp = ft_free(s.tmp);
+			if (is_to_delete == TRUE)
+			{
+				if (s.tmp->back)
+					s.tmp->back->front = s.cur;
+				s.tmp->content = ft_free(s.tmp->content);
+				s.tmp = ft_free(s.tmp);
+			}
 		}
 	}
 }
@@ -62,20 +67,19 @@ void	ft_convert_empty_strings(t_token *token)
 void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh)
 {
 	ft_create_tokens(token_lst, line);
-	ft_print_data(sh, PRINT_DATA);
 
+	//ft_print_data(sh, PRINT_DATA);
 
 	ft_join_heredoc_to_words(token_lst);
 
+	//ft_print_data(sh, PRINT_DATA);
 	ft_make_expansions(sh);
-//	ft_delete_null_expansions(sh); //comment for test
+
+	ft_delete_null_expansions_if_needed(sh); //comment for test
 
 	ft_join_tokens(token_lst);
 
-	ft_convert_empty_strings(sh->token_lst->first); // comment for test
-
-
-
+	//ft_convert_empty_strings(sh->token_lst->first); // comment for test
 
 
 	ft_delete_spaces(token_lst, sh);
@@ -96,6 +100,7 @@ void	ft_shellfault(t_shell *sh)
 
 
 
+	ft_check_ambiguous_redir(sh->token_lst->first, sh);
 
 
 ////////////////////////////////////////////////////////////////////////	
@@ -103,7 +108,7 @@ void	ft_shellfault(t_shell *sh)
 	ft_do_heredoc_files(sh->token_lst->first, sh);
 	ft_run_heredocs(sh->token_lst->first, sh);
 	ft_print_data(sh, PRINT_DATA);
-	ft_check_ambiguous_redir(sh->token_lst->first, sh);
+	ft_print_ambiguous_redir_msg(sh);
 //sh->head = NULL;	
 
 	if (sh->head && sh->head->type != ND_PIPE

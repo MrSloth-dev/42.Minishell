@@ -60,6 +60,7 @@ void	ft_run_pipes(t_token *token, t_shell *sh)
 		ft_this_pipe(1, fd_pipe, token->left, sh);
 	if (token->left && token->left->left
 		&& ft_isbuiltin(token->left->left->content) == TRUE
+		&& token->right && token->right->left
 		&& ft_isbuiltin(token->right->left->content) == FALSE)
 		wait(0);
 	pid_child[1] = fork();

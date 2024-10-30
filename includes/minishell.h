@@ -105,7 +105,7 @@ typedef struct s_token
 	int				status;
 	int				type;
 	int				hd_id;
-	int				to_delete;
+	int				maybe_to_delete;
 	char			*file;
 	char			*content;
 	struct s_token	*front;
@@ -140,6 +140,7 @@ typedef struct s_shell
 	char		*hd_path;
 	int			nb_heredoc;
 	int			*heredoc_fd;
+	int			ambig_redir;
 }	t_shell;
 /////////////////////////////
 // HELPER STRUCTS
@@ -250,6 +251,8 @@ void	ft_free_inside_heredoc(t_shell *sh);
 
 // ambiguous redir
 void	ft_check_ambiguous_redir(t_token *token, t_shell *sh);
+void	ft_print_ambiguous_redir_msg(t_shell *sh);
+
 //free_stuff
 void	ft_free_tokens(t_shell *sh);
 void	*ft_free(void *pointer);

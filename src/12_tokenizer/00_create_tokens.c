@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+		//ft_append_node(token_lst, ft_strdup("\x02"), WORD, status);
 static int	ft_append_inside_quotes(t_token_lst *token_lst,
 								char *str, int status)
 {
@@ -23,7 +24,7 @@ static int	ft_append_inside_quotes(t_token_lst *token_lst,
 	while (str[len] && str[len] != qte)
 		len++;
 	if (len == 1)
-		ft_append_node(token_lst, ft_strdup("\x02"), WORD, status);
+		ft_append_node(token_lst, ft_strdup(""), WORD, status);
 	else
 		ft_append_node(token_lst, ft_substr(str + 1, 0, len - 1), WORD, status);
 	return (len + 1);

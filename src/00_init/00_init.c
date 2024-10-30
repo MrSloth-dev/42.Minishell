@@ -99,6 +99,7 @@ t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 	sh->path = NULL;
 	sh->hd_path = ft_strjoin_free(getcwd(NULL, 0), ft_strdup("/.tmp/"));
 	sh->nb_heredoc = 0;
+	sh->ambig_redir = 0;
 	sh->exit_status = EXIT_SUCCESS;
 	return (sh);
 }

@@ -84,8 +84,6 @@ static void	ft_expand_on_this_node(t_iter *h, t_token	*cur, t_shell *sh)
 		h->i++;
 	}
 	cur->content = h->str;
-	if (ft_strlen(cur->content) == 0)
-		cur->to_delete = TRUE;
 }
 
 void	ft_make_expansions(t_shell *sh)
@@ -105,6 +103,8 @@ void	ft_make_expansions(t_shell *sh)
 			{
 				h = ft_set_iter(0);
 				ft_expand_on_this_node(&h, cur, sh);
+				if (ft_strlen(cur->content) == 0)
+					cur->maybe_to_delete = TRUE;
 			}
 		}
 		cur = cur->front;
