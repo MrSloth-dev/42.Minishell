@@ -39,7 +39,7 @@ void	ft_split_tokens_with_white_spaces(t_shell *sh)
 	int		need_to_split;
 
 	if (!sh || !sh->token_lst || !sh->token_lst->first)
-		return;
+		return ;
 	s.cur = sh->token_lst->first;
 	while (s.cur)
 	{
