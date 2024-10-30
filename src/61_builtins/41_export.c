@@ -116,4 +116,3 @@ void	ft_join_env(char *cmdargs, char **temp, int j)
 		k++;
 	}
 }
-

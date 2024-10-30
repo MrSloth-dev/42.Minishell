@@ -27,4 +27,3 @@ void	ft_check_ambiguous_redir(t_token *token, t_shell *sh)
 		token = token->front;
 	}
 }
-

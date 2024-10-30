@@ -113,11 +113,14 @@ void	ft_shellfault(t_shell *sh)
 	else if (sh->head && sh->head->left)
 	{
 		if (fork() == 0)
+		{
+			ft_sig_restore();
 			ft_run(sh->head, sh);
+		}
 		ft_sig_mute();
 		waitpid(0, &exit_status, 0);
 		ft_sig_restore();
-		sh->exit_status = WEXITSTATUS(exit_status);
+		sh->exit_status = ft_get_exit_status(exit_status, sh);
 	}
 	ft_clean_hd_files(sh);
 	ft_free_tokens(sh);
@@ -211,7 +214,7 @@ void	ft_print_binary_tree(t_shell *sh)
 	to_free = NULL;
 	if (!sh->head)
 	{
-		printf("NO TREE TO PRINT!\n");
+		ft_printf(2, "NO TREE TO PRINT!\n");
 		return ;
 	}
 	cur = sh->head;
@@ -231,50 +234,50 @@ void	ft_print_tokens(t_token_lst *token_lst)
 	tmp = token_lst->first;
 
 	ft_printf(1, "%s\n", tmp->content);
-	printf("\ncommand: ");
+	ft_printf(2, "\ncommand: ");
 	while (tmp)
 	{
 		cur = tmp;
 		tmp = tmp->front;
 		if (cur->type == ND_PIPE)
 		{
-			printf(" | ");
+			ft_printf(2, " | ");
 			continue ;
 		}
 		else if (cur->type == HERE_DOC)
-			printf(" << ");
+			ft_printf(2, " << ");
 		else if (cur->type == REDIR_IN)
-			printf(" < ");
+			ft_printf(2, " < ");
 		else if (cur->type == REDIR_OUT)
-			printf(" > ");
+			ft_printf(2, " > ");
 		else if (cur->type == DBLE_REDIR_OUT)
-			printf(" >> ");
+			ft_printf(2, " >> ");
 		else if (cur->type == WHITE_SPACE)
-			printf(" _ ");
-		printf("%s", cur->content);
+			ft_printf(2, " _ ");
+		ft_printf(2, "%s", cur->content);
 	}
 	cur = token_lst->first;
-	printf("\ntypes: ");
+	ft_printf(2, "\ntypes: ");
 	while (cur)
 	{
 		if (cur->type == WORD)
-			printf("WORD ");
+			ft_printf(2, "WORD ");
 		else if (cur->type == ND_EXEC)
-			printf("ND_EXEC ");
+			ft_printf(2, "ND_EXEC ");
 		else if (cur->type == ND_PIPE)
-			printf("PIPE ");
+			ft_printf(2, "PIPE ");
 		else if (cur->type == HERE_DOC)
-			printf("H_DOC ");
+			ft_printf(2, "H_DOC ");
 		else if (cur->type == REDIR_OUT)
-			printf("R_OUT ");
+			ft_printf(2, "R_OUT ");
 		else if (cur->type == REDIR_IN)
-			printf("R_IN ");
+			ft_printf(2, "R_IN ");
 		else if (cur->type == DBLE_REDIR_OUT)
-			printf("D_R_OUT ");
+			ft_printf(2, "D_R_OUT ");
 		else if (cur->type == WHITE_SPACE)
-			printf(" WS ");
+			ft_printf(2, " WS ");
 		else
-			printf(" OTHER");
+			ft_printf(2, " OTHER");
 		cur = cur->front;
 	}
 	 printf("\n\n");

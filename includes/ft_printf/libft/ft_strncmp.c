@@ -29,13 +29,3 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	return (0);
 }
-/* #include <stdio.h>
-#include <string.h>
-int	main(void)
-{
-	printf("expected : %d\n", strncmp("test\200", "test\0", 6));
-	printf("result : %d\n", ft_strncmp("test\200", "test\0", 6));
-	printf("expected : %d\n", strncmp("abcdef", "abc\375xx", 5));
-	printf("result : %d\n", ft_strncmp("abcdef", "abc\375xx", 5));
-	return (0);
-} */

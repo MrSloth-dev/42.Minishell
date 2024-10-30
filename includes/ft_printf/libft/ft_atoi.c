@@ -33,14 +33,3 @@ int	ft_atoi(const char *str)
 	}
 	return (res * neg);
 }
-/*
-#include <stdio.h>
-int main()
-{
-	printf("%d \n",ft_atoi("12345"));
-	printf("%d \n",ft_atoi("-12345"));
-	printf("%d \n",ft_atoi("       -123abddas45"));
-	printf("%d \n",ft_atoi("       -123abddas45"));
-	printf("%d \n",ft_atoi("-2147483648LL"));
-	return 0;
-}*/

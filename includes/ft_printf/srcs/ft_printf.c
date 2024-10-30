@@ -14,7 +14,6 @@
 
 int	ft_formatprint(char format, va_list ap, int fd);
 
-//int	main() { return (ft_printf("%c", 'd'));}
 int	ft_printf(int fd, const char *str, ...)
 {
 	va_list	ap;

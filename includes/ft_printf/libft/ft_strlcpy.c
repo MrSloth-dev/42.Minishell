@@ -27,13 +27,3 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	dst[i] = '\0';
 	return (ft_strlen(src));
 }
-/*
-#include <stdio.h>
-int	main()
-{
-	char *str = "lorem ipsum dolor sit amet";
-	char dest[26];
-	printf("%lu\n%s", ft_strlcpy(dest, str, 0), dest);
-	return (0);
-}
-*/

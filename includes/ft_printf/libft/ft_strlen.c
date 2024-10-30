@@ -21,12 +21,3 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
-/*
-#include <stdio.h>
-
-int main()
-{
-	printf("%lu", ft_strlen("casa"));
-	return (0);
-}
-*/

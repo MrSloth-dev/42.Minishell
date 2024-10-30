@@ -32,12 +32,3 @@ char	*ft_strdup(const char *s)
 	dup[i] = '\0';
 	return (dup);
 }
-/*  
-#include <stdio.h>
-int main()
-{
-	char str[6] = "Hello";
-	printf("%s", strdup(str));	
-	return (0);
-}
-*/

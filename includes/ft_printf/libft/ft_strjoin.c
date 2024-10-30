@@ -36,13 +36,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	join[i + j] = 0;
 	return (join);
 }
-/*
-#include <stdio.h>
-
-int	main()
-{
-	char str1[] = "Hello";
-	char str2[] = " World!";
-	printf("%s\n", ft_strjoin(str1,str2));
-	return (0);
-}*/

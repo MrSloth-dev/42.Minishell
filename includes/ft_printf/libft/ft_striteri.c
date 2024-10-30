@@ -23,13 +23,3 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 		i++;
 	}
 }
-
-/*
-int	main()
-{
-	char	str [] = "hello world!";
-	ft_striteri(str, upper);
-	printf("%s",str);
-	return (0);
-}
-*/

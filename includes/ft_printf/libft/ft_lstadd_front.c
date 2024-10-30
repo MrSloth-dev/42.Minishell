@@ -22,23 +22,3 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 	else
 		*lst = new;
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	t_list	*list = NULL;
-	t_list	*l1 = ft_lstnew("node 1");
-	t_list	*l2 = ft_lstnew("node 2");
-
-	ft_lstadd_front(&list, l1);
-	ft_lstadd_front(&list, l2);
-
-	t_list	*newlist = list;
-	while (newlist)
-	{
-		printf("%s\n", (char *)newlist->content);
-		newlist = newlist->next;
-	}
-	return (0);
-} */

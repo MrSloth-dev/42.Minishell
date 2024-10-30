@@ -54,31 +54,31 @@ UTILSDIR = src/81_utils
 FREEDIR = src/88_free_stuff
 
 INIT = \
-	   $(INITDIR)/00_init.c
+		$(INITDIR)/00_init.c
 
 SIGNAL = \
-		 $(SIGNALDIR)/00_readline.c \
-		 $(SIGNALDIR)/01_signal_handle.c
+		$(SIGNALDIR)/00_readline.c \
+		$(SIGNALDIR)/01_signal_handle.c
 
 SYNTAX = \
-		 $(SYNTAXDIR)/00_syn_utils.c \
-		 $(SYNTAXDIR)/10_syn_quotes.c \
-		 $(SYNTAXDIR)/20_syn_redir.c \
-		 $(SYNTAXDIR)/30_syn_pipe.c \
-		 $(SYNTAXDIR)/40_syn_special_chars.c
+		$(SYNTAXDIR)/00_syn_utils.c \
+		$(SYNTAXDIR)/10_syn_quotes.c \
+		$(SYNTAXDIR)/20_syn_redir.c \
+		$(SYNTAXDIR)/30_syn_pipe.c \
+		$(SYNTAXDIR)/40_syn_special_chars.c
 
 TOKENIZER = \
-			$(TOKENIZERDIR)/00_create_tokens.c \
-			$(TOKENIZERDIR)/10_append_node_and_word.c \
-			$(TOKENIZERDIR)/11_append_redir.c \
-			$(TOKENIZERDIR)/12_join_tokens.c \
-			$(TOKENIZERDIR)/13_delete_spaces.c \
-			$(TOKENIZERDIR)/14_add_node_exec.c \
-			$(TOKENIZERDIR)/88_tokenizer_utils.c
+		$(TOKENIZERDIR)/00_create_tokens.c \
+		$(TOKENIZERDIR)/10_append_node_and_word.c \
+		$(TOKENIZERDIR)/11_append_redir.c \
+		$(TOKENIZERDIR)/12_join_tokens.c \
+		$(TOKENIZERDIR)/13_delete_spaces.c \
+		$(TOKENIZERDIR)/14_add_node_exec.c \
+		$(TOKENIZERDIR)/88_tokenizer_utils.c
 
 EXPAND = \
-		 $(EXPDIR)/00_make_expansions.c \
-		 $(EXPDIR)/88_expand.c 
+		$(EXPDIR)/00_make_expansions.c \
+		$(EXPDIR)/88_expand.c 
 
 H_DOC = \
 		$(H_DOCDIR)/11_do_heredoc_files.c \
@@ -123,24 +123,22 @@ FREE =	\
 		$(FREEDIR)/88_free_and_null.c
 
 
-SRCS = $(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER) $(PARSE) $(EXPAND) $(FREE) $(EXEC) $(UTILS) $(H_DOC) $(AMBIG_REDIRECT) $(PRINT)
-
-TMPDIR = .tmp
+SRCS =		$(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER)\
+      		$(PARSE) $(EXPAND) $(FREE) $(EXEC) $(UTILS) $(H_DOC)\
+      		$(AMBIG_REDIRECT) $(PRINT)
 
 MAIN = src/main.c
-
+TMPDIR = .tmp
 OBJS = $(SRCS:.c=.o)
 
-%.o: %.c $(HEADER)
+%.o: %.c
 	@$(CC) $(CFLAGS) $(EFLAGS) -c $< -o $@
 
 ################################################################################
 #                                  Makefile  rules                             #
 ################################################################################
 
-
-.PHONY: all clean fclean re debug sync
-
+.PHONY: all
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
@@ -150,8 +148,10 @@ $(NAME): $(OBJS) $(HEADER)
 	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 	@mkdir -p $(TMPDIR)
-	@echo "$(RED) A Project developed by Ivan Teixeira && Joao Barbosa$(CLR_RMV)"
+	@echo "$(YELLOW) A Project developed by Ivan Teixeira && Joao Barbosa$(CLR_RMV)"
 
+
+.PHONY: print
 print : $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
 	@make -C $(PRINTDIR) -s
@@ -161,20 +161,23 @@ print : $(OBJS) $(HEADER)
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
 	cat leaks.log
 
-le: fclean all
-	valgrind $(VALGRINDFLAGS) ./$(NAME)
-	cat leaks.log
 
+.PHONY: norm
 norm:
 	@norminette | grep -E 'Error:|rror!'
 
+
+.PHONY: gdb
 gdb : re
+	tmux set-option remain-of-exit off
 	tmux new-window  -n Gdb
 	tmux send-keys 'gdbtui ./minishell' C-m Escape
 	tmux split-window -h -l 30
 	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
 	tmux select-pane -t Gdb.1
 
+
+.PHONY: sync
 sync : re
 	@tmux new-window  -n sync
 	@tmux send-keys './minishell' C-m Escape
@@ -183,6 +186,8 @@ sync : re
 	@tmux select-pane -t sync.1
 	@tmux setw synchronize-panes on
 
+
+.PHONY: vgdb
 vgdb : re
 	tmux new-window  -n vGdb
 	tmux send-keys 'valgrind -q --vgdb-error=0 ./minishell' C-m Escape
@@ -190,15 +195,21 @@ vgdb : re
 	tmux send-keys -t Gdb.2 'gdbtui ./minishell' C-m
 	tmux select-pane -t vGdb.1
 
+
+.PHONY: clean
 clean:
 	@ $(RM) -f $(OBJS)
 	@ $(RM) $(TMPDIR)
 	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✅"
 
+
+.PHONY: fclean
 fclean: clean
 	@ $(RM) $(NAME) $(NAME_BONUS)
 	@echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✅"
 
+
+.PHONY: re
 re : fclean all
 
 TESTER_URL = https://github.com/LucasKuhn/minishell_tester.git
@@ -208,11 +219,13 @@ TESTER_BIN = tester
 $(TESTER_DIR):
 	@git clone $(TESTER_URL) $(TESTER_DIR)
 
+.PHONY: tester
 tester: $(TESTER_DIR) $(NAME)
 	make re
 	@cd $(TESTER_DIR) && ./$(TESTER_BIN)
 	make fclean
 
+.PHONY: va
 va : re
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
 

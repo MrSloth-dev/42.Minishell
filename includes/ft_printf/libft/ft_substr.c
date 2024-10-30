@@ -36,12 +36,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	sub[j] = '\0';
 	return (sub);
 }
-/*
-#include <stdio.h>
-int main()
-{
-	char str1[] = "Say Hello to my little friend!";
-	printf("%s\n", ft_substr(str1, 0, 10));
-	printf("%s\n", ft_substr("tripouille", 0, 42000));
-	printf("%s\n", ft_substr("tripouille", 100, 1));
-} */

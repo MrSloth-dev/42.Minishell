@@ -28,18 +28,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	}
 	return (mapi);
 }
-/*
-
-char	rot(unsigned int i, char c)
-{
-	return (c + 1);
-}
-int	main()
-{
-	char	*str = "abcd";
-	printf("%s", ft_strmapi(str, rot));	
-
-
-	return (0);
-}
-*/

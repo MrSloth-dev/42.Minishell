@@ -178,35 +178,36 @@ void	ft_cd(t_token *cmdargs, t_shell *shell);
 void	ft_exit(t_token *token, t_shell *shell);
 
 //BUILT-INS UTILS
-char	*ft_get_env_key_and_value(char *env_key, t_shell *shell);
-char	*ft_get_env_key(char *env_str);
-char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell);
-int		ft_env_exist(char *var, int *j, char **temp);
 char	*ft_strjoin_free(char const *s1, char const *s2);
 void	ft_append_env(char *cmdargs, char **temp);
-void	ft_swap_env(char *cmdargs, char **temp, int j);
-void	ft_append_env(char *cmdargs, char **temp);
-void	ft_swap_env(char *cmdargs, char **temp, int j);
 void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell);
+void	ft_swap_env(char *cmdargs, char **temp, int j);
 void	ft_export_no_args(t_shell shell);
 int		ft_env_duplicate(t_token *cmdargs);
 int		ft_valid_identifiers_msg(t_token *cmdargs, t_shell *sh);
 int		ft_check_valid_identifiers(t_token *cmdargs);
+//ENV UTILS
+char	*ft_get_env_key_and_value(char *env_key, t_shell *shell);
+char	*ft_get_env_key(char *env_str);
+char	*ft_get_env_value(char *env_name, char **env_list, t_shell *shell);
+int		ft_env_exist(char *var, int *j, char **temp);
 
 //EXPAND
-char	*ft_expand(char *str, t_shell *shell);
 void	ft_make_expansions(t_shell *sh);
+char	*ft_expand(char *str, t_shell *shell);
 
 //init
 t_shell	*ft_init_shell(char *envp[], char *argv_zero);
 char	**ft_copy_envp(char **envp, int extra);
 int		ft_getpid(t_shell *shell);
 char	*ft_get_hostname(void);
+
 // signals_and_readline
 t_shell	*ft_readline(t_shell *sh);
 void	ft_sig_restore(void);
 void	ft_sig_child(void);
 void	ft_sig_mute(void);
+int		ft_get_exit_status(int exit_code, t_shell *sh);
 
 // syntax_utils_file
 void	ft_print_syntax_error(int error, t_shell *shell);
@@ -267,7 +268,7 @@ void	ft_run(t_token *token, t_shell *shell);
 int		ft_isbuiltin(char *content);
 int		ft_check_file_access(char *file, int redir, t_shell *sh);
 
-//print error
+//PRINT ERROR
 int		ft_check_file_access(char *file, int redir, t_shell *sh);
 int		ft_print_execve_error(int error, t_token *token, t_shell *shell);
 

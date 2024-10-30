@@ -26,11 +26,3 @@ int	ft_putstr_fd(char *str, int fd)
 	}
 	return (i);
 }
-/*
-#include <stdio.h>
-int	main()
-{
-	printf("%d",ft_putstr_fd("Hello World!", 1));
-
-	return (0);
-} */

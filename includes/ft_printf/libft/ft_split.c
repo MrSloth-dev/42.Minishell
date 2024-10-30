@@ -131,16 +131,3 @@ static void	*ft_free(char **str, size_t index)
 	free(str);
 	return (NULL);
 }
-/*
-int	main(int argc, char *argv[])
-{
-	auto char *str = argv[1];
-	auto char **split = ft_split(str, ' ');
-	(void)argc;
-	for (int i = 0; i < ft_count_words(argv[1], ' '); i++)
-	{
-		printf("%s\n", split[i]);
-		free(split[i]);
-	}
-	free(split);
-} */

@@ -42,6 +42,7 @@ void	ft_exit(t_token *token, t_shell *sh)
 {
 	int	exit_status;
 
+	ft_printf(STDOUT_FILENO, "exit\n");
 	if (!token)
 	{
 		sh->exit_status = 0;
@@ -52,7 +53,6 @@ void	ft_exit(t_token *token, t_shell *sh)
 		sh->exit_status = (unsigned char)ft_atoi(token->content);
 	else if (exit_status == 1)
 	{
-		ft_printf(STDOUT_FILENO, "exit\n");
 		ft_printf(STDERR_FILENO,
 			"%s : exit : too many arguments\n", sh->prog_name);
 		sh->exit_status = 1;
@@ -60,6 +60,5 @@ void	ft_exit(t_token *token, t_shell *sh)
 	}
 	else
 		sh->exit_status = exit_status;
-	ft_printf(STDOUT_FILENO, "exit\n");
 	ft_free_and_exit(token, sh, TRUE);
 }

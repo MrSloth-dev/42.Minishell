@@ -51,14 +51,3 @@ static int	ft_countpointer(unsigned long long prt)
 	}
 	return (count);
 }
-/*
-#include <stdio.h>
-int main() {
-    int	number = 1203981;
-    unsigned long long ptr = (unsigned long long)&number;
-
-    ft_putpointer_fd(ptr, 1);
-	printf("\n%p\n", ptr);
-    return 0;
-}
-*/

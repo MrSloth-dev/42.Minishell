@@ -49,12 +49,3 @@ static int	ft_trim(char c, const char *set)
 	}
 	return (0);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	auto char s1[] = "  \t \t \n   \n\n\n\t";
-	auto char set[] = "  \n\t";
-	printf("%s", ft_strtrim(s1, set));
-	return (0);
-} */

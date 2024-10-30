@@ -17,7 +17,8 @@ static int	ft_error_not_found(t_token *token, t_shell *sh)
 	if ((token->content[0] == '.' && token->content[1] == '/')
 		|| token->content[0] == '/')
 	{
-		ft_printf(STDERR_FILENO, "%s : No such file or directory\n", token->content);
+		ft_printf(STDERR_FILENO, "%s : No such file or directory\n",
+			token->content);
 		return (sh->exit_status = 127, 127);
 	}
 	else

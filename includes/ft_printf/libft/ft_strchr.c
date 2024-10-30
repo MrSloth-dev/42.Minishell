@@ -27,14 +27,3 @@ char	*ft_strchr(const char *s, char c)
 		return ((char *) &s[i]);
 	return (0);
 }
-/*
-#include <stdio.h>
-
-
-int main()
-{
-	printf("%s", ft_strchr("123456", 'd'));	
-
-	return (0);
-}
-*/

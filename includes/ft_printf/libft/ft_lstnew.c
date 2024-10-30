@@ -23,17 +23,3 @@ t_list	*ft_lstnew(void *content)
 	new->next = NULL;
 	return (new);
 }
-/* #include <stdio.h>
-int	main()
-{
-	t_list	*l1;
-	t_list	*l2;
-
-	int i = 42;
-	char	*str = "Helloooo";
-	l1 = ft_lstnew(&i);
-	l2 = ft_lstnew(&str);
-	printf("%d", *((int *)l1->content));
-	printf("%s", *((char **)l2->content));
-}
-*/

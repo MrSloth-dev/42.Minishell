@@ -48,16 +48,3 @@ static int	ft_numlen(long long nbr)
 	}
 	return (i);
 }
-/* #include <stdio.h>
-int	main()
-{
-	int fd = 1;
-	printf("len = %d\n", ft_putnbr_fd(12345, fd));
-	ft_putchar_fd('\n', fd);
-	printf("len = %d\n", ft_putnbr_fd(-42, fd));
-	ft_putchar_fd('\n', fd);
-	printf("len = %d\n", ft_putnbr_fd(0, fd));
-	ft_putchar_fd('\n', fd);
-	printf("len = %d\n", ft_putnbr_fd(-2147483648, fd));
-	ft_putchar_fd('\n', fd);
-} */

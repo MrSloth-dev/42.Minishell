@@ -26,13 +26,3 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (diff);
 }
-/* #include <stdio.h>
-#include <string.h>
-int	main(void)
-{
-	printf("expected : %d\n", strncmp("test\200", "test\0", 6));
-	printf("result : %d\n", ft_strncmp("test\200", "test\0", 6));
-	printf("expected : %d\n", strncmp("abcdef", "abc\375xx", 5));
-	printf("result : %d\n", ft_strncmp("abcdef", "abc\375xx", 5));
-	return (0);
-} */

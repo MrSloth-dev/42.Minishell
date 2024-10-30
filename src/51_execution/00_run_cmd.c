@@ -39,11 +39,11 @@ void	ft_run_exec_node(t_token *token, t_shell *sh)
 
 static void	ft_this_pipe(int FLAG, int fd_pipe[2], t_token *token, t_shell *sh)
 {
+	ft_sig_restore();
 	if (FLAG == 1)
 		dup2(fd_pipe[1], STDOUT_FILENO);
 	else
 		dup2(fd_pipe[0], STDIN_FILENO);
-	ft_sig_restore();
 	ft_multiple_close(fd_pipe[0], fd_pipe[1]);
 	ft_run(token, sh);
 }

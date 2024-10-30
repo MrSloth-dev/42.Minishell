@@ -132,7 +132,7 @@
     - [x] cd with absolute path
     - [x] cd - goes to OLDPWD
     - [x] cd -- goes to home and set oldpwd to home too)
-    - [ ] cd ~ goes to HOME of the system
+    - [x] cd ~ goes to HOME of the system
     - [x] cd goes to HOME
     - [x] convert to accept tokens
     - [x] check for leaks
@@ -170,8 +170,8 @@
          bash: $A: ambiguous redirect
    - [ ] Ctrl + \ for child processes that are awaiting IVAN
    - [ ] Test here_doc
-   - [ ] cat "" -VER O QUE A MERDA DO BASH DA
-   - [ ] cd "" need to stay put  - JOAO
+   - [x] cat "" -VER O QUE A MERDA DO BASH DA
+   - [x] cd "" need to stay put  - JOAO
    - [x] multiple unset have invalid reads
 ```
 ## Tests to be made

@@ -26,13 +26,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (0);
 }
-/*
-#include <stdio.h>
-int main()
-{
-	char str1[] = "Ola Mundo";
-	char c = 'M';
-	printf("%s", memchr(str1, c, 7));
-	return (0);
-}
-*/

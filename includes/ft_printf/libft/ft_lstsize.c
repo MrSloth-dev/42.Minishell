@@ -24,17 +24,3 @@ int	ft_lstsize(t_list *lst)
 	}
 	return (count);
 }
-/*
-#include <stdio.h>
-int main()
-{
-	int n1 = 10;
-	int n2 = 20;
-	int n3 = 30;
-	t_list	*node1 = ft_lstnew(&n1);
-	t_list	*node2 = ft_lstnew(&n2);
-	t_list	*node3 = ft_lstnew(&n3);
-	ft_lstadd_front(&node3, node2);
-	ft_lstadd_front(&node2, node1);
-	printf("%d", ft_lstsize(node1));
-} */

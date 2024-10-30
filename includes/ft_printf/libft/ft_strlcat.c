@@ -38,17 +38,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 		dst_len = size;
 	return (dst_len + src_len);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-int	main()
-{
-	// char str1[] = " Mundo";
-	char dest[15];
-	memset(dest, 'r', 15);
-	printf("%zu\n", ft_strlcat(dest, "lorem ipsum dolor sit amet", 5));
-	write(1, "\n", 1);
-	write(1, dest, 15);
-	write(1, "\n", 1);
-	return (0);
-} */

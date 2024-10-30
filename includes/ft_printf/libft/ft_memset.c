@@ -26,13 +26,3 @@ void	*ft_memset(void *s, int c, size_t n)
 	}
 	return (s);
 }
-/*
-#include <stdio.h>
-int main ()
-{
-	char big[32] = "Por mares nunca antes navegados";
-	ft_memset(big, 75, 1);
-	printf("%s", big);
-	return (0);
-}
-*/

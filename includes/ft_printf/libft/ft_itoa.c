@@ -51,12 +51,3 @@ static int	ft_numlen(int nbr)
 	}
 	return (i);
 }
-/*
-#include <stdio.h>
-
-int	main()
-{
-	char * str = ft_itoa(0);
-	printf("%s\n", str);
-	free(str);
-} */

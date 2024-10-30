@@ -39,14 +39,3 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
-/*
-#include <stdio.h>
-int	main()
-{
-	char str1[] = "1234567890-";
-	char str2[] = "abcdefghi";
-	ft_memmove(str2,str1,3);
-	printf("%s", str2);
-	return (0);
-}
-*/

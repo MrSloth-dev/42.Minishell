@@ -33,12 +33,3 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (0);
 }
-/*
- #include <stdio.h>
-int main()
-{
-	char *big = "lorem ipsum dolor sit amet";
-	char *little = "amet";
-	printf("%s",ft_strnstr(big, little, 26));
-	return (0);
-}  */

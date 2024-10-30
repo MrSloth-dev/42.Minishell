@@ -18,7 +18,7 @@ static void	ft_handle_sig(int signal)
 {
 	if (signal == SIGINT)
 	{
-		printf("\n");
+		ft_printf(STDOUT_FILENO, "\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -72,7 +72,6 @@ char	*ft_get_prompt(t_shell *sh)
 	char	*prompt;
 	char	*cwd;
 
-	// return (ft_strdup("minishell : "));
 	if (!sh->envp)
 		return (ft_strdup("minishell:"));
 	prompt = ft_strdup(YELLOW);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
 int	ft_here_doc(char delimiter[128], char file[32])
 {
@@ -60,7 +61,7 @@ static int	ft_do_this_hd(t_shell *sh, char delimiter[128], char file[32])
 		{
 			ft_printf(STDOUT_FILENO, "\n");
 			sh->head = NULL;
-			sh->exit_status = 130;
+			sh->exit_status = 128 + WTERMSIG(status);
 			return (ft_sig_restore(), 0);
 		}
 	}

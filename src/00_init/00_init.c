@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 void	ft_update_shlvl(int value, char **envp)
 {
@@ -86,7 +87,7 @@ t_shell	*ft_init_shell(char *envp[], char *argv_zero)
 	sh = ft_calloc(1, sizeof(t_shell));
 	if (!sh)
 	{
-		printf("Error allocating \"*sh\" struct!\n");
+		ft_printf(STDERR_FILENO, "Error allocating \"*sh\" struct!\n");
 		return (NULL);
 	}
 	sh->pid = ft_getpid(sh);
