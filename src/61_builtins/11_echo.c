@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_check_n(t_token *cmdargs)
+static int	ft_check_n(t_token *cmdargs)
 {
 	size_t	j;
 	int		count;

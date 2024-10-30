@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_invalid_exit_code(t_token *token, t_shell *sh)
+static int	ft_invalid_exit_code(t_token *token, t_shell *sh)
 {
 	int	i;
 	int	exit_status;

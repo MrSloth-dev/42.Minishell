@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_run_exec_node(t_token *token, t_shell *sh)
+static void	ft_run_exec_node(t_token *token, t_shell *sh)
 {
 	t_iter	h;
 
@@ -32,7 +32,8 @@ void	ft_run_exec_node(t_token *token, t_shell *sh)
 		else
 			ft_exec_builtins_child(token, sh);
 	}
-	ft_restore_fd(sh->std_in, sh->std_out, sh);
+	if (token->right)
+		ft_restore_fd(sh->std_in, sh->std_out, sh);
 }
 
 static void	ft_this_pipe(int FLAG, int fd_pipe[2], t_token *token, t_shell *sh)
@@ -46,7 +47,7 @@ static void	ft_this_pipe(int FLAG, int fd_pipe[2], t_token *token, t_shell *sh)
 	ft_run(token, sh);
 }
 
-void	ft_run_pipes(t_token *token, t_shell *sh)
+static void	ft_run_pipes(t_token *token, t_shell *sh)
 {
 	int		exit_status[2];
 	int		pid_child[2];

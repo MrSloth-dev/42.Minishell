@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_handle_exit_redir(t_token *cur_redir, t_shell *sh, int *fd)
+static void	ft_handle_exit_redir(t_token *cur_redir, t_shell *sh, int *fd)
 {
 	if (cur_redir)
 	{
@@ -28,7 +28,7 @@ void	ft_handle_exit_redir(t_token *cur_redir, t_shell *sh, int *fd)
 		sh->exit_status = 0;
 }
 
-void	ft_assert_redir(t_token *cur_redir, int *fd)
+static void	ft_assert_redir(t_token *cur_redir, int *fd)
 {
 	if (cur_redir->type == DBLE_REDIR_OUT)
 		*fd = open(cur_redir->content, O_RDWR

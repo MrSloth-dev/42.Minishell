@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_copy_and_remove_envp(t_shell *shell, int j)
+static void	ft_copy_and_remove_envp(t_shell *shell, int j)
 {
 	char	**temp_envp;
 	int		i;

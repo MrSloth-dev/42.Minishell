@@ -70,7 +70,7 @@ static char	*ft_get_prompt(t_shell *sh)
 	char	*prompt;
 	char	*cwd;
 
-	if (!sh->envp)
+	if (!sh || !sh->envp)
 		return (ft_strdup("minishell:"));
 	prompt = ft_strdup(YELLOW);
 	if (sh->user)

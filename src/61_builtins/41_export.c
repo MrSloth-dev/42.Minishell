@@ -34,7 +34,7 @@ static int	ft_export_size_increase(t_token *cmdargs, t_shell *shell, int *j)
 	return (i);
 }
 
-int	ft_plus_mode(char *cmdargs)
+static int	ft_plus_mode(char *cmdargs)
 {
 	int	i;
 
@@ -50,7 +50,7 @@ int	ft_plus_mode(char *cmdargs)
 	return (0);
 }
 
-void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
+static void	ft_add_env(t_token *cmdargs, char **temp, int plus_mode, t_shell *shell)
 {
 	t_token	*current;
 	int		j;
@@ -100,7 +100,7 @@ void	ft_export(t_token *cmdargs, t_shell *shell)
 	shell->envp = temp;
 }
 
-void	ft_join_env(char *cmdargs, char **temp, int j)
+/* void	ft_join_env(char *cmdargs, char **temp, int j)
 {
 	int		k;
 	char	*start;
@@ -119,4 +119,4 @@ void	ft_join_env(char *cmdargs, char **temp, int j)
 			return ;
 		k++;
 	}
-}
+} */

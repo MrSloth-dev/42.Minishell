@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-void	ft_safe_chdir(char *path, t_shell *shell, int flags);
-void	ft_update_directory(char *path, char *variable, t_shell *shell);
+static void	ft_safe_chdir(char *path, t_shell *shell, int flags);
+static void	ft_update_directory(char *path, char *variable, t_shell *shell);
 
-void	ft_change_home(t_token *cmdargs, t_shell *shell)
+static void	ft_change_home(t_token *cmdargs, t_shell *shell)
 {
 	char	*home;
 	char	*old_home;
@@ -77,7 +77,7 @@ void	ft_cd(t_token *cmdargs, t_shell *shell)
 	ft_free(update_old);
 }
 
-void	ft_safe_chdir(char *path, t_shell *shell, int flags)
+static void	ft_safe_chdir(char *path, t_shell *shell, int flags)
 {
 	char	*pwd;
 
@@ -103,7 +103,7 @@ void	ft_safe_chdir(char *path, t_shell *shell, int flags)
 	pwd = ft_free(pwd);
 }
 
-void	ft_update_directory(char *path, char *variable, t_shell *shell)
+static void	ft_update_directory(char *path, char *variable, t_shell *shell)
 {
 	char	*path_str;
 	int		j;

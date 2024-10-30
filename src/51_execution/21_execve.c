@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_check_bin_error(char *bin, t_shell *shell)
+static int	ft_check_bin_error(char *bin, t_shell *shell)
 {
 	struct stat	path_stat;
 
@@ -27,7 +27,7 @@ int	ft_check_bin_error(char *bin, t_shell *shell)
 	return (0);
 }
 
-char	*ft_get_cmdbin(t_token *token, t_shell *shell)
+static char	*ft_get_cmdbin(t_token *token, t_shell *shell)
 {
 	char	*temp;
 	char	*path;
@@ -53,7 +53,7 @@ char	*ft_get_cmdbin(t_token *token, t_shell *shell)
 	return (NULL);
 }
 
-char	**ft_create_cmdargs(t_token *token)
+static char	**ft_create_cmdargs(t_token *token)
 {
 	char	**cmdargs;
 	t_token	*head;
