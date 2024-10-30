@@ -202,6 +202,7 @@ void	ft_make_expansions(t_shell *sh);
 char	*ft_expand(char *str, t_shell *shell);
 void	ft_delete_null_expansions_if_needed(t_shell *sh);
 void	ft_split_tokens_with_white_spaces(t_shell *sh);
+void	ft_split_this_node(t_iter *out);
 
 //init
 t_shell	*ft_init_shell(char *envp[], char *argv_zero);

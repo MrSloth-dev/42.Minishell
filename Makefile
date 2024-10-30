@@ -81,6 +81,7 @@ EXPAND = \
 		$(EXPDIR)/00_make_expansions.c \
 		$(EXPDIR)/10_delete_null_expansions.c \
 		$(EXPDIR)/20_split_tokens_with_white_spaces.c \
+		$(EXPDIR)/21_split_this_node.c \
 		$(EXPDIR)/88_expand.c 
 
 H_DOC = \
