@@ -196,6 +196,7 @@ int		ft_env_exist(char *var, int *j, char **temp);
 //EXPAND
 void	ft_make_expansions(t_shell *sh);
 char	*ft_expand(char *str, t_shell *shell);
+void	ft_delete_null_expansions_if_needed(t_shell *sh);
 
 //init
 t_shell	*ft_init_shell(char *envp[], char *argv_zero);
@@ -234,6 +235,7 @@ void	ft_join_heredoc_to_words(t_token_lst *token_lst);
 void	ft_add_node_exec(t_token_lst *token_lst, t_shell *sh);
 void	ft_delete_spaces(t_token_lst *token_lst, t_shell *sh);
 void	ft_do_heredoc_files(t_token *token, t_shell *sh);
+void	ft_convert_empty_strings(t_token *token);
 
 //tokenizer utils
 int		ft_is_word(char c);

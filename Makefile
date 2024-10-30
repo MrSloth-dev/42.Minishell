@@ -74,10 +74,12 @@ TOKENIZER = \
 		$(TOKENIZERDIR)/12_join_tokens.c \
 		$(TOKENIZERDIR)/13_delete_spaces.c \
 		$(TOKENIZERDIR)/14_add_node_exec.c \
+		$(TOKENIZERDIR)/15_convert_empty_strings.c \
 		$(TOKENIZERDIR)/88_tokenizer_utils.c
 
 EXPAND = \
 		$(EXPDIR)/00_make_expansions.c \
+		$(EXPDIR)/10_delete_null_expansions.c \
 		$(EXPDIR)/88_expand.c 
 
 H_DOC = \
