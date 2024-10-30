@@ -173,7 +173,7 @@ norm:
 
 .PHONY: gdb
 gdb : re
-	tmux set-option remain-of-exit off
+	tmux set-option remain-on-exit off
 	tmux new-window  -n Gdb
 	tmux send-keys 'gdbtui ./minishell' C-m Escape
 	tmux split-window -h -l 30

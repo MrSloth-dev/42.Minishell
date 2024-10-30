@@ -36,7 +36,7 @@ char	*ft_expand(char *str, t_shell *shell)
 	if (!str[0])
 		return (str);
 	if (ft_strncmp(str, "$", 1) == 0)
-		return (ft_strdup(ft_itoa(ft_getpid(shell))));
+		return ((ft_itoa(shell->pid)));
 	temp = ft_strjoin(str, "=");
 	len = ft_strlen(temp);
 	if (ft_env_exist(temp, NULL, shell->envp) == -1)

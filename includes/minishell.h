@@ -310,7 +310,25 @@ int	ft_check_pipes(char *line);
 int	ft_check_special_char(char *line);
 //12_TOKENIZER/
 void	ft_create_tokens(t_token_lst *token_lst, char *line);
+t_token	*ft_new_token(void);
+int	ft_append_node(t_token_lst *token_lst, char *str, int type, int status);
+int	ft_append_word(t_token_lst *token_lst, char *str, int type, int status);
+int	ft_append_redir(t_token_lst *token_lst, char *line, int status);
+void	ft_join_tokens(t_token_lst *token_lst);
+void	ft_join_heredoc_to_words(t_token_lst *token_lst);
+void	ft_delete_spaces(t_token_lst *token_lst, t_shell *sh);
+void	ft_add_node_exec(t_token_lst *token_lst, t_shell *sh);
+void	ft_convert_empty_strings(t_token *token);
+int	ft_is_word(char c);
+int	ft_how_much_consecutives_spaces(char *str);
 //13_EXPAND/
+void	ft_make_expansions(t_shell *sh);
+void	ft_delete_null_expansions_if_needed(t_shell *sh);
+int	ft_check_if_need_to_split_spaces(char *str);
+void	ft_split_this_node(t_iter *out);
+void	ft_split_tokens_with_white_spaces(t_shell *sh);
+int	ft_getpid(t_shell *shell);
+char	*ft_expand(char *str, t_shell *shell);
 //21_HERE_DOC/
 //31_PARSE_DATA/
 //32_HERE_DOC/
