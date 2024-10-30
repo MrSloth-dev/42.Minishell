@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "minishell.h"
+#include <stdio.h>
 
 void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell)
 {
@@ -51,11 +53,29 @@ void	ft_swap_env(char *cmdargs, char **temp, int j)
 void	ft_append_env(char *cmdargs, char **temp)
 {
 	int		i;
+	char	*plus_str;
 
 	i = 0;
 	while (temp[i])
 		i++;
-	temp[i++] = ft_strdup(cmdargs);
+	if (ft_strchr(cmdargs, '+'))
+	{
+		if (!(ft_strchr(cmdargs, '=') + 1))
+		{
+			*ft_strchr(cmdargs, '+') = 0;
+			temp[i] = ft_strdup(cmdargs);
+			// printf("temp is %s\n", cmdargs)
+		}
+		else
+		{
+			plus_str = ft_get_env_key(cmdargs);
+			plus_str = ft_strjoin_free(plus_str, ft_strdup("="));
+			plus_str = ft_strjoin_free(plus_str, ft_strdup(ft_strchr(cmdargs, '=') + 1));
+			temp[i] = ft_strdup(plus_str);
+		}
+	}
+	else
+		temp[i] = ft_strdup(cmdargs);
 }
 
 char	**ft_order_env(char **env)

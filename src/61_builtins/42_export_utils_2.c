@@ -72,7 +72,8 @@ int	ft_valid_identifiers_msg(t_token *cmdargs, t_shell *sh)
 		if (cmdargs->content[i] == '+' && cmdargs->content[i + 1] != '=')
 			return (ft_printf(STDERR_FILENO, INV_ID,
 					sh->prog_name, cmdargs->content), 0);
-		else if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_')
+		else if (ft_isalnum(cmdargs->content[i]) || cmdargs->content[i] == '_'
+			|| cmdargs->content[i] == '+')
 			i++;
 		else
 			return (ft_printf(STDERR_FILENO, INV_ID,

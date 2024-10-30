@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "minishell.h"
 
 static int	ft_export_size_increase(t_token *cmdargs, t_shell *shell, int *j)
@@ -37,12 +38,15 @@ int	ft_plus_mode(char *cmdargs)
 {
 	int	i;
 
-	if (!ft_strchr(cmdargs, '='))
+	if (!ft_strchr(cmdargs, '+'))
 		return (0);
 	i = 0;
 	while (cmdargs[i] && cmdargs[i] != '=')
-		if (cmdargs[i++] == '+' && cmdargs[i + 1] == '=')
+	{
+		if (cmdargs[i] == '+' && cmdargs[i + 1] == '=')
 			return (1);
+		i++;
+	}
 	return (0);
 }
 
