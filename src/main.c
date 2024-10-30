@@ -36,6 +36,8 @@ void	ft_delete_null_expansions_if_needed(t_shell *sh)
 				is_to_delete = TRUE;
 				s.cur->back = s.tmp->back;
 			}
+			else if (!s.cur)
+				is_to_delete = TRUE;
 			if (is_to_delete == TRUE)
 			{
 				if (s.tmp->back)
