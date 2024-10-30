@@ -143,7 +143,8 @@ typedef struct s_shell
 	int			ambig_redir;
 }	t_shell;
 /////////////////////////////
-// HELPER STRUCTS
+//HELPER STRUCT
+/////////////////////////////
 typedef struct s_iter
 {
 	char		c;
@@ -229,7 +230,6 @@ int		ft_check_special_char(char *line);
 int		ft_have_syntax_error(t_shell *sh);
 
 //tokenizer
-void	ft_tokenizer(t_token_lst *token_lst, char *line, t_shell *sh);
 t_token	*ft_new_token(void);
 void	ft_create_tokens(t_token_lst *token_lst, char *line);
 int		ft_append_node(t_token_lst *token_lst, char *str, int type, int status);
@@ -324,7 +324,6 @@ int	ft_how_much_consecutives_spaces(char *str);
 //13_EXPAND/
 void	ft_make_expansions(t_shell *sh);
 void	ft_delete_null_expansions_if_needed(t_shell *sh);
-int	ft_check_if_need_to_split_spaces(char *str);
 void	ft_split_this_node(t_iter *out);
 void	ft_split_tokens_with_white_spaces(t_shell *sh);
 int	ft_getpid(t_shell *shell);
