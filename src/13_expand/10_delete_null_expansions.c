@@ -16,7 +16,6 @@ static void	ft_delete_this_null_expansion(t_iter *s)
 {
 	if (!s || !s->tmp)
 		return ;
-
 	if (s->tmp->back)
 		s->tmp->back->front = s->cur;
 	s->tmp->content = ft_free(s->tmp->content);

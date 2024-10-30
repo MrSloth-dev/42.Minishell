@@ -27,20 +27,19 @@ void	ft_check_ambiguous_redir(t_token *token, t_shell *sh)
 		token = token->front;
 	}
 }
-// we need to classify this node as WORD, to join empty tokens in other functions
+// we need to classify ths node as WORD, to join empty tokens in other functions
 
 void	ft_print_ambiguous_redir_msg(t_shell *sh)
 {
 	if (!sh || sh->ambig_redir == 0)
 		return ;
-
 	while (sh->ambig_redir-- > 0)
 	{
 		ft_printf(1, "%s: ambiguous redirect\n", sh->prog_name);
 	}
 	sh->exit_status = 1;
 	if (sh->head && sh->head->type == ND_EXEC)
-	 	sh->head = NULL;
+		sh->head = NULL;
 }
-// last if in this condition, is for preventing execution, if there is a ambiguous redir.
+// last if is for preventing execution, if there is ambiguous redir.
 // if have a ND_PIPE in sh->head, the execution must continue

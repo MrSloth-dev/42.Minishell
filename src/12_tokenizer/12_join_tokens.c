@@ -39,7 +39,6 @@ void	ft_join_tokens(t_token_lst *token_lst)
 	cur = token_lst->first;
 	while (cur)
 	{
-		//if (cur->type == WORD || cur->type == HERE_DOC)
 		if (cur->type > HERE_DOC)
 		{
 			type = cur->type;
