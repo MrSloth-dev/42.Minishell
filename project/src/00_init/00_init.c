@@ -85,7 +85,7 @@ t_shell	*ft_init_shell(char *envp[], int ac, char *av[])
 
 	if (ac != 1)
 		exit (ft_printf(STDERR_FILENO, "%s: %s: No such file or directory\n",
-				av[0], av[1]));
+				av[0], av[1]), 127);
 	sh = ft_calloc(1, sizeof(t_shell));
 	if (!sh)
 	{
