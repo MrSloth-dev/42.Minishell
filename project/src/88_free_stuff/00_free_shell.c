@@ -25,6 +25,7 @@ void	ft_free_and_exit(t_token *token, t_shell *sh, int exit_flag)
 	sh->token_lst = ft_free(sh->token_lst);
 	if (sh->hostname)
 		sh->hostname = ft_free(sh->hostname);
+	rl_clear_history();
 	if (exit_flag == TRUE)
 	{
 		if (sh->envp)
