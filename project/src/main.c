@@ -78,7 +78,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_shell	*sh;
 	int		have_syn_error;
 
-	sh = ft_init_shell(envp, argc, argv);
+	sh = ft_init_shell(envp, argc, argv, NULL);
 	while (1)
 	{
 		ft_readline(sh);

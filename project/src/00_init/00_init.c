@@ -79,13 +79,14 @@ static char	*ft_get_hostname(void)
 	return (ft_strdup("localhost"));
 }
 
-t_shell	*ft_init_shell(char *envp[], int ac, char *av[])
+t_shell	*ft_init_shell(char *envp[], int ac, char *av[], t_shell *sh)
 {
-	t_shell	*sh;
-
 	if (ac != 1)
-		exit (ft_printf(STDERR_FILENO, "%s: %s: No such file or directory\n",
-				av[0] + 2, av[1]), 127);
+	{
+		ft_printf(STDERR_FILENO, "%s: %s: No such file or directory\n",
+			av[0] + 2, av[1]);
+		exit (127);
+	}
 	sh = ft_calloc(1, sizeof(t_shell));
 	if (!sh)
 	{

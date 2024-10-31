@@ -179,7 +179,7 @@ typedef struct s_iter
 }				t_iter;
 
 //00_INIT/
-t_shell	*ft_init_shell(char *envp[], int ac, char *av[]);
+t_shell	*ft_init_shell(char *envp[], int ac, char *av[], t_shell *sh);
 char	**ft_copy_envp(char **envp, int extra);
 //01_SIGNALS_AND_READLINE/
 t_shell	*ft_readline(t_shell *sh);
