@@ -27,26 +27,26 @@ void	ft_free_inside_heredoc(t_shell *sh)
 	sh = ft_free(sh);
 }
 
-void	ft_get_file_name(char hd_file[32], char *src_file)
+void	ft_get_file_name(char hd_file[4096], char *src_file)
 {
 	int		len;
 
 	len = 0;
-	ft_bzero(hd_file, 32);
+	ft_bzero(hd_file, 4096);
 	len = ft_strlen(src_file) + 1;
-	if (len >= 31)
-		len = 30;
+	if (len >= 4095)
+		len = 4094;
 	ft_strlcpy(hd_file, src_file, len);
 }
 
-void	ft_get_delimiter(char delimiter[128], char *content)
+void	ft_get_delimiter(char delimiter[4096], char *content)
 {
 	int	len;
 
 	len = 0;
-	ft_bzero(delimiter, 128);
+	ft_bzero(delimiter, 4096);
 	len = ft_strlen(content) + 1;
-	if (len >= 127)
-		len = 126;
+	if (len >= 4095)
+		len = 4094;
 	ft_strlcpy(delimiter, content, len);
 }

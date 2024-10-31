@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_here_doc(char delimiter[128], char file[32])
+int	ft_here_doc(char delimiter[4096], char file[4096])
 {
 	int		fd;
 	char	*line;
@@ -39,7 +39,7 @@ int	ft_here_doc(char delimiter[128], char file[32])
 	}
 }
 
-static int	ft_do_this_hd(t_shell *sh, char delimiter[128], char file[32])
+static int	ft_do_this_hd(t_shell *sh, char delimiter[4096], char file[4096])
 {
 	int	pid;
 	int	status;
@@ -70,8 +70,8 @@ static int	ft_do_this_hd(t_shell *sh, char delimiter[128], char file[32])
 int	ft_run_heredocs(t_token *token, t_shell *sh)
 {
 	t_token	*cur;
-	char	hd_file[32];
-	char	delimiter[128];
+	char	hd_file[4096];
+	char	delimiter[4096];
 	int		hd_continue;
 
 	hd_continue = -1;

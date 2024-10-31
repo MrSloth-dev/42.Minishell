@@ -221,11 +221,11 @@ char	*ft_expand(char *str, t_shell *shell);
 t_token	*ft_make_bin_tree(t_token *token);
 //32_HERE_DOC/
 void	ft_do_heredoc_files(t_token *token, t_shell *sh);
-int		ft_here_doc(char delimiter[128], char file[32]);
+int		ft_here_doc(char delimiter[4096], char file[4096]);
 int		ft_run_heredocs(t_token *token, t_shell *sh);
 void	ft_free_inside_heredoc(t_shell *sh);
-void	ft_get_file_name(char hd_file[32], char *src_file);
-void	ft_get_delimiter(char delimiter[128], char *content);
+void	ft_get_file_name(char hd_file[4096], char *src_file);
+void	ft_get_delimiter(char delimiter[4096], char *content);
 //33_AMBIGUOUS_REDIR/
 void	ft_check_ambiguous_redir(t_token *token, t_shell *sh);
 void	ft_print_ambiguous_redir_msg(t_shell *sh);
