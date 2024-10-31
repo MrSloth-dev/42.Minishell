@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "minishell.h"
+
+char	*ft_extract_value(char *env_name, char **env_list, t_shell *shell);
 
 void	ft_swap_plus_env(char *cmdargs, char **temp, int j, t_shell *shell)
 {
@@ -122,7 +123,7 @@ void	ft_export_no_args(t_shell shell)
 	{
 		key = ft_get_env_key(order[i]);
 		ft_printf(STDOUT_FILENO, "declare -x %s", key);
-		value = ft_get_env_value(order[i], order, &shell);
+		value = ft_extract_value(order[i], order, &shell);
 		if (!value)
 			ft_printf(STDOUT_FILENO, "\n");
 		else

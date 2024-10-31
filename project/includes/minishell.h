@@ -179,7 +179,7 @@ typedef struct s_iter
 }				t_iter;
 
 //00_INIT/
-t_shell	*ft_init_shell(char *envp[], char *argv_zero);
+t_shell	*ft_init_shell(char *envp[], int ac, char *av[]);
 char	**ft_copy_envp(char **envp, int extra);
 //01_SIGNALS_AND_READLINE/
 t_shell	*ft_readline(t_shell *sh);
@@ -250,6 +250,7 @@ void	ft_swap_env(char *cmdargs, char **temp, int j);
 void	ft_append_env(char *cmdargs, char **temp);
 char	**ft_order_env(char **env);
 void	ft_export_no_args(t_shell shell);
+char	*ft_extract_value(char *env_name, char **env_list, t_shell *shell);
 int		ft_env_duplicate(t_token *cmdargs);
 int		ft_check_valid_identifiers(t_token *cmdargs);
 int		ft_valid_identifiers_msg(t_token *cmdargs, t_shell *sh);

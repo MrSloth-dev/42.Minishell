@@ -81,3 +81,31 @@ int	ft_valid_identifiers_msg(t_token *cmdargs, t_shell *sh)
 	}
 	return (1);
 }
+
+char	*ft_extract_value(char *env_name, char **env_list, t_shell *shell)
+{
+	char	*env;
+	int		i;
+	int		len;
+
+	(void)shell;
+	if (!env_name || !env_list)
+		return (NULL);
+	len = ft_strlen(env_name);
+	env = NULL;
+	i = 0;
+	while (env_list[i] && *env_list[i])
+	{
+		if (ft_strncmp(env_list[i], env_name, len) == 0
+			&& ft_strchr(env_list[i], '='))
+		{
+			env = ft_strchr(env_list[i], '=') + 1;
+			if (!env || !ft_strchr(env_list[i], '='))
+				return ("");
+			else
+				return (env);
+		}
+		i++;
+	}
+	return ("");
+}
