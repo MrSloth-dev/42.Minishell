@@ -24,7 +24,7 @@ static void	ft_change_home(t_token *cmdargs, t_shell *shell)
 	{
 		old_home = getcwd(NULL, 0);
 		ft_update_directory(old_home, "OLDPWD=", shell);
-		home = ft_get_env_value("HOME=", shell->envp, shell);
+		home = ft_get_env_value("HOME", shell->envp, shell);
 		if (!*home)
 			ft_safe_chdir(home, shell, 1);
 		else

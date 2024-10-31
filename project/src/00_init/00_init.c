@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "minishell.h"
 
 static void	ft_update_shlvl(int value, char **envp)
@@ -66,7 +67,7 @@ static char	*ft_get_hostname(void)
 	int		size_read;
 
 	fd = open("/etc/hostname", O_RDONLY);
-	hostname = malloc(sizeof(char) * 256);
+	hostname = ft_calloc(sizeof(char), 256);
 	if (!hostname)
 		return (close(fd), NULL);
 	if (fd == -1)
@@ -74,7 +75,11 @@ static char	*ft_get_hostname(void)
 	size_read = read(fd, hostname, 255);
 	close(fd);
 	if (size_read > 0)
+	{
+		if (ft_strchr(hostname, '.'))
+			*ft_strchr(hostname, '.') = 0;
 		return (hostname[size_read - 1] = 0, hostname);
+	}
 	free(hostname);
 	return (ft_strdup("localhost"));
 }
