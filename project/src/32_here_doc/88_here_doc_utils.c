@@ -24,6 +24,7 @@ void	ft_free_inside_heredoc(t_shell *sh)
 	if (sh->path)
 		sh->path = ft_free_envp(sh->path);
 	sh->hd_path = ft_free(sh->hd_path);
+	sh->hostname = ft_free(sh->hostname);
 	sh = ft_free(sh);
 }
 

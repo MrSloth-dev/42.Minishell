@@ -67,6 +67,28 @@ static int	ft_do_this_hd(t_shell *sh, char delimiter[4096], char file[4096])
 	return (0);
 }
 
+static int	ft_are_file_paths_and_delimiters_too_long(t_token *cur)
+{
+	while (cur)
+	{
+		if (cur->file && ft_strlen(cur->file) > 4001)
+		{
+			ft_printf(1,
+				"Please, do not try run program inside a big file paths.\n");
+			return (TRUE);
+		}
+		if (cur->content && ft_strlen(cur->content) > 4001)
+		{
+			ft_printf(1,
+				"\nSerious, you're trying more than 4000 char's\
+ as a delimiter?!?!\n");
+			return (TRUE);
+		}
+		cur = cur->front;
+	}
+	return (FALSE);
+}
+
 int	ft_run_heredocs(t_token *token, t_shell *sh)
 {
 	t_token	*cur;
@@ -78,7 +100,8 @@ int	ft_run_heredocs(t_token *token, t_shell *sh)
 	if (!token || !sh || sh->nb_heredoc < 1)
 		return (1);
 	cur = token;
-	sh->hostname = ft_free(sh->hostname);
+	if (ft_are_file_paths_and_delimiters_too_long(cur) == TRUE)
+		return (ft_sig_restore(), 0);
 	while (cur)
 	{
 		if (cur->file)
