@@ -67,19 +67,15 @@ static char	*ft_get_hostname(void)
 	int		size_read;
 
 	fd = open("/etc/hostname", O_RDONLY);
+	if (fd == -1)
+		return (close(fd), ft_strdup("localhost"));
 	hostname = ft_calloc(sizeof(char), 256);
 	if (!hostname)
-		return (close(fd), NULL);
-	if (fd == -1)
-		return (ft_free(hostname), NULL);
+		return (close(fd), ft_free(hostname), ft_strdup("localhost"));
 	size_read = read(fd, hostname, 255);
 	close(fd);
 	if (size_read > 0)
-	{
-		if (ft_strchr(hostname, '.'))
-			*ft_strchr(hostname, '.') = 0;
 		return (hostname[size_read - 1] = 0, hostname);
-	}
 	free(hostname);
 	return (ft_strdup("localhost"));
 }
