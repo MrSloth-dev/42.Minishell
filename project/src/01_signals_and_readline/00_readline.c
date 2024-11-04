@@ -97,7 +97,7 @@ t_shell	*ft_readline(t_shell *sh)
 	char	*prompt;
 
 	prompt = ft_get_prompt(sh);
-	if (!*prompt)
+	if (!prompt || !*prompt)
 		prompt = ft_strdup(YELLOW"minishell :$ "RESET);
 	ft_start_sig();
 	sh->line = NULL;
