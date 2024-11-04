@@ -25,10 +25,10 @@ int	ft_here_doc(char delimiter[4096], char file[4096])
 		{
 			ft_printf(1, "minishell: warning: here-document delimited ");
 			ft_printf(1, "by end-of-file (wanted `%s')\n", delimiter);
-			return (close(fd), 0);
+			return (ft_free(line), close(fd), 0);
 		}
 		else if (ft_strcmp(line, delimiter) == 0)
-			return (close(fd), 0);
+			return (ft_free(line), close(fd), 0);
 		else if ((line || *(line)))
 		{
 			ft_printf(fd, "%s", line);
