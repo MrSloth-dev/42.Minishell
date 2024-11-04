@@ -102,7 +102,7 @@ t_shell	*ft_init_shell(char *envp[], int ac, char *av[], t_shell *sh)
 	sh->hostname = ft_get_hostname();
 	sh->user = getenv("USER");
 	sh->path = NULL;
-	sh->hd_path = ft_strjoin_free(getcwd(NULL, 0), ft_strdup("/.tmp/"));
+	sh->hd_path = ft_strdup("/tmp/");
 	sh->nb_heredoc = 0;
 	sh->ambig_redir = 0;
 	sh->exit_status = EXIT_SUCCESS;
