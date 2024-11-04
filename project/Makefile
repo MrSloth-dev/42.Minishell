@@ -132,7 +132,6 @@ SRCS =		$(INIT) $(BUILTIN) $(SIGNAL) $(SYNTAX) $(TOKENIZER)\
       		$(AMBIG_REDIRECT) $(PRINT)
 
 MAIN = src/main.c
-TMPDIR = .tmp
 OBJS = $(SRCS:.c=.o)
 
 %.o: %.c
@@ -151,7 +150,6 @@ $(NAME): $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
 	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
-	@mkdir -p $(TMPDIR)
 	@echo "$(YELLOW) A Project developed by Ivan Teixeira && Joao Barbosa$(CLR_RMV)"
 
 
@@ -203,7 +201,6 @@ vgdb : re
 .PHONY: clean
 clean:
 	@ $(RM) -f $(OBJS)
-	@ $(RM) $(TMPDIR)
 	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✅"
 
 
