@@ -62,7 +62,7 @@ void	ft_append_env(char *cmdargs, char **temp)
 		i++;
 	if (ft_strchr(cmdargs, '+'))
 	{
-		if ((ft_strchr(cmdargs, '=') + 1) != 0)
+		if (*(ft_strchr(cmdargs, '=') + 1) != 0)
 		{
 			plus_str = ft_get_env_key(cmdargs);
 			plus_str = ft_strjoin_free(plus_str, ft_strdup("="));
