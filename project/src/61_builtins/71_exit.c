@@ -12,26 +12,34 @@
 
 #include "minishell.h"
 
+static void	ft_numeric_argument_print(t_shell *sh, t_token *token)
+{
+	ft_printf(STDERR_FILENO,
+		"%s : exit : %s: numeric argument required\n",
+		sh->prog_name, token->content);
+}
+
 static int	ft_invalid_exit_code(t_token *token, t_shell *sh)
 {
 	int	i;
 	int	exit_status;
 
 	if (token && token->next)
-	{
 		return (sh->exit_status = 1, 1);
-	}
 	i = 0;
-	exit_status = 0;
 	if (token->content[0] == '-' || token->content[0] == '+')
 		i++;
+	exit_status = 0;
+	if (!token->content[i])
+	{
+		ft_numeric_argument_print(sh, token);
+		return (sh->exit_status = 2, 2);
+	}
 	while (token && token->content[i])
 	{
 		if (!ft_isdigit(token->content[i]))
 		{
-			ft_printf(STDERR_FILENO,
-				"%s : exit : %s : numeric argument required\n",
-				sh->prog_name, token->content);
+			ft_numeric_argument_print(sh, token);
 			return (sh->exit_status = 2, 2);
 		}
 		i++;
