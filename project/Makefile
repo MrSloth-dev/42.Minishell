@@ -202,6 +202,7 @@ vgdb : re
 
 .PHONY: clean
 clean:
+	@make clean -C $(PRINTDIR) -s
 	@ $(RM) -f $(OBJS)
 	@ $(RM) $(TMPDIR)
 	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✅"
@@ -209,6 +210,7 @@ clean:
 
 .PHONY: fclean
 fclean: clean
+	@make fclean -C $(PRINTDIR) -s
 	@ $(RM) $(NAME) $(NAME_BONUS)
 	@echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✅"
 
