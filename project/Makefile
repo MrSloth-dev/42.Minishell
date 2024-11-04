@@ -202,6 +202,7 @@ vgdb : re
 clean:
 	@make clean -C $(PRINTDIR) -s
 	@ $(RM) -f $(OBJS)
+	@rm -f ./$(READLINE_SUPP)
 	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✅"
 
 
@@ -228,9 +229,35 @@ tester: $(TESTER_DIR) $(NAME)
 	@cd $(TESTER_DIR) && ./$(TESTER_BIN)
 	make fclean
 
-.PHONY: va
-va : re
+.PHONY: va sup
+va : re sup
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
+
+define SUP_BODY
+{
+   name
+   Memcheck:Leak
+   fun:*alloc
+   ...
+   obj:*/libreadline.so.*
+   ...
+}
+{
+    leak readline
+    Memcheck:Leak
+    ...
+    fun:readline
+}
+{
+    leak add_history
+    Memcheck:Leak
+    ...
+    fun:add_history
+}
+endef
+
+sup:
+	$(file > readline.supp,$(SUP_BODY))
 
 .SILENT: re all vgdb gdb sync va
 
