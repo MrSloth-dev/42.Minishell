@@ -92,8 +92,9 @@ char	*ft_extract_value(char *env_name, char **env_list, t_shell *shell)
 	if (!env_name || !env_list)
 		return (NULL);
 	len = ft_strlen(env_name);
-	env = NULL;
 	i = 0;
+	if (!ft_strchr(env_name, '='))
+		return (NULL);
 	while (env_list[i] && *env_list[i])
 	{
 		if (ft_strncmp(env_list[i], env_name, len) == 0

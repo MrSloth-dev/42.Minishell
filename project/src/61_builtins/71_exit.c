@@ -23,17 +23,18 @@ static int	ft_invalid_exit_code(t_token *token, t_shell *sh)
 	}
 	i = 0;
 	exit_status = 0;
-	if (!ft_isdigit(token->content[0]) || token->content[0] == '+')
+	if (token->content[0] == '-' || token->content[0] == '+')
 		i++;
 	while (token && token->content[i])
 	{
-		if (!ft_isdigit(token->content[i++]))
+		if (!ft_isdigit(token->content[i]))
 		{
 			ft_printf(STDERR_FILENO,
 				"%s : exit : %s : numeric argument required\n",
 				sh->prog_name, token->content);
 			return (sh->exit_status = 2, 2);
 		}
+		i++;
 	}
 	return (exit_status);
 }

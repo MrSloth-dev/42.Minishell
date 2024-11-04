@@ -37,6 +37,8 @@ void	ft_swap_env(char *cmdargs, char **temp, int j)
 	int		k;
 
 	k = 0;
+	if (!ft_strchr(cmdargs, '='))
+		return ;
 	while (temp[k])
 	{
 		if (j == k)
