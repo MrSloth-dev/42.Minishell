@@ -97,20 +97,17 @@ t_shell	*ft_readline(t_shell *sh)
 	char	*prompt;
 
 	prompt = ft_get_prompt(sh);
-	if (!*prompt)
+	if (!prompt || !*prompt)
 		prompt = ft_strdup(YELLOW"minishell :$ "RESET);
 	ft_start_sig();
 	sh->line = NULL;
 	sh->line = readline(prompt);
+	prompt = ft_free(prompt);
 	if ((sh->line && *(sh->line)))
 		add_history(sh->line);
 	if (g_rec_signal == SIGINT)
 		sh->exit_status = 130;
 	if (sh->line == NULL || (ft_strcmp(sh->line, "exit") == 0))
-	{
-		prompt = ft_free(prompt);
 		ft_exit(NULL, sh);
-	}
-	prompt = ft_free(prompt);
 	return (sh);
 }

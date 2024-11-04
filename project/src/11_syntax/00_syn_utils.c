@@ -37,6 +37,7 @@ void	ft_print_syntax_error(int error, t_shell *shell)
 		ft_printf(STDERR_FILENO, "%s unexpected token `%c'\n",
 			name, (char)error);
 	shell->exit_status = 2;
+	shell->line = ft_free(shell->line);
 }
 
 int	ft_check_status(int status, char c)
