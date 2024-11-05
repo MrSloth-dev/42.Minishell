@@ -35,7 +35,7 @@ static int	ft_invalid_exit_code(t_token *token, t_shell *sh)
 		ft_numeric_argument_print(sh, token);
 		return (sh->exit_status = 2, 2);
 	}
-	while (token && token->content[i])
+	while (token && token->content[i] && ft_strcmp(token->content, "--") != 0)
 	{
 		if (!ft_isdigit(token->content[i]))
 		{
@@ -51,7 +51,8 @@ void	ft_exit(t_token *token, t_shell *sh)
 {
 	int	exit_status;
 
-	ft_printf(STDOUT_FILENO, "exit\n");
+	if (token && sh->head->type != ND_PIPE)
+		ft_printf(STDOUT_FILENO, "exit\n");
 	if (!token)
 	{
 		sh->exit_status = 0;
