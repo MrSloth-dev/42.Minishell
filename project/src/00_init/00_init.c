@@ -50,6 +50,8 @@ static void	ft_handle_shlvl(char **envp, t_shell *sh)
 		shlvl_value = ft_atoi(shlvl_str);
 	if (!*ft_get_env_value("SHLVL", envp, sh) || shlvl_value == 0)
 		ft_update_shlvl(1, sh->envp);
+	else if (shlvl_value > 0)
+		ft_update_shlvl(0, sh->envp);
 	else if (shlvl_value == 999)
 	{
 		ft_printf(STDERR_FILENO,

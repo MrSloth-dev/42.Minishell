@@ -26,9 +26,9 @@ int	ft_get_exit_signal(int *exit, t_shell *sh)
 	{
 		exit_status[0] = WTERMSIG(exit[0]);
 		exit_status[1] = WTERMSIG(exit[1]);
-		if (exit_status[0] == SIGINT || exit_status[1] == SIGINT)
+		if (exit_status[0] == SIGINT && exit_status[1] == SIGINT)
 			ft_printf(STDOUT_FILENO, "\n");
-		else if (exit_status[0] == SIGQUIT || exit_status[1] == SIGQUIT)
+		else if (exit_status[0] == SIGQUIT && exit_status[1] == SIGQUIT)
 			ft_printf(STDOUT_FILENO, "Quit (core dumped)\n");
 		if (WIFSIGNALED(exit[1]))
 			return (sh->exit_status = 128 + WTERMSIG(exit[1]));
