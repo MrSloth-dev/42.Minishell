@@ -216,7 +216,7 @@ fclean: clean
 .PHONY: re
 re : fclean all
 
-TESTER_URL = https://github.com/LucasKuhn/minishell_tester.git
+TESTER_URL = https://github.com/MrSloth-dev/minishell_tester
 TESTER_DIR = minishell_tester
 TESTER_BIN = tester
 
