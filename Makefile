@@ -170,7 +170,12 @@ norm:
 
 .PHONY: gdb
 gdb : re
-	gdbtui ./minishell
+	tmux set-option remain-on-exit off
+	tmux new-window  -n Gdb
+	tmux send-keys 'gdbtui ./minirt' C-m Escape
+	tmux split-window -h -l 30
+	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
+	tmux select-pane -t Gdb.1
 
 .PHONY: sync
 sync : re
@@ -214,9 +219,13 @@ $(TESTER_DIR):
 
 .PHONY: tester
 tester: $(TESTER_DIR) $(NAME)
-	make re
+	@make re -s
 	@cd $(TESTER_DIR) && ./$(TESTER_BIN)
-	make fclean
+
+.PHONY: tester
+tester_va: $(TESTER_DIR) $(NAME)
+	@make re -s
+	@cd $(TESTER_DIR) && ./$(TESTER_BIN) valgrind
 
 .PHONY: va sup
 va : re sup
@@ -245,7 +254,7 @@ define SUP_BODY
 }
 endef
 
-sup:
+.sup:
 	$(file > readline.supp,$(SUP_BODY))
 
 .SILENT: re all vgdb gdb sync va
