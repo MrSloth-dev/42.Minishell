@@ -9,7 +9,11 @@
    2.[How to use](#How to use it?)
       2.1 [The Makefile](#The Makefile)
       2.2 [The Minishell itself](#The Minishell itself)
-      2.2.1
+   3.[How does it Work?](#How does it Work?)
+      3.1 [The Program Map]()
+      3.2 [Prompt](#Prompt)
+      3.3 [Parser](#Parser)
+      3.4 [Execution](#Execution)
 ### What's Shell?
 
 Shell is a command-line program that lets you give instructions to the computer by typing text commands.
@@ -90,10 +94,69 @@ What our minishell doesn't do:
 
 ## How does it Work?
 
-In this chapter we explain step by step how we did it.
+In this chapter we explore step by step how we did it.
+
 ### The Program Map
 
-![Program_Map](assets/minishell_program_map.jpg)
+![Program_Map](assets/Program_Map.png)
+
+### Prompt
+The first task is using the library [readline](https://www.man7.org/linux/man-pages/man3/readline.3.html) to make our program interactive.
+[Prompt](assets/Prompt.png)
+The argument that we pass to the function is the Prompt, it takes 3 parts:
+   1. The USER that it will taken from the environment variable `$USER`
+   2. The hostname that is on `/etc/hostname`
+   3. The Current Workign Directory (cwd) that needs to compress the $HOME directory
+
+### Parser
+
+This part is the most important and crucial in the entire project, a well done parser will give less headaches.
+The main idea of the parser is taking sections and categorize them in types. They can be WORDS or SPACES(see [isspaces(3)](https://man.openbsd.org/isspace.3)), then we need to identify each word, if it's inside single or double quotes.
+
+Because we did the execution via binary tree, it's important that we categorize the Tokens as Execution, Pipes or even redirections.
+
+When doing the binary tree, the head of our tree needs to be a PIPE or EXEC if there isn't any pipe.
+If there is any pipe, the right branch will be always try to point to the next pipe, if there isn't any pipe, the beggining of the next command will do.
+The following image gives you a scheme of what we did in our parser step-by-step.
+[Parser and Data Structures](assets/Parser_and_DataStructure.png)
+
+Notice that in the Execution nodes we separated the tokens for it's type. If it's commands (or aguments) they'll go on the left, if they're redirections they'll go to the right, this way we assure that they won't mix-up during the execution.
+
+### Execution
+The execution will be done in two ways, depending on the way if need need to change or save the environment variables or not.
+In bash, if we do the following command:
+```
+joao-pol@Levelho:~/CommonCore/3.MiniShell$ export USER=isilva-t
+```
+This will update the `$USER` variable. But doing this:
+```
+joao-pol@Levelho:~/CommonCore/3.MiniShell$ export USER=isilva-t | ls
+```
+Won't change the `$USER` variable.
+Because of this, we need to run the command in the parent proccess, ONLY when it's a builtin, otherwise exceve will terminate our process.
+
+Now we created a separated process to run our commands, either in a pipe or a simple not-builtin command.
+
+Our execution in the binary tree is simplified because we have `recursion`. And to understand recursion, you need understand [recursion](https://www.youtube.com/watch?v=rf60MejMz3E)
+In Recursion we walk out binary tree trying to find which type of node is it and the calls the same function until there isn't any node on the tree.
+
+In the Pipe Nodes the premisse is simple :
+   - Create a pipe between 2 file descriptors;
+   - Fork the proccess to run the pipe to the left, redirecting the file descriptors into the pipe;
+   - Fork the proccess to run the pipe to the right, redirecting the file descriptors into the pipe;
+   - wait for both processes to end and retrieve their exit code.
+   - Note that this approach works two proccesses at a time, so some peskies commands like `cat | cat | ls` won't hang up! When you make it working for 1 pipe, you made it working for all.
+
+In the Execution Nodes the premisse is also simple:
+   - Do the redirections, if there is any (only checking right branch);
+   - If there is any problem with the redirections (e.g wrong permissions, not existent files) the execution will be skipped;
+   - Check if command is a builtin and execute accordingly.
+
+#### Note: Check the source code, because there are many nuances that I won't talk about because you need to find for yourself.
+
+
+
+
 
 
 
