@@ -1,5 +1,4 @@
-# ShellFault
-
+# ShellFault (not ours)
 
 ## Possivelment o pior e mais incompleto projecto (ainda)
 

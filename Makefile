@@ -2,6 +2,10 @@
 #                                     CONFIG                                   #
 ################################################################################
 
+## Project created by Joao Barbosa (joao-pol) && Ivan Silva (isilva-t)
+## Any questions you can email us if you have any questions related to the
+## project or else.
+
 NAME = minishell
 CC = cc
 READLINE_FLAG = -lreadline
@@ -25,8 +29,6 @@ VALGRINDFLAGS          = -s --suppressions=$(READLINE_SUPP) \
 			 --tool=memcheck -q --leak-check=full \
                          --show-leak-kinds=all --track-origins=yes \
                          --track-fds=yes --show-below-main=no \
-
-
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -152,7 +154,6 @@ $(NAME): $(OBJS) $(HEADER)
 	@echo "$(GREEN)$(NAME) created[0m ✅"
 	@echo "$(YELLOW) A Project developed by Ivan Teixeira && Joao Barbosa$(CLR_RMV)"
 
-
 .PHONY: print
 print : $(OBJS) $(HEADER)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
@@ -163,21 +164,13 @@ print : $(OBJS) $(HEADER)
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
 	cat leaks.log
 
-
 .PHONY: norm
 norm:
 	@norminette | grep -E 'Error:|rror!'
 
-
 .PHONY: gdb
 gdb : re
-	tmux set-option remain-on-exit off
-	tmux new-window  -n Gdb
-	tmux send-keys 'gdbtui ./minishell' C-m Escape
-	tmux split-window -h -l 30
-	tmux send-keys -t Gdb.2 'nvim .gdbinit' C-m
-	tmux select-pane -t Gdb.1
-
+	gdbtui ./minishell
 
 .PHONY: sync
 sync : re
@@ -188,7 +181,6 @@ sync : re
 	@tmux select-pane -t sync.1
 	@tmux setw synchronize-panes on
 
-
 .PHONY: vgdb
 vgdb : re
 	tmux new-window  -n vGdb
@@ -197,7 +189,6 @@ vgdb : re
 	tmux send-keys -t Gdb.2 'gdbtui ./minishell' C-m
 	tmux select-pane -t vGdb.1
 
-
 .PHONY: clean
 clean:
 	@make clean -C $(PRINTDIR) -s
@@ -205,13 +196,11 @@ clean:
 	@rm -f ./$(READLINE_SUPP)
 	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✅"
 
-
 .PHONY: fclean
 fclean: clean
 	@make fclean -C $(PRINTDIR) -s
 	@ $(RM) $(NAME) $(NAME_BONUS)
 	@echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✅"
-
 
 .PHONY: re
 re : fclean all
@@ -260,4 +249,3 @@ sup:
 	$(file > readline.supp,$(SUP_BODY))
 
 .SILENT: re all vgdb gdb sync va
-
