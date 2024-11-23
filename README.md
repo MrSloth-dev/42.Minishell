@@ -5,10 +5,10 @@
 
 ### Table of Contents
 
-   1.[How to use](#How-to-use-it?)
+   1. [How to use](#How-to-use-it?)
       1. [The Makefile](#The-Makefile)
       2. [The Minishell itself](#The-Minishell-itself)
-   2.[How does it Work?](#How-does-it-Work?)
+   2. [How does it Work?](#How-does-it-Work?)
       1. [The Program Map](#The-Program-Map)
       2. [Prompt](#Prompt)
       3. [Parser](#Parser)
@@ -87,7 +87,9 @@ In this chapter we explore step by step how we did it.
 
 ### Prompt
 The first task is using the library [readline](https://www.man7.org/linux/man-pages/man3/readline.3.html) to make our program interactive.
-[Prompt](assets/Prompt.png)
+
+![Prompt](assets/Prompt.png)
+
 The argument that we pass to the function is the Prompt, it takes 3 parts:
    1. The USER that it will taken from the environment variable `$USER`
    2. The hostname that is on `/etc/hostname`
@@ -103,7 +105,8 @@ Because we did the execution via binary tree, it's important that we categorize 
 When doing the binary tree, the head of our tree needs to be a PIPE or EXEC if there isn't any pipe.
 If there is any pipe, the right branch will be always try to point to the next pipe, if there isn't any pipe, the beggining of the next command will do.
 The following image gives you a scheme of what we did in our parser step-by-step.
-[Parser and Data Structures](assets/Parser_and_DataStructure.png)
+
+![Parser and Data Structures](assets/Parser_and_DataStructure.png)
 
 Notice that in the Execution nodes we separated the tokens for it's type. If it's commands (or aguments) they'll go on the left, if they're redirections they'll go to the right, this way we assure that they won't mix-up during the execution.
 
