@@ -50,7 +50,7 @@ static void	ft_handle_shlvl(char **envp, t_shell *sh)
 		shlvl_value = ft_atoi(shlvl_str);
 	if (!*ft_get_env_value("SHLVL", envp, sh) || shlvl_value == 0)
 		ft_update_shlvl(1, sh->envp);
-	else if (shlvl_value > 0)
+	else if (shlvl_value < 0)
 		ft_update_shlvl(0, sh->envp);
 	else if (shlvl_value == 999)
 	{
@@ -97,7 +97,10 @@ t_shell	*ft_init_shell(char *envp[], int ac, char *av[], t_shell *sh)
 		return (NULL);
 	}
 	sh->pid = ft_getpid(sh);
-	sh->prog_name = av[0] + 2;
+	if (av[0][0] != '.' || av[0][1] != '/')
+		sh->prog_name = av[0];
+	else
+		sh->prog_name = av[0] + 2;
 	sh->token_lst = NULL;
 	sh->envp = ft_copy_envp(envp, 0);
 	ft_handle_shlvl(sh->envp, sh);
@@ -107,7 +110,6 @@ t_shell	*ft_init_shell(char *envp[], int ac, char *av[], t_shell *sh)
 	sh->hd_path = ft_strdup("/tmp/");
 	sh->nb_heredoc = 0;
 	sh->ambig_redir = 0;
-	sh->exit_status = EXIT_SUCCESS;
 	return (sh);
 }
 

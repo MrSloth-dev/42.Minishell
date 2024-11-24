@@ -78,6 +78,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int		have_syn_error;
 
 	sh = ft_init_shell(envp, argc, argv, NULL);
+	sh->exit_status = EXIT_SUCCESS;
 	while (1)
 	{
 		ft_readline(sh);
