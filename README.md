@@ -1,4 +1,4 @@
-# ShellFault
+# MiniShell
 ## A simple replication of Bourne-Again Shell (Bash)
 
 ### This is a [42 School]() Project that aims to create a shell program in C as beautiful as Bash.
