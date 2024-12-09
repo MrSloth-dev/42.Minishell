@@ -7,13 +7,13 @@
 ## project or else.
 
 NAME = minishell
-CC = cc
+CC = gcc
 READLINE_FLAG = -lreadline
 CFLAGS = -Iincludes -g
 EFLAGS = -Wall -Wextra -Werror
 
-CLR_RMV = \033[0m
-RED	    = \033[1;31m
+CLR_RMV	= \033[0m
+RED	= \033[1;31m
 GREEN	= \033[1;32m
 YELLOW	= \033[1;33m
 BLUE	= \033[1;34m
@@ -147,20 +147,20 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
-	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
+	@printf "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)...\n"
 	@make -C $(PRINTDIR) -s
-	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
+	@printf "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)...\n"
 	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT) -o $(NAME)
-	@echo "$(GREEN)$(NAME) created[0m ✅"
-	@echo "$(YELLOW) A Project developed by Ivan Teixeira && Joao Barbosa$(CLR_RMV)"
+	@printf "$(GREEN)$(NAME) created $(CLR_RMV) ✅\n"
+	@printf "$(YELLOW)A Project developed by Ivan Teixeira && Joao Barbosa$(CLR_RMV)\n"
 
 .PHONY: print
 print : $(OBJS) $(HEADER)
-	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)..."
+	@printf "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)libft$(CLR_RMV)...\n"
 	@make -C $(PRINTDIR) -s
-	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
+	@printf "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)...\n"
 	@$(CC) $(CFLAGS) $(EFLAGS) $(MAIN) $(OBJS) $(READLINE_FLAG) $(PRINTFT)  -D PRINT_DATA=1 -o $(NAME)
-	@echo "$(GREEN)$(NAME) created[0m ✅"
+	@printf "$(GREEN)$(NAME) created $(CLR_RMV) ✅\n"
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
 	cat leaks.log
 
@@ -199,13 +199,13 @@ clean:
 	@make clean -C $(PRINTDIR) -s
 	@ $(RM) -f $(OBJS)
 	@rm -f ./$(READLINE_SUPP)
-	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✅"
+	@printf "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✅\n"
 
 .PHONY: fclean
 fclean: clean
 	@make fclean -C $(PRINTDIR) -s
 	@ $(RM) $(NAME) $(NAME_BONUS)
-	@echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✅"
+	@printf "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✅\n"
 
 .PHONY: re
 re : fclean all
@@ -228,7 +228,7 @@ tester_va: $(TESTER_DIR) $(NAME)
 	@cd $(TESTER_DIR) && ./$(TESTER_BIN) valgrind
 
 .PHONY: va sup
-va : re sup
+va : re .sup
 	valgrind $(VALGRINDFLAGS) ./$(NAME)
 
 define SUP_BODY
